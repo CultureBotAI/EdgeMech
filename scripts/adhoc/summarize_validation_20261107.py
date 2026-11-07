@@ -116,6 +116,8 @@ def main():
         lines.extend([f"### {path.name}", "",
                       f"Selected occurrences: {record['selected_rows']:,} / {record['source_rows']:,}.",
                       f"Distinct native assertions: {record['native_accounting']['distinct_assertions']:,}.",
+                      f"Endpoint-candidate occurrences: {manifest['endpoint_candidate_occurrences']:,}; "
+                      f"exact SPO candidates: {manifest['spo_candidate_occurrences']:,}.",
                       f"Persisted Parquet: {record['partition_files']:,} files, {record['parquet_bytes']:,} bytes.",
                       f"Elapsed including verification: {record['elapsed_seconds_including_verification']:.3f} s; "
                       f"peak parent process RSS: {record['peak_rss_bytes'] / 1024**2:.2f} MiB.",
@@ -123,20 +125,36 @@ def main():
                       "Parent RSS excludes worker processes; no aggregate pool-memory peak is claimed.", "",
                       "| Classification | Occurrences |", "| --- | ---: |"])
         lines.extend(f"| {key} | {value:,} |" for key, value in record["counts"].items())
+        if not {"native_assertion", "native_scope"}.issubset(manifest["source"]["header"]):
+            lines.extend(["", "The pinned KG header lacks complete native assertion/scope bindings.",
+                          "Zero exact eligibility therefore does not establish zero biological overlap.",
+                          "These counts cover the declared native export surfaces, not every scientific",
+                          "claim or evidence record held by the four Mechs."])
         lines.extend(["", f"Receipt SHA-256: `{hashlib.sha256(raw).hexdigest()}`.",
                       f"Census manifest SHA-256: `{record['manifest_sha256']}`.",
                       "Every original source member, including unselected tails, was hash/row verified.",
                       "Persisted rows and classifications were replayed before atomic publication.",
                       "Native observation/claim/experiment totals remain unknown where native IDs are absent.", ""])
+        accounting = record["native_accounting"]
+        lines.extend(["Native evidence accounting (references are not independent experiments):", "",
+                      "| Binding kind | References | Distinct bindings | Shared references |",
+                      "| --- | ---: | ---: | ---: |"])
+        for kind in ("evidence", "ancestry"):
+            lines.append(f"| {kind} | {accounting[f'{kind}_references']:,} | "
+                         f"{accounting[f'distinct_{kind}_bindings']:,} | "
+                         f"{accounting[f'shared_{kind}_references']:,} |")
+        lines.extend(["", f"Census implementation SHA-256: `{record.get('census_source_sha256', 'not recorded')}`.",
+                      f"Launcher SHA-256: `{record.get('launcher_sha256', 'not recorded')}`.", ""])
         lines.append("Native export manifest pins:")
         lines.append("")
         for export in manifest["native_exports"]:
             native_path = path.with_name(path.name.removesuffix(".run.json")) / export["path"]
-            checked_manifest(native_path, export["sha256"])
+            native_manifest = checked_manifest(native_path, export["sha256"])
             with (native_path.parent / "assertions.jsonl").open() as stream:
                 first_native = json.loads(next(stream))
             lines.append(f"- {first_native['native_locator']['repository']}: `{export['sha256']}`; "
-                         f"source `{export['source_commit']}`; {export['rows']:,} assertions.")
+                         f"source `{export['source_commit']}`; {export['rows']:,} assertions; "
+                         f"native statuses `{json.dumps(native_manifest['native_status_counts'], sort_keys=True)}`.")
         lines.append("")
     if not args.census:
         lines.extend(["No census receipt was supplied to this report.", ""])
