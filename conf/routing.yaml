@@ -1,0 +1,12 @@
+version: 1
+contract: kg-microbe-curation/v1
+default: unresolved
+routes:
+  - owner: mediaingredientmech
+    scope: exact ingredient mapping identity; no organism-growth inference
+  - owner: traitmech
+    scope: scoped organism observations; generic mechanisms are not assay evidence
+  - owner: habitatmech
+    scope: distinguish isolation, association, characteristic habitat and causal explanation
+  - owner: taxonmech
+    scope: versioned rank and identity mappings; broad/close is not exact
