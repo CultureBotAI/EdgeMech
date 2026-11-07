@@ -87,6 +87,10 @@ withheld, with no fabricated claims, reviewers or scientific reviews.
 
 ## Validation and reproducibility
 
+The [local reader interface](docs/reader-interface-v1.md) defines bounded exact
+detail, ID search, pagination and artifact downloads for a future browser.
+Its pinned manifests and explicit byte budgets do not imply a hosted service.
+
 Run `uv run --frozen pytest -q` and `uv run --frozen ruff check src/edgemech
 tests/test_storage.py tests/test_census.py tests/test_packets.py tests/test_pins.py
 tests/test_validation_report.py scripts/adhoc`.
@@ -99,3 +103,8 @@ graph-wide review quality.
 The retained native packet canary checks real native envelopes in an explicitly
 labeled transport fixture. Those fixture IDs are separate from KG release
 occurrences and contribute no eligible-overlap counts or scientific approvals.
+
+See the [persisted validation evidence](docs/validation/20261107.md) and the
+[cross-repository milestone review](docs/milestone-status-20261107.md) for input
+pins, measured results, native scope limits and the separate fleet-admission
+policy blocker. Bulk data and full receipts remain outside Git.
