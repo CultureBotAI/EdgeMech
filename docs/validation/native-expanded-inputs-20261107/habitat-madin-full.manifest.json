@@ -1,0 +1,40 @@
+{
+  "assertion_membership_sha256": "3c98312b1fde80ccd9332c9d26bca796bf1be18bc1e789a1cb10c08fe4e08904",
+  "assertions_bytes": 7883998,
+  "assertions_sha256": "4613ce2182fc61b632a3f965fc86d3a694a2925f319948a594a2dd0b21cc8f4f",
+  "claw_contract_commit": "1b5391d083ba85ac94e5279c3cba25ac4fde243c",
+  "contract": "kg-microbe-native-assertion/v1",
+  "excluded_surfaces": [
+    "Original upstream associations omitted from the committed selected inventories.",
+    "Individual strain observations, reviewed KG/SKOS projections, growth, preference and causal claims.",
+    "Grounding decisions are a separate native export and do not review these associations."
+  ],
+  "independent_scientific_reviews": 0,
+  "kg_occurrences_approved": 0,
+  "native_status_counts": {
+    "unassessed": 1378
+  },
+  "predicate": "habitatmech:characteristic_taxa",
+  "repository": "CultureBotAI/HabitatMech",
+  "review_evidence_status": "unavailable_exact_native_association_review",
+  "rows": 1378,
+  "schema_version": 1,
+  "scope": "Complete committed selected source-association inventory; no resolved habitat projection.",
+  "selection_policy": "bounded corroboration-first source subset; taxon-ID ordering is not a rank",
+  "source_commit": "3b232e8a50ac434e4c1131edc43fb39ba0af10e3",
+  "source_files": {
+    "data/raw/MANIFEST.yaml": "4657672d429be35e551ceef4a1204ab0a8120558ce63e2a2b74188eee94b8480",
+    "data/raw/madin_habitat_taxa.tsv": "d30854cfcffca0405914d04071ac47053938d354d5df250125843131b7c91fd7",
+    "data/raw/madin_habitats.tsv": "2ae1756f40242600365c49bfbdada4bce5fc8b86630426bb34892f055e5a5c93",
+    "docs/CURATION.md": "f3f5d3d033fa7e7c1d78571959fc2e62e0b0a625f47dba1413657e8cf944b322",
+    "docs/HARMONIZATION.md": "ee39d3cd29115ee14f5e7386169c76c47d471ebdc2502c008c49d30fb44918f1",
+    "src/habitatmech/extract.py": "4d9397bda649381a5daf81937369531c6dc8b4518d6c7047e6f3f14e605bf860",
+    "src/habitatmech/schema/habitatmech.yaml": "2ff26d07ea5a311fbe3b517c63b33e09443cb8d19947ff9e3b7627d453de1a60"
+  },
+  "source_owner_rows": 58,
+  "source_positions": null,
+  "source_rows": 1378,
+  "surface": "madin",
+  "validation_batch_size": 64,
+  "validation_workers": 4
+}

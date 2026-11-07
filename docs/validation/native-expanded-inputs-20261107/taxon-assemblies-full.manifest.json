@@ -1,0 +1,53 @@
+{
+  "assertion_membership_sha256": "a1bd8a57e813d86e4742b3c05fc83c7a45258c6d17e041b77d69ea0f6e3f5de1",
+  "assertions_bytes": 1114645457,
+  "assertions_sha256": "c5b08c188721f403ccd7bc9a8a49aadb92aa674cd3e4040105c393b046ef817f",
+  "claw_contract_commit": "1b5391d083ba85ac94e5279c3cba25ac4fde243c",
+  "contract": "kg-microbe-native-assertion/v1",
+  "excluded_surfaces": [
+    "Nested AllTheBacteria and StrainInfo overlays, including their evidence chains.",
+    "Nomenclature, strain/deposit equivalence and new joins.",
+    "Exact assertion review and approved KG predicate projections."
+  ],
+  "independent_scientific_reviews": 0,
+  "kg_occurrences_approved": 0,
+  "native_status_counts": {
+    "unassessed": 159283
+  },
+  "predicate": "taxonmech:genome_assemblies",
+  "repository": "CultureBotAI/TaxonMech",
+  "review_evidence_status": "unavailable_exact_native_link_review",
+  "rows": 159283,
+  "schema_version": 1,
+  "scope": "Complete committed flat typed strain-link inventory; no identity or KG projection.",
+  "source_commit": "ab35a0d0a0a2b47d250145db0c15b414fccbfdb8",
+  "source_database_counts": {
+    "BACDIVE": 27548,
+    "BV_BRC": 32342,
+    "GOLD": 32366,
+    "GTDB": 32812,
+    "NCBI_ASSEMBLY": 34215
+  },
+  "source_files": {
+    "data/raw/MANIFEST.yaml": "ee76711683b1b579d1561dcf40187e10e4f0027ae1b89f108eb18e865e7e7d38",
+    "data/raw/bacdive_strains.tsv": "029fd6d1f53ef7f90684130bf0d644ed3edd1d8fbeb065a511ae928f160b1eea",
+    "data/raw/culture_collection_strains.tsv": "810fdcb16abd6330fb15bb03d4c74b18db86be36a7c599df7c6b2498d9735c95",
+    "data/raw/strain_assemblies.tsv": "71344b934db3081bfcac9562a0bd1fd8fddcfdabb8af60e208ca09035e818315",
+    "docs/CURATION.md": "25fb4af00e68e0910f2b32224fd091feadabf7acb96025bd5b6809914f2e8874",
+    "docs/STRAIN_GENOMES.md": "7cfdbc8a600173d6569f885b409b1543098bb6022e8764324d91879eaed2b597",
+    "src/taxonmech/genome_sources.py": "a8c2e1e54adcea6e223a03851ef9fd38303896bf51997a4d4c83d8512676230e",
+    "src/taxonmech/schema/taxonmech.yaml": "60747327658d0e2560ac9e58fb6e9a19cf711266300f1eff8b5c64e2917020ad"
+  },
+  "source_missing_owner_counts": {
+    "matched_strain_id": 147
+  },
+  "source_owner_rows": {
+    "data/raw/bacdive_strains.tsv": 101417,
+    "data/raw/culture_collection_strains.tsv": 154969
+  },
+  "source_positions": null,
+  "source_rows": 159283,
+  "surface": "assemblies",
+  "validation_batch_size": 64,
+  "validation_workers": 4
+}
