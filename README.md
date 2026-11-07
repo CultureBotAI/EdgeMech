@@ -50,12 +50,16 @@ Unreviewed examples and proposed taxonomic mappings remain unassessed.
 uv run edgemech census --snapshot /path/pinned-snapshot \
   --source-sha256 MANIFEST_SHA256 \
   --native-export /path/native-export --native-sha256 NATIVE_MANIFEST_SHA256 \
-  --output workspace/first-census --limit 1000
-uv run edgemech verify-census workspace/first-census/census-manifest.json
+  --output workspace/first-census --limit 1000 --workers 4
+uv run edgemech verify-census workspace/first-census/census-manifest.json --workers 4
 ```
 
 Repeat the two native options for each exporter. First inspect a persisted
 bounded run, then use the same path without `--limit` for the full population.
+Native validation uses one to four processes with bounded ordered batches; the
+parent owns file hashing and database writes. The public verifier independently
+revalidates persisted native data. Timing receipts label parent-process memory
+separately from the worker pool.
 Even bounded runs verify every original source member, including unselected
 tails. Verification later requires that pinned source snapshot to remain
 available at its recorded path. Bulk accounting rows stay outside Git.
@@ -80,9 +84,14 @@ withheld, with no fabricated claims, reviewers or scientific reviews.
 ## Validation and reproducibility
 
 Run `uv run --frozen pytest -q` and `uv run --frozen ruff check src/edgemech
-tests/test_storage.py tests/test_census.py tests/test_packets.py scripts/adhoc`.
+tests/test_storage.py tests/test_census.py tests/test_packets.py tests/test_pins.py
+tests/test_validation_report.py scripts/adhoc`.
 The retained launchers in `scripts/adhoc/` produce storage/census receipts with
 hashes, persisted counters, elapsed time and peak process memory. Their outputs
 belong in ignored `workspace/` or another explicitly selected artifact store.
 Small canary benchmarks do not establish a production partition size or
 graph-wide review quality.
+
+The retained native packet canary checks real native envelopes in an explicitly
+labeled transport fixture. Those fixture IDs are separate from KG release
+occurrences and contribute no eligible-overlap counts or scientific approvals.

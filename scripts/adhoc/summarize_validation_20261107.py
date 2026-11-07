@@ -118,7 +118,9 @@ def main():
                       f"Distinct native assertions: {record['native_accounting']['distinct_assertions']:,}.",
                       f"Persisted Parquet: {record['partition_files']:,} files, {record['parquet_bytes']:,} bytes.",
                       f"Elapsed including verification: {record['elapsed_seconds_including_verification']:.3f} s; "
-                      f"peak process RSS: {record['peak_rss_bytes'] / 1024**2:.2f} MiB.", "",
+                      f"peak parent process RSS: {record['peak_rss_bytes'] / 1024**2:.2f} MiB.",
+                      f"Native validation workers: {record.get('native_validation_workers', 1)}. "
+                      "Parent RSS excludes worker processes; no aggregate pool-memory peak is claimed.", "",
                       "| Classification | Occurrences |", "| --- | ---: |"])
         lines.extend(f"| {key} | {value:,} |" for key, value in record["counts"].items())
         lines.extend(["", f"Receipt SHA-256: `{hashlib.sha256(raw).hexdigest()}`.",
