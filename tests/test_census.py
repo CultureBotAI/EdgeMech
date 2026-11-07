@@ -5,6 +5,7 @@ import json
 import os
 import stat
 from copy import deepcopy
+from io import BytesIO
 from pathlib import Path
 
 import pyarrow as pa
@@ -178,6 +179,178 @@ def test_duplicate_export_rows_do_not_multiply_candidates(tmp_path):
     assert verify_census(receipt)["native_accounting"]["duplicate_assertion_rows"] == 1
 
 
+def test_four_spawn_workers_preserve_serial_bytes_dedup_and_accounting(tmp_path, monkeypatch):
+    monkeypatch.setattr(census, "NATIVE_BATCH_ROWS", 1)
+    supported = native_assertion()
+    withheld = native_assertion(status="withheld")
+    unassessed = native_assertion(status="unassessed")
+    native = export_native(tmp_path / "native", [supported, withheld, unassessed, supported, withheld])
+    extra = export_native(tmp_path / "extra", [supported])
+    source, digest = snapshot(tmp_path / "snapshot", [("Fixture:1", "skos:exactMatch", "CHEBI:1")])
+    serial = run_census(source, [native, extra], tmp_path / "serial", digest)
+    parallel = run_census(source, [native, extra], tmp_path / "parallel", digest, workers=4)
+    assert serial.read_bytes() == parallel.read_bytes()
+    assert records(serial) == records(parallel)
+    result = verify_census(parallel, workers=4)
+    assert result["native_accounting"]["distinct_assertions"] == 3
+    assert result["native_accounting"]["duplicate_assertion_rows"] == 3
+    assert result["native_accounting"]["evidence_references"] == 6
+    assert result["native_accounting"]["ancestry_references"] == 6
+    assert result["native_accounting"]["shared_ancestry_references"] == 5
+
+
+@pytest.mark.parametrize("workers", [0, 5, -1, True, 1.0, None])
+def test_worker_count_is_bounded_and_exact_before_io(tmp_path, workers):
+    with pytest.raises(CurationError, match="workers"):
+        run_census(tmp_path / "missing", [], tmp_path / "result", "a" * 64, workers=workers)
+    with pytest.raises(CurationError, match="workers"):
+        verify_census(tmp_path / "missing", workers=workers)
+    assert not (tmp_path / "result").exists()
+
+
+def test_native_queue_is_bounded_ordered_and_cancels_on_failure(monkeypatch):
+    submitted, consumed, cancelled, produced = [], [], [], []
+
+    class Future:
+        def __init__(self, number):
+            self.number = number
+
+        def result(self):
+            consumed.append(self.number)
+            if self.number == 3:
+                raise CurationError("injected worker failure")
+            return [self.number]
+
+        def cancel(self):
+            cancelled.append(self.number)
+
+    class Executor:
+        def __init__(self, **kwargs):
+            assert kwargs["max_workers"] == 4
+            assert kwargs["mp_context"].get_start_method() == "spawn"
+            assert kwargs["initializer"] is census.check_contracts
+
+        def __enter__(self):
+            return self
+
+        def __exit__(self, *args):
+            return False
+
+        def submit(self, function, batch, source_commit):
+            assert function is census._validate_native_batch
+            submitted.append(batch[0])
+            assert len(submitted) - len(consumed) <= 4
+            return Future(batch[0])
+
+    def batches():
+        for number in range(100):
+            produced.append(number)
+            yield [number]
+
+    monkeypatch.setattr(census, "ProcessPoolExecutor", Executor)
+    generator = census._validated_native_batches(batches(), 4, None)
+    assert next(generator) == ([0], [0])
+    assert produced == [0, 1, 2, 3]
+    assert next(generator) == ([1], [1])
+    assert next(generator) == ([2], [2])
+    with pytest.raises(CurationError, match="worker failure"):
+        next(generator)
+    assert consumed == [0, 1, 2, 3]
+    assert produced == list(range(7))
+    assert cancelled == [4, 5, 6]
+
+
+def test_native_input_batches_bound_rows_and_bytes_preserving_every_byte(monkeypatch):
+    monkeypatch.setattr(census, "NATIVE_BATCH_ROWS", 2)
+    monkeypatch.setattr(census, "NATIVE_BATCH_BYTES", 7)
+    raw = b"a\nb\nc\n12345678\nd\n"
+    batches = list(census._native_line_batches(BytesIO(raw)))
+    assert batches == [[b"a\n", b"b\n"], [b"c\n"], [b"12345678\n"], [b"d\n"]]
+    assert b"".join(line for batch in batches for line in batch) == raw
+    monkeypatch.setattr(census, "MAX_NATIVE_BYTES", 5)
+    with pytest.raises(CurationError, match="exceeds its bound"):
+        list(census._native_line_batches(BytesIO(b"123456\n")))
+
+
+def test_bulk_insert_rejects_conflicts_within_and_across_batches():
+    record = census._validate_native_batch([canonical_json(native_assertion())], "a" * 40)[0]
+    conflicting = {**record, "document": "conflicting"}
+    with census._catalog() as connection:
+        with pytest.raises(CurationError, match="Conflicting duplicate"):
+            census._insert_native_batch(connection, [record, conflicting])
+        census._insert_native_batch(connection, [record, record])
+        census._insert_native_batch(connection, [record])
+        assert connection.execute("SELECT count(*) FROM native").fetchall()[0][0] == 1
+        assert connection.execute("SELECT count(*) FROM evidence").fetchall()[0][0] == 2
+        with pytest.raises(CurationError, match="Conflicting duplicate"):
+            census._insert_native_batch(connection, [conflicting])
+
+
+def test_spawn_validation_errors_leave_no_published_census(tmp_path):
+    assertion = native_assertion()
+    assertion["payload"]["native_payload"]["condition"] = "unbound mutation"
+    source, digest = snapshot(tmp_path / "snapshot", [("s", "p", "o")])
+    native = export_native(tmp_path / "native", [assertion])
+    with pytest.raises(CurationError):
+        run_census(source, [native], tmp_path / "result", digest, workers=4)
+    assert not (tmp_path / "result").exists()
+
+
+def test_parallel_public_verifier_revalidates_rehashed_native_payload(tmp_path):
+    receipt = run_fixture(tmp_path, [native_assertion()], [("s", "p", "o")])
+    manifest = json.loads(receipt.read_bytes())
+    native_path = receipt.parent / manifest["native_exports"][0]["path"]
+    export = json.loads(native_path.read_bytes())
+    data_path = native_path.parent / "assertions.jsonl"
+    assertion = json.loads(data_path.read_bytes())
+    assertion["payload"]["native_payload"]["condition"] = "unbound mutation"
+    encoded = canonical_json(assertion) + b"\n"
+    data_path.write_bytes(encoded)
+    export.update(assertions_sha256=hashlib.sha256(encoded).hexdigest(), assertions_bytes=len(encoded))
+    native_path.write_bytes(canonical_json(export))
+    manifest["native_exports"][0].update(sha256=hashlib.sha256(native_path.read_bytes()).hexdigest(),
+                                         assertions_sha256=export["assertions_sha256"])
+    receipt.write_bytes(canonical_json(manifest))
+    with pytest.raises(CurationError):
+        verify_census(receipt, workers=4)
+
+
+def test_spawn_worker_checks_source_commit_pin(tmp_path):
+    source, digest = snapshot(tmp_path / "snapshot", [("s", "p", "o")])
+    native = export_native(tmp_path / "native", [native_assertion()])
+    path = native / "manifest.json"
+    manifest = json.loads(path.read_bytes())
+    manifest["source_commit"] = "b" * 40
+    path.write_bytes(canonical_json(manifest))
+    with pytest.raises(CurationError, match="source commit"):
+        run_census(source, [native], tmp_path / "result", digest, workers=4)
+    assert not (tmp_path / "result").exists()
+
+
+@pytest.mark.parametrize("operation", ["census", "verify-census"])
+def test_cli_forwards_explicit_worker_count(tmp_path, monkeypatch, capsys, operation):
+    from edgemech.__main__ import main
+
+    received = {}
+
+    def invoke(*args, **kwargs):
+        received.update(kwargs)
+        return tmp_path / "receipt.json" if operation == "census" else {"verified": True}
+
+    if operation == "census":
+        monkeypatch.setattr(census, "run_census", invoke)
+        arguments = ["--snapshot", str(tmp_path), "--source-sha256", "a" * 64,
+                     "--native-export", str(tmp_path), "--native-sha256", "b" * 64,
+                     "--output", str(tmp_path / "output")]
+    else:
+        monkeypatch.setattr(census, "verify_census", invoke)
+        arguments = [str(tmp_path / "receipt.json")]
+    monkeypatch.setattr("sys.argv", ["edgemech", operation, *arguments, "--workers", "4"])
+    assert main() == 0
+    assert received["workers"] == 4
+    assert json.loads(capsys.readouterr().out)
+
+
 @pytest.mark.parametrize("member", ["merged-kg_edges.tsv", "merged-kg_nodes.tsv"])
 def test_limit_still_verifies_unselected_tails_and_all_source_members(tmp_path, member):
     source, digest = snapshot(tmp_path / "snapshot", [("s", "p", "o"), ("s2", "p", "o")])
@@ -213,7 +386,7 @@ def test_native_input_pin_and_file_tampering_fail_before_publication(tmp_path):
 def test_failed_persisted_verification_publishes_nothing(tmp_path, monkeypatch):
     source, digest = snapshot(tmp_path / "snapshot", [("s", "p", "o")])
 
-    def reject(receipt):
+    def reject(receipt, **kwargs):
         assert receipt.is_file()
         assert list((receipt.parent / "partitions").glob("*.parquet"))
         raise CurationError("Injected persisted-verification failure")

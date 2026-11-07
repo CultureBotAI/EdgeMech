@@ -29,8 +29,10 @@ def main() -> int:
     census.add_argument("--native-sha256", action="append", required=True)
     census.add_argument("--output", type=Path, required=True)
     census.add_argument("--limit", type=int)
+    census.add_argument("--workers", type=int, choices=range(1, 5), default=1)
     verify_census = sub.add_parser("verify-census")
     verify_census.add_argument("manifest", type=Path)
+    verify_census.add_argument("--workers", type=int, choices=range(1, 5), default=1)
     args = parser.parse_args()
     from edgemech import storage
 
@@ -42,10 +44,11 @@ def main() -> int:
         result = {"manifest": str(run_census(
             args.snapshot, args.native_export, args.output, args.source_sha256, args.limit,
             expected_native_manifest_sha256=args.native_sha256,
+            workers=args.workers,
         ))}
     elif args.command == "verify-census":
         from edgemech.census import verify_census
-        result = verify_census(args.manifest)
+        result = verify_census(args.manifest, workers=args.workers)
     elif args.command == "migrate-sqlite":
         result = {"manifest": str(storage.migrate_sqlite(
             args.ledger, args.export, args.store,

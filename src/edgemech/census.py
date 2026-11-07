@@ -14,9 +14,11 @@ import os
 import re
 import stat
 import tempfile
-from collections import Counter
+from collections import Counter, deque
+from concurrent.futures import ProcessPoolExecutor
 from contextlib import contextmanager
 from functools import lru_cache
+from multiprocessing import get_context
 from pathlib import Path
 
 import duckdb
@@ -35,6 +37,7 @@ from kg_microbe_curation.native import (
     validate_native_assertion,
 )
 
+from .pins import check_contracts
 from .storage.parquet import MAX_ROW_BYTES, file_hash, safe_path
 
 CENSUS_FORMAT = "edgemech-native-overlap-census/v1"
@@ -46,6 +49,14 @@ BATCH_ROWS = 20_000
 MAX_BATCH_BYTES = 32 * 1024 * 1024
 MAX_METADATA_BYTES = 16 * 1024 * 1024
 MAX_CANDIDATES = 10_000
+NATIVE_BATCH_ROWS = 64
+NATIVE_BATCH_BYTES = 512 * 1024
+MAX_NATIVE_WORKERS = 4
+NATIVE_BATCH_SCHEMA = pa.schema([
+    ("id", pa.string()), ("subject", pa.string()), ("predicate", pa.string()),
+    ("object", pa.string()), ("document", pa.string()),
+    ("evidence", pa.list_(pa.string())), ("ancestry", pa.list_(pa.string())),
+])
 CENSUS_SCHEMA = pa.schema([
     ("row_number", pa.int64()), ("occurrence_id", pa.string()),
     ("row_sha256", pa.string()), ("source_row", pa.binary()),
@@ -132,8 +143,121 @@ def _catalog():
             connection.close()
 
 
-def _native_exports(connection, exports, destination=None, expected=None):
+def _worker_count(workers):
+    if type(workers) is not int or not 1 <= workers <= MAX_NATIVE_WORKERS:
+        raise CurationError("Native validation workers must be an exact integer from 1 to 4")
+    return workers
+
+
+def _native_line_batches(handle):
+    """Bound queued input by rows and bytes; a single larger legal line stands alone."""
+    batch, size = [], 0
+    while line := handle.readline(MAX_NATIVE_BYTES + 2):
+        if len(line) > MAX_NATIVE_BYTES + 1:
+            raise CurationError("Native JSONL row exceeds its bound")
+        if batch and size + len(line) > NATIVE_BATCH_BYTES:
+            yield batch
+            batch, size = [], 0
+        batch.append(line)
+        size += len(line)
+        if len(batch) >= NATIVE_BATCH_ROWS or size >= NATIVE_BATCH_BYTES:
+            yield batch
+            batch, size = [], 0
+    if batch:
+        yield batch
+
+
+def _validate_native_batch(lines, source_commit):
+    """Pure worker operation: canonical validation and exact derived bindings."""
+    records = []
+    for line in lines:
+        assertion = _json(line)
+        validate_native_assertion(assertion)
+        if source_commit is not None and assertion["native_locator"]["commit"] != source_commit:
+            raise CurationError("Native source commit differs from export pin")
+        evidence, ancestry = [], []
+        for entry in assertion["evidence"]:
+            locator = entry["locator"]
+            binding = {key: locator[key] for key in ("repository", "commit", "path")}
+            evidence.append(sha256_json({**binding, "sha256": entry["sha256"]}))
+            ancestry.extend(sha256_json({"repository": locator["repository"],
+                                        "commit": locator["commit"], "ancestor": ancestor})
+                            for ancestor in entry["ancestry"])
+        payload = assertion["payload"]
+        records.append({"id": assertion["assertion_id"], "subject": payload["subject"],
+                        "predicate": payload["predicate"], "object": payload["object"],
+                        "document": canonical_json(assertion).decode("utf-8"),
+                        "evidence": evidence, "ancestry": ancestry,
+                        "status": assertion["native_review"]["status"]})
+    return records
+
+
+def _validated_native_batches(batches, workers, source_commit):
+    """Yield in source order with at most ``workers`` submitted batches.
+
+    Do not use Executor.map: Python 3.13 eagerly consumes its iterable. Workers
+    only validate; the parent retains all file hashing, copies, SQL and ordering.
+    Every spawned interpreter verifies the unchanged canonical contract closure.
+    """
+    _worker_count(workers)
+    if workers == 1:
+        for batch in batches:
+            yield batch, _validate_native_batch(batch, source_commit)
+        return
+    iterator = iter(batches)
+    with ProcessPoolExecutor(max_workers=workers, mp_context=get_context("spawn"),
+                             initializer=check_contracts) as executor:
+        pending = deque()
+        try:
+            for _ in range(workers):
+                batch = next(iterator, None)
+                if batch is None:
+                    break
+                pending.append((batch, executor.submit(_validate_native_batch, batch, source_commit)))
+            while pending:
+                batch, future = pending.popleft()
+                yield batch, future.result()
+                following = next(iterator, None)
+                if following is not None:
+                    pending.append((following, executor.submit(_validate_native_batch, following, source_commit)))
+        finally:
+            for _, future in pending:
+                future.cancel()
+
+
+def _insert_native_batch(connection, records):
+    """Deduplicate first, then insert bounded Arrow rows without per-row SQL."""
+    unique = {}
+    for record in records:
+        previous = unique.setdefault(record["id"], record)
+        if previous["document"] != record["document"]:
+            raise CurationError("Conflicting duplicate native assertion")
+    if not unique:
+        return
+    # Bound the existing-ID lookup explicitly; never join each small batch to
+    # the entire growing document catalogue just to discover duplicates.
+    placeholders = ",".join("?" for _ in unique)
+    existing = dict(connection.execute(
+        f"SELECT id,document FROM native WHERE id IN ({placeholders})", list(unique)
+    ).fetchall())
+    for identifier, document in existing.items():
+        if unique[identifier]["document"] != document:
+            raise CurationError("Conflicting duplicate native assertion")
+    fresh = [record for identifier, record in unique.items() if identifier not in existing]
+    if not fresh:
+        return
+    connection.register("native_batch", pa.Table.from_pylist(fresh, schema=NATIVE_BATCH_SCHEMA))
+    try:
+        for table in ("evidence", "ancestry"):
+            connection.execute(f"INSERT INTO {table} SELECT unnest({table}) FROM native_batch")
+        connection.execute("INSERT INTO native SELECT id,subject,predicate,object,document FROM native_batch")
+    finally:
+        connection.unregister("native_batch")
+
+
+def _native_exports(connection, exports, destination=None, expected=None, *, workers=1):
     """Verify every native line and persist immutable original export bytes."""
+    _worker_count(workers)
     descriptors, total = [], 0
     connection.execute("BEGIN TRANSACTION")
     if expected is not None and len(expected) != len(exports):
@@ -170,44 +294,17 @@ def _native_exports(connection, exports, destination=None, expected=None):
         hasher, size, rows, statuses = hashlib.sha256(), 0, 0, Counter()
         try:
             with _read_handle(source) as handle:
-                while line := handle.readline(MAX_NATIVE_BYTES + 2):
-                    if len(line) > MAX_NATIVE_BYTES + 1:
-                        raise CurationError("Native JSONL row exceeds its bound")
-                    hasher.update(line)
-                    size += len(line)
-                    if output is not None:
-                        output.write(line)
-                    assertion = _json(line)
-                    validate_native_assertion(assertion)
-                    if manifest.get("source_commit") is not None and (
-                        assertion["native_locator"]["commit"] != manifest["source_commit"]
-                    ):
-                        raise CurationError("Native source commit differs from export pin")
-                    encoded = canonical_json(assertion).decode("utf-8")
-                    existing_rows = connection.execute(
-                        "SELECT document FROM native WHERE id=?", [assertion["assertion_id"]]
-                    ).fetchall()
-                    existing = existing_rows[0] if existing_rows else None
-                    if existing is not None and existing[0] != encoded:
-                        raise CurationError("Conflicting duplicate native assertion")
-                    if existing is None:
-                        payload = assertion["payload"]
-                        connection.execute("INSERT INTO native VALUES (?,?,?,?,?)", [
-                            assertion["assertion_id"], payload["subject"], payload["predicate"],
-                            payload["object"], encoded,
-                        ])
-                        for evidence in assertion["evidence"]:
-                            locator = evidence["locator"]
-                            binding = {key: locator[key] for key in ("repository", "commit", "path")}
-                            binding["sha256"] = evidence["sha256"]
-                            connection.execute("INSERT INTO evidence VALUES (?)", [sha256_json(binding)])
-                            for ancestor in evidence["ancestry"]:
-                                connection.execute("INSERT INTO ancestry VALUES (?)", [sha256_json({
-                                    "repository": locator["repository"], "commit": locator["commit"],
-                                    "ancestor": ancestor,
-                                })])
-                    rows += 1
-                    statuses[assertion["native_review"]["status"]] += 1
+                for lines, records in _validated_native_batches(
+                    _native_line_batches(handle), workers, manifest.get("source_commit")
+                ):
+                    for line in lines:
+                        hasher.update(line)
+                        size += len(line)
+                        if output is not None:
+                            output.write(line)
+                    _insert_native_batch(connection, records)
+                    rows += len(records)
+                    statuses.update(record["status"] for record in records)
         finally:
             if output is not None:
                 output.close()
@@ -454,13 +551,15 @@ def _publish_census(stage, output):
 
 def run_census(snapshot: Path, native_exports: list[Path], output: Path,
                expected_manifest_sha256: str, limit: int | None = None, *,
-               expected_native_manifest_sha256: list[str] | None = None) -> Path:
+               expected_native_manifest_sha256: list[str] | None = None,
+               workers: int = 1) -> Path:
     """Verify all input bytes and publish an immutable census manifest last.
 
     ``limit`` selects an initial occurrence prefix; every source member including
     unselected tails is still hashed and counted. Existing outputs are refused.
     Publication failures can leave a reserved directory without a manifest.
     """
+    _worker_count(workers)
     snapshot, output = safe_path(snapshot), safe_path(output, exists=False)
     if limit is not None and (type(limit) is not int or limit < 1):
         raise CurationError("Census limit must be a positive exact integer")
@@ -479,7 +578,7 @@ def run_census(snapshot: Path, native_exports: list[Path], output: Path,
         (stage / "source-manifest.json").write_bytes(data)
         with _catalog() as connection:
             exports, native_counts = _native_exports(connection, native_exports, stage,
-                                                       expected_native_manifest_sha256)
+                                                       expected_native_manifest_sha256, workers=workers)
             classify = _classifier(connection)
             partitions, counts, selected, endpoint_rows, candidate_rows = [], Counter(), 0, 0, 0
             header = None
@@ -535,7 +634,7 @@ def run_census(snapshot: Path, native_exports: list[Path], output: Path,
             }
             receipt_path = stage / "census-manifest.json"
             receipt_path.write_bytes(canonical_json(receipt) + b"\n")
-        verify_census(receipt_path)
+        verify_census(receipt_path, workers=workers)
         for path in stage.rglob("*"):
             if path.is_file():
                 with path.open("rb") as handle:
@@ -546,8 +645,9 @@ def run_census(snapshot: Path, native_exports: list[Path], output: Path,
     return output / "census-manifest.json"
 
 
-def verify_census(receipt: Path) -> dict:
+def verify_census(receipt: Path, *, workers: int = 1) -> dict:
     """Replay conformance from persisted native envelopes and exact source rows."""
+    _worker_count(workers)
     receipt = safe_path(receipt)
     _, manifest = _metadata(receipt)
     if manifest.get("contract") != CENSUS_FORMAT:
@@ -583,7 +683,8 @@ def verify_census(receipt: Path) -> dict:
         exports.append(safe_path(root / item["path"]))
     with _catalog() as connection:
         export_descriptors, native_counts = _native_exports(
-            connection, exports, expected=[item["sha256"] for item in manifest["native_exports"]]
+            connection, exports, expected=[item["sha256"] for item in manifest["native_exports"]],
+            workers=workers,
         )
         if export_descriptors != manifest["native_exports"] or native_counts != manifest["native_accounting"]:
             raise CurationError("Native inventory accounting mismatch")
