@@ -34,6 +34,7 @@ from .parquet import (
 from .schema import AUTHORITATIVE, DIMENSIONS, TABLE_KEYS, TABLE_SCHEMAS
 
 MAX_LOOKUP_BYTES = 2 * 1024 * 1024
+RECONCILIATION_CONTRACT = "edgemech-source-table-reconciliation/v1"
 
 
 def _json(path: Path):
@@ -52,6 +53,26 @@ def _compare(left, right, name):
     for a, b in zip_longest(left, right, fillvalue=marker):
         if a is marker or b is marker or tuple(a) != tuple(b):
             raise CurationError(f"complete-field reconciliation failed for {name}")
+
+
+def _source_table_digests(connection):
+    result = {}
+    for name in AUTHORITATIVE:
+        digest, count = logical_hash(_sql_rows(connection, name), name)
+        result[name] = {"logical_sha256": digest, "rows": count}
+    return result
+
+
+def _reconcile_source_tables(expected, generation, tables):
+    """Compare independent source hashes with persisted complete-field readback."""
+    actual = {}
+    for name in AUTHORITATIVE:
+        digest, count = logical_hash(table_rows(generation, name, tables[name]), name)
+        actual[name] = {"logical_sha256": digest, "rows": count}
+        if expected[name] != actual[name]:
+            raise CurationError(f"source-to-output logical table mismatch: {name}")
+    return {"contract": RECONCILIATION_CONTRACT, "verified": True,
+            "source_tables": expected, "persisted_tables": actual}
 
 
 def _assert_no_journal(path):
@@ -205,6 +226,7 @@ def migrate_sqlite(
                 baseline = Path(directory) / "baseline.sqlite"
                 native.ingest_export(export, baseline)
                 _replay(source, baseline)
+            source_tables = _source_table_digests(source)
             metadata = native._metadata(source)
             tables = {}
             for name in TABLE_SCHEMAS:
@@ -236,6 +258,7 @@ def migrate_sqlite(
             validate_artifact_manifest(manifest)
             _write_json(staging / "manifest.json", manifest)
             result = verify(staging / "manifest.json")
+            reconciliation = _reconcile_source_tables(source_tables, staging, tables)
             after = _input_hashes(ledger, export)
             if before != after:
                 raise CurationError("migration input changed; refusing publication")
@@ -243,6 +266,7 @@ def migrate_sqlite(
                 "input_hashes_before": before, "input_hashes_after": after,
                 "manifest_sha256": file_hash(staging / "manifest.json"),
                 "verification": result,
+                "source_table_reconciliation": reconciliation,
             })
         # Flush every newly created directory before making the complete generation reachable.
         for directory, _, _ in os.walk(staging, topdown=False):

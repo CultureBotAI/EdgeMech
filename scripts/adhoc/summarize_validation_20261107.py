@@ -8,6 +8,7 @@ Output: compact Markdown evidence, with exact receipt/manifest hashes.
 import argparse
 import hashlib
 import json
+import re
 from pathlib import Path
 
 SQLITE_SHA256 = "85d0f98093a595308f9246cc9c517dbaf5ef26086d65650f0cff025609498ade"
@@ -18,6 +19,50 @@ EXPECTED_COUNTERS = {
     "lifecycle": {"active": 1000},
     "conflict_state": {"not_assessed": 1000},
 }
+AUTHORITATIVE = {"occurrences", "current_decisions", "bundles", "metadata", "coverage_counts"}
+
+
+def check_source_reconciliation(record, manifest):
+    """Old or substituted receipts cannot establish source-to-output parity."""
+    proof = record.get("source_table_reconciliation")
+    if (not isinstance(proof, dict)
+            or proof.get("contract") != "edgemech-source-table-reconciliation/v1"
+            or proof.get("verified") is not True):
+        raise ValueError("Missing source-to-output reconciliation proof")
+    for side in ("source_tables", "persisted_tables"):
+        tables = proof.get(side)
+        if not isinstance(tables, dict) or set(tables) != AUTHORITATIVE:
+            raise ValueError("Reconciliation proof must cover all five authoritative tables")
+        for name, descriptor in tables.items():
+            if (not isinstance(descriptor, dict) or set(descriptor) != {"rows", "logical_sha256"}
+                    or type(descriptor["rows"]) is not int or descriptor["rows"] < 0
+                    or not isinstance(descriptor["logical_sha256"], str)
+                    or not re.fullmatch(r"[0-9a-f]{64}", descriptor["logical_sha256"])):
+                raise ValueError("Invalid reconciliation table descriptor")
+            retained = manifest.get("tables", {}).get(name, {})
+            if descriptor != {key: retained.get(key) for key in descriptor}:
+                raise ValueError("Reconciliation proof differs from persisted manifest tables")
+    path = Path(record["manifest"]).with_name("migration-receipt.json")
+    digest = record.get("migration_receipt_sha256")
+    if not isinstance(digest, str) or not re.fullmatch(r"[0-9a-f]{64}", digest):
+        raise ValueError("Missing migration receipt digest")
+    raw = path.read_bytes()
+    if hashlib.sha256(raw).hexdigest() != digest:
+        raise ValueError("Persisted migration receipt differs from canary receipt")
+    migration = json.loads(raw)
+    if (migration.get("manifest_sha256") != record["manifest_sha256"]
+            or migration.get("source_table_reconciliation") != proof
+            or migration.get("verification") != record["verification"]):
+        raise ValueError("Persisted migration receipt does not bind the same reconciliation")
+    before, after = migration.get("input_hashes_before"), migration.get("input_hashes_after")
+    ledger = record.get("source_sqlite")
+    if (not isinstance(before, dict) or not before or before != after
+            or not isinstance(ledger, str) or not Path(ledger).is_absolute()
+            or before.get(ledger) != SQLITE_SHA256
+            or any(not isinstance(path, str) or not Path(path).is_absolute()
+                   or not isinstance(digest, str) or not re.fullmatch(r"[0-9a-f]{64}", digest)
+                   for path, digest in before.items())):
+        raise ValueError("Migration input hashes do not bind the unchanged pinned SQLite source")
 
 
 def checked_manifest(path, digest):
@@ -32,6 +77,7 @@ def check_storage(record):
     if (
         record["contract"] != "edgemech-storage-canary/v1"
         or record["source_sqlite_sha256"] != SQLITE_SHA256
+        or manifest.get("source", {}).get("sqlite_sha256") != SQLITE_SHA256
         or record["source_sqlite_bytes"] != 806912
         or record["scientific_approvals_created"] != 0
         or not record["verification"]["verified"]
@@ -44,6 +90,7 @@ def check_storage(record):
         or manifest["counters"] != EXPECTED_COUNTERS
     ):
         raise ValueError("Receipt is not the pinned 1,000-row migration experiment")
+    check_source_reconciliation(record, manifest)
 
 
 def check_census(path, record):
@@ -98,12 +145,16 @@ def main():
     first = storage[0][2]
     lines.extend(["", f"Input SQLite: `{first['source_sqlite_sha256']}` ({first['source_sqlite_bytes']} bytes).",
                   "All authoritative fields, occurrence IDs, raw rows, memberships, current decisions",
-                  "and historical canonical bundles are compared through replay. The canary preserves",
+                  "and historical canonical bundles are compared through replay. Independent source",
+                  "and persisted complete-field logical hashes and row counts match for all five",
+                  "authoritative tables before publication; the hash-bound migration receipt retains both sides.",
+                  "The canary preserves",
                   "999 unprocessed plus one deferred decision, all withheld, with one historical bundle.",
                   "It creates zero scientific approvals.", ""])
     for path, raw, record in storage:
         lines.extend([f"- `{path.parent.name}` receipt SHA-256: `{hashlib.sha256(raw).hexdigest()}`;",
-                      f"  artifact manifest: `{record['manifest_sha256']}`."])
+                      f"  artifact manifest: `{record['manifest_sha256']}`;",
+                      f"  migration receipt: `{record['migration_receipt_sha256']}`."])
     lines.extend(["", "## Native overlap census", "",
                   "The source is the historical 20260929 KG-Microbe snapshot, not a newly published release.",
                   "Its manifest SHA-256 is `f585e55a616d3771f382c91c78713cb8d74812c7ba177576090ccd5f9e6654b2`",

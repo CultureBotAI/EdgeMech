@@ -113,6 +113,13 @@ def test_complete_lossless_roundtrip(ledger_input, tmp_path):
     receipt = json.loads(manifest.with_name("migration-receipt.json").read_bytes())
     assert receipt["input_hashes_before"] == receipt["input_hashes_after"]
     assert receipt["manifest_sha256"] == pointer["sha256"]
+    proof = receipt["source_table_reconciliation"]
+    assert proof["contract"] == storage.RECONCILIATION_CONTRACT and proof["verified"] is True
+    assert set(proof["source_tables"]) == set(storage.AUTHORITATIVE)
+    assert proof["source_tables"] == proof["persisted_tables"] == {
+        name: {key: document["tables"][name][key] for key in ("logical_sha256", "rows")}
+        for name in storage.AUTHORITATIVE
+    }
     with sqlite3.connect(ledger) as connection:
         for name in storage.AUTHORITATIVE:
             assert list(table_rows(manifest.parent, name, document["tables"][name])) == [
@@ -131,6 +138,29 @@ def test_complete_lossless_roundtrip(ledger_input, tmp_path):
         assert document["tables"][name]["rows"] == 0
         assert document["tables"][name]["partitions"] == []
     assert storage.stats(manifest)["counters"]["review_state"] == {"unprocessed": 2, "deferred": 1}
+
+
+def test_internally_valid_writer_header_change_cannot_publish(ledger_input, tmp_path, monkeypatch):
+    """A same-width header change survives replay but loses original source fields."""
+    original, mutated = storage.write_partitioned_table, []
+
+    def changed_writer(generation, name, rows, **kwargs):
+        def changed_rows():
+            for key, value in rows:
+                if key == "header":
+                    header = json.loads(value)
+                    header[0] = "silently_changed_subject"
+                    value = canonical_json(header).decode()
+                    mutated.append(True)
+                yield key, value
+        return original(generation, name, changed_rows() if name == "metadata" else rows, **kwargs)
+
+    monkeypatch.setattr(storage, "write_partitioned_table", changed_writer)
+    with pytest.raises(CurationError, match="source-to-output logical table mismatch: metadata"):
+        migrate(ledger_input, tmp_path)
+    assert mutated == [True]
+    assert not (tmp_path / "store/CURRENT").exists()
+    assert not list((tmp_path / "store/generations").glob("*/manifest.json"))
 
 
 @pytest.mark.parametrize("mutation", ["tamper", "missing", "symlink"])

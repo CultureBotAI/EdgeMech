@@ -63,6 +63,18 @@ def main() -> None:
     if pointer["sha256"] != file_hash(manifest):
         raise ValueError("Published pointer digest differs from persisted manifest")
     descriptor = json.loads(manifest.read_bytes())
+    migration_receipt = manifest.with_name("migration-receipt.json")
+    migration = json.loads(migration_receipt.read_bytes())
+    proof = migration["source_table_reconciliation"]
+    expected = {
+        name: {key: descriptor["tables"][name][key] for key in ("logical_sha256", "rows")}
+        for name in storage.AUTHORITATIVE
+    }
+    if (migration["manifest_sha256"] != pointer["sha256"]
+            or proof["contract"] != storage.RECONCILIATION_CONTRACT
+            or proof["verified"] is not True
+            or proof["source_tables"] != expected or proof["persisted_tables"] != expected):
+        raise ValueError("Persisted source-to-output reconciliation proof differs")
     partitions = [part for table in descriptor["tables"].values() for part in table["partitions"]]
     if not partitions or any((manifest.parent / part["path"]).stat().st_size == 0 for part in partitions):
         raise ValueError("Storage canary did not persist nonempty Parquet files")
@@ -72,6 +84,11 @@ def main() -> None:
     receipt = {
         "contract": "edgemech-storage-canary/v1", "manifest": str(manifest.resolve()),
         "manifest_sha256": pointer["sha256"], "source_sqlite_sha256": args.ledger_sha256,
+        "source_sqlite": str(args.ledger.absolute()),
+        "migration_receipt_sha256": file_hash(migration_receipt),
+        "source_table_reconciliation": proof,
+        "launcher_sha256": file_hash(Path(__file__)),
+        "implementation_root": str(Path(storage.__file__).parent.resolve()),
         "source_sqlite_bytes": args.ledger.stat().st_size,
         "partition_files": len(partitions), "parquet_bytes": sum(p["bytes"] for p in partitions),
         "layout": descriptor["layout"], "verification": verification, "status": status,
