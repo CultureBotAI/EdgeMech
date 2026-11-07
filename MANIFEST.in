@@ -1,0 +1,2 @@
+recursive-include scripts *.py *.sh
+recursive-include conf *.yaml
