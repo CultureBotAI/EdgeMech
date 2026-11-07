@@ -250,6 +250,8 @@ def migrate_sqlite(
         staging.rename(final)
         _fsync_directory(generations)
         _publish_pointer(store, final / "manifest.json")
+        # CURRENT being durable does not persist the newly created store name.
+        _fsync_directory(store.parent)
         return final / "manifest.json"
     except (sqlite3.Error, OSError, KeyError, TypeError, ValueError) as exc:
         raise CurationError(f"migration failed: {exc}") from exc

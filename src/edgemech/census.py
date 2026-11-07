@@ -421,13 +421,45 @@ def _fsync_directory(path):
         os.close(descriptor)
 
 
+def _publish_census(stage, output):
+    """Reserve a new destination and create its manifest last, without replacement.
+
+    Staging and output share a filesystem, so exclusive hard links preserve the
+    verified file bytes without copying a large census or replacing any name.
+    A failure may leave a reserved partial directory; without the manifest it
+    is not published, and a retry must use a different output destination.
+    """
+    try:
+        output.mkdir(mode=0o700)
+    except FileExistsError as error:
+        raise CurationError("Census destination appeared during staging; preserved unchanged") from error
+    for directory, subdirectories, filenames in os.walk(stage):
+        subdirectories.sort()
+        relative = Path(directory).relative_to(stage)
+        destination = output / relative
+        if relative != Path("."):
+            destination.mkdir(mode=0o700)
+        for filename in sorted(filenames):
+            source = Path(directory) / filename
+            if source == stage / "census-manifest.json":
+                continue
+            os.link(safe_path(source), destination / filename, follow_symlinks=False)
+    for directory, _, _ in os.walk(output, topdown=False):
+        _fsync_directory(Path(directory))
+    _fsync_directory(output.parent)
+    os.link(stage / "census-manifest.json", output / "census-manifest.json", follow_symlinks=False)
+    _fsync_directory(output)
+    _fsync_directory(output.parent)
+
+
 def run_census(snapshot: Path, native_exports: list[Path], output: Path,
                expected_manifest_sha256: str, limit: int | None = None, *,
                expected_native_manifest_sha256: list[str] | None = None) -> Path:
-    """Verify all input bytes and atomically publish one immutable census directory.
+    """Verify all input bytes and publish an immutable census manifest last.
 
     ``limit`` selects an initial occurrence prefix; every source member including
     unselected tails is still hashed and counted. Existing outputs are refused.
+    Publication failures can leave a reserved directory without a manifest.
     """
     snapshot, output = safe_path(snapshot), safe_path(output, exists=False)
     if limit is not None and (type(limit) is not int or limit < 1):
@@ -510,10 +542,7 @@ def run_census(snapshot: Path, native_exports: list[Path], output: Path,
                     os.fsync(handle.fileno())
         for directory, _, _ in os.walk(stage, topdown=False):
             _fsync_directory(Path(directory))
-        if output.exists() or output.is_symlink():
-            raise CurationError("Census destination appeared during staging")
-        stage.rename(output)
-        _fsync_directory(output.parent)
+        _publish_census(stage, output)
     return output / "census-manifest.json"
 
 

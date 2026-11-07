@@ -59,6 +59,10 @@ bounded run, then use the same path without `--limit` for the full population.
 Even bounded runs verify every original source member, including unselected
 tails. Verification later requires that pinned source snapshot to remain
 available at its recorded path. Bulk accounting rows stay outside Git.
+The publisher reserves a new destination exclusively, persists verified files,
+then publishes `census-manifest.json` as its final atomic marker. Interrupted
+publication can leave a reserved directory without that manifest; use a new
+destination for a retry. Existing destinations and filenames are never replaced.
 
 Exact subject–predicate–object matches are candidates. `exact_eligible` requires
 an identical embedded `native_assertion` envelope and explicit `native_scope`

@@ -15,6 +15,6 @@ jobs:
           python-version: '3.13'
       - run: uv sync --frozen --extra dev
       - run: uv run --frozen edgemech check-contracts
-      - run: uv run --frozen ruff check src/edgemech tests/test_storage.py tests/test_packets.py tests/test_census.py scripts/adhoc
+      - run: uv run --frozen ruff check src/edgemech tests/test_storage.py tests/test_packets.py tests/test_census.py tests/test_pins.py tests/test_validation_report.py scripts/adhoc
       - run: uv run --frozen pytest -q
       - run: uv build

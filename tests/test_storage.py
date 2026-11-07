@@ -81,6 +81,25 @@ def migrate(ledger_input, tmp_path):
     return storage.migrate_sqlite(ledger, export, tmp_path / "store", buckets=2, row_group_size=2)
 
 
+def test_new_store_parent_is_durable_after_current(ledger_input, tmp_path, monkeypatch):
+    events = []
+    flush, publish = storage._fsync_directory, storage._publish_pointer
+
+    def tracked_flush(path):
+        events.append(("fsync", path))
+        return flush(path)
+
+    def tracked_publish(store, manifest):
+        publish(store, manifest)
+        assert (store / "CURRENT").is_file()
+        events.append(("current_durable", store))
+
+    monkeypatch.setattr(storage, "_fsync_directory", tracked_flush)
+    monkeypatch.setattr(storage, "_publish_pointer", tracked_publish)
+    migrate(ledger_input, tmp_path)
+    assert events[-2:] == [("current_durable", tmp_path / "store"), ("fsync", tmp_path)]
+
+
 def test_complete_lossless_roundtrip(ledger_input, tmp_path):
     ledger, _, occurrences = ledger_input
     before = file_hash(ledger)

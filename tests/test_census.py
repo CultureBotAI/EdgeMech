@@ -299,10 +299,10 @@ def test_named_pipe_metadata_fails_without_blocking(tmp_path):
         run_census(source, [], tmp_path / "result", "0" * 64)
 
 
-def test_publication_flushes_files_then_directories_then_rename_parent(tmp_path, monkeypatch):
-    """Issue #1: verify syscall ordering, without simulating a real power loss."""
+def test_publication_flushes_data_directories_before_manifest_and_parent_after(tmp_path, monkeypatch):
+    """Issues #1/#3: verify ordering, without simulating a real power loss."""
     events = []
-    fsync, sync_directory, rename = os.fsync, census._fsync_directory, Path.rename
+    fsync, sync_directory, link = os.fsync, census._fsync_directory, os.link
 
     def record_fsync(descriptor):
         events.append(("directory_fsync" if stat.S_ISDIR(os.fstat(descriptor).st_mode)
@@ -313,23 +313,79 @@ def test_publication_flushes_files_then_directories_then_rename_parent(tmp_path,
         events.append(("directory", Path(path)))
         return sync_directory(path)
 
-    def record_rename(path, destination):
-        events.append(("rename", Path(destination)))
-        return rename(path, destination)
+    def record_link(path, destination, **kwargs):
+        events.append(("link", Path(destination)))
+        return link(path, destination, **kwargs)
 
     monkeypatch.setattr(os, "fsync", record_fsync)
     monkeypatch.setattr(census, "_fsync_directory", record_directory)
-    monkeypatch.setattr(Path, "rename", record_rename)
+    monkeypatch.setattr(os, "link", record_link)
     receipt = run_fixture(tmp_path, [], [("s", "p", "o")])
-    rename_position = next(index for index, item in enumerate(events) if item[0] == "rename")
+    publication = next(index for index, item in enumerate(events) if item == ("link", receipt))
+    first_link = next(index for index, item in enumerate(events) if item[0] == "link")
     first_directory = next(index for index, item in enumerate(events) if item[0] == "directory")
     assert any(item[0] == "file_fsync" for item in events[:first_directory])
     assert not any(item[0] == "file_fsync" for item in events[first_directory:])
-    assert first_directory < rename_position
-    assert events[rename_position + 1:] == [("directory", receipt.parent.parent), ("directory_fsync", None)]
-    staged_directories = [item[1] for item in events[:rename_position] if item[0] == "directory"]
-    assert staged_directories[-1].name == "generation"
-    assert any(path.name == "partitions" for path in staged_directories)
+    assert first_directory < first_link < publication
+    assert ("directory", receipt.parent / "partitions") in events[first_link:publication]
+    assert ("directory", receipt.parent) in events[first_link:publication]
+    assert events[publication + 1:] == [("directory", receipt.parent), ("directory_fsync", None),
+                                       ("directory", receipt.parent.parent), ("directory_fsync", None)]
+
+
+def test_racing_empty_destination_is_preserved_without_replacement(tmp_path, monkeypatch):
+    source, digest = snapshot(tmp_path / "snapshot", [("s", "p", "o")])
+    output = tmp_path / "result"
+    mkdir, inode = Path.mkdir, []
+
+    def race(path, *args, **kwargs):
+        if path == output:
+            mkdir(path)
+            inode.append(path.stat().st_ino)
+        return mkdir(path, *args, **kwargs)
+
+    monkeypatch.setattr(Path, "mkdir", race)
+    with pytest.raises(CurationError, match="preserved unchanged"):
+        run_census(source, [], output, digest)
+    assert len(inode) == 1 and output.stat().st_ino == inode[0]
+    assert list(output.iterdir()) == []
+
+
+def test_manifest_link_failure_leaves_only_an_unpublished_reservation(tmp_path, monkeypatch):
+    source, digest = snapshot(tmp_path / "snapshot", [("s", "p", "o")])
+    output = tmp_path / "result"
+    link = os.link
+
+    def fail_before_manifest(source_path, destination, **kwargs):
+        if Path(destination) == output / "census-manifest.json":
+            assert list((output / "partitions").glob("*.parquet"))
+            raise OSError("Injected manifest publication failure")
+        return link(source_path, destination, **kwargs)
+
+    monkeypatch.setattr(os, "link", fail_before_manifest)
+    with pytest.raises(OSError, match="Injected manifest"):
+        run_census(source, [], output, digest)
+    assert output.is_dir() and not (output / "census-manifest.json").exists()
+    assert (output / "source-manifest.json").read_bytes() == (source / "manifest.json").read_bytes()
+    with pytest.raises(CurationError, match="replace"):
+        run_census(source, [], output, digest)
+
+
+def test_racing_file_name_inside_reservation_is_not_overwritten(tmp_path, monkeypatch):
+    source, digest = snapshot(tmp_path / "snapshot", [("s", "p", "o")])
+    output = tmp_path / "result"
+    link = os.link
+
+    def race_file(source_path, destination, **kwargs):
+        if Path(destination) == output / "source-manifest.json":
+            Path(destination).write_bytes(b"another writer's file")
+        return link(source_path, destination, **kwargs)
+
+    monkeypatch.setattr(os, "link", race_file)
+    with pytest.raises(FileExistsError):
+        run_census(source, [], output, digest)
+    assert (output / "source-manifest.json").read_bytes() == b"another writer's file"
+    assert not (output / "census-manifest.json").exists()
 
 
 @pytest.mark.parametrize("header, row, error", [
