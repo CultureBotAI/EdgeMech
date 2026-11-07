@@ -57,7 +57,11 @@ uv run edgemech verify-census workspace/first-census/census-manifest.json --work
 Repeat the two native options for each exporter. First inspect a persisted
 bounded run, then use the same path without `--limit` for the full population.
 Native validation uses one to four processes with bounded ordered batches; the
-parent owns file hashing and database writes. The public verifier independently
+parent owns file hashing and database writes. Each native batch contains at most
+512 rows or 4 MiB (a single larger legal envelope travels alone). One private
+transaction commits its native rows and evidence/ancestry bindings together,
+releasing temporary Arrow inputs before the next batch. This scratch catalogue
+is separate from the final manifest publication boundary. The public verifier independently
 revalidates persisted native data. Timing receipts label parent-process memory
 separately from the worker pool.
 Even bounded runs verify every original source member, including unselected

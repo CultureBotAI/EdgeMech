@@ -255,11 +255,31 @@ def _insert_native_batch(connection, records):
         connection.unregister("native_batch")
 
 
+def _commit_native_batch(connection, records):
+    """Commit one private batch so DuckDB releases unregistered Arrow inputs.
+
+    Native rows and their evidence/ancestry bindings remain atomic together.
+    The disposable catalogue is never the publication boundary: the census
+    manifest is published only after complete input and persisted-result checks.
+    """
+    connection.execute("BEGIN TRANSACTION")
+    try:
+        _insert_native_batch(connection, records)
+        connection.execute("COMMIT").fetchall()
+    except BaseException:
+        try:
+            connection.execute("ROLLBACK")
+        except duckdb.Error:
+            # A failed COMMIT may already have ended the transaction. Preserve
+            # the original error instead of replacing it with rollback failure.
+            pass
+        raise
+
+
 def _native_exports(connection, exports, destination=None, expected=None, *, workers=1):
     """Verify every native line and persist immutable original export bytes."""
     _worker_count(workers)
     descriptors, total = [], 0
-    connection.execute("BEGIN TRANSACTION")
     if expected is not None and len(expected) != len(exports):
         raise CurationError("Expected one native manifest pin per export")
     for position, export in enumerate(exports):
@@ -302,7 +322,7 @@ def _native_exports(connection, exports, destination=None, expected=None, *, wor
                         size += len(line)
                         if output is not None:
                             output.write(line)
-                    _insert_native_batch(connection, records)
+                    _commit_native_batch(connection, records)
                     rows += len(records)
                     statuses.update(record["status"] for record in records)
         finally:
@@ -336,7 +356,6 @@ def _native_exports(connection, exports, destination=None, expected=None, *, wor
         accounting[f"{table}_references"] = references
         accounting[f"distinct_{table}_bindings"] = unique
         accounting[f"shared_{table}_references"] = references - unique
-    connection.execute("COMMIT").fetchall()
     return descriptors, accounting
 
 

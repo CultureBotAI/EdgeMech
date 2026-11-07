@@ -1,5 +1,6 @@
 """Synthetic transport conformance; no fixture grants scientific approval."""
 
+import gc
 import hashlib
 import json
 import os
@@ -284,6 +285,62 @@ def test_bulk_insert_rejects_conflicts_within_and_across_batches():
         assert connection.execute("SELECT count(*) FROM evidence").fetchall()[0][0] == 2
         with pytest.raises(CurationError, match="Conflicting duplicate"):
             census._insert_native_batch(connection, [conflicting])
+
+
+def test_native_inventory_releases_arrow_between_batches(tmp_path, monkeypatch):
+    assertions = []
+    for number in range(6):
+        assertion = native_assertion()
+        assertion["native_locator"]["selector"] = {"row": number + 1}
+        assertion["assertion_id"] = native_assertion_id(assertion)
+        assertions.append(assertion)
+    native = export_native(tmp_path / "native", assertions)
+    monkeypatch.setattr(census, "NATIVE_BATCH_ROWS", 2)
+    original = census._insert_native_batch
+    observed = []
+    gc.collect()
+    baseline = pa.total_allocated_bytes()
+
+    def observe(connection, records):
+        gc.collect()
+        observed.append(pa.total_allocated_bytes())
+        original(connection, records)
+
+    monkeypatch.setattr(census, "_insert_native_batch", observe)
+    with census._catalog() as connection:
+        _, accounting = census._native_exports(connection, [native])
+        gc.collect()
+        assert pa.total_allocated_bytes() == baseline
+        assert accounting["export_rows"] == accounting["distinct_assertions"] == 6
+        assert accounting["evidence_references"] == accounting["ancestry_references"] == 12
+    assert observed == [baseline] * 3
+
+
+def test_failed_native_batch_rolls_back_all_tables_and_allows_retry(monkeypatch):
+    first = census._validate_native_batch([canonical_json(native_assertion())], "a" * 40)[0]
+    second = census._validate_native_batch(
+        [canonical_json(native_assertion(alternative=True))], "a" * 40
+    )[0]
+    original = census._insert_native_batch
+
+    def fail_after_insert(connection, records):
+        original(connection, records)
+        raise RuntimeError("Injected failure before batch commit")
+
+    def counts(connection):
+        return [connection.execute(f"SELECT count(*) FROM {table}").fetchall()[0][0]
+                for table in ("native", "evidence", "ancestry")]
+
+    with census._catalog() as connection:
+        census._commit_native_batch(connection, [first])
+        assert counts(connection) == [1, 2, 2]
+        monkeypatch.setattr(census, "_insert_native_batch", fail_after_insert)
+        with pytest.raises(RuntimeError, match="Injected failure"):
+            census._commit_native_batch(connection, [second])
+        assert counts(connection) == [1, 2, 2]
+        monkeypatch.setattr(census, "_insert_native_batch", original)
+        census._commit_native_batch(connection, [second])
+        assert counts(connection) == [2, 4, 4]
 
 
 def test_spawn_validation_errors_leave_no_published_census(tmp_path):

@@ -23,7 +23,7 @@ from kg_microbe_curation.native import MAX_NATIVE_BYTES, validate_native_asserti
 import edgemech.census
 from edgemech.census import (
     _catalog,
-    _insert_native_batch,
+    _commit_native_batch,
     _json,
     _metadata,
     _native_line_batches,
@@ -64,18 +64,16 @@ def main():
               "census_source_sha256": file_hash(Path(edgemech.census.__file__))}
     if args.optimized_workers is not None:
         with _catalog() as connection:
-            connection.execute("BEGIN TRANSACTION")
             started, sql_seconds, batches, rows = time.perf_counter(), 0.0, 0, 0
             for _, records in _validated_native_batches(
                 _native_line_batches(BytesIO(b"".join(lines))), args.optimized_workers,
                 manifest.get("source_commit"),
             ):
                 sql_started = time.perf_counter()
-                _insert_native_batch(connection, records)
+                _commit_native_batch(connection, records)
                 sql_seconds += time.perf_counter() - sql_started
                 batches += 1
                 rows += len(records)
-            connection.execute("COMMIT")
             seconds = time.perf_counter() - started
             distinct = connection.execute("SELECT count(*) FROM native").fetchall()[0][0]
             if rows != 1000:

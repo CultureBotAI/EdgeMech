@@ -26,3 +26,10 @@ Add a regression that observes Arrow allocations before each production batch
 and a failed-batch rollback test. Keep serial/parallel byte-equivalence and
 tamper tests passing. Repeat a small actual production canary, then the combined
 inventory canary, before the full census.
+
+Implemented for EdgeMech #11 in `_commit_native_batch`: one transaction covers
+all three tables, with rollback preserving the original error. The production
+inventory regression checks allocation release across three batches; the failure
+regression checks unchanged counters and a successful retry. Independent read-only
+review found no blocking issue. All 155 tests and Ruff pass on census source
+`2b90886fb21d1f42d3d718d936e1a09e37c935b1b23d5ff6cf4b266abfa73793`.
