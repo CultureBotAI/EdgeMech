@@ -1,0 +1,153 @@
+{
+  "contract": "edgemech-storage-canary/v1",
+  "implementation_root": "/Users/marcin/Documents/VIMSS/ontology/Mechs/EdgeMech-storage-source-reconciliation-20261107/src/edgemech/storage",
+  "implementation_sha256": {
+    "__init__.py": "cae90869b751ecae855a2c7be20bf26e24fc4e72ec36b95b11254c5f6e2e3353",
+    "parquet.py": "b3f6a2e14a2b0611b5d2909569d71b7ede800502bc027f17a5968e28a2ad4c6b",
+    "schema.py": "1358bd5b66fed92451e57cdf4135e763b0a0307c0623dbaf0ef5db66ab6ab49a"
+  },
+  "launcher_sha256": "e6d942c3bd89b88c932a5212c5dc1e79c61c04fc3a94b573de39b7d3a5fadd3d",
+  "layout": {
+    "buckets": 2,
+    "partitioning": "sha256-first-key-modulo/v1",
+    "row_group_size": 1024
+  },
+  "lookup_current_decision": {
+    "bundle_sha256": "f069e1e4f9f0b980f4d4bb686e248ad323982ccc3e1fb074a183a594051b8427",
+    "conflict_state": "not_assessed",
+    "disposition": "withheld",
+    "lifecycle": "active",
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:97f228d6740333a776e7839b4e840cbfdd5a7952ed2fca42e43c76508e8a1336",
+    "review_state": "deferred"
+  },
+  "lookup_history_entries": 1,
+  "lookup_occurrence": "urn:kg-microbe:occurrence:v1:97f228d6740333a776e7839b4e840cbfdd5a7952ed2fca42e43c76508e8a1336",
+  "manifest": "/Users/marcin/Documents/VIMSS/ontology/Mechs/EdgeMech-storage-source-reconciliation-20261107/workspace/validation-20261107/storage-source-parity-benchmark-2/store/generations/949091908a7a46079c0410a2113d27f8/manifest.json",
+  "manifest_sha256": "0f107ed4c6b296f08022d4f1fe63460a798fbad7aa7f2ec7aed77e272ffc13fe",
+  "migration_receipt_sha256": "a71d376ce3b9f6434d4dde89ccbacecff920eab952c60ba822c11566319f6954",
+  "parquet_bytes": 143021,
+  "partition_files": 11,
+  "peak_rss_bytes": 247250944,
+  "python": "3.13.12 | packaged by conda-forge | (main, Feb  5 2026, 06:11:05) [Clang 19.1.7 ]",
+  "scientific_approvals_created": 0,
+  "source_sqlite": "/Users/marcin/Documents/VIMSS/ontology/KG-Hub/KG-Microbe/culturebotai-claw-edge-curation-20261103/workspace/reports/edge-curation-20261103/snapshot-canary-review-fixes/ledger.sqlite",
+  "source_sqlite_bytes": 806912,
+  "source_sqlite_sha256": "85d0f98093a595308f9246cc9c517dbaf5ef26086d65650f0cff025609498ade",
+  "source_table_reconciliation": {
+    "contract": "edgemech-source-table-reconciliation/v1",
+    "persisted_tables": {
+      "bundles": {
+        "logical_sha256": "c411ac2231faa726006c4f24602136ae2eed1e1fecf13f42dd5c7eccb4e7df53",
+        "rows": 1
+      },
+      "coverage_counts": {
+        "logical_sha256": "1ec42fa5c2321ad5ef1cdab4bb3b230af8387a992b0e8683bc1efe188e03988e",
+        "rows": 5
+      },
+      "current_decisions": {
+        "logical_sha256": "a63a142d871a51e2edfc7183dd6d5085279f993401c6c096324be2e93e3f26c4",
+        "rows": 1000
+      },
+      "metadata": {
+        "logical_sha256": "8c805be94e4bba4125be0c2c065f343cc19d0f8b50b20da9d8cfe6cd9c32464b",
+        "rows": 11
+      },
+      "occurrences": {
+        "logical_sha256": "b0633f7e2196758c004331e642430f6555b8bf057c063f4550191453a37b9503",
+        "rows": 1000
+      }
+    },
+    "source_tables": {
+      "bundles": {
+        "logical_sha256": "c411ac2231faa726006c4f24602136ae2eed1e1fecf13f42dd5c7eccb4e7df53",
+        "rows": 1
+      },
+      "coverage_counts": {
+        "logical_sha256": "1ec42fa5c2321ad5ef1cdab4bb3b230af8387a992b0e8683bc1efe188e03988e",
+        "rows": 5
+      },
+      "current_decisions": {
+        "logical_sha256": "a63a142d871a51e2edfc7183dd6d5085279f993401c6c096324be2e93e3f26c4",
+        "rows": 1000
+      },
+      "metadata": {
+        "logical_sha256": "8c805be94e4bba4125be0c2c065f343cc19d0f8b50b20da9d8cfe6cd9c32464b",
+        "rows": 11
+      },
+      "occurrences": {
+        "logical_sha256": "b0633f7e2196758c004331e642430f6555b8bf057c063f4550191453a37b9503",
+        "rows": 1000
+      }
+    },
+    "verified": true
+  },
+  "status": {
+    "counters": {
+      "conflict_state": {
+        "not_assessed": 1000
+      },
+      "disposition": {
+        "withheld": 1000
+      },
+      "lifecycle": {
+        "active": 1000
+      },
+      "review_state": {
+        "deferred": 1,
+        "unprocessed": 999
+      }
+    },
+    "generation": "949091908a7a46079c0410a2113d27f8",
+    "scientific_review": false,
+    "source": {
+      "complete_export": false,
+      "edge_member": "merged-kg_edges.tsv",
+      "edge_member_sha256": "e6a846112ff8c769a8daa8a3c509c3390bd7b5e341c7998ce9188ebece9d4c9a",
+      "input_manifest_sha256": "18f1b4e39f4f7ed0d03bce59df200b50128e083b4d3a6a0e3e1105d7c3ea3dbc",
+      "ledger_revision": "7760e2f560f3870156f25657215bcb38a1a64ab6b2a0fb036723bbc7e8b19769",
+      "selected_rows": 1000,
+      "source_manifest_sha256": "f585e55a616d3771f382c91c78713cb8d74812c7ba177576090ccd5f9e6654b2",
+      "source_rows": 17637435,
+      "sqlite_sha256": "85d0f98093a595308f9246cc9c517dbaf5ef26086d65650f0cff025609498ade"
+    },
+    "table_rows": {
+      "bundles": 1,
+      "claims": 0,
+      "coverage_counts": 5,
+      "current_decisions": 1000,
+      "evidence": 0,
+      "history": 1,
+      "memberships": 1,
+      "metadata": 11,
+      "observations": 0,
+      "occurrences": 1000,
+      "reviews": 0
+    },
+    "verification_scope": "manifest_shape_and_declared_accounting_only"
+  },
+  "timings_seconds": {
+    "lookup": 0.18673249997664243,
+    "migration_including_verify": 2.599566209013574,
+    "reconciliation": 0.7655247909715399
+  },
+  "verification": {
+    "manifest_sha256": "0f107ed4c6b296f08022d4f1fe63460a798fbad7aa7f2ec7aed77e272ffc13fe",
+    "rows": 1000,
+    "scientific_review": false,
+    "table_rows": {
+      "bundles": 1,
+      "claims": 0,
+      "coverage_counts": 5,
+      "current_decisions": 1000,
+      "evidence": 0,
+      "history": 1,
+      "memberships": 1,
+      "metadata": 11,
+      "observations": 0,
+      "occurrences": 1000,
+      "reviews": 0
+    },
+    "verification_scope": "all_files_logical_rows_identities_history_current_projections",
+    "verified": true
+  }
+}

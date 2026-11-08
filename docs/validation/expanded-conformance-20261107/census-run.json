@@ -1,0 +1,41 @@
+{
+  "census_source_sha256": "2b90886fb21d1f42d3d718d936e1a09e37c935b1b23d5ff6cf4b266abfa73793",
+  "contract_pins": {
+    "claw_commit": "1b5391d083ba85ac94e5279c3cba25ac4fde243c",
+    "files": 16,
+    "verified": true
+  },
+  "counts": {
+    "ambiguous_mapping": 0,
+    "exact_eligible": 0,
+    "incompatible_scope": 0,
+    "unavailable_evidence_export": 0,
+    "unmatched": 1000
+  },
+  "elapsed_seconds_including_verification": 133.6191684580408,
+  "format": "edgemech-census-run/v1",
+  "launcher_sha256": "8d390030ae9c5f3ac909cc5ae5aa78d4c9b95ba6ce765810e772b2fc9debf9d4",
+  "manifest_sha256": "a7bfc32251c1b7890ce6ed8a873c66cf02e87a0e7d1fa05a8c3532b1d2ac5e24",
+  "native_accounting": {
+    "ancestry_references": 6,
+    "distinct_ancestry_bindings": 4,
+    "distinct_assertions": 12,
+    "distinct_evidence_bindings": 33,
+    "distinct_native_claims": null,
+    "distinct_native_observations": null,
+    "duplicate_assertion_rows": 0,
+    "evidence_references": 72,
+    "export_rows": 12,
+    "independent_experiments": null,
+    "shared_ancestry_references": 2,
+    "shared_evidence_references": 39
+  },
+  "native_validation_workers": 4,
+  "parquet_bytes": 85908,
+  "partition_files": 1,
+  "peak_rss_bytes": 219316224,
+  "peak_rss_scope": "parent_process_excludes_workers",
+  "scientific_approvals_created": 0,
+  "selected_rows": 1000,
+  "source_rows": 17637435
+}

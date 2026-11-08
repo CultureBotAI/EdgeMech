@@ -1,0 +1,30 @@
+{
+  "format": "edgemech-pr-check-inventory/v1",
+  "checks": {
+    "CultureBotAI/culturebotai-claw#962": [
+      "fleet-audit", "id-label-contract", "pytest", "embedding-projection", "history-round-trip"
+    ],
+    "CultureBotAI/culturebotai-claw#953": [
+      "fleet-audit", "id-label-contract", "pytest", "embedding-projection", "history-round-trip"
+    ],
+    "CultureBotAI/culturebotai-claw#987": [
+      "fleet-audit", "id-label-contract", "pytest", "embedding-projection", "history-round-trip", "isolated-contracts"
+    ],
+    "CultureBotAI/CultureBotAI.github.io#541": ["validate"],
+    "CultureBotAI/MediaIngredientMech#1147": [
+      "history", "native-contract", "check", "qc-sssom", "instruction-refs", "roundtrip",
+      "qc-component-partonomy", "qc-duplicate-ids", "qc-evidence", "qc-flat-coverage",
+      "reviewed-sssom", "supported-graph", "qc-unified-freshness", "pytest",
+      "id-label-gate / label-correspondence", "validate-strict", "vendored-sync"
+    ],
+    "CultureBotAI/TraitMech#2082": [
+      "history", "native-contract", "canonical-example-taxonomy",
+      "label-correspondence / label-correspondence", "pr-sanity", "pytest", "qc", "validate-strict", "vendored-sync"
+    ],
+    "CultureBotAI/HabitatMech#2313": [
+      "qc", "native-contract", "qc-evidence", "label-correspondence", "vendored-sync"
+    ],
+    "CultureBotAI/TaxonMech#229": ["qc", "native-contract", "vendored-sync"],
+    "CultureBotAI/EdgeMech#2": ["test"]
+  }
+}

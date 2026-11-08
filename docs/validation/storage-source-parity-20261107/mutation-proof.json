@@ -1,0 +1,30 @@
+{
+  "format": "edgemech-source-reconciliation-mutation/v1",
+  "mutations": [
+    {
+      "exit_code": 1,
+      "guard": "source_output",
+      "regression_failed_as_expected": true
+    },
+    {
+      "exit_code": 1,
+      "guard": "report_proof",
+      "regression_failed_as_expected": true
+    },
+    {
+      "exit_code": 1,
+      "guard": "manifest_input",
+      "regression_failed_as_expected": true
+    },
+    {
+      "exit_code": 1,
+      "guard": "migration_inputs",
+      "regression_failed_as_expected": true
+    }
+  ],
+  "production_sources_unchanged": true,
+  "source_sha256": {
+    "scripts/adhoc/summarize_validation_20261107.py": "f41ab7a2c52c20e1130bbbae623367525a38e6c77873ceea40782b6da46e09d3",
+    "src/edgemech/storage/__init__.py": "cae90869b751ecae855a2c7be20bf26e24fc4e72ec36b95b11254c5f6e2e3353"
+  }
+}

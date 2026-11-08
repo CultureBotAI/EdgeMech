@@ -1,0 +1,17 @@
+id: https://w3id.org/culturebotai/edgemech/routing
+name: edgemech_routing
+prefixes:
+  linkml: https://w3id.org/linkml/
+  edgemech: https://w3id.org/culturebotai/edgemech/
+default_prefix: edgemech
+imports: [linkml:types]
+classes:
+  RoutingRule:
+    description: Owner routing only; canonical curation schemas remain in CLAW.
+    attributes:
+      owner:
+        range: string
+        required: true
+      scope:
+        range: string
+        required: true
