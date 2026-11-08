@@ -161,7 +161,10 @@ def _input_hashes(ledger: Path, export: Path):
 
 
 def _fsync_directory(path):
-    descriptor = os.open(path, os.O_RDONLY)
+    descriptor = os.open(
+        path,
+        os.O_RDONLY | getattr(os, "O_DIRECTORY", 0) | getattr(os, "O_NOFOLLOW", 0),
+    )
     try:
         os.fsync(descriptor)
     finally:

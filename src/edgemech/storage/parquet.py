@@ -55,6 +55,17 @@ def file_hash(path: Path) -> str:
         os.close(descriptor)
 
 
+def fsync_directory(path: Path) -> None:
+    descriptor = os.open(
+        path,
+        os.O_RDONLY | getattr(os, "O_DIRECTORY", 0) | getattr(os, "O_NOFOLLOW", 0),
+    )
+    try:
+        os.fsync(descriptor)
+    finally:
+        os.close(descriptor)
+
+
 def bucket_for(key: str, buckets: int) -> int:
     return int.from_bytes(hashlib.sha256(key.encode("utf-8")).digest(), "big") % buckets
 
@@ -142,6 +153,7 @@ def write_partitioned_table(
             pq.write_table(table, handle, compression="zstd", row_group_size=row_group_size)
             handle.flush()
             os.fsync(handle.fileno())
+        fsync_directory(partition)
         parts.append({"path": path.relative_to(generation).as_posix(),
                       "sha256": file_hash(path), "bytes": path.stat().st_size, "rows": len(batch)})
 
@@ -168,6 +180,8 @@ def write_partitioned_table(
             flush(max(sizes, key=sizes.get))
     for bucket in list(buffers):
         flush(bucket)
+    fsync_directory(directory)
+    fsync_directory(generation)
     descriptor = {"schema": f"edgemech-table/{name}/v1", "partitions": sorted(
         parts, key=lambda item: item["path"])}
     digest, count = logical_hash(table_rows(generation, name, descriptor), name)

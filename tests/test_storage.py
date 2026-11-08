@@ -23,6 +23,7 @@ from kg_microbe_curation.identity import (
 from kg_microbe_curation.ledger import apply_bundle, coverage, ingest_export
 
 from edgemech import storage
+from edgemech.storage import parquet
 from edgemech.storage.parquet import file_hash, logical_hash, table_rows
 
 
@@ -395,3 +396,37 @@ def test_nonempty_native_payload_review_and_evidence_are_preserved(ledger_input,
     assert result["current_decision"]["disposition"] == "withheld"
     assert result["scientific_review"] is False
     assert result["history"][-1]["bundle"]["document"] == canonical_json(bundle).decode()
+
+
+@pytest.mark.parametrize("helper", [storage._fsync_directory, parquet.fsync_directory])
+def test_fsync_directory_rejects_regular_files_and_symlinks(tmp_path, helper):
+    regular = tmp_path / "regular.txt"
+    regular.write_text("file")
+    with pytest.raises(OSError):
+        helper(regular)
+    target = tmp_path / "dir"
+    target.mkdir()
+    symlink = tmp_path / "dir-link"
+    symlink.symlink_to(target, target_is_directory=True)
+    with pytest.raises(OSError):
+        helper(symlink)
+
+
+def test_write_partitioned_table_fsyncs_partition_and_table_directories(tmp_path, monkeypatch):
+    flushed = []
+    original = parquet.fsync_directory
+
+    def tracked(path):
+        flushed.append(path)
+        return original(path)
+
+    monkeypatch.setattr(parquet, "fsync_directory", tracked)
+    descriptor = storage.write_partitioned_table(
+        tmp_path, "metadata", [("a", "1"), ("b", "2")], buckets=2,
+    )
+    assert descriptor["rows"] == 2
+    assert tmp_path / "metadata" in flushed
+    assert tmp_path in flushed
+    for part in descriptor["partitions"]:
+        assert (tmp_path / part["path"]).parent in flushed
+

@@ -82,7 +82,7 @@ the complete test suite once, including both new readiness regressions.
 Fixes #1. Fixes #3. Fixes #4. Fixes #5. Fixes #6. Fixes #7. Fixes #8. Fixes #9.
 Fixes #10. Fixes #11. Fixes #12. Fixes #13. Fixes #14. Fixes #15. Fixes #16. Fixes #17. Fixes #18.
 Fixes #19.
-Fixes #20.
+Fixes #20. Fixes #23. Fixes #24.
 
 [Milestone disposition](docs/milestone-status-20261107.md) records cross-repo
 dependencies and the scientific follow-ups that remain open. This PR does not
