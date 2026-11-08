@@ -11,7 +11,7 @@ Every PR below remains unmerged; merges require explicit human approval.
 | [CLAW #962](https://github.com/CultureBotAI/culturebotai-claw/pull/962) | Shared artifact/native assertion contracts and reviewed semantics | Final adversarial review complete at `6031604c`; all five CI checks passed; ready for human merge decision. |
 | [CLAW #987](https://github.com/CultureBotAI/culturebotai-claw/pull/987) | Minimal canonical contract distribution for native consumers | Depends on #962; final review and all six CI checks passed at `326bdff8`; MIM dependency adoption remains open. |
 | [EdgeMech #2](https://github.com/CultureBotAI/EdgeMech/pull/2) | Repository scaffold, routing, lossless SQLite migration, external Parquet/DuckDB, native packets and complete census | Full census and source/output parity verified. Runtime contract pin `1b5391d083ba85ac94e5279c3cba25ac4fde243c`; all 16 imported files checked. See the PR's final exact-head CI/readiness audit. |
-| [CLAW #953](https://github.com/CultureBotAI/culturebotai-claw/pull/953) | Explicit post-cutoff infrastructure admission, preserving historical DUF release bytes | [#960](https://github.com/CultureBotAI/culturebotai-claw/issues/960) implemented; final review and all five CI checks passed at `85a69ee2`; ready for human merge decision. |
+| [CLAW #953](https://github.com/CultureBotAI/culturebotai-claw/pull/953) | Explicit post-cutoff infrastructure admission, preserving historical DUF release bytes | [#960](https://github.com/CultureBotAI/culturebotai-claw/issues/960) implemented; current-main integration and public sync repairs reviewed under [CLAW #997](https://github.com/CultureBotAI/culturebotai-claw/issues/997) and [CLAW #1004](https://github.com/CultureBotAI/culturebotai-claw/issues/1004). A fresh consumer dry/apply canary passed. See the PR's final exact-head CI/readiness audit. |
 | [MIM #1147](https://github.com/CultureBotAI/MediaIngredientMech/pull/1147) | Pinned ingredient decision export | Final review and all 17 CI checks passed at `8ec80235`; [#1144](https://github.com/CultureBotAI/MediaIngredientMech/issues/1144) advanced by CLAW #987. |
 | [Trait #2082](https://github.com/CultureBotAI/TraitMech/pull/2082) | Owner-bound canonical examples and exact-observation evidence inventory | Final review and all nine CI checks passed at `39bc45b6`; ready for human merge decision. [#2083](https://github.com/CultureBotAI/TraitMech/issues/2083) remains open for exact observations and their reviews. |
 | [Habitat #2313](https://github.com/CultureBotAI/HabitatMech/pull/2313) | Native decisions plus BacDive, PREGO and Madin source associations | Final review and all five CI checks passed at `73eed5f6`; ready for human merge decision. [#2311](https://github.com/CultureBotAI/HabitatMech/issues/2311) retains scientific review and projection work. |
@@ -156,10 +156,10 @@ Final scoped review confirmed that all 19 governed files and the pin still match
 that clean EdgeMech canary head. The later readiness helper, reports and #19
 test-lint change are outside the governed set; the historical no-op proof is
 not relabeled as a new clean-head canary.
-Final candidate CI passed at `85a69ee2164a3c9e70e0ffd8a9c33038ab84d716`:
+Before the subsequent main integration, candidate CI passed at `85a69ee2164a3c9e70e0ffd8a9c33038ab84d716`:
 7,898 tests passed, 446 skipped, 87.77% coverage; the safety-module coverage gate
 passed at 77%, and CI mypy passed across 103 source files. All five checks are
-green, and the PR is ready for human review. Review findings #982, #984, #986 and #988 cover
+green at that historical head. Review findings #982, #984, #986 and #988 cover
 bootstrap completeness, receipt-path aliases, actual source-object binding and
 explicit rejection of invalid fetch refs; each was filed and repaired before
 the canary. Earlier cohort assumptions were repaired under #963.
@@ -169,6 +169,44 @@ preserves the existing manifest-derived workflow assertion, and leaves the
 verified policy/helper bytes unchanged. The repaired head `85a69ee2` passes the
 authoritative fleet audit: 185 candidate tests, plus 45 completeness tests with
 one skipped, and the protected historical fourteen-consumer audit.
+
+The final readiness audit then detected a real conflict with newly advanced
+CLAW main `081e9c8f44c5ce28849e162b7fecac1b3ba17ad7`. The review finding was
+filed as [CLAW #997](https://github.com/CultureBotAI/culturebotai-claw/issues/997)
+before integration. Upstream now permits checksum-valid current payload revisions;
+the repair separates those revisions from an exact packaged admitted-manifest
+snapshot. The snapshot remains bound to the unchanged `7e672227` source and
+admission declaration. Current authority, layout, applicability and checksums
+still validate; the historical fourteen-consumer cohort and its target bytes
+remain fixed. The integration passed 124 focused tests, an independent review,
+and three targeted mutation controls.
+
+The required real dry-run canary then caught a public-sync mismatch before any
+write or receipt: the ordinary synchronizer still required the historical pin
+to match today's installed payloads. [CLAW #1004](https://github.com/CultureBotAI/culturebotai-claw/issues/1004)
+records that finding and its repair. Only the exact admitted Edge identity and
+declared source pin may select the separately authenticated old data. One
+verified byte bundle flows through planning, transaction writes, post-verification
+and rollback; the generic canonical verifier remains strict. Nine new public-path
+tests, 51 existing governance/transaction/sparse tests, an installed-wheel
+public-plan check, two targeted mutation controls and three read-only reviews
+passed. [CLAW #1006](https://github.com/CultureBotAI/culturebotai-claw/issues/1006)
+records the mutation harness's import-origin rejection and its correction;
+the rejected run is not counted as a successful mutation proof.
+
+The corrected real canaries used policy commit
+`a099f2559e334bdec9941b1d25fb3f714d36add0` and the clean EdgeMech feature head
+`375a86e9d0ae56533d73b54654867d55c29026e4`, with the same non-login Bash,
+interpreter, launcher, environment and output parent for dry-run and apply mode.
+Both persisted receipts verify 19 working and committed artifacts plus the exact
+data pin, with zero planned/applied changes and protected admission inactive.
+Their independently rehashed receipts are dry
+`67e712957d5db6df26bcab37fdf628c454d8b8fa5eb530dd8261fde45009c851` and apply
+`811436513d01591f8631f640aafcc2829b2e4b01421ae839366e7547e0b2a77c`.
+These receipts supersede the earlier canary for the integrated policy without
+relabelling its historical proof. The subsequent EdgeMech documentation update
+changes no governed files, runtime, census inputs or outputs. Final CI and the
+nine-PR readiness result are retained with the PR handoff; no merge is implied.
 
 Two unrelated local findings remain filed: CLAW #965 concerns a stale local
 ProteinTraitsMech checkout selected by fallback configuration; #966 concerns a

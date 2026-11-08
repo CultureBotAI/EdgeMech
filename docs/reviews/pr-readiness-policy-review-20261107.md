@@ -54,3 +54,14 @@ the complete test directory, preserving the reviewed `test` job and PR triggers.
 The audit
 records a point-in-time GitHub snapshot and does not grant permission to merge
 or replace the separate adversarial review.
+
+The first nine-PR audit did not certify readiness: GitHub initially returned
+unknown merge states for three CLAW PRs. Refresh confirmed #962/#987 clean but
+#953 conflicting with newly advanced main `081e9c8f44c5ce28849e162b7fecac1b3ba17ad7`.
+CLAW #997 records that integration finding. Independent read-only comparison
+confirmed that main changed no workflow from the prior base `c7485ddb`; the five
+CLAW #953 jobs and their unfiltered PR triggers remain identical. The #997/#1004
+policy and public-sync repairs, tests and consumer canary add no workflow job.
+The pinned expected-check inventory therefore remains unchanged. The final
+audit must pin the new reviewed CLAW #953 head, along with the final EdgeMech
+documentation head, rather than reuse the earlier successful CI heads.
