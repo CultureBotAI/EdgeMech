@@ -1,0 +1,65 @@
+{
+  "all_ready": true,
+  "completed_at": "2026-11-07T23:12:05.721165+00:00",
+  "expected_checks_sha256": "f122463d877629b86e2145eafd7f1ce29ecf7b1d849c2e32ebd0a6516fe59486",
+  "format": "edgemech-pr-readiness-audit/v1",
+  "merge_permission": false,
+  "prs": [
+    {
+      "checked_at": "2026-11-07T23:12:04.979390+00:00",
+      "checks": [
+        {
+          "completedAt": "2026-11-07T21:24:44Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/CultureBotAI/culturebotai-claw/actions/runs/42415658624/job/128533053498",
+          "name": "fleet-audit",
+          "status": "COMPLETED"
+        },
+        {
+          "completedAt": "2026-11-07T21:24:42Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/CultureBotAI/culturebotai-claw/actions/runs/42415658567/job/128533053409",
+          "name": "id-label-contract",
+          "status": "COMPLETED"
+        },
+        {
+          "completedAt": "2026-11-07T21:29:20Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/CultureBotAI/culturebotai-claw/actions/runs/42415658564/job/128533053702",
+          "name": "pytest",
+          "status": "COMPLETED"
+        },
+        {
+          "completedAt": "2026-11-07T21:24:16Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/CultureBotAI/culturebotai-claw/actions/runs/42415658564/job/128533053541",
+          "name": "embedding-projection",
+          "status": "COMPLETED"
+        },
+        {
+          "completedAt": "2026-11-07T21:24:05Z",
+          "conclusion": "SUCCESS",
+          "detailsUrl": "https://github.com/CultureBotAI/culturebotai-claw/actions/runs/42415658564/job/128533053911",
+          "name": "history-round-trip",
+          "status": "COMPLETED"
+        }
+      ],
+      "expected_checks": [
+        "embedding-projection",
+        "fleet-audit",
+        "history-round-trip",
+        "id-label-contract",
+        "pytest"
+      ],
+      "expected_head": "6031604c3b24a1a47a0b15a1ec1d46db47d73e1e",
+      "failures": [],
+      "is_draft": false,
+      "merge_state": "CLEAN",
+      "observed_head": "6031604c3b24a1a47a0b15a1ec1d46db47d73e1e",
+      "ready": true,
+      "state": "OPEN",
+      "url": "https://github.com/CultureBotAI/culturebotai-claw/pull/962"
+    }
+  ],
+  "script_sha256": "3f0ef8ad291672c0c4e592e7bc2b167675694104f0b4707110a131076c163b13"
+}

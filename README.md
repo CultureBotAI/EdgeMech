@@ -91,9 +91,8 @@ The [local reader interface](docs/reader-interface-v1.md) defines bounded exact
 detail, ID search, pagination and artifact downloads for a future browser.
 Its pinned manifests and explicit byte budgets do not imply a hosted service.
 
-Run `uv run --frozen pytest -q` and `uv run --frozen ruff check src/edgemech
-tests/test_storage.py tests/test_census.py tests/test_packets.py tests/test_pins.py
-tests/test_validation_report.py scripts/adhoc`.
+Run `uv run --frozen pytest -q` and
+`uv run --frozen ruff check src/edgemech tests scripts/adhoc`.
 The retained launchers in `scripts/adhoc/` produce storage/census receipts with
 hashes, persisted counters, elapsed time and peak process memory. Their outputs
 belong in ignored `workspace/` or another explicitly selected artifact store.
@@ -107,4 +106,6 @@ occurrences and contribute no eligible-overlap counts or scientific approvals.
 See the [persisted validation evidence](docs/validation/20261107.md) and the
 [cross-repository milestone review](docs/milestone-status-20261107.md) for input
 pins, measured results, native scope limits and the separate fleet-admission
-policy blocker. Bulk data and full receipts remain outside Git.
+dependency. Its policy repair is reviewed and green; protected admission remains
+inactive until the required PR is explicitly approved and merged. Bulk data and
+full receipts remain outside Git.

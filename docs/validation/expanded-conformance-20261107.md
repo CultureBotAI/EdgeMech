@@ -56,6 +56,14 @@ of the six new surfaces above: 12 native assertions across ten pinned exports.
 The [retained manifest](expanded-conformance-20261107/census-manifest.json) records
 all ten input manifest hashes and their immutable source commits.
 
+The actual command used `.venv/bin/python` in the EdgeMech worktree, through
+`exec_command` with its default Bash shell and default `login=true`. The complete
+census uses that same interpreter, launcher, working directory, login shell and
+four-worker mode, replacing representative input directories with their frozen
+complete exports and omitting `--limit`. Neither census invocation used `uv run`.
+The native producers' separately documented nonlogin shells are not the
+downstream census launcher.
+
 The driver verified all selected native rows, source member hashes and persisted
 native replay, then independently read the stored Parquet classification counts.
 The published result contains 1,000 KG occurrences, all unmatched, with zero
