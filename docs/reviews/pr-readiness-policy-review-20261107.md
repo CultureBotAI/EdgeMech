@@ -65,3 +65,14 @@ policy and public-sync repairs, tests and consumer canary add no workflow job.
 The pinned expected-check inventory therefore remains unchanged. The final
 audit must pin the new reviewed CLAW #953 head, along with the final EdgeMech
 documentation head, rather than reuse the earlier successful CI heads.
+
+The final refresh also exposed stale Taxon #229 test-merge metadata while
+GitHub reported `CLEAN` / `MERGEABLE`. This is not evidence that the clean
+result was false. An isolated Git check of actual main `5d69e8f` and reviewed
+head `9495d593` confirmed a conflict-free merge without changing the feature
+branch or rerunning CI. The [retained proof and API limitation](pr-readiness-stale-merge-base-20261108.md)
+record the immutable inputs, unique merge base and output hashes. EdgeMech
+#22 remains open as nonblocking future receipt-observability work; it adds no
+up-to-date-branch or fresh test-merge requirement. The audit continues to
+report a point-in-time status, not CI validation of every newly composed tree
+or permission to merge.
