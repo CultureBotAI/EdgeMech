@@ -1,5 +1,5 @@
 {
-  "commit": "1b5391d083ba85ac94e5279c3cba25ac4fde243c",
+  "commit": "0ca25b8ee68d1fbccb4d05dcc2002fa8a64c0c34",
   "format": "edgemech-contract-pins/v2",
   "packages": {
     "kg_microbe_curation": {
@@ -8,13 +8,13 @@
       "contract.py": "d9eb93add3fbb438cbd6008767b28a0c4eadfbc03688462d490c965ff034268e",
       "identity.py": "9c760f3e82051d24b3c1cc79d787e96b35e24529b4ead9254ff55adc1266b948",
       "ledger.py": "626f473e4e32ce70518c2413cd4980700726d0d8d5c22be48a62400742b8f9d1",
-      "native.py": "c6b3d6efabebc26fd5b9e3a8b3e5ab559b8cf6559e22cab77538d761cd5a61a0",
+      "native.py": "51b28b232eb9db0fee9eaf35326a0eb1a3aa4924a7341aa4db9f9bca9da5b84f",
       "schema/artifact.json": "36f1542e2b570e58ba4a59846a1916a79e1fd51c4c56f4450131993912bf4d08",
       "schema/bundle.json": "04db51cdeebf19b36d68ea8dae88ebabb9910e8f4eb03e31aff8d46f2902fb5e",
       "schema/native_assertion.json": "0bb7ebf25e0e1bea9fea17d47981b2773b16f3fa8cdbed31686bccdaeaaa5124"
     },
     "kg_microbe_governance": {
-      "__init__.py": "9b6a7259a9b22ae627862a7d3df48cef56ed18debfea0d9e3998f00aa8c5ec81",
+      "__init__.py": "cd4e9b3f22d247804a792565daf867a161d9cc9ac99f9b49276c5a768ef7faf9",
       "artifacts/__init__.py": "4e47389554e9e8d6e05a90ecf7dc6ad5708f08e56d012d9129970d58b9c6d069",
       "artifacts/schema/record_review.yaml": "229baf9b69118a1fe318e4c31085c0820e4e3d1365e7b04d6ace451b7c35f9bb",
       "artifacts/scripts/__init__.py": "f04a7a4160750e47ff2bee761c610ed7f4d12f6f50b914dd3527ec672ebc1af2",

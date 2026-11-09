@@ -18,8 +18,13 @@ from concurrent.futures import ThreadPoolExecutor
 from datetime import UTC, datetime
 from pathlib import Path
 
-PIN = re.compile(r"(?P<repo>[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+)#(?P<number>[1-9][0-9]*)=(?P<head>[0-9a-f]{40})")
-FIELDS = "number,url,headRefOid,isDraft,state,mergeStateStatus,statusCheckRollup"
+PIN = re.compile(
+    r"(?P<repo>[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+)#(?P<number>[1-9][0-9]*)=(?P<head>[0-9a-f]{40})"
+)
+FIELDS = (
+    "number,url,headRefOid,baseRefName,baseRefOid,potentialMergeCommit,"
+    "isDraft,state,mergeStateStatus,statusCheckRollup"
+)
 
 
 def load_expected(path: Path, digest: str) -> dict:
@@ -27,15 +32,71 @@ def load_expected(path: Path, digest: str) -> dict:
     if hashlib.sha256(raw).hexdigest() != digest:
         raise ValueError("Expected-check inventory differs from pinned digest")
     data = json.loads(raw)
-    if data.get("format") != "edgemech-pr-check-inventory/v1" or not isinstance(data.get("checks"), dict):
+    if (
+        data.get("format") != "edgemech-pr-check-inventory/v1"
+        or not isinstance(data.get("checks"), dict)
+    ):
         raise ValueError("Invalid expected-check inventory")
     for identity, checks in data["checks"].items():
-        if (not isinstance(identity, str) or PIN.fullmatch(identity + "=" + "0" * 40) is None
-                or not isinstance(checks, list) or not checks
-                or any(not isinstance(name, str) or not name for name in checks)
-                or len(set(checks)) != len(checks)):
+        if (
+            not isinstance(identity, str)
+            or PIN.fullmatch(identity + "=" + "0" * 40) is None
+            or not isinstance(checks, list)
+            or not checks
+            or any(not isinstance(name, str) or not name for name in checks)
+            or len(set(checks)) != len(checks)
+        ):
             raise ValueError("Expected checks must be explicit, nonempty and unique for each PR")
     return data["checks"]
+
+
+def _extract_parents(pmc: object) -> list[str]:
+    if not isinstance(pmc, dict):
+        return []
+    raw_parents = pmc.get("parents")
+    if isinstance(raw_parents, dict) and isinstance(raw_parents.get("nodes"), list):
+        return [
+            node["oid"]
+            for node in raw_parents["nodes"]
+            if isinstance(node, dict) and isinstance(node.get("oid"), str)
+        ]
+    if isinstance(raw_parents, list):
+        parents: list[str] = []
+        for item in raw_parents:
+            if isinstance(item, dict) and isinstance(item.get("oid"), str):
+                parents.append(item["oid"])
+            elif isinstance(item, str):
+                parents.append(item)
+        return parents
+    return []
+
+
+def _default_branch_oid(repo: str, data: dict) -> str | None:
+    if isinstance(data.get("defaultBranchOid"), str):
+        return data["defaultBranchOid"]
+    default_ref = data.get("defaultBranchRef")
+    if isinstance(default_ref, dict) and isinstance(default_ref.get("target"), dict):
+        oid = default_ref["target"].get("oid")
+        if isinstance(oid, str):
+            return oid
+    base_ref_name = data.get("baseRefName")
+    if isinstance(base_ref_name, str) and base_ref_name:
+        try:
+            ref_res = subprocess.run(
+                ["gh", "api", f"repos/{repo}/git/ref/heads/{base_ref_name}"],
+                check=True,
+                capture_output=True,
+                text=True,
+                timeout=60,
+            )
+            ref_data = json.loads(ref_res.stdout)
+            if isinstance(ref_data, dict) and isinstance(ref_data.get("object"), dict):
+                oid = ref_data["object"].get("oid")
+                if isinstance(oid, str):
+                    return oid
+        except (OSError, subprocess.SubprocessError, ValueError):
+            return None
+    return None
 
 
 def inspect(pin: str, expected: dict) -> dict:
@@ -47,7 +108,10 @@ def inspect(pin: str, expected: dict) -> dict:
     checked = datetime.now(UTC).isoformat()
     result = subprocess.run(
         ["gh", "pr", "view", number, "--repo", repo, "--json", FIELDS],
-        check=True, capture_output=True, text=True, timeout=60,
+        check=True,
+        capture_output=True,
+        text=True,
+        timeout=60,
     )
     data = json.loads(result.stdout)
     failures = []
@@ -62,13 +126,40 @@ def inspect(pin: str, expected: dict) -> dict:
     ):
         if not valid:
             failures.append(reason)
+
+    base_ref_oid = data.get("baseRefOid") if isinstance(data.get("baseRefOid"), str) else None
+    default_branch_oid = _default_branch_oid(repo, data)
+    pmc = data.get("potentialMergeCommit")
+    potential_merge_commit_oid = (
+        pmc.get("oid") if isinstance(pmc, dict) and isinstance(pmc.get("oid"), str) else None
+    )
+    potential_merge_parents = _extract_parents(pmc)
+    base_oid_matches_default_branch = (
+        (base_ref_oid == default_branch_oid)
+        if (base_ref_oid is not None and default_branch_oid is not None)
+        else None
+    )
+    if base_oid_matches_default_branch is False:
+        failures.append("PR baseRefOid differs from target default branch OID")
+    if potential_merge_parents:
+        if default_branch_oid is not None and default_branch_oid not in potential_merge_parents:
+            failures.append("potentialMergeCommit parents do not include current default branch OID")
+        if head not in potential_merge_parents:
+            failures.append("potentialMergeCommit parents do not include reviewed PR head OID")
+
     checks, observed_names = [], []
     for check in data["statusCheckRollup"]:
         if check.get("__typename") == "CheckRun":
             observed_names.append(check.get("name"))
-            passed = check.get("status") == "COMPLETED" and check.get("conclusion") == "SUCCESS"
-            checks.append({key: check.get(key) for key in
-                           ("name", "status", "conclusion", "detailsUrl", "completedAt")})
+            passed = (
+                check.get("status") == "COMPLETED" and check.get("conclusion") == "SUCCESS"
+            )
+            checks.append(
+                {
+                    key: check.get(key)
+                    for key in ("name", "status", "conclusion", "detailsUrl", "completedAt")
+                }
+            )
         elif check.get("__typename") == "StatusContext":
             observed_names.append(check.get("context"))
             passed = check.get("state") == "SUCCESS"
@@ -77,15 +168,28 @@ def inspect(pin: str, expected: dict) -> dict:
             passed = False
             checks.append({"unrecognized_check_type": check.get("__typename")})
         if not passed:
-            failures.append(f"Check not successful: {check.get('name', check.get('context', 'unknown'))}")
+            failures.append(
+                f"Check not successful: {check.get('name', check.get('context', 'unknown'))}"
+            )
     if set(observed_names) != set(required_checks) or len(observed_names) != len(required_checks):
         failures.append("Reported check inventory differs from reviewed expected checks")
     return {
-        "url": data["url"], "expected_head": head, "observed_head": data["headRefOid"],
-        "checked_at": checked, "state": data["state"], "is_draft": data["isDraft"],
-        "merge_state": data["mergeStateStatus"], "checks": checks,
+        "url": data["url"],
+        "expected_head": head,
+        "observed_head": data["headRefOid"],
+        "base_ref_oid": base_ref_oid,
+        "default_branch_oid": default_branch_oid,
+        "potential_merge_commit_oid": potential_merge_commit_oid,
+        "potential_merge_parents": potential_merge_parents,
+        "base_oid_matches_default_branch": base_oid_matches_default_branch,
+        "checked_at": checked,
+        "state": data["state"],
+        "is_draft": data["isDraft"],
+        "merge_state": data["mergeStateStatus"],
+        "checks": checks,
         "expected_checks": sorted(required_checks),
-        "ready": not failures, "failures": failures,
+        "ready": not failures,
+        "failures": failures,
     }
 
 
@@ -122,8 +226,16 @@ def main() -> int:
         handle.write("\n")
         handle.flush()
         os.fsync(handle.fileno())
-    print(json.dumps({"receipt": str(args.output), "all_ready": receipt["all_ready"],
-                      "prs": len(records)}, sort_keys=True))
+    print(
+        json.dumps(
+            {
+                "receipt": str(args.output),
+                "all_ready": receipt["all_ready"],
+                "prs": len(records),
+            },
+            sort_keys=True,
+        )
+    )
     return 0 if receipt["all_ready"] else 1
 
 

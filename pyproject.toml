@@ -8,7 +8,7 @@ dependencies = [
   "duckdb==2.0.0",
   "pyarrow==26.0.1",
   "pyyaml==6.0.3",
-  "kg-microbe-orchestration @ git+https://github.com/CultureBotAI/culturebotai-claw.git@1b5391d083ba85ac94e5279c3cba25ac4fde243c",
+  "kg-microbe-orchestration @ git+https://github.com/CultureBotAI/culturebotai-claw.git@0ca25b8ee68d1fbccb4d05dcc2002fa8a64c0c34",
 ]
 
 [project.optional-dependencies]
