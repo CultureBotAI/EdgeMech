@@ -1,0 +1,58 @@
+{
+  "parent_judgments": "conf/literature_assessments/20261109-pilot-judgments.json",
+  "capture_manifest": "conf/literature_assessments/20261110-source-captures.json",
+  "revisions": [
+    {
+      "row_number": 7728825, "outcome": "supported", "capture_id": "basfia-original",
+      "quote": "Glucose is fermented\nwithout production of gas.", "support": "supports",
+      "rationale": "The original species description explicitly reports glucose fermentation. This supports the bounded process interpretation for characterized Basfia isolates; it is not extrapolated to all strains or conditions.",
+      "predicate_reason": "Direct process wording supports fermentation capability, unlike abstract-only product inference.",
+      "object_reason": "The original paper explicitly names fermentation without gas production; the retained sentence preserves the line break in the author-PDF text capture.",
+      "context": "The species description reports glucose fermentation without gas production for the characterized Basfia isolates, alongside anaerobic succinic-acid production. Conditions and strain coverage are bounded to that description; pH from separate assays is not transferred to this assertion.",
+      "evidence_scope": "Original cited species description from the author-PDF tool extraction, with manual publication-identity verification. The complete process sentence is literal across its retained line break. OCR limitations remain; no raw PDF bytes or visual page verification are claimed. No independent ontology-mapping approval, native claim admission or scope propagation."
+    },
+    {
+      "row_number": 7726743, "outcome": "supported", "capture_id": "actino-original",
+      "quote": "fermentative, facultatively anaerobic, pleomorphic", "support": "supports",
+      "rationale": "Printed page210 of the original paper directly characterizes type strain130Z as fermentative. This resolves process-level source support at the characterized-strain scope.",
+      "predicate_reason": "Explicit physiological characterization supports capable_of Fermentation.",
+      "object_reason": "Fermentative is the paper's own process characterization, not inferred solely from acid production.",
+      "context": "The original full-text physiological description on printed page210 concerns type strain130Z/ATCC55618, a facultatively anaerobic bovine-rumen isolate. Its fermentation capability is distinct from the separately tested fumarate-respiration assay and is not generalized across all strains or media.",
+      "evidence_scope": "Original cited paper, printed page210, retained as tool-extracted primary text with manual publication-identity verification. The physiological phrase is literal; raw PDF bytes and visually inspected page images are not retained. No native claim admission or scope propagation."
+    },
+    {
+      "row_number": 7726749, "outcome": "concern", "capture_id": "actino-original",
+      "quote": "enrichment medium without lasalocid or fumarate", "support": "partial",
+      "rationale": "The original paper distinguishes the initial rumen enrichment formulation from isolated-colony product screening, which omits fumarate. The source-table combined CSL/glucose/fumarate value cannot establish simultaneous consumption of all components. Preserve the source assertion and route a medium-context correction; this does not prove fumarate cannot be consumed in another assay.",
+      "predicate_reason": "A supplied enrichment formulation and consumed substrates are different assertions; consumption of this complete mixture is not established.",
+      "object_reason": "The combined object conflates medium stages. Do not split it into three consumption edges or invent a shared assay.",
+      "context": "Printed page208 distinguishes rumen enrichment containing corn steep liquor, glucose and sodium fumarate from isolated-colony screening in medium without fumarate or lasalocid. The initial mixed enrichment is not an ingredient-consumption assay on the isolated strain; fumarate respiration is examined separately.",
+      "evidence_scope": "Original cited full-text methods captured as tool-extracted primary text, with retained source-row and column context. The literal medium-stage exclusion supports a qualified interpretive concern, not a negative fumarate-utilization result. OCR limitations remain; no native claim admission or invented component-consumption edges."
+    },
+    {
+      "row_number": 7728857, "outcome": "unknown",
+      "rationale": "Succinic-acid production is supported, and the source cell itself says succinate. The actual mapped object is CHEBI:26806, a succinate-anion class containing monoanion and dianion, not specifically CHEBI:30031. The producer preserves the literal via exact-name mapping. The remaining gap is paper-to-source-table chemical scope, not a demonstrated name-mapping bug; no acid/anion equivalence policy is silently imposed.",
+      "predicate_reason": "Product production is established at the acid/base-family level.",
+      "object_reason": "CHEBI:26806 excludes neutral succinic acid CHEBI:15741. Preserve reported analyte wording; explicit normalization and culture/analytical conditions remain required.",
+      "context": "The primary abstract and species description report succinic-acid production under anaerobic glucose conditions in characterized Basfia isolates. The source-table token is succinate. Those conditions alone do not establish a policy equating the reported acid with the mapped anion class.",
+      "evidence_scope": "Original cited abstract quotation retained for product-family support, with full-text species-description context and an explicit ChEBI/producer-mapping audit. Exact chemical normalization remains unresolved; the captured full text has OCR limitations. No native claim admission or scope propagation."
+    },
+    {
+      "row_number": 7726784, "outcome": "unknown",
+      "rationale": "The original full text confirms succinic-acid production, but the exact source assertion uses CHEBI:26806 because its original cell says succinate. This faithfully preserves the source literal. The paper uses acidic HPLC analysis and buffered culture contexts, which do not themselves define a graph-wide protonation normalization policy. Keep exact chemical interpretation unresolved pending that explicit policy.",
+      "predicate_reason": "Production of the succinic-acid/anion family is directly evidenced; uncertainty concerns the exact normalized object.",
+      "object_reason": "CHEBI:26806 is the general anion class, not a specifically selected dianion. No replacement of the original object is made.",
+      "context": "The original full-text methods/results describe type strain130Z product formation in CSL-containing buffered cultures and organic-acid analysis with an acidic HPLC eluent. The paper reports succinic acid, while the source-table cell says succinate; culture and analytical contexts must remain distinct from an ontology normalization policy.",
+      "evidence_scope": "Original cited abstract quotation retained for product-family support, supplemented by original full-text methods/results and an explicit ChEBI/producer-mapping audit. The source capture retains OCR limitations. Exact chemical scope remains unresolved; no native claim admission or scope propagation."
+    },
+    {
+      "row_number": 7726785, "outcome": "unknown", "capture_id": "actino-original",
+      "quote": "succinic acid was produced along with acetic acid", "support": "partial",
+      "rationale": "The original paper now supplies positive evidence of acetic-acid co-production by130Z, resolving the earlier abstract evidence gap. Exact acetate representation still requires the same explicit acid/anion policy applied to succinate. Independent1997 work DOI10.1007/s002030050452 explicitly names acetate, but it is recorded as corroboration rather than substituted for the row's original citation.",
+      "predicate_reason": "Co-production is established; unknown reflects exact chemical grounding, not missing product evidence or evidence of absence.",
+      "object_reason": "Apply the same chemical-scope standard to acetate and succinate; do not approve one conjugate-base mapping while withholding the other without a policy.",
+      "context": "Printed page210 reports acetic-acid co-production with succinic acid by type strain130Z in CSL/MgCO3-containing cultures. Original methods distinguish enrichment and isolated-colony screening. The original cited paper's acetic-acid wording and the source-table acetate token are kept separate from the independent1997 corroborating study.",
+      "evidence_scope": "Original cited full-text product passage, retained as literal tool-extracted text, plus explicit acid/anion-scope and producer-mapping review. Independent1997 evidence is corroboration only. OCR limitations remain and exact chemical normalization is unresolved; no native claim admission."
+    }
+  ]
+}

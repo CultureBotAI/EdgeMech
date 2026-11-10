@@ -1,0 +1,35 @@
+{
+  "format": "edgemech-source-capture/v1",
+  "captures": [
+    {
+      "capture_id": "actino-original",
+      "reference": "doi:10.1099/00207713-49-1-207",
+      "title": "Actinobacillus succinogenes sp. nov., a novel succinic-acid-producing strain from the bovine rumen",
+      "url": "https://www.researchgate.net/profile/Mahendra-Jain-5/publication/13261839_Actinobacillus_succinogenes_sp_nov_a_novel_succinic-acid-producing_strain_from_the_bovine_rumen/links/00b495295080be4edd000000/Actinobacillus-succinogenes-sp-nov-a-novel-succinic-acid-producing-strain-from-the-bovine-rumen.pdf",
+      "representation": "tool-extracted primary text",
+      "identity_review": {
+        "verified": true,
+        "reviewer": "Codex",
+        "doi": "10.1099/00207713-49-1-207",
+        "title": "Actinobacillus succinogenes sp. nov., a novel succinic-acid-producing strain from the bovine rumen",
+        "basis": "Manually compared title, Guettler/Rumler/Jain authors, 1999 volume49 pages207-216, type strain130Z/ATCC55618 and publisher DOI metadata. Captured web-tool PDF text includes printed p208 methods and p210 results. Direct local download returned403; this snapshot is tool text, not retained PDF bytes or visually inspected page images."
+      },
+      "snapshot": {"path": "workspace/issue41-actino-web-capture-20261110.txt", "sha256": "6078072a1ce64b827b53befa1a075428b68ba033ca00848499a7a87124028a65"}
+    },
+    {
+      "capture_id": "basfia-original",
+      "reference": "doi:10.1099/ijs.0.011809-0",
+      "title": "Basfia succiniciproducens gen. nov., sp. nov., a new member of the family Pasteurellaceae isolated from bovine rumen",
+      "url": "https://www.researchgate.net/profile/Peter-Kuhnert/publication/26710711_Basfia_succiniciproducens_gen_nov_sp_nov_a_new_member_of_the_family_Pasteurellaceae_isolated_from_bovine_rumen/links/00b495326ef8842594000000/Basfia-succiniciproducens-gen-nov-sp-nov-a-new-member-of-the-family-Pasteurellaceae-isolated-from-bovine-rumen.pdf",
+      "representation": "tool-extracted primary text",
+      "identity_review": {
+        "verified": true,
+        "reviewer": "Codex",
+        "doi": "10.1099/ijs.0.011809-0",
+        "title": "Basfia succiniciproducens gen. nov., sp. nov., a new member of the family Pasteurellaceae isolated from bovine rumen",
+        "basis": "Manually checked DOI, title, Kuhnert and coauthors, 2010 volume60 pages44-50 and species description against publisher metadata and original author-uploaded seven-page PDF tool text. Printed p48 appears at lines338-339 page4. This is retained tool-extracted PDF text, not local PDF bytes or visually verified page images. The earlier HTML mirror interleaved columns and is superseded for this assessment."
+      },
+      "snapshot": {"path": "workspace/issue41-basfia-pdf-web-capture-20261110.txt", "sha256": "76dc45e4a1681ebd83930d0e8f2c95c5be6f6cf47747f265c7db6c444b96a9ac"}
+    }
+  ]
+}
