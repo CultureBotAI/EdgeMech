@@ -202,7 +202,7 @@ class LiteratureCache:
             result["status"] = "invalid_metadata"
             return result
         if record is None:
-            self.db.execute("UPDATE cache SET expires=? WHERE key=?",
+            self.db.execute("UPDATE cache SET expires=min(expires,?) WHERE key=?",
                             (self.clock() + 86400, f"core:{reference}"))
             self.db.commit()
             result["status"] = "ambiguous_or_missing_identifier"
@@ -264,7 +264,11 @@ def retrieve_cohort(cohort: Path, cache: Path, output: Path, limit=1):
     _write_json(output / "documents.json", results)
     receipt = {"cohort_sha256": file_hash(cohort / "manifest.json"),
                "documents_sha256": file_hash(output / "documents.json"),
-               "selected_identifiers": len(keys), "completed_identifiers": len(results),
+               "selected_identifiers": len(keys), "attempted_identifiers": len(results),
+               "completed_identifiers": sum(r["metadata"]["status"] not in
+                                            {"retry_later", "retry_exhausted"} for r in results),
+               "deferred_identifiers": len(keys) - sum(r["metadata"]["status"] not in
+                                            {"retry_later", "retry_exhausted"} for r in results),
                "text_available": sum(bool(r["documents"]) for r in results),
                "metadata_cache_hits": sum(r["metadata"]["cache_hit"] for r in results),
                "queue_identifiers": manifest["queue_identifiers"], "scientific_approvals": 0}

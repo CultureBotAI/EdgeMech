@@ -178,6 +178,8 @@ def load_cohort(path: Path):
             raise CurationError(f"{name} hash mismatch")
         values.append(json.loads(data))
     source = manifest["source"]
+    if file_hash(safe_path(path / "source-manifest.json")) != source["manifest_sha256"]:
+        raise CurationError("Copied source manifest hash mismatch")
     derived_queue = defaultdict(list)
     for row in values[0]:
         raw = base64.b64decode(row["source_row_base64"], validate=True)

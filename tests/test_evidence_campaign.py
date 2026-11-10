@@ -150,6 +150,46 @@ def test_document_rejects_wrong_identifier(tmp_path):
         assert result['documents'] == []
 
 
+def test_negative_identifier_hits_do_not_extend_expiry(tmp_path):
+    clock = Clock()
+    raw = json.dumps({'hitCount': 0, 'resultList': {'result': []}}).encode()
+    with LiteratureCache(tmp_path / 'cache', opener=lambda *a, **kw: Response(raw),
+                         clock=clock, sleeper=clock.sleep) as cache:
+        cache.document('doi:10.1234/absent')
+        deadline = cache.db.execute('SELECT expires FROM cache').fetchone()[0]
+        clock.sleep(100)
+        cache.document('doi:10.1234/absent')
+        assert cache.db.execute('SELECT expires FROM cache').fetchone()[0] == deadline
+
+
+def test_copied_source_manifest_is_verified(tmp_path):
+    from edgemech.evidence_campaign import load_cohort
+    for name, value in [('occurrences', []), ('queue', {})]:
+        (tmp_path / f'{name}.json').write_text(json.dumps(value))
+    manifest = {name + '_sha256': hashlib.sha256((tmp_path / f'{name}.json').read_bytes()).hexdigest()
+                for name in ('occurrences', 'queue')}
+    manifest['source'] = {'manifest_sha256': hashlib.sha256(b'original').hexdigest()}
+    (tmp_path / 'manifest.json').write_text(json.dumps(manifest))
+    (tmp_path / 'source-manifest.json').write_bytes(b'tampered')
+    with pytest.raises(CurationError, match='Copied source manifest'):
+        load_cohort(tmp_path)
+
+
+def test_retry_deferred_identifier_is_not_completed(tmp_path, monkeypatch):
+    import edgemech.literature_cache as module
+    cohort = tmp_path / 'cohort'
+    cohort.mkdir()
+    (cohort / 'manifest.json').write_text('{}')
+    monkeypatch.setattr(module, 'load_cohort', lambda path: (
+        {'queue_identifiers': 2}, [], {'doi:10.1234/a': [], 'doi:10.1234/b': []}))
+    monkeypatch.setattr(module.LiteratureCache, 'document', lambda self, key: {
+        'metadata': {'status': 'retry_later', 'cache_hit': False}, 'documents': []})
+    result = module.retrieve_cohort(cohort, tmp_path / 'cache', tmp_path / 'out', limit=None)
+    assert result['attempted_identifiers'] == 1
+    assert result['completed_identifiers'] == 0
+    assert result['deferred_identifiers'] == 2
+
+
 def test_retry_after_http_date():
     assert retry_delay('Thu, 01 Jan 1970 00:20:00 GMT', 1000) == 200
     assert retry_delay('invalid', 1000) is None

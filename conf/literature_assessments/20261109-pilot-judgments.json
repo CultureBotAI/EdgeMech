@@ -1,0 +1,86 @@
+{
+  "cohort_sha256": "bd3d9ad56e74a4661830a9253b4fc58006ac6b6a081b57ba42e6497e7a50681d",
+  "retrieval_sha256": "f4082e91c0df43d1cdcf72a00696bd6e02b0f1e24694e12841a435dde9eab5dc",
+  "papers": {
+    "succ": {
+      "reference": "doi:10.1099/00207713-45-2-297",
+      "taxon": "The primary description names Succiniclasticum ruminis and type strain SE10/DSM 9236, agreeing with the pinned subject label. The external LPSN mapping was not independently re-curated.",
+      "context": "Anaerobic rumen isolate; succinate conversion with rumen fluid and yeast extract needed for good growth. Do not generalize to carbohydrate fermentation, all strains or arbitrary media.",
+      "quote": "fermented succinate quantitatively to propionate"
+    },
+    "basfia": {
+      "reference": "doi:10.1099/ijs.0.011809-0",
+      "taxon": "The primary description names Basfia succiniciproducens, includes seven isolates and identifies type strain JF4016. The pinned subject label agrees; external identifier mappings were not independently re-curated.",
+      "context": "The source reports anaerobic conditions with glucose substrate in the characterized bovine-rumen isolates. It does not establish identical behavior across all strains or conditions.",
+      "quote": "All strains produced significant amounts of succinic acid under anaerobic conditions with glucose as substrate."
+    },
+    "actino": {
+      "reference": "doi:10.1099/00207713-49-1-207",
+      "taxon": "The primary description names Actinobacillus succinogenes, strain 130ZT/ATCC 55618T, agreeing with the pinned subject label. External taxon mapping was not independently re-curated.",
+      "context": "The inspected abstract describes a facultatively anaerobic bovine-rumen isolate, sugar utilization and acid production. It does not specify all ingredients or experimental conditions underlying the source-table claims.",
+      "quote": "It accumulates high concentrations of succinic acid (> 70 g l-1)."
+    }
+  },
+  "judgments": [
+    {
+      "row_number": 7690459, "paper": "succ", "predicate": "biolink:capable_of", "object": "Fermentation", "outcome": "supported",
+      "rationale": "The primary abstract explicitly reports succinate fermentation by the described Succiniclasticum ruminis isolate. This supports the bounded fermentation-capability interpretation, without asserting carbohydrate fermentation or universal strain behavior.",
+      "predicate_reason": "Observed fermentation supports a capability statement; it does not specify a causal molecular pathway.",
+      "object_reason": "The source uses fermented, consistent with the original Fermentation value and pinned label."
+    },
+    {
+      "row_number": 7690464, "paper": "succ", "predicate": "biolink:produces", "object": "propionate", "outcome": "supported",
+      "rationale": "The primary abstract explicitly identifies propionate as the product of succinate fermentation by the described isolate. This supports product formation under those conditions, not production on arbitrary substrates.",
+      "predicate_reason": "Conversion to propionate directly supports production in the described culture context.",
+      "object_reason": "The source explicitly names propionate, matching the original value and pinned chemical label; a separate ontology-ID audit is outside this assessment."
+    },
+    {
+      "row_number": 7690465, "paper": "succ", "predicate": "biolink:consumes", "object": "succinate", "outcome": "supported",
+      "rationale": "The primary abstract explicitly reports succinate conversion to propionate and identifies succinate as the supported growth-energy substrate. This supports utilization of succinate in the described culture context.",
+      "predicate_reason": "The substrate-to-product conversion supports consumption, rather than mere environmental association.",
+      "object_reason": "Succinate is explicitly named in both source and original row."
+    },
+    {
+      "row_number": 7728825, "paper": "basfia", "predicate": "biolink:capable_of", "object": "Fermentation", "outcome": "unknown",
+      "rationale": "The abstract establishes anaerobic glucose-associated succinic-acid production but does not explicitly identify the energy-conserving process or exclude other anaerobic mechanisms. Fermentation is plausible, but exact support for this process label remains unresolved in the inspected abstract.",
+      "predicate_reason": "Product formation alone does not fully establish the asserted process capability.",
+      "object_reason": "The general Fermentation label needs a process-level passage or source-specific physiological evidence. Absence of that passage in an abstract is not a contradiction."
+    },
+    {
+      "row_number": 7728829, "paper": "basfia", "predicate": "biolink:consumes", "object": "glucose", "outcome": "supported",
+      "rationale": "The primary abstract explicitly identifies glucose as the substrate for anaerobic succinic-acid production in the characterized Basfia isolates. This supports glucose utilization under the reported conditions.",
+      "predicate_reason": "Use as a production substrate supports consumption rather than mere medium presence.",
+      "object_reason": "Glucose is named explicitly; this assessment does not infer stereochemistry beyond the source wording."
+    },
+    {
+      "row_number": 7728857, "paper": "basfia", "predicate": "biolink:produces", "object": "succinate", "outcome": "unknown",
+      "rationale": "The primary abstract supports production of succinic acid. The original row normalizes this to succinate; that conjugate-acid/base mapping and the relevant pH or normalization policy were not independently established here. Product-family support is clear, but the exact chemical assertion remains qualified.",
+      "predicate_reason": "Production is directly reported; uncertainty concerns exact chemical normalization, not whether a product was formed.",
+      "object_reason": "Succinic acid and succinate must not be treated as literally identical source terms without a stated normalization rule."
+    },
+    {
+      "row_number": 7726743, "paper": "actino", "predicate": "biolink:capable_of", "object": "Fermentation", "outcome": "unknown",
+      "rationale": "The abstract reports sugar utilization and acid production by the described isolate. This is compatible with fermentation, but the inspected passage does not independently establish the asserted process classification and conditions. More specific source evidence is needed.",
+      "predicate_reason": "A broad process-capability label is not established solely by the presence of a metabolic product.",
+      "object_reason": "The Fermentation label remains plausible but not directly verified by the selected abstract passage."
+    },
+    {
+      "row_number": 7726749, "paper": "actino", "predicate": "biolink:consumes", "object": "Corn Steep Liquor + Glucose + Fumarate", "outcome": "unknown",
+      "rationale": "The inspected abstract supports sugar utilization but does not establish consumption of the complete corn-steep-liquor/glucose/fumarate mixture or each component. A medium formulation, supplied component and consumed substrate are different claims. The combined-object assertion remains unresolved.",
+      "predicate_reason": "General sugar utilization cannot be propagated to consumption of every supplied medium ingredient.",
+      "object_reason": "The compound mixture requires direct formulation and utilization evidence; the selected source passage does not provide it."
+    },
+    {
+      "row_number": 7726784, "paper": "actino", "predicate": "biolink:produces", "object": "succinate", "outcome": "unknown",
+      "rationale": "The abstract directly reports accumulation of succinic acid. The row's exact succinate normalization requires an explicit chemical mapping policy or condition-specific justification. Product-family support is present, while exact chemical grounding remains unresolved.",
+      "predicate_reason": "Production is directly supported at the product-family level.",
+      "object_reason": "Succinic acid is the retrieved source term; the conjugate-base representation is not independently validated here."
+    },
+    {
+      "row_number": 7726785, "paper": "actino", "predicate": "biolink:produces", "object": "acetate", "outcome": "unknown",
+      "rationale": "The retrieved abstract reports succinic-acid accumulation but contains no acetate-production evidence. This does not demonstrate that acetate is absent from the full study; the acetate assertion remains unverified within the available text.",
+      "predicate_reason": "Evidence for one metabolic product does not establish a different product.",
+      "object_reason": "Acetate is not established by the inspected abstract; retain the source claim for further full-text review rather than declaring it false."
+    }
+  ]
+}
