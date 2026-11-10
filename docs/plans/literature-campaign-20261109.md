@@ -1,6 +1,6 @@
 # Literature retrieval, quote verification and scientific adjudication
 
-Follow-up to PR #33; this branch is stacked on its unmerged implementation.
+Follow-up to PR #33, merged on 2026-11-10; PR #38 now targets main.
 The first production cohort is all 463 `infores:microbedecoder-literature`
 occurrences from the pinned 17,637,435-occurrence census. There is no automatic
 propagation of scientific judgments to other rows or shared-citation neighbors.
@@ -75,3 +75,8 @@ wrong-identifier rejection, fabricated-text rehashing, citation-binding errors,
 cache corruption, duplicate annotations, throttling, and no propagation of a
 review to an unannotated row. Claims absent from retrieved text remain unknown;
 absence from an abstract is not evidence of falsity.
+
+The [2026-11-10 adversarial review](../validation/literature-adversarial-review-20261110.md)
+records eight corrected findings and 265 passing tests. New full-text derivatives
+use v2 block boundaries; old v1 full text is retained for audit but cannot produce
+new quotation proofs. Original abstract quotations remain reproducible.
