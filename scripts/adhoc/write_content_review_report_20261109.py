@@ -36,7 +36,15 @@ lines = [
     f"labels/categories: **{incomplete:,}**.",
     f"- Occurrences with at least one nonempty inline evidence field: **{evidence:,}**. "
     "Fields include database-record URLs and unverified citations, not just literature.",
+    f"- The plan's 4,635,128 inline-evidence total overcounted by **{4635128 - evidence:,}** "
+    "because its evidence fields overlap.",
     "- Scientific reviews and approvals created: **0**. All content states remain `unassessed`.",
+    "- Validation: **220 tests passed**, Ruff passed, pinned CLAW contract check passed "
+    "(16 files), and GitHub CI passed for the implementation. Independent read-back "
+    "verified all 882 output shard hashes, sizes and counts.",
+    "", "Node metadata gaps are tracked in "
+    "[issue #36](https://github.com/CultureBotAI/EdgeMech/issues/36). Counts above "
+    "are affected occurrences, not distinct nodes; they do not establish scientific falsity.",
     "", "## Input and output identity", "",
     f"- Census manifest: `{full['census_manifest_sha256']}`.",
     f"- Reconstructed complete source edge SHA-256: `{full['selected_source_sha256']}`.",
