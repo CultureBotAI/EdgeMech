@@ -97,3 +97,45 @@ def test_disk_reserve(tmp_path):
     with pytest.raises(CurationError, match="reserve"):
         prepare_inventory(census, file_hash(census), tmp_path / "output", reserve_bytes=10**20)
     assert not (tmp_path / "output").exists()
+
+
+def test_partial_and_full_cross_partition_duplicate_counts(tmp_path, monkeypatch):
+    import edgemech.census as census_module
+
+    monkeypatch.setattr(census_module, "BATCH_ROWS", 1)
+    census = fixture(tmp_path)
+    partial = prepare_inventory(census, file_hash(census), tmp_path / "partial", reserve_bytes=0)
+    assert partial["rows"] == 1
+    assert partial["complete_population"] is False
+    full = prepare_inventory(census, file_hash(census), tmp_path / "full",
+                             partition_limit=None, reserve_bytes=0)
+    assert full["rows"] == 3
+    assert len(full["partitions"]) == 3
+    assert full["profile"][0]["distinct_spo"] == 2
+    assert full["complete_population"] is True
+    assert full["selected_source_sha256"] == full["source"]["edge_member_sha256"]
+
+
+def test_failed_publication_has_no_completion_marker(tmp_path, monkeypatch):
+    import edgemech.content_inventory as inventory
+
+    census = fixture(tmp_path)
+
+    def interrupted(*args):
+        raise OSError("Injected publication interruption")
+
+    monkeypatch.setattr(inventory.os, "link", interrupted)
+    with pytest.raises(OSError, match="Injected"):
+        prepare_inventory(census, file_hash(census), tmp_path / "output", reserve_bytes=0)
+    assert not (tmp_path / "output" / "manifest.json").exists()
+    assert (tmp_path / "output" / "manifest.pending").stat().st_size > 0
+
+
+def test_atomic_manifest_refuses_replacement(tmp_path):
+    from edgemech.content_inventory import _write_json
+
+    path = tmp_path / "manifest.json"
+    path.write_text("original")
+    with pytest.raises(FileExistsError):
+        _write_json(path, {"replacement": True})
+    assert path.read_text() == "original"

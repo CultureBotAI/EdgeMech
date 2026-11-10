@@ -7,6 +7,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import os
 import shutil
 import time
 from pathlib import Path
@@ -17,7 +18,7 @@ import pyarrow.parquet as pq
 from kg_microbe_curation.identity import CurationError, occurrence_id
 
 from .census import CENSUS_FORMAT, _decode_row, _metadata
-from .storage.parquet import file_hash, safe_path
+from .storage.parquet import file_hash, fsync_directory, safe_path
 
 FIELDS = (
     "subject", "predicate", "object", "relation", "primary_knowledge_source",
@@ -48,10 +49,16 @@ def _space(path, reserve_bytes):
 
 
 def _write_json(path, data):
-    # Exclusive destination: the manifest is written last, after read-back checks.
-    with path.open("x") as handle:
-        json.dump(data, handle, sort_keys=True, indent=2)
-        handle.write("\n")
+    # An interrupted write must never expose a partially written completion marker.
+    payload = (json.dumps(data, sort_keys=True, indent=2) + "\n").encode()
+    pending = path.with_suffix(".pending")
+    with pending.open("xb") as handle:
+        handle.write(payload)
+        handle.flush()
+        os.fsync(handle.fileno())
+    os.link(pending, path)  # Atomic publication without replacing an existing marker.
+    pending.unlink()
+    fsync_directory(path.parent)
 
 
 def prepare_inventory(manifest_path: Path, expected_sha256: str, output: Path, *,
@@ -154,7 +161,7 @@ def prepare_inventory(manifest_path: Path, expected_sha256: str, output: Path, *
                                         "row_sha256": digest,
                                         **{key: fields.get(key, "") for key in FIELDS}})
                     connection.register("batch", pa.Table.from_pylist(records, schema=SCHEMA))
-                    table = connection.execute(
+                    table = connection.sql(
                         "SELECT b.*, s.id IS NOT NULL AS subject_present_in_nodes, "
                         "o.id IS NOT NULL AS object_present_in_nodes, "
                         "s.name AS subject_label,s.category AS subject_category, "
@@ -176,6 +183,8 @@ def prepare_inventory(manifest_path: Path, expected_sha256: str, output: Path, *
             finally:
                 if writer is not None:
                     writer.close()
+            with destination.open("rb") as handle:
+                os.fsync(handle.fileno())
             if row_number - start != entry["rows"] or row_number != entry["last_row"]:
                 raise CurationError("Partition row count mismatch")
             _checked_file(manifest_path.parent, entry)  # Detect input changes during scan.
@@ -227,6 +236,7 @@ def prepare_inventory(manifest_path: Path, expected_sha256: str, output: Path, *
                                    "Inline evidence is unverified; absence remains explicit.",
                                    "Native review decisions have not been replayed.",
                                    "Unselected partition bytes were not verified."]}
+        fsync_directory(output / "partitions")
         _write_json(output / "manifest.json", receipt)
         return receipt
     finally:

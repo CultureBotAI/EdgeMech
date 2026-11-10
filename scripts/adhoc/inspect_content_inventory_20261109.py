@@ -14,6 +14,7 @@ from edgemech.storage.parquet import file_hash
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("manifest", type=Path)
+    parser.add_argument("--compare-to", type=Path)
     args = parser.parse_args()
     manifest = json.loads(args.manifest.read_bytes())
     rows = size = 0
@@ -28,6 +29,18 @@ if __name__ == "__main__":
         size += entry["bytes"]
     if rows != manifest["rows"]:
         raise ValueError("Manifest count mismatch")
+    if args.compare_to:
+        other = json.loads(args.compare_to.read_bytes())
+        if len(other["partitions"]) != len(manifest["partitions"]):
+            raise ValueError("Comparison partition count differs")
+        for left, right in zip(manifest["partitions"], other["partitions"], strict=True):
+            first = pq.read_table(args.manifest.parent / left["path"]).sort_by("row_number")
+            second = pq.read_table(args.compare_to.parent / right["path"]).sort_by("row_number")
+            if not first.equals(second):
+                differences = [name for name in first.column_names
+                               if first[name].to_pylist() != second[name].to_pylist()]
+                if first.column_names != second.column_names or differences:
+                    raise ValueError(f"Comparison output differs logically: {differences}")
     print(json.dumps({
         "manifest_sha256": file_hash(args.manifest), "verified_rows": rows,
         "verified_shards": len(manifest["partitions"]), "parquet_bytes": size,
@@ -39,4 +52,5 @@ if __name__ == "__main__":
         "inline_evidence_occurrences": sum(p["inline_evidence_occurrences"]
                                            for p in manifest["profile"]),
         "elapsed_seconds": manifest["elapsed_seconds"],
+        "logical_comparison_passed": True if args.compare_to else None,
     }, indent=2))

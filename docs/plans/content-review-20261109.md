@@ -38,7 +38,13 @@ substitute for experimental support for every assertion that database contains.
    Counts grouped by `(source,predicate,object)` omit organism and conditions and
    cannot define equivalent scientific claims. The asserted 593 earlier reviews
    need an exact ID union and assessment of scope; cohort anchors are not coverage
-   of their entire cohorts. Do not subtract 593 from verified-review work yet.
+   of their entire cohorts. The retained audit now confirms 593 distinct decision
+   IDs (116 + 120 + 357), with zero inter-wave overlap, all withheld and no nonempty
+   `quote` fields. Hashes match all three wave bundles and the combined ID index.
+   This verifies decision accounting, not claim support; all 17,637,435 occurrences
+   remain unassessed for the new content campaign. The legacy ledger's 100% reviewed
+   label conflates cohort disposition with individual review; track its corrected
+   view in [#35](https://github.com/CultureBotAI/EdgeMech/issues/35), preserving history.
 5. Keep canonical identities and shared review schemas in pinned CLAW. This PR's
    local preparation inventory is an analysis product, not a replacement review
    contract. Compile/cache schemas once per process or worker image; run tests in
@@ -99,6 +105,8 @@ substitute for experimental support for every assertion that database contains.
 - Compute exact source profiles across persisted shards. On a complete population,
   reconstruct and verify the original edge-file SHA-256, including header bytes.
 - Refuse existing output directories; publish the manifest last after checks.
+  Flush shards and publish a fully flushed manifest with an atomic, non-replacing
+  link. Injected publication failures expose no completion marker ([#34](https://github.com/CultureBotAI/EdgeMech/issues/34)).
   A failure leaves an unpublished directory for diagnosis; retry at a new path.
 - Default to one whole partition; full execution uses the same command with `--all`.
   Check a 10 GiB free-space reserve, 512 MB DuckDB memory and 4 GB spill cap.
@@ -107,6 +115,8 @@ substitute for experimental support for every assertion that database contains.
 Partial preparation verifies selected bytes only and does not replay native review
 history. The established `verify-census` command remains the native-contract audit.
 Preparation output is explicitly not a public scientific approval artifact.
+Some `publications` cells contain only BacDive strain URLs. An inline-evidence
+count includes those raw references; it is not a count of literature-supported rows.
 
 ### B. Evidence catalogue and source-specific fidelity adapters
 
@@ -127,6 +137,14 @@ ontology relations, aggregated traits, measured observations, mappings and mined
 claims. Validate a single representative case of each before scaling that adapter.
 
 ### C. Retrieval and quote verification
+
+The initial one-request probe is implemented in `edgemech.literature_probe` and
+`scripts/adhoc/probe_literature_20261109.py`. It accepts only DOI/PMID identifiers,
+uses anonymous Europe PMC access, bounds the response size and timeout, checks
+exact identifier equality and ambiguity, retains response bytes and hashes, and
+publishes retrieval status without asserting quote validity or claim support.
+The DOI `10.4056/sigs.1804360` from a prior-wave rationale returned an abstract in
+the live canary; the persisted response was verified. This is not a bulk scheduler.
 
 Run one actual anonymous DOI/PMID request with the future production launcher,
 verify nonempty durable response and exact identifier equality, then test missing
