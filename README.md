@@ -109,3 +109,23 @@ pins, measured results, native scope limits and the separate fleet-admission
 dependency. Its policy repair is reviewed and green; protected admission remains
 inactive until the required PR is explicitly approved and merged. Bulk data and
 full receipts remain outside Git.
+
+## Content-review preparation
+
+The [corrected 17M review plan](docs/plans/content-review-20261109.md) separates
+endpoint presence, evidence availability and scientific support. Prepare one
+real partition before scaling, using the exact census-manifest SHA-256:
+
+```bash
+uv run python scripts/adhoc/prepare_content_inventory_20261109.py \
+  --manifest workspace/validation-20261107/full-native-overlap-expanded/census-manifest.json \
+  --sha256 a2b8353349816fd067ab3a7112fd1c2f5ee9c02971591ea52f31e9b981cbdd2e \
+  --output workspace/content-inventory-canary
+uv run python scripts/adhoc/inspect_content_inventory_20261109.py \
+  workspace/content-inventory-canary/manifest.json
+```
+
+After verifying the canary, use the same preparation command with `--all` and a
+new output directory. Outputs preserve occurrence identities and raw evidence
+fields, join pinned nodes, and compute exact source profiles. Every content state
+remains `unassessed`; these files are preparation artifacts, not scientific reviews.
