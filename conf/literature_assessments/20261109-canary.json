@@ -1,0 +1,43 @@
+{
+  "cohort_sha256": "b6bed8a4c35b10197248af8c262ed2464ca5d2535ce4ae3d5540a8615d5e5f83",
+  "retrieval_sha256": "1df481a603077fe449b0ebf4e0cea0fedebbc2cc55bcf1360bf89d09531e761b",
+  "review_id": "20261110-literature-succiniclasticum-canary",
+  "title": "Succinate fermentation: bounded source-level scientific assessment",
+  "started_at": "2026-11-10T05:10:00Z",
+  "reviewer": {
+    "identity": "Codex",
+    "kind": "agent",
+    "independence": "self_review",
+    "independence_basis": "The same agent implemented the evidence workflow and assessed this source; this is not independent reviewer agreement."
+  },
+  "assessments": [
+    {
+      "occurrence_id": "urn:kg-microbe:occurrence:v1:325fa3eedf12e4404ae6533a28bf3cc6297164bd71d83c18793d8497b549cbe0",
+      "outcome": "supported",
+      "rationale": "The cited primary description explicitly reports succinate fermentation by the isolate named Succiniclasticum ruminis (type strain SE10/DSM 9236). This supports the row's general fermentation-capability interpretation for the described organism. It does not support fermentation of unspecified carbohydrates, universal behavior across strains, or growth without the reported medium supplements.",
+      "dimensions": {
+        "taxon": "The primary abstract names Succiniclasticum ruminis and identifies type strain SE10/DSM 9236; the pinned subject label agrees. The external LPSN identifier mapping itself was not independently re-curated.",
+        "predicate": "biolink:capable_of is consistent with an observed fermentation capability, without asserting a causal pathway or reaction stoichiometry.",
+        "object": "The original value and pinned METPO label are Fermentation; the source explicitly uses fermented for succinate conversion.",
+        "context": "Observed isolate; anaerobic rumen culture, succinate substrate, with rumen fluid and yeast extract required for good growth. Do not generalize to carbohydrate fermentation or all culture conditions.",
+        "evidence_scope": "Direct primary-source abstract supporting a bounded capability interpretation. No independent validation of the entire taxon or ontology identifier mapping; no native claim admission."
+      },
+      "quotes": [
+        {
+          "reference": "doi:10.1099/00207713-45-2-297",
+          "kind": "abstract",
+          "quote": "fermented succinate quantitatively to propionate",
+          "support": "supports",
+          "summary": "The primary description explicitly reports fermentation of succinate."
+        },
+        {
+          "reference": "doi:10.1099/00207713-45-2-297",
+          "kind": "abstract",
+          "quote": "the type strain is strain SE10 (= DSM 9236).",
+          "support": "context_only",
+          "summary": "The observation is anchored to the described isolate, not all strains or environments."
+        }
+      ]
+    }
+  ]
+}
