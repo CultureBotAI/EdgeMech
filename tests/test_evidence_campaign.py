@@ -11,6 +11,7 @@ from kg_microbe_curation.identity import CurationError
 from edgemech.evidence_campaign import references
 from edgemech.literature_cache import (
     EXTRACTOR,
+    LEGACY_EXTRACTOR,
     LiteratureCache,
     abstract_text,
     full_text,
@@ -71,6 +72,61 @@ def test_fulltext_requires_exact_pmc_identity():
         full_text(raw, 'PMC999')
 
 
+def test_fulltext_block_boundaries_do_not_invent_contiguous_quotes():
+    raw = (b'<article><front><article-meta><article-id pub-id-type="pmc">123</article-id>'
+           b'</article-meta></front><body><sec><title>Results</title><p>foo</p><p>bar</p>'
+           b'<table><tr><td>yes</td><td>no</td></tr></table>'
+           b'<p>H<sub>2</sub> and CO<sub>2</sub>.</p></sec></body></article>')
+    text = full_text(raw, 'PMC123')
+    doc = LiteratureCache._document({'response_sha256': 'a' * 64}, 'oa_fulltext', text)
+    for invented in ('Resultsfoo', 'foobar', 'yesno'):
+        with pytest.raises(CurationError, match='verbatim'):
+            verify_quote(doc, invented)
+    assert verify_quote(doc, 'H2 and CO2.')['quote'] == 'H2 and CO2.'
+
+
+def test_legacy_fulltext_is_auditable_but_requires_cache_replay_for_new_quotes(tmp_path):
+    from edgemech.content_inventory import _write_json
+    from edgemech.literature_cache import _legacy_full_text, load_retrieval
+    from edgemech.storage.parquet import file_hash
+
+    metadata = json.dumps({'hitCount': 1, 'resultList': {'result': [{
+        'doi': '10.1234/example', 'abstractText': 'Actual abstract.',
+        'pmcid': 'PMC123', 'isOpenAccess': 'Y'}]}}).encode()
+    xml = (b'<article><front><article-meta><article-id pub-id-type="pmc">123</article-id>'
+           b'</article-meta></front><body><p>foo</p><p>bar</p></body></article>')
+    calls = []
+
+    def opener(request, timeout):
+        calls.append(request.full_url)
+        return Response(xml if request.full_url.endswith('fullTextXML') else metadata)
+
+    clock = Clock()
+    with LiteratureCache(tmp_path / 'cache', opener=opener, clock=clock, sleeper=clock.sleep) as cache:
+        entry = cache.document('doi:10.1234/example')
+        for doc in entry['documents']:
+            doc['extractor'] = LEGACY_EXTRACTOR
+            if doc['kind'] == 'oa_fulltext':
+                doc['text'] = _legacy_full_text(xml, 'PMC123')
+                doc['text_sha256'] = hashlib.sha256(doc['text'].encode()).hexdigest()
+        output = tmp_path / 'output'
+        output.mkdir()
+        _write_json(output / 'documents.json', [entry])
+        _write_json(output / 'manifest.json', {'documents_sha256': file_hash(output / 'documents.json')})
+        _, restored = load_retrieval(output, cache)
+        old_abstract, old_fulltext = restored['doi:10.1234/example']['documents']
+        assert verify_quote(old_abstract, 'Actual abstract.')['extractor'] == LEGACY_EXTRACTOR
+        with pytest.raises(CurationError, match='audit-only'):
+            verify_quote(old_fulltext, 'foobar')
+        replay = cache.document('doi:10.1234/example')
+        assert len(calls) == 2
+        assert replay['metadata']['cache_hit'] and replay['fulltext_retrieval']['cache_hit']
+        assert all(doc['extractor'] == EXTRACTOR for doc in replay['documents'])
+        with pytest.raises(CurationError, match='verbatim'):
+            verify_quote(replay['documents'][1], 'foobar')
+        assert verify_quote(replay['documents'][1], 'foo')['quote'] == 'foo'
+
+
 def test_response_cache_is_durable_and_tamper_evident(tmp_path):
     calls = []
     clock = Clock()
@@ -93,6 +149,17 @@ def test_response_cache_is_durable_and_tamper_evident(tmp_path):
             cache.request('one', 'https://example.test/one')
 
 
+def test_response_path_must_be_canonical_and_contained(tmp_path):
+    raw = b'{}'
+    digest = hashlib.sha256(raw).hexdigest()
+    external = tmp_path / (digest + '.response')
+    external.write_bytes(raw)
+    with LiteratureCache(tmp_path / 'cache') as cache:
+        for path in (str(external), '../' + external.name, 'nested/' + external.name, 'alias.response'):
+            with pytest.raises(CurationError, match='canonical'):
+                cache.raw({'response_path': path, 'response_sha256': digest})
+
+
 def test_long_retry_after_is_persisted_and_stops_sends(tmp_path):
     clock = Clock()
     calls = []
@@ -108,6 +175,23 @@ def test_long_retry_after_is_persisted_and_stops_sends(tmp_path):
         assert cache.request('two', 'https://example.test/two')['status'] == 'retry_later'
     assert len(calls) == 1
     assert clock.now == 1000
+
+
+@pytest.mark.parametrize('retry_after', ['0', '0.25'])
+def test_retry_after_preserves_minimum_request_interval(tmp_path, retry_after):
+    clock = Clock()
+    starts = []
+
+    def opener(request, timeout):
+        starts.append(clock())
+        if len(starts) < 3:
+            raise urllib.error.HTTPError(request.full_url, 429, 'slow',
+                                         {'Retry-After': retry_after}, None)
+        return Response(b'{}')
+
+    with LiteratureCache(tmp_path / 'cache', opener=opener, clock=clock, sleeper=clock.sleep) as cache:
+        assert cache.request('one', 'https://example.test/one')['status'] == 'retrieved'
+    assert starts == [1000, 1001, 1002]
 
 
 def test_404_is_negative_cached(tmp_path):
@@ -190,6 +274,29 @@ def test_retry_deferred_identifier_is_not_completed(tmp_path, monkeypatch):
     assert result['deferred_identifiers'] == 2
 
 
+@pytest.mark.parametrize('status', ['retry_later', 'retry_exhausted'])
+def test_fulltext_deferral_stops_cohort_and_is_not_completed(tmp_path, monkeypatch, status):
+    import edgemech.literature_cache as module
+    cohort = tmp_path / 'cohort'
+    cohort.mkdir()
+    (cohort / 'manifest.json').write_text('{}')
+    monkeypatch.setattr(module, 'load_cohort', lambda path: (
+        {'queue_identifiers': 2}, [], {'doi:10.1234/a': [], 'doi:10.1234/b': []}))
+    attempted = []
+
+    def document(self, key):
+        attempted.append(key)
+        return {'metadata': {'status': 'retrieved', 'cache_hit': True},
+                'fulltext_retrieval': {'status': status}, 'documents': [{'kind': 'abstract'}]}
+
+    monkeypatch.setattr(module.LiteratureCache, 'document', document)
+    result = module.retrieve_cohort(cohort, tmp_path / 'cache', tmp_path / 'out', limit=None)
+    assert attempted == ['doi:10.1234/a']
+    assert result['completed_identifiers'] == 0
+    assert result['deferred_identifiers'] == 2
+    assert result['text_available'] == 1
+
+
 def test_retry_after_http_date():
     assert retry_delay('Thu, 01 Jan 1970 00:20:00 GMT', 1000) == 200
     assert retry_delay('invalid', 1000) is None
@@ -223,4 +330,44 @@ def test_rehashing_fabricated_text_cannot_pass_source_reextraction(tmp_path):
         _write_json(output / 'documents.json', [record])
         _write_json(output / 'manifest.json', {'documents_sha256': file_hash(output / 'documents.json')})
         with pytest.raises(CurationError, match='extraction'):
+            load_retrieval(output, cache)
+
+
+@pytest.mark.parametrize('malformed', [b'not JSON', b'[]', b'{"resultList":null}',
+                                      b'{"resultList":{"result":[null]}}'])
+def test_invalid_metadata_isolated_without_accepting_fabricated_text(tmp_path, malformed):
+    from edgemech.content_inventory import _write_json
+    from edgemech.literature_cache import load_retrieval
+    from edgemech.storage.parquet import file_hash
+
+    good = json.dumps({'hitCount': 1, 'resultList': {'result': [{
+        'doi': '10.1234/good', 'abstractText': 'Actual source text.'}]}}).encode()
+    calls = []
+
+    def opener(request, timeout):
+        calls.append(request.full_url)
+        return Response(malformed if len(calls) == 1 else good)
+
+    clock = Clock()
+    with LiteratureCache(tmp_path / 'cache', opener=opener, clock=clock, sleeper=clock.sleep) as cache:
+        bad_entry = cache.document('doi:10.1234/bad')
+        good_entry = cache.document('doi:10.1234/good')
+        assert bad_entry['status'] == 'invalid_metadata'
+        output = tmp_path / 'output'
+        output.mkdir()
+        _write_json(output / 'documents.json', [bad_entry, good_entry])
+        _write_json(output / 'manifest.json', {'documents_sha256': file_hash(output / 'documents.json')})
+        _, restored = load_retrieval(output, cache)
+        assert restored['doi:10.1234/bad']['documents'] == []
+        assert verify_quote(restored['doi:10.1234/good']['documents'][0],
+                            'Actual source text.')['quote'] == 'Actual source text.'
+        bad_entry['documents'] = good_entry['documents']
+        damaged = tmp_path / 'damaged'
+        damaged.mkdir()
+        _write_json(damaged / 'documents.json', [bad_entry, good_entry])
+        _write_json(damaged / 'manifest.json', {'documents_sha256': file_hash(damaged / 'documents.json')})
+        with pytest.raises(CurationError, match='Invalid metadata'):
+            load_retrieval(damaged, cache)
+        (cache.root / bad_entry['metadata']['response_path']).write_bytes(b'changed')
+        with pytest.raises(CurationError, match='integrity'):
             load_retrieval(output, cache)

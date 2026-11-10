@@ -25,7 +25,8 @@ from .evidence_campaign import load_cohort
 from .literature_probe import identifier, matching_record
 from .storage.parquet import file_hash, safe_path
 
-EXTRACTOR = "edgemech-literal-text/v1"
+LEGACY_EXTRACTOR = "edgemech-literal-text/v1"
+EXTRACTOR = "edgemech-literal-text/v2"
 BASE = "https://www.ebi.ac.uk/europepmc/webservices/rest/"
 MAX_BYTES = 8 * 1024**2
 
@@ -53,7 +54,7 @@ def abstract_text(markup):
     return "".join(parser.parts).strip()
 
 
-def full_text(raw, pmcid):
+def _full_text_sections(raw, pmcid):
     root = ET.fromstring(raw)
     ids = [element.text for element in root.findall("./front/article-meta/article-id")
            if element.get("pub-id-type") in {"pmc", "pmcid"}]
@@ -61,8 +62,39 @@ def full_text(raw, pmcid):
         raise CurationError("Full-text identity mismatch")
     sections = root.findall("./front/article-meta/title-group/article-title")
     sections += root.findall("./front/article-meta/abstract") + root.findall("./body")
-    # Keep text exactly as extracted; offsets refer to this versioned derivative, not XML bytes.
-    return "\n\n".join("".join(section.itertext()) for section in sections).strip()
+    return sections
+
+
+def _legacy_full_text(raw, pmcid):
+    """Replay v1 artifacts for audit only; v1 OA text cannot support new quote proofs."""
+    return "\n\n".join("".join(section.itertext())
+                       for section in _full_text_sections(raw, pmcid)).strip()
+
+
+def full_text(raw, pmcid):
+    # JATS block boundaries must not manufacture word adjacency. Inline elements
+    # retain adjacency, including H<sub>2</sub>. Offsets refer to this derivative.
+    blocks = {"abstract", "article-title", "body", "sec", "title", "p", "break",
+              "table-wrap", "table", "thead", "tbody", "tfoot", "tr", "td", "th",
+              "caption", "fig", "list", "list-item", "def-list", "def-item", "def",
+              "disp-formula", "boxed-text", "fn-group", "fn", "statement", "speech",
+              "verse-line", "ref-list", "app-group", "app", "ack"}
+
+    def parts(element):
+        block = element.tag.rsplit("}", 1)[-1] in blocks
+        if block:
+            yield "\n"
+        if element.text:
+            yield element.text
+        for child in element:
+            yield from parts(child)
+            if child.tail:
+                yield child.tail
+        if block:
+            yield "\n"
+
+    return "\n\n".join("".join(parts(section)).strip()
+                       for section in _full_text_sections(raw, pmcid)).strip()
 
 
 def retry_delay(value, now):
@@ -118,8 +150,12 @@ class LiteratureCache:
         return None
 
     def raw(self, record):
+        digest = record.get("response_sha256")
+        if (not isinstance(digest, str) or not re.fullmatch(r"[0-9a-f]{64}", digest)
+                or record.get("response_path") != f"{digest}.response"):
+            raise CurationError("Cached response requires a canonical content-addressed basename")
         path = safe_path(self.root / record["response_path"])
-        if file_hash(path) != record["response_sha256"]:
+        if file_hash(path) != digest:
             raise CurationError("Cached response integrity mismatch")
         return path.read_bytes()
 
@@ -171,7 +207,7 @@ class LiteratureCache:
                 wait = retry_delay(error.headers.get("Retry-After"), self.clock())
                 wait = wait if wait is not None else 2 ** (attempt + 1) + random.uniform(0, 0.25)
                 if retry:
-                    self.db.execute("UPDATE provider SET next_at=? WHERE id=1",
+                    self.db.execute("UPDATE provider SET next_at=max(next_at,?) WHERE id=1",
                                     (self.clock() + wait,))
                 self.db.commit()
                 if not retry:
@@ -179,7 +215,7 @@ class LiteratureCache:
             except (urllib.error.URLError, TimeoutError, ConnectionError) as error:
                 self.db.execute("INSERT INTO attempts VALUES(?,?,?,?)",
                                 (key, url, self.clock(), type(error).__name__))
-                self.db.execute("UPDATE provider SET next_at=? WHERE id=1",
+                self.db.execute("UPDATE provider SET next_at=max(next_at,?) WHERE id=1",
                                 (self.clock() + 2 ** (attempt + 1),))
                 self.db.commit()
         return self._store(key, {**record, "status": "retry_exhausted"}, 300)
@@ -213,7 +249,8 @@ class LiteratureCache:
             result["documents"].append(self._document(metadata, "abstract", abstract_text(record["abstractText"])))
             result["status"] = "text_available"
         pmcid = record.get("pmcid", "")
-        if record.get("isOpenAccess") == "Y" and re.fullmatch(r"PMC[1-9][0-9]*", pmcid):
+        if (record.get("isOpenAccess") == "Y" and isinstance(pmcid, str)
+                and re.fullmatch(r"PMC[1-9][0-9]*", pmcid)):
             full = self.request(f"full:{pmcid}", BASE + pmcid + "/fullTextXML")
             result["fulltext_retrieval"] = full
             if full["status"] == "retrieved":
@@ -235,6 +272,10 @@ class LiteratureCache:
 
 def verify_quote(document, quote):
     """Exact contiguous match only, with character offsets into the pinned text derivative."""
+    if document["extractor"] not in {EXTRACTOR, LEGACY_EXTRACTOR}:
+        raise CurationError("Unknown text extractor")
+    if document["kind"] == "oa_fulltext" and document["extractor"] == LEGACY_EXTRACTOR:
+        raise CurationError("Legacy OA text is audit-only; regenerate retrieval from retained cache")
     text = document["text"]
     if hashlib.sha256(text.encode()).hexdigest() != document["text_sha256"]:
         raise CurationError("Text derivative hash mismatch")
@@ -249,6 +290,11 @@ def verify_quote(document, quote):
             "extractor": document["extractor"], "kind": document["kind"]}
 
 
+def _deferred(result):
+    return any(result.get(stage, {}).get("status") in {"retry_later", "retry_exhausted"}
+               for stage in ("metadata", "fulltext_retrieval"))
+
+
 def retrieve_cohort(cohort: Path, cache: Path, output: Path, limit=1):
     manifest, rows, queue = load_cohort(cohort)
     keys = sorted(queue)[:limit] if limit is not None else sorted(queue)
@@ -259,16 +305,15 @@ def retrieve_cohort(cohort: Path, cache: Path, output: Path, limit=1):
         for key in keys:
             result = client.document(key)
             results.append(result)
-            if result["metadata"]["status"] in {"retry_later", "retry_exhausted"}:
+            if _deferred(result):
                 break
     _write_json(output / "documents.json", results)
+    completed = sum(not _deferred(result) for result in results)
     receipt = {"cohort_sha256": file_hash(cohort / "manifest.json"),
                "documents_sha256": file_hash(output / "documents.json"),
                "selected_identifiers": len(keys), "attempted_identifiers": len(results),
-               "completed_identifiers": sum(r["metadata"]["status"] not in
-                                            {"retry_later", "retry_exhausted"} for r in results),
-               "deferred_identifiers": len(keys) - sum(r["metadata"]["status"] not in
-                                            {"retry_later", "retry_exhausted"} for r in results),
+               "completed_identifiers": completed,
+               "deferred_identifiers": len(keys) - completed,
                "text_available": sum(bool(r["documents"]) for r in results),
                "metadata_cache_hits": sum(r["metadata"]["cache_hit"] for r in results),
                "queue_identifiers": manifest["queue_identifiers"], "scientific_approvals": 0}
@@ -290,11 +335,19 @@ def load_retrieval(path: Path, cache: LiteratureCache):
             if entry["documents"]:
                 raise CurationError("Failed retrieval cannot have text")
             continue
-        record = matching_record(json.loads(cache.raw(entry["metadata"])), kind, value)
+        raw_metadata = cache.raw(entry["metadata"])
+        try:
+            record = matching_record(json.loads(raw_metadata), kind, value)
+        except (ValueError, TypeError, AttributeError) as error:
+            if entry.get("status") != "invalid_metadata" or entry["documents"]:
+                raise CurationError("Invalid metadata cannot provide publication text") from error
+            continue
+        if entry.get("status") == "invalid_metadata":
+            raise CurationError("Invalid-metadata status disagrees with retained response")
         if record is None and entry["documents"]:
             raise CurationError("Unbound publication text")
         for doc in entry["documents"]:
-            if doc["extractor"] != EXTRACTOR:
+            if doc["extractor"] not in {EXTRACTOR, LEGACY_EXTRACTOR}:
                 raise CurationError("Unknown text extractor")
             raw = cache.raw(doc["response"])
             if doc["kind"] == "abstract":
@@ -302,7 +355,8 @@ def load_retrieval(path: Path, cache: LiteratureCache):
                     raise CurationError("Abstract response binding mismatch")
                 text = abstract_text(record["abstractText"])
             elif doc["kind"] == "oa_fulltext" and record.get("isOpenAccess") == "Y":
-                text = full_text(raw, record["pmcid"])
+                extract = _legacy_full_text if doc["extractor"] == LEGACY_EXTRACTOR else full_text
+                text = extract(raw, record["pmcid"])
             else:
                 raise CurationError("Unknown or unauthorized document kind")
             if text != doc["text"] or hashlib.sha256(text.encode()).hexdigest() != doc["text_sha256"]:

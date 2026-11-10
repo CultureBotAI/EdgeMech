@@ -1,6 +1,7 @@
 """Canonical scientific decisions require explicit scoped assessments and bound quotes."""
 import hashlib
 import json
+from copy import deepcopy
 from pathlib import Path
 
 import pytest
@@ -86,4 +87,29 @@ def test_unknown_is_a_scientific_outcome_without_invented_quote(case):
     assert result['outcomes']['unknown'] == 1
     assert result['verified_quotes'] == 0
     bundle = json.loads(Path('output/bundle.json').read_text())
+    assert bundle['reviews'][0]['document']['verdict'] == 'needs_curation'
+
+
+@pytest.mark.parametrize('support', ['context_only', 'refutes', 'partial', 'unknown'])
+def test_mixed_batch_requires_positive_evidence_per_supported_assessment(case, support):
+    unknown = deepcopy(case['assessments'][0])
+    unknown.update(occurrence_id='urn:kg-microbe:occurrence:v1:' + '2' * 64,
+                   outcome='unknown', quotes=[])
+    case['assessments'].append(unknown)
+    case['assessments'][0]['quotes'][0]['support'] = support
+    with pytest.raises(CurationError, match='Each supported assessment'):
+        run(case)
+    assert not Path('output/manifest.json').exists()
+
+
+@pytest.mark.parametrize('support,conflict', [
+    ('refutes', 'unresolved'), ('partial', 'none_reported'), ('context_only', 'none_reported'),
+])
+def test_concern_reports_refuting_evidence_as_unresolved_conflict(case, support, conflict):
+    case['assessments'][0]['outcome'] = 'concern'
+    case['assessments'][0]['quotes'][0]['support'] = support
+    run(case)
+    bundle = json.loads(Path('output/bundle.json').read_text())
+    assert bundle['decisions'][0]['conflict_state'] == conflict
+    assert bundle['decisions'][0]['disposition'] == 'withheld'
     assert bundle['reviews'][0]['document']['verdict'] == 'needs_curation'

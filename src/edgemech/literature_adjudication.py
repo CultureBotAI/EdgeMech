@@ -50,6 +50,10 @@ def adjudicate(cohort: Path, retrieval: Path, cache: Path, annotations: Path,
             raise CurationError("Assessment dimensions require explanations")
         if note["outcome"] in {"supported", "concern"} and not note.get("quotes"):
             raise CurationError("Supported/concern assessments require verified primary-source quotes")
+        if note["outcome"] == "supported" and not any(
+            quote["support"] == "supports" for quote in note.get("quotes", [])
+        ):
+            raise CurationError("Each supported assessment requires a supporting primary-source quote")
         annotations_by_id[key] = note
     if not annotations_by_id:
         raise CurationError("No scientific assessments supplied")
@@ -95,7 +99,10 @@ def adjudicate(cohort: Path, retrieval: Path, cache: Path, annotations: Path,
                              "accessed_at": now, "support": "context_only",
                              "summary": "Exact original source row and preserved citation binding.",
                              "snapshot_sha256": row["row_sha256"]})
-            decision.update(review_state="reviewed", conflict_state="none_reported",
+            conflict = "unresolved" if any(
+                quote["support"] == "refutes" for quote in note.get("quotes", [])
+            ) else "none_reported"
+            decision.update(review_state="reviewed", conflict_state=conflict,
                             review_ids=[review_id], rationale=note["rationale"] +
                             " Disposition remains withheld pending native scoped-claim admission.")
             targets.append({"target_id": key, "path": str(cohort / "occurrences.json"),
