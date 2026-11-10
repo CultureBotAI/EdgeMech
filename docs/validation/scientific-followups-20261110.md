@@ -53,9 +53,12 @@ occurrence. Canonical reviews retain these limitations and all source-input hash
 A one-occurrence Actinobacillus canary persisted and validated before the complete
 ten-assessment revision. The corrected coverage builder independently reconstructed
 all ten proofs and their canonical per-occurrence evidence bindings. Local final
-validation: **316 tests passed in 40.44 seconds**, repository-wide Ruff passed,
+validation: **318 tests passed in 41.38 seconds**, repository-wide Ruff passed,
 and all 16 pinned CLAW contract files verified. Review findings #50–#54 were filed
-before correction and have regression coverage.
+before correction and have regression coverage. Final review also found and fixed
+#57: proof/evidence parity now verifies the reconstructed source URL. The real
+coverage rerun with that check is byte-identical to the result below. No further
+blocking findings remained in the read-only source-capture review.
 
 | Retained artifact | SHA-256 |
 |---|---|

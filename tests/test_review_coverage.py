@@ -249,3 +249,15 @@ def test_capture_inputs_remain_hash_bound(capture_coverage, path):
     Path(path).write_text('changed')
     with pytest.raises(CurationError, match='source input changed'):
         build_coverage(**capture_coverage)
+
+
+@pytest.mark.parametrize('fixture_name', ['coverage_case', 'capture_coverage'])
+def test_rehashed_evidence_url_must_match_reconstructed_source(request, fixture_name):
+    case = request.getfixturevalue(fixture_name)
+    root = case['adjudication']
+    bundle = json.loads((root / 'bundle.json').read_text())
+    bundle['reviews'][0]['document']['evidence'][0]['reference'] = 'https://example.test/wrong-paper'
+    repin_captured_bundle(case, bundle)
+    with pytest.raises(CurationError, match='Quote proofs do not exactly cover scientific evidence'):
+        build_coverage(**case)
+    assert not Path('view.json').exists()

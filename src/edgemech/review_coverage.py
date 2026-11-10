@@ -174,7 +174,8 @@ def _current(cohort, cohort_sha, retrieval, retrieval_sha, cache, adjudication, 
                     if item.get("quote"):
                         if item["kind"] != "primary_source":
                             raise CurationError("Scientific quote coverage requires primary-source evidence")
-                        expected_proofs[(key, item["quote"], item["snapshot_sha256"], item["locator"])] += 1
+                        expected_proofs[(key, item["quote"], item["snapshot_sha256"],
+                                         item["locator"], item["reference"])] += 1
     if assessed != reviewed:
         raise CurationError("Explicit scientific assessment IDs differ from reviewed decision IDs")
     actual_proofs, quoted_ids, representations = Counter(), set(), Counter()
@@ -186,7 +187,7 @@ def _current(cohort, cohort_sha, retrieval, retrieval_sha, cache, adjudication, 
         if "capture_id" in proof:
             if proof["capture_id"] not in captures_by_target[key]:
                 raise CurationError("Quote proof capture is not bound by this target's scientific review")
-            _, rebuilt, locator = capture_quote(captures, proof)
+            document, rebuilt, locator = capture_quote(captures, proof)
             used_captures = True
         else:
             entry = documents.get(proof["reference"], {})
@@ -194,12 +195,14 @@ def _current(cohort, cohort_sha, retrieval, retrieval_sha, cache, adjudication, 
                           if doc["kind"] == proof["kind"] and doc["extractor"] == proof["extractor"]]
             if len(candidates) != 1:
                 raise CurationError("Missing or ambiguous proof document")
-            rebuilt = verify_quote(candidates[0], proof["quote"])
+            document = candidates[0]
+            rebuilt = verify_quote(document, proof["quote"])
             locator = (f"{proof['kind']} chars {proof['start']}:{proof['end']}; "
                        f"text_sha256={proof['text_sha256']}; {proof['extractor']}")
         if proof != {"occurrence_id": key, "reference": proof["reference"], **rebuilt}:
             raise CurationError("Quote proof differs from source response")
-        actual_proofs[(key, proof["quote"], proof["response_sha256"], locator)] += 1
+        actual_proofs[(key, proof["quote"], proof["response_sha256"], locator,
+                       document["response"]["url"])] += 1
         quoted_ids.add(key)
         representations[proof["kind"]] += 1
     if actual_proofs != expected_proofs:
