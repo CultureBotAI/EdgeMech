@@ -17,6 +17,8 @@ from .content_inventory import _write_json
 from .evidence_campaign import load_cohort
 from .literature_cache import LiteratureCache, load_retrieval, verify_quote
 from .pins import check_contracts
+from .source_capture import LIMITATION as CAPTURE_LIMITATION
+from .source_capture import capture_quote, load_source_captures
 from .storage.parquet import file_hash, safe_path
 
 DIMENSIONS = {"taxon", "predicate", "object", "context", "evidence_scope"}
@@ -36,6 +38,10 @@ def adjudicate(cohort: Path, retrieval: Path, cache: Path, annotations: Path,
         receipt, documents = load_retrieval(retrieval, client)
     if receipt["cohort_sha256"] != notes["cohort_sha256"]:
         raise CurationError("Retrieval belongs to another cohort")
+    captures, capture_inputs = {}, []
+    if "source_capture_manifest" in notes:
+        captures, capture_inputs = load_source_captures(notes["source_capture_manifest"])
+    used_captures = False
     selected = {row["occurrence_id"]: row for row in rows}
     annotations_by_id = {}
     for note in notes["assessments"]:
@@ -73,21 +79,26 @@ def adjudicate(cohort: Path, retrieval: Path, cache: Path, annotations: Path,
                 reference = selection["reference"]
                 if reference not in row["references"] or row["warnings"]:
                     raise CurationError("Quote source is not an unambiguous citation of this occurrence")
-                entry = documents.get(reference)
-                if entry is None:
-                    raise CurationError("Quoted document was not retrieved")
-                candidates = [doc for doc in entry["documents"] if doc["kind"] == selection["kind"]]
-                if len(candidates) != 1:
-                    raise CurationError("Quote document kind is missing or ambiguous")
-                doc = candidates[0]
-                proof = verify_quote(doc, selection["quote"])
+                if "capture_id" in selection:
+                    doc, proof, locator = capture_quote(captures, selection)
+                    used_captures = True
+                else:
+                    entry = documents.get(reference)
+                    if entry is None:
+                        raise CurationError("Quoted document was not retrieved")
+                    candidates = [doc for doc in entry["documents"] if doc["kind"] == selection["kind"]]
+                    if len(candidates) != 1:
+                        raise CurationError("Quote document kind is missing or ambiguous")
+                    doc = candidates[0]
+                    proof = verify_quote(doc, selection["quote"])
+                    locator = (f"{proof['kind']} chars {proof['start']}:{proof['end']}; "
+                               f"text_sha256={proof['text_sha256']}; {proof['extractor']}")
                 evidence_id = f"paper-{ordinal}-{quote_index}"
                 evidence_ids.append(evidence_id)
                 proofs.append({"occurrence_id": key, "reference": reference, **proof})
                 evidence.append({"evidence_id": evidence_id, "kind": "primary_source",
                                  "reference": doc["response"]["url"],
-                                 "locator": f"{proof['kind']} chars {proof['start']}:{proof['end']}; "
-                                            f"text_sha256={proof['text_sha256']}; {proof['extractor']}",
+                                 "locator": locator,
                                  "accessed_at": now, "support": selection["support"],
                                  "summary": selection["summary"], "quote": proof["quote"],
                                  "snapshot_sha256": proof["response_sha256"]})
@@ -137,7 +148,7 @@ def adjudicate(cohort: Path, retrieval: Path, cache: Path, annotations: Path,
         "completion": "completed", "verdict": ("pass_with_limitations" if all(
             item["outcome"] == "supported" for item in assessments) else "needs_curation"),
         "scientific_review": True,
-        "summary": "Explicit bounded scientific assessments with independently re-extracted quote spans. "
+        "summary": "Explicit bounded scientific assessments with quote spans verified against retained evidence. "
                    "Unannotated occurrences remain deferred; no KG admission is granted.",
         "source": {"git_revision": git_revision, "state": "working_tree",
                    "inputs": [{"path": str(cohort / "manifest.json"), "sha256": notes["cohort_sha256"],
@@ -149,7 +160,7 @@ def adjudicate(cohort: Path, retrieval: Path, cache: Path, annotations: Path,
                               {"path": str(retrieval / "manifest.json"),
                                "sha256": notes["retrieval_sha256"], "role": "retrieved evidence"},
                               {"path": str(annotations), "sha256": file_hash(annotations),
-                               "role": "explicit reviewer judgments"}]},
+                               "role": "explicit reviewer judgments"}] + capture_inputs},
         "scope": {"description": "Individually annotated source occurrences only",
                   "selection": "Bounded literature pilot; no propagation to shared-citation neighbors",
                   "coverage": "full" if len(assessments) == len(rows) else "partial",
@@ -158,7 +169,8 @@ def adjudicate(cohort: Path, retrieval: Path, cache: Path, annotations: Path,
         "findings": [], "actions": [],
         "limitations": ["One agent assessment, not independent reviewer agreement.",
                         "Text availability and exact quotes do not establish scientific support.",
-                        "No native observations or normalized claims were synthesized."]}
+                        "No native observations or normalized claims were synthesized."] + (
+                            [CAPTURE_LIMITATION] if used_captures else [])}
     bundle = {"contract": CONTRACT, "input_sha256": source_sha, "occurrence_ids": list(selected),
               "decisions": decisions, "observations": [], "claims": [],
               "reviews": [{"review_id": review_id, "sha256": sha256_json(review), "document": review}]}

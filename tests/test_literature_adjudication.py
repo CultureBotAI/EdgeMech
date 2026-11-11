@@ -113,3 +113,43 @@ def test_concern_reports_refuting_evidence_as_unresolved_conflict(case, support,
     assert bundle['decisions'][0]['conflict_state'] == conflict
     assert bundle['decisions'][0]['disposition'] == 'withheld'
     assert bundle['reviews'][0]['document']['verdict'] == 'needs_curation'
+
+
+def capture_notes(case):
+    from edgemech.source_capture import FORMAT, KIND, REPRESENTATION
+    Path('tool-response.txt').write_text('L7@P1: Organism A has trait B in condition C.\n')
+    manifest = {'format': FORMAT, 'captures': [{
+        'capture_id': 'primary', 'reference': 'doi:10.1234/example', 'title': 'Fixture study',
+        'url': 'https://example.test/primary.pdf', 'representation': REPRESENTATION,
+        'identity_review': {'verified': True, 'reviewer': 'Fixture agent', 'doi': '10.1234/example',
+                            'title': 'Fixture study', 'basis': 'Explicit synthetic identity check.'},
+        'snapshot': {'path': 'tool-response.txt', 'sha256': file_hash(Path('tool-response.txt'))},
+    }]}
+    Path('captures.json').write_text(json.dumps(manifest))
+    case['source_capture_manifest'] = {'path': 'captures.json',
+                                        'sha256': file_hash(Path('captures.json'))}
+    case['assessments'][0]['quotes'][0].update(capture_id='primary', kind=KIND)
+    return case
+
+
+def test_tool_capture_is_honest_and_bound_in_canonical_review(case):
+    result = run(capture_notes(case))
+    assert result['verified_quotes'] == 1
+    bundle = json.loads(Path('output/bundle.json').read_text())
+    review = bundle['reviews'][0]['document']
+    assert any('OCR' in text and 'not independently reproduced' in text for text in review['limitations'])
+    inputs = {item['path']: item['sha256'] for item in review['source']['inputs']}
+    assert inputs['tool-response.txt'] == file_hash(Path('tool-response.txt'))
+    assert inputs['captures.json'] == file_hash(Path('captures.json'))
+    evidence = review['evidence'][0]
+    assert evidence['snapshot_sha256'] == inputs['tool-response.txt']
+    assert 'tool-extracted primary text; L7@P1' in evidence['locator']
+    assert evidence['reference'] == 'https://example.test/primary.pdf'
+
+
+def test_tool_capture_cannot_add_a_source_not_cited_by_the_occurrence(case):
+    capture_notes(case)
+    case['assessments'][0]['quotes'][0]['reference'] = 'doi:10.1234/other'
+    with pytest.raises(CurationError, match='citation of this occurrence'):
+        run(case)
+    assert not Path('output/manifest.json').exists()

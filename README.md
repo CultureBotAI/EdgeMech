@@ -129,3 +129,10 @@ After verifying the canary, use the same preparation command with `--all` and a
 new output directory. Outputs preserve occurrence identities and raw evidence
 fields, join pinned nodes, and compute exact source profiles. Every content state
 remains `unassessed`; these files are preparation artifacts, not scientific reviews.
+
+The [scientific follow-up report](docs/validation/scientific-followups-20261110.md)
+records revised source-level judgments, exact legacy/current coverage and distinct
+node-metadata triage. The derived coverage view separates population disposition
+from individual scientific assessments; it preserves the historical ledger.
+Tool-extracted primary text is explicitly distinguished from retained raw provider
+responses. Supported source interpretations remain withheld from KG admission.
