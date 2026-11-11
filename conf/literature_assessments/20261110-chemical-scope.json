@@ -1,0 +1,117 @@
+{
+  "format": "edgemech-chemical-scope-review/v1",
+  "policy": {
+    "id": "edgemech-chemical-scope/20261110/v1",
+    "path": "docs/chemical-scope-policy.md",
+    "sha256": "adc50d10c6fee13c30ae2955b040d9977aace04c0872d3a478ea5580a9ffe83c",
+    "scope": "Only the three exact source occurrences enumerated below; no shared identity rule, native claim admission or propagation.",
+    "identity_authorized": false,
+    "ontology_references": [
+      "https://www.ebi.ac.uk/chebi/CHEBI:26806",
+      "https://www.ebi.ac.uk/chebi/CHEBI:15741",
+      "https://www.ebi.ac.uk/chebi/CHEBI:30779",
+      "https://www.ebi.ac.uk/chebi/CHEBI:30031",
+      "https://www.ebi.ac.uk/chebi/CHEBI:30089",
+      "https://www.ebi.ac.uk/chebi/CHEBI:15366"
+    ],
+    "native_policy_reference": "https://github.com/CultureBotAI/MediaIngredientMech/blob/c79fbc41c0bc4014c68696ab941143db1a027919/MAPPING_SEMANTICS.md",
+    "corroborating_references_only": [
+      "https://pubmed.ncbi.nlm.nih.gov/9148774/",
+      "https://pmc.ncbi.nlm.nih.gov/articles/PMC1287747/"
+    ]
+  },
+  "parent_judgments": "conf/literature_assessments/20261110-scientific-followup.json",
+  "capture_manifest": "conf/literature_assessments/20261110-source-captures.json",
+  "revisions": [
+    {
+      "row_number": 7728857,
+      "occurrence_id": "urn:kg-microbe:occurrence:v1:993ef2387b191aa3636f59bb972ec90ec102161d5e9affbcdd955a1133ade52f",
+      "row_sha256": "02285a75a0f1c71a5c050203391c827eb7465a75f0beed9bb57748010d0f7b50",
+      "subject": "lpsn:788309",
+      "predicate": "biolink:produces",
+      "source_column": "Literature_Major_end_products",
+      "source_value": "succinate",
+      "value_encoding": "backslash",
+      "source_record": "sha256:0c6ff730a108720a5d6972400f2bccf2eca8621713b62736abdf5df0fb188c95#record=2516",
+      "mapped_object": "CHEBI:26806",
+      "reference": "doi:10.1099/ijs.0.011809-0",
+      "reported_analyte": {
+        "label": "succinic acid",
+        "lexical_chebi": "CHEBI:15741",
+        "charge_state_measured": false
+      },
+      "family_production": "supported",
+      "exact_chemical_scope": "not_established",
+      "identity_authorized": false,
+      "outcome": "concern",
+      "capture_id": "basfia-original",
+      "quote": "Produces\nsuccinic acid under anaerobic conditions in the presence\nof a substrate such as glucose.",
+      "support": "partial",
+      "rationale": "The original paper supports reported succinic-acid production by characterized Basfia isolates. The exact graph occurrence is a chemical-scope concern: CHEBI:26806 covers succinate anions and excludes neutral succinic acid, while the cited product measurement does not establish a charge-specific graph interpretation. The source table itself says succinate and the producer preserves that literal; this is neither a demonstrated mapping bug nor a refutation of anion production.",
+      "predicate_reason": "Production is supported at the reported fermentation-analyte level. That bounded conclusion does not approve the graph object's charge scope.",
+      "object_reason": "CHEBI:26806 contains the monoanion and dianion, not all acid/base forms. CHEBI:15741 identifies the paper's analyte name for comparison, not a finding that the culture contains only neutral acid. No object replacement or acid/anion identity equivalence is authorized.",
+      "context": "The species description reports anaerobic production in characterized Basfia isolates with a substrate such as glucose; methods describe a UV kit and liquid BHI product assays. Isolation pH is not transferred to those product measurements, and the result is not propagated to all strains or conditions.",
+      "evidence_scope": "Finite policy edgemech-chemical-scope/20261110/v1: production supported; exact chemical scope not established; occurrence concern; no biological refutation. Original cited product sentence at captured lines336-338, printed page48, is retained as tool-extracted primary text. The policy and exact row decision must be pinned as review inputs. Existing capture limitations remain; no native claim admission, speciation inference or identity authorization."
+    },
+    {
+      "row_number": 7726784,
+      "occurrence_id": "urn:kg-microbe:occurrence:v1:9878cff25ce984af2eb3e174538d4639cb3edf3afeb8b0265caa3790e530260a",
+      "row_sha256": "43420c8d285ea0f59e473be45d9b84c139d33d039e3e5531d4dfff68ccf303e2",
+      "subject": "lpsn:783288",
+      "predicate": "biolink:produces",
+      "source_column": "Literature_Major_end_products",
+      "source_value": "succinate",
+      "value_encoding": "backslash",
+      "source_record": "sha256:0c6ff730a108720a5d6972400f2bccf2eca8621713b62736abdf5df0fb188c95#record=359",
+      "mapped_object": "CHEBI:26806",
+      "reference": "doi:10.1099/00207713-49-1-207",
+      "reported_analyte": {
+        "label": "succinic acid",
+        "lexical_chebi": "CHEBI:15741",
+        "charge_state_measured": false
+      },
+      "family_production": "supported",
+      "exact_chemical_scope": "not_established",
+      "identity_authorized": false,
+      "outcome": "concern",
+      "capture_id": "actino-original",
+      "quote": "succinic acid was produced along with acetic acid",
+      "support": "partial",
+      "rationale": "The original paper directly supports succinic-acid production by type strain130Z. CHEBI:26806 retains the source-table succinate token, but its anion-only chemical scope is more specific than the cited product measurement establishes. Resolve the occurrence as a scope concern rather than an unknown biological production result; no evidence refutes anion production and no producer remapping is justified.",
+      "predicate_reason": "Reported product production is directly evidenced for type strain130Z. Exact charge-state approval is a separate claim not established by this measurement.",
+      "object_reason": "CHEBI:26806 is the general succinate-anion class, not specifically CHEBI:30031 and not a neutral-acid/anion union. The reported acid name is compared with CHEBI:15741 without treating that lexical grounding as culture speciation.",
+      "context": "Printed page210 describes type strain130Z in CSL/MgCO3-containing cultures. The original organic-acid HPLC method uses an acidic eluent; analytical and culture conditions remain distinct. Neither later-study pH nor separate assays supply a charge-state measurement for this occurrence.",
+      "evidence_scope": "Finite policy edgemech-chemical-scope/20261110/v1: production supported; exact chemical scope not established; occurrence concern; no biological refutation. The literal original cited product phrase at captured line402, printed page210, is verified against the retained tool-extracted primary text. The1997 and2005 studies are corroboration only and do not enter this quote binding. Pin the policy and exact row decision; retain extraction limitations and withheld native admission."
+    },
+    {
+      "row_number": 7726785,
+      "occurrence_id": "urn:kg-microbe:occurrence:v1:2c21cf3be7bc2ebf2cb46803a55389ff73a31038e5094595e00fd482b1f00d42",
+      "row_sha256": "5fa70b43c07065119adb4d6e768045d6344a94ca3778c7df5c7fe432677b9bc9",
+      "subject": "lpsn:783288",
+      "predicate": "biolink:produces",
+      "source_column": "Literature_Major_end_products",
+      "source_value": "acetate",
+      "value_encoding": "backslash",
+      "source_record": "sha256:0c6ff730a108720a5d6972400f2bccf2eca8621713b62736abdf5df0fb188c95#record=359",
+      "mapped_object": "CHEBI:30089",
+      "reference": "doi:10.1099/00207713-49-1-207",
+      "reported_analyte": {
+        "label": "acetic acid",
+        "lexical_chebi": "CHEBI:15366",
+        "charge_state_measured": false
+      },
+      "family_production": "supported",
+      "exact_chemical_scope": "not_established",
+      "identity_authorized": false,
+      "outcome": "concern",
+      "capture_id": "actino-original",
+      "quote": "succinic acid was produced along with acetic acid",
+      "support": "partial",
+      "rationale": "The original paper directly supports acetic-acid co-production by type strain130Z. The source-table acetate token is faithfully mapped to CHEBI:30089, whose charge -1 identity is more specific than the cited product measurement establishes. Apply the same explicit scope standard as for succinate: occurrence concern with positive product evidence, no false biological refutation and no automatic acid/anion identity approval.",
+      "predicate_reason": "Acetic-acid co-production is established. The concern concerns chemical scope rather than missing product evidence or evidence of absence.",
+      "object_reason": "CHEBI:30089 is the acetate anion; CHEBI:15366 identifies the paper's acetic-acid name. The conjugate relationship does not make the two identifiers interchangeable and the acid name does not establish exclusively neutral acid in the culture.",
+      "context": "The original printed page210 product passage concerns type strain130Z in CSL/MgCO3-containing cultures. Culture conditions and acidic organic-acid HPLC remain separate. Original citation binding and strain scope are preserved; no later assay supplies an unstated charge-state measurement.",
+      "evidence_scope": "Finite policy edgemech-chemical-scope/20261110/v1: production supported; exact chemical scope not established; occurrence concern; no biological refutation. Original cited line402 product phrase is literal in retained tool-extracted primary text. Independent1997 and2005 primary work corroborates acetate terminology but does not replace the row citation. Pin the policy and exact row decision; retain extraction limitations and withheld native admission."
+    }
+  ]
+}

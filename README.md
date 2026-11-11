@@ -136,3 +136,7 @@ node-metadata triage. The derived coverage view separates population disposition
 from individual scientific assessments; it preserves the historical ledger.
 Tool-extracted primary text is explicitly distinguished from retained raw provider
 responses. Supported source interpretations remain withheld from KG admission.
+
+The [chemical-scope and upstream metadata report](docs/validation/chemical-scope-metadata-20261110.md)
+records the subsequent finite acid/anion decisions, verified coverage, upstream
+label repairs and the remaining source/release work.
