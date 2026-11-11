@@ -24,16 +24,16 @@ A one-occurrence Basfia canary persisted a canonical bundle and a verified
 three-line source quotation before the full revision. The initial invocation
 rejected a short Git revision before creating output; the corrected invocation
 used the full commit identifier. Full artifacts were generated from implementation
-commit `8818b691e26c6bf0e94a852af790da110d98a8e8` after the two review fixes.
-The earlier artifacts are retained; the v2 artifacts below supersede them.
+commit `f3c1568effad372dea6451292a9eb03c01174c36` after the three review fixes.
+The earlier artifacts are retained; the final artifacts below supersede them.
 
 | Artifact | SHA-256 |
 |---|---|
 | `workspace/chemical-scope-full-v2-notes-20261110.json` | `b2dbfcfc4ffe9140a9769f6542516cc50b567b2d5879d140e3d4578cc53c0816` |
-| `workspace/chemical-scope-full-v2-20261110/bundle.json` | `2127d67602ec92cd79b0e4dea116cc249314aad7c6af3a999587d42f4e865f58` |
-| `workspace/chemical-scope-full-v2-20261110/quote-proofs.json` | `919c7f5191945af69f24c7df5922b174f83e6eb06442c047e7424d445fac9199` |
-| `workspace/chemical-scope-full-v2-20261110/manifest.json` | `62c20d10ce2d896887dec12ae7698649b98df8f865db9548c35ebc76d01eefc6` |
-| `workspace/review-coverage-chemical-scope-v2-20261110.json` | `ec5d7fedcf0644aa363d5c06f2da7ce701b564b6b7907c65a906fbd9f311edf4` |
+| `workspace/chemical-scope-full-v3-20261110/bundle.json` | `1fecdea5b3c118d687096a3c3584fed95f5463ffd49d19501e2d8f543a700ccd` |
+| `workspace/chemical-scope-full-v3-20261110/quote-proofs.json` | `919c7f5191945af69f24c7df5922b174f83e6eb06442c047e7424d445fac9199` |
+| `workspace/chemical-scope-full-v3-20261110/manifest.json` | `8c2b1ac9b98f72f4f951306b6cac2572376fbf4793a8a280f92c40f43edfefa9` |
+| `workspace/review-coverage-chemical-scope-v3-20261110.json` | `10ca5595dece2b4840849b7e37ec7185faaedf0e9e5ae434021e5d3be681d26a` |
 
 Reproduction uses `scripts/adhoc/build_chemical_scope_review_20261110.py`, then
 the existing adjudication and coverage launchers. The prior annotation SHA is
@@ -42,10 +42,12 @@ The reviewed cohort, retrieval and source-capture pins are inherited from PR #58
 Large artifacts and original tool responses remain in ignored workspace.
 
 Read-only adversarial review found #60 (revision bytes hashed after parsing)
-and #61 (source-value validation used the derived label). Both were filed before
-fixing. Revision pins now hash the exact parsed bytes, and exact source values
+and #61 (source-value validation used the derived label). The follow-up review
+confirmed those fixes and found #62, the same parsed-byte race in downstream
+adjudication. All three were filed before fixing. Revision and annotation pins
+now hash the exact parsed bytes, and exact source values
 and encoding are checked separately. Mutation and identity-drift regressions
-pass. Final local validation: **342 tests passed in 64.53 seconds**, the CI-scoped
+pass. Final local validation: **343 tests passed in 51.69 seconds**, the CI-scoped
 Ruff check passed, and all 16 pinned CLAW contract files verified. A fresh
 one-row canary preceded the final ten-assessment replay and coverage verification.
 

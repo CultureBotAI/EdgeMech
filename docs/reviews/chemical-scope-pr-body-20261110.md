@@ -9,9 +9,9 @@ quotation proofs and zero KG admissions. A one-row canary preceded the full repl
 the coverage pass reverified all source quotations and policy inputs. Tests cover
 identity/citation drift, false exact approval and policy mutation.
 
-Read-only adversarial review findings #60/#61 were filed and fixed: hash parsed
-revision bytes and check the original source value/encoding separately from its
-node label. Final validation:342 tests passed; CI-scoped Ruff and16 pinned CLAW
+Read-only adversarial review findings #60/#61/#62 were filed and fixed: hash parsed
+revision and annotation bytes and check the original source value/encoding separately
+from its node label. Final validation:343 tests passed; CI-scoped Ruff and16 pinned CLAW
 contract checks passed. A fresh canary/full replay and coverage verification
 confirmed the corrected candidate.
 
@@ -20,4 +20,4 @@ for artifact hashes and upstream #36 repair evidence. KG-Microbe repairs are in 
 separate upstream PR; release regeneration and unavailable owner metadata remain
 open under #36.
 
-Closes #41. Closes #55. Closes #60. Closes #61.
+Closes #41. Closes #55. Closes #60. Closes #61. Closes #62.
