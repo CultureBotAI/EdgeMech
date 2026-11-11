@@ -67,6 +67,17 @@ The source-cache audit does not establish full transform selection or merged
 release coverage. Its receipt SHA is
 `86e9bb438bc8fa87348ba2fbf5e3bdbc58b1b933fab22f5d56eb35ba50cef918`.
 
+Upstream review findings #1837/#1838 subsequently added strict API record identity
+and production input/freshness binding. A new canary and full production-path
+`run/_fetch` replay consumed the same 35,425 cached records, with zero live fetches
+or errors, and preserved the 36,512-label result. Its receipt SHA is
+`0bc40292a3b19f176c64771209240fb167147c5f8251261d0f875a1ec7588219`.
+The required record audit now binds API cache bytes, selected paths and GSS
+selection. The replay recorded 665 absent API cache paths; existing cached web
+fallback names are outside this API-specific guarantee. Canned cache misses are
+not remote API evidence. The updated LPSN identity/admission suite has 88 passing
+focused tests; full upstream validation is reported on PR #1836.
+
 Upstream [PR1836](https://github.com/Knowledge-Graph-Hub/kg-microbe/pull/1836)
 implements the citation repair and [issue1835](https://github.com/Knowledge-Graph-Hub/kg-microbe/issues/1835)
 PREGO BTO label hydration from the existing declared ontology input. A one-ID
