@@ -24,21 +24,30 @@ A one-occurrence Basfia canary persisted a canonical bundle and a verified
 three-line source quotation before the full revision. The initial invocation
 rejected a short Git revision before creating output; the corrected invocation
 used the full commit identifier. Full artifacts were generated from implementation
-commit `3455b56751b91383c165932ff310a41c0cf59ae6`.
+commit `8818b691e26c6bf0e94a852af790da110d98a8e8` after the two review fixes.
+The earlier artifacts are retained; the v2 artifacts below supersede them.
 
 | Artifact | SHA-256 |
 |---|---|
-| `workspace/chemical-scope-full-notes-20261110.json` | `e8bf046636b2b10ccc1a9a2fe6f118557db7465182ad1a02d35cc7080f6ec58b` |
-| `workspace/chemical-scope-full-20261110/bundle.json` | `d1455966083393f21f52d5706944cf22c1b01ebbdb7ca863e6f7a5c5b8ecf08f` |
-| `workspace/chemical-scope-full-20261110/quote-proofs.json` | `919c7f5191945af69f24c7df5922b174f83e6eb06442c047e7424d445fac9199` |
-| `workspace/chemical-scope-full-20261110/manifest.json` | `763f0869f9192fca705bfac81ed3785398f6cd86afa2e7b23d34a5a2e932195e` |
-| `workspace/review-coverage-chemical-scope-20261110.json` | `f3c97271f4fc2f367b7831618acda00b47b681d6e1e558a4776ec4c199c5127d` |
+| `workspace/chemical-scope-full-v2-notes-20261110.json` | `b2dbfcfc4ffe9140a9769f6542516cc50b567b2d5879d140e3d4578cc53c0816` |
+| `workspace/chemical-scope-full-v2-20261110/bundle.json` | `2127d67602ec92cd79b0e4dea116cc249314aad7c6af3a999587d42f4e865f58` |
+| `workspace/chemical-scope-full-v2-20261110/quote-proofs.json` | `919c7f5191945af69f24c7df5922b174f83e6eb06442c047e7424d445fac9199` |
+| `workspace/chemical-scope-full-v2-20261110/manifest.json` | `62c20d10ce2d896887dec12ae7698649b98df8f865db9548c35ebc76d01eefc6` |
+| `workspace/review-coverage-chemical-scope-v2-20261110.json` | `ec5d7fedcf0644aa363d5c06f2da7ce701b564b6b7907c65a906fbd9f311edf4` |
 
 Reproduction uses `scripts/adhoc/build_chemical_scope_review_20261110.py`, then
 the existing adjudication and coverage launchers. The prior annotation SHA is
 `6a3e8bd5f2c9ff5ffb61a88c61614b0d7211c3e118c7e44632f8914fe41f46a1`.
 The reviewed cohort, retrieval and source-capture pins are inherited from PR #58.
 Large artifacts and original tool responses remain in ignored workspace.
+
+Read-only adversarial review found #60 (revision bytes hashed after parsing)
+and #61 (source-value validation used the derived label). Both were filed before
+fixing. Revision pins now hash the exact parsed bytes, and exact source values
+and encoding are checked separately. Mutation and identity-drift regressions
+pass. Final local validation: **342 tests passed in 64.53 seconds**, the CI-scoped
+Ruff check passed, and all 16 pinned CLAW contract files verified. A fresh
+one-row canary preceded the final ten-assessment replay and coverage verification.
 
 For #36, current upstream KG-Microbe already repairs blank-name merge precedence
 and has explicit native-backed ENVO dispositions. A bounded eight-EC public
@@ -56,8 +65,12 @@ The source-cache audit does not establish full transform selection or merged
 release coverage. Its receipt SHA is
 `86e9bb438bc8fa87348ba2fbf5e3bdbc58b1b933fab22f5d56eb35ba50cef918`.
 
-Upstream [issue1835](https://github.com/Knowledge-Graph-Hub/kg-microbe/issues/1835)
-tracks PREGO BTO label hydration from the existing declared ontology input.
+Upstream [PR1836](https://github.com/Knowledge-Graph-Hub/kg-microbe/pull/1836)
+implements the citation repair and [issue1835](https://github.com/Knowledge-Graph-Hub/kg-microbe/issues/1835)
+PREGO BTO label hydration from the existing declared ontology input. A one-ID
+canary followed by the full 367-ID component replay supplied **367/367** labels
+from the retained 2021-10-26 BTO authority, with explicit input/audit binding.
+Its receipt SHA is `bc017d337a46f6e645913954c353689e9a8a9f2f4156eed4fc865e39e2f7d5e1`.
 IMG and INSDC records still require owner-supplied names absent from these
 retained inputs. Partial and obsolete EC identifiers have separate upstream
 semantic issues. #36 remains a release and source-metadata follow-up: no pinned
