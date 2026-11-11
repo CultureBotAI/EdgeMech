@@ -41,6 +41,19 @@ def adjudicate(cohort: Path, retrieval: Path, cache: Path, annotations: Path,
     captures, capture_inputs = {}, []
     if "source_capture_manifest" in notes:
         captures, capture_inputs = load_source_captures(notes["source_capture_manifest"])
+    interpretation_inputs = []
+    seen_paths = set()
+    for item in notes.get("interpretation_inputs", []):
+        path = safe_path(Path(item["path"]))
+        if str(path) in seen_paths or file_hash(path) != item["sha256"]:
+            raise CurationError("Interpretation input is duplicate or its pin differs")
+        seen_paths.add(str(path))
+        try:
+            relative = str(path.relative_to(Path.cwd().resolve()))
+        except ValueError as error:
+            raise CurationError("Interpretation input must be inside the repository") from error
+        interpretation_inputs.append({"path": relative, "sha256": item["sha256"],
+                                      "role": "review interpretation input"})
     used_captures = False
     selected = {row["occurrence_id"]: row for row in rows}
     annotations_by_id = {}
@@ -160,7 +173,7 @@ def adjudicate(cohort: Path, retrieval: Path, cache: Path, annotations: Path,
                               {"path": str(retrieval / "manifest.json"),
                                "sha256": notes["retrieval_sha256"], "role": "retrieved evidence"},
                               {"path": str(annotations), "sha256": file_hash(annotations),
-                               "role": "explicit reviewer judgments"}] + capture_inputs},
+                               "role": "explicit reviewer judgments"}] + capture_inputs + interpretation_inputs},
         "scope": {"description": "Individually annotated source occurrences only",
                   "selection": "Bounded literature pilot; no propagation to shared-citation neighbors",
                   "coverage": "full" if len(assessments) == len(rows) else "partial",
@@ -175,6 +188,8 @@ def adjudicate(cohort: Path, retrieval: Path, cache: Path, annotations: Path,
               "decisions": decisions, "observations": [], "claims": [],
               "reviews": [{"review_id": review_id, "sha256": sha256_json(review), "document": review}]}
     validate_bundle(bundle, expected_input_sha256=source_sha, expected_occurrence_ids=selected)
+    if any(file_hash(Path(item["path"])) != item["sha256"] for item in interpretation_inputs):
+        raise CurationError("Interpretation input changed during adjudication")
     output = safe_path(output, exists=False)
     output.mkdir()
     _write_json(output / "bundle.json", bundle)

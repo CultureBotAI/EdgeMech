@@ -64,6 +64,39 @@ def test_explicit_assessment_does_not_propagate_or_admit(case):
     assert bundle['claims'] == bundle['observations'] == []
 
 
+def test_interpretation_policy_is_pinned_in_canonical_review(case):
+    Path('policy.md').write_text('Family-level evidence does not prove exact charge state.')
+    pin = {'path': 'policy.md', 'sha256': file_hash(Path('policy.md'))}
+    case['interpretation_inputs'] = [pin]
+    run(case)
+    bundle = json.loads(Path('output/bundle.json').read_text())
+    inputs = bundle['reviews'][0]['document']['source']['inputs']
+    assert any(item['sha256'] == pin['sha256'] and
+               item['role'] == 'review interpretation input' for item in inputs)
+
+
+@pytest.mark.parametrize('damage', ['changed', 'duplicate', 'during_review'])
+def test_interpretation_policy_cannot_drift(case, monkeypatch, damage):
+    Path('policy.md').write_text('Only partial source support.')
+    pin = {'path': 'policy.md', 'sha256': file_hash(Path('policy.md'))}
+    case['interpretation_inputs'] = [pin]
+    if damage == 'changed':
+        Path('policy.md').write_text('Changed policy.')
+    elif damage == 'duplicate':
+        case['interpretation_inputs'].append(pin)
+    else:
+        verify = module.verify_quote
+
+        def mutate(*args, **kwargs):
+            Path('policy.md').write_text('Changed during quote verification.')
+            return verify(*args, **kwargs)
+
+        monkeypatch.setattr(module, 'verify_quote', mutate)
+    with pytest.raises(CurationError, match='Interpretation input'):
+        run(case)
+    assert not Path('output/manifest.json').exists()
+
+
 @pytest.mark.parametrize('damage', ['pin', 'quote', 'reference', 'dimensions', 'duplicate'])
 def test_reject_unbound_or_incomplete_assessments(case, damage):
     if damage == 'pin':
