@@ -75,6 +75,19 @@ def test_interpretation_policy_is_pinned_in_canonical_review(case):
                item['role'] == 'review interpretation input' for item in inputs)
 
 
+def test_annotation_bytes_cannot_change_between_parse_and_publication(case, monkeypatch):
+    load = module.load_retrieval
+
+    def mutate(*args, **kwargs):
+        Path('notes.json').write_text('{"different": "reviewer judgments"}')
+        return load(*args, **kwargs)
+
+    monkeypatch.setattr(module, 'load_retrieval', mutate)
+    with pytest.raises(CurationError, match='annotations changed'):
+        run(case)
+    assert not Path('output').exists()
+
+
 @pytest.mark.parametrize('damage', ['changed', 'duplicate', 'during_review'])
 def test_interpretation_policy_cannot_drift(case, monkeypatch, damage):
     Path('policy.md').write_text('Only partial source support.')

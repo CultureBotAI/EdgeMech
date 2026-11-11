@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import json
 from datetime import datetime, timezone
+from hashlib import sha256
 from pathlib import Path
 
 from kg_microbe_curation.contract import decision_digest, unprocessed_decision, validate_bundle
@@ -29,7 +30,9 @@ def adjudicate(cohort: Path, retrieval: Path, cache: Path, annotations: Path,
                output: Path, git_revision: str):
     check_contracts()
     manifest, rows, queue = load_cohort(cohort)
-    notes = json.loads(safe_path(annotations).read_bytes())
+    annotation_bytes = safe_path(annotations).read_bytes()
+    annotation_sha = sha256(annotation_bytes).hexdigest()
+    notes = json.loads(annotation_bytes)
     if notes["cohort_sha256"] != file_hash(cohort / "manifest.json"):
         raise CurationError("Assessment cohort pin mismatch")
     if notes["retrieval_sha256"] != file_hash(retrieval / "manifest.json"):
@@ -172,7 +175,7 @@ def adjudicate(cohort: Path, retrieval: Path, cache: Path, annotations: Path,
                                "sha256": manifest["occurrences_sha256"], "role": "exact source rows"},
                               {"path": str(retrieval / "manifest.json"),
                                "sha256": notes["retrieval_sha256"], "role": "retrieved evidence"},
-                              {"path": str(annotations), "sha256": file_hash(annotations),
+                              {"path": str(annotations), "sha256": annotation_sha,
                                "role": "explicit reviewer judgments"}] + capture_inputs + interpretation_inputs},
         "scope": {"description": "Individually annotated source occurrences only",
                   "selection": "Bounded literature pilot; no propagation to shared-citation neighbors",
@@ -188,6 +191,8 @@ def adjudicate(cohort: Path, retrieval: Path, cache: Path, annotations: Path,
               "decisions": decisions, "observations": [], "claims": [],
               "reviews": [{"review_id": review_id, "sha256": sha256_json(review), "document": review}]}
     validate_bundle(bundle, expected_input_sha256=source_sha, expected_occurrence_ids=selected)
+    if file_hash(annotations) != annotation_sha:
+        raise CurationError("Reviewer annotations changed during adjudication")
     if any(file_hash(Path(item["path"])) != item["sha256"] for item in interpretation_inputs):
         raise CurationError("Interpretation input changed during adjudication")
     output = safe_path(output, exists=False)
