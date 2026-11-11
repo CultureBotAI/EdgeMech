@@ -78,6 +78,14 @@ fallback names are outside this API-specific guarantee. Canned cache misses are
 not remote API evidence. The updated LPSN identity/admission suite has 88 passing
 focused tests; full upstream validation is reported on PR #1836.
 
+Final upstream findings #1839/#1840 corrected audit line endings and independently
+checked the record inventory against verified GSS/API traversal. The final v3
+production replay passed, with byte-identical node/edge files and an LF-only
+36,092-row audit. Its receipt SHA is
+`995b9695c3ca54efbe521067b7d4e5c6e276b3513a3ce4aaea37bb3570db436b`;
+the audit SHA is `5a11caaf807bfc9fbc54c64a46960e13d09679024a299d8431970d00f27e8b58`.
+These supersede the earlier production receipt for final audit verification.
+
 Upstream [PR1836](https://github.com/Knowledge-Graph-Hub/kg-microbe/pull/1836)
 implements the citation repair and [issue1835](https://github.com/Knowledge-Graph-Hub/kg-microbe/issues/1835)
 PREGO BTO label hydration from the existing declared ontology input. A one-ID
