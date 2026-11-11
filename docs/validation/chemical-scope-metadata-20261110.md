@@ -86,6 +86,16 @@ production replay passed, with byte-identical node/edge files and an LF-only
 the audit SHA is `5a11caaf807bfc9fbc54c64a46960e13d09679024a299d8431970d00f27e8b58`.
 These supersede the earlier production receipt for final audit verification.
 
+Upstream final candidate `6c4633542fb01e39817fd68c5f2d3abb3b8a88d2` passed
+the complete required local gates in the isolated locked Python3.12 environment:
+lock/config, formatting, lint, spelling, docstrings and **9,541 tests passed,
+56 skipped** (pytest 3,807.81 seconds). The first gate attempt stopped before
+pytest on three missing test-helper docstrings; #1841 records their correction.
+The final gate ledger SHA is
+`aa49fa4b864673e196e6b885fd4236ffbe91674373f65e01842ffb4e7e1221ce`.
+All source changes remained committed and clean during that run. CI status and
+merge approval remain visible on PR #1836; passing local gates is not a new release.
+
 Upstream [PR1836](https://github.com/Knowledge-Graph-Hub/kg-microbe/pull/1836)
 implements the citation repair and [issue1835](https://github.com/Knowledge-Graph-Hub/kg-microbe/issues/1835)
 PREGO BTO label hydration from the existing declared ontology input. A one-ID
