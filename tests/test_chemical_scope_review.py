@@ -19,7 +19,8 @@ def review(tmp_path, monkeypatch):
     row = {'occurrence_id': 'one', 'row_number': 1, 'row_sha256': 'a' * 64,
            'references': {'doi:10.1234/original': []},
            'fields': {'predicate': 'biolink:produces', 'object': 'CHEBI:26806',
-                      'subject': 'taxon:one', 'source_column': 'products', 'source_record': 'record1'},
+                      'subject': 'taxon:one', 'source_column': 'products', 'source_record': 'record1',
+                      'value': 'succinate', 'value_encoding': 'backslash'},
            'labels': {'object_label': 'succinate'}}
     monkeypatch.setattr(module, 'load_cohort', lambda path: ({}, [row], {}))
     note = {'occurrence_id': 'one', 'outcome': 'unknown', 'dimensions': {'taxon': 'Original strain'},
@@ -32,7 +33,8 @@ def review(tmp_path, monkeypatch):
               'row_sha256': 'a' * 64, 'subject': 'taxon:one', 'predicate': 'biolink:produces',
               'source_column': 'products', 'source_record': 'record1',
               'reference': 'doi:10.1234/original', 'identity_authorized': False,
-              'source_value': 'succinate', 'outcome': 'concern', 'support': 'partial',
+              'source_value': 'succinate', 'value_encoding': 'backslash',
+              'outcome': 'concern', 'support': 'partial',
               'family_production': 'supported', 'exact_chemical_scope': 'not_established',
               **{key: 'Explicit reviewer scope.' for key in
                  ('rationale', 'predicate_reason', 'object_reason', 'context', 'evidence_scope')}}
@@ -86,5 +88,34 @@ def test_rejects_identity_drift_and_exact_approval_even_in_canary(review, field,
 def test_policy_edit_requires_new_pin(review):
     Path('policy.md').write_text('Different interpretation.')
     with pytest.raises(CurationError, match='policy pin'):
+        run(review[1])
+    assert not Path('notes.json').exists()
+
+
+def test_revisions_changed_after_parse_cannot_be_pinned_as_consumed(review, monkeypatch):
+    load = module.load_cohort
+
+    def mutate(path):
+        Path('revisions.json').write_text('{"different": "revision bytes"}')
+        return load(path)
+
+    monkeypatch.setattr(module, 'load_cohort', mutate)
+    with pytest.raises(CurationError, match='input changed'):
+        run(review[1])
+    assert not Path('notes.json').exists()
+
+
+@pytest.mark.parametrize('field,value', [('value', 'succinic acid'), ('value_encoding', 'plain')])
+def test_raw_source_value_is_checked_independently_of_derived_label(review, monkeypatch, field, value):
+    load = module.load_cohort
+
+    def altered_source(path):
+        manifest, rows, queue = load(path)
+        rows[0]['fields'][field] = value
+        assert rows[0]['labels']['object_label'] == 'succinate'
+        return manifest, rows, queue
+
+    monkeypatch.setattr(module, 'load_cohort', altered_source)
+    with pytest.raises(CurationError, match='exact source assertion'):
         run(review[1])
     assert not Path('notes.json').exists()

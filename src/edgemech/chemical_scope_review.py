@@ -4,6 +4,7 @@ from __future__ import annotations
 import json
 from copy import deepcopy
 from datetime import datetime, timezone
+from hashlib import sha256
 from pathlib import Path
 
 from kg_microbe_curation.identity import CurationError
@@ -18,10 +19,13 @@ def build_annotations(parent: Path, parent_sha: str, revisions: Path, cohort: Pa
     """Bind a reviewed finite policy to exact occurrence IDs and retained quotations."""
     parent = safe_path(parent)
     revisions = safe_path(revisions)
-    if file_hash(parent) != parent_sha:
+    parent_bytes = parent.read_bytes()
+    revision_bytes = revisions.read_bytes()
+    revisions_sha = sha256(revision_bytes).hexdigest()
+    if sha256(parent_bytes).hexdigest() != parent_sha:
         raise CurationError("Chemical review parent pin mismatch")
-    notes = json.loads(parent.read_bytes())
-    config = json.loads(revisions.read_bytes())
+    notes = json.loads(parent_bytes)
+    config = json.loads(revision_bytes)
     if config["format"] != "edgemech-chemical-scope-review/v1":
         raise CurationError("Unsupported chemical review format")
     policy = config["policy"]
@@ -53,6 +57,8 @@ def build_annotations(parent: Path, parent_sha: str, revisions: Path, cohort: Pa
                 row["fields"]["object"] != update["mapped_object"] or
                 row["fields"]["source_column"] != update["source_column"] or
                 row["fields"]["source_record"] != update["source_record"] or
+                row["fields"]["value"] != update["source_value"] or
+                row["fields"]["value_encoding"] != update["value_encoding"] or
                 row["labels"]["object_label"] != update["source_value"]):
             raise CurationError("Chemical revision differs from exact source assertion")
         if (update["outcome"] != "concern" or update["support"] != "partial" or
@@ -81,7 +87,7 @@ def build_annotations(parent: Path, parent_sha: str, revisions: Path, cohort: Pa
                   started_at=datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"))
     result["interpretation_inputs"] = [
         {"path": str(parent.relative_to(Path.cwd().resolve())), "sha256": parent_sha},
-        {"path": str(revisions.relative_to(Path.cwd().resolve())), "sha256": file_hash(revisions)},
+        {"path": str(revisions.relative_to(Path.cwd().resolve())), "sha256": revisions_sha},
         {"path": str(policy_path.relative_to(Path.cwd().resolve())), "sha256": policy["sha256"]},
     ]
     if canary:
