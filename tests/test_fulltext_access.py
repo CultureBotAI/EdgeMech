@@ -303,3 +303,46 @@ def test_fetch_to_staging_writes_pdf_to_temp(tmp_path, monkeypatch):
     assert staged == tmp_path / ".temp" / "fulltext" / "10.1038_staged.pdf"
     assert staged.read_bytes().startswith(b"%PDF-1.5")
     assert "Saved PDF" in msg2
+
+
+def test_try_acs_figshare_si_resolves_handle(monkeypatch):
+    def fake_get_json(url: str, headers=None, timeout: int = 15):
+        if "doi.org/api/handles/10.1021/acssynbio.5b00123.s001" in url:
+            return {
+                "responseCode": 1,
+                "values": [
+                    {
+                        "type": "URL",
+                        "data": {
+                            "value": (
+                                "https://figshare.com/articles/journal_contribution/"
+                                "Supporting_Information/12345678"
+                            )
+                        },
+                    }
+                ],
+            }
+        if "api.figshare.com/v2/articles/12345678" in url:
+            return {
+                "files": [
+                    {
+                        "name": "sb5b00123_si_002.xlsx",
+                        "download_url": "https://ndownloader.figshare.com/files/99999998",
+                    },
+                    {
+                        "name": "sb5b00123_si_001.pdf",
+                        "download_url": "https://ndownloader.figshare.com/files/99999999",
+                    },
+                ]
+            }
+        return {}
+
+    monkeypatch.setattr(fa, "_http_get_json", fake_get_json)
+    assert fa.try_acs_figshare_si("10.1038/s41586-024-00001-1") is None
+    hit = fa.try_acs_figshare_si("https://doi.org/10.1021/acssynbio.5b00123")
+    assert hit is not None
+    assert hit[0] == "https://ndownloader.figshare.com/files/99999999"
+    hit_si = fa.try_acs_figshare_si("10.1021/acssynbio.5b00123.s001")
+    assert hit_si is not None
+    assert hit_si[0] == "https://ndownloader.figshare.com/files/99999999"
+

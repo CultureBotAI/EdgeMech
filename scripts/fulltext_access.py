@@ -546,6 +546,56 @@ def try_semantic_scholar(
 
 
 # ---------------------------------------------------------------------------
+# Rung 9: ACS Figshare Supporting Information (10.1021/<suffix>.s001)
+# ---------------------------------------------------------------------------
+def try_acs_figshare_si(doi: Optional[str] = None) -> Optional[tuple[str, str]]:
+    if not doi:
+        return None
+    clean_doi = _clean_doi(doi)
+    if not clean_doi or not clean_doi.startswith("10.1021/"):
+        return None
+    base_doi = re.sub(r"\.s\d{3}$", "", clean_doi, flags=re.IGNORECASE)
+    for suffix in (".s001", ".s002"):
+        si_doi = f"{base_doi}{suffix}"
+        handle_url = "https://doi.org/api/handles/" + urllib.parse.quote(si_doi, safe="/")
+        try:
+            handle_data = _http_get_json(handle_url)
+        except Exception:
+            continue
+        if not isinstance(handle_data, dict) or handle_data.get("responseCode") != 1:
+            continue
+        target_url = None
+        for val in handle_data.get("values") or []:
+            if isinstance(val, dict) and val.get("type") == "URL":
+                data_val = (val.get("data") or {}).get("value")
+                if isinstance(data_val, str) and data_val.startswith("https://"):
+                    target_url = data_val
+                    break
+        if not target_url:
+            continue
+        m = re.search(r"figshare\.com/articles/[^/]+/[^/]+/(\d+)", target_url)
+        if m:
+            article_id = m.group(1)
+            try:
+                meta = _http_get_json(f"https://api.figshare.com/v2/articles/{article_id}")
+            except Exception:
+                meta = None
+            if isinstance(meta, dict):
+                files = [f for f in (meta.get("files") or []) if isinstance(f, dict)]
+                for f in files:
+                    dl = f.get("download_url")
+                    name = str(f.get("name") or "").lower()
+                    if isinstance(dl, str) and dl.startswith("https://") and name.endswith(".pdf"):
+                        return dl, f"ACS Figshare SI PDF ({si_doi})"
+                for f in files:
+                    dl = f.get("download_url")
+                    if isinstance(dl, str) and dl.startswith("https://"):
+                        return dl, f"ACS Figshare SI attachment ({si_doi})"
+        return target_url, f"ACS Figshare SI landing ({si_doi})"
+    return None
+
+
+# ---------------------------------------------------------------------------
 # Staging helper (strictly under gitignored .temp/fulltext/)
 # ---------------------------------------------------------------------------
 def _check_no_symlink_components(path: Path, stop_at: Optional[Path] = None) -> None:
@@ -875,6 +925,19 @@ def check_availability(
             report.best_url = url
     else:
         report.attempts.append(AccessAttempt("semantic_scholar", "not_found"))
+
+    # 9. ACS Figshare Supporting Information
+    if report.doi and report.doi.startswith("10.1021/"):
+        acs_hit = try_acs_figshare_si(report.doi)
+        if acs_hit:
+            url, note = acs_hit
+            report.attempts.append(AccessAttempt("acs_figshare_si", "found", url, None, note))
+            if not report.fulltext_available:
+                report.fulltext_available = True
+                report.best_rung = "acs_figshare_si"
+                report.best_url = url
+        else:
+            report.attempts.append(AccessAttempt("acs_figshare_si", "not_found"))
 
     # Optional staging into .temp/fulltext/
     if stage_dir and report.fulltext_available and report.best_url:
