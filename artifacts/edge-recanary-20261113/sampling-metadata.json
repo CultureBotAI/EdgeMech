@@ -1,0 +1,47 @@
+{
+  "canary_dispositions": {
+    "omit_bergey_other_or_unmapped_hash_attribute": 3,
+    "omit_metatraits_zero_percentage_positive_predicate": 2,
+    "omit_microbedecoder_missing_img_subject_node": 2,
+    "omit_microbedecoder_redundant_bacdive_hash_attribute": 2,
+    "omit_prego_low_confidence_score_lt_3": 2,
+    "retained": 39
+  },
+  "canary_transforms": {
+    "bacdive/edges.tsv": 3,
+    "bactotraits/edges.tsv": 3,
+    "gold/edges.tsv": 3,
+    "gtdb/edges.tsv": 3,
+    "lpsn/edges.tsv": 3,
+    "lpsn_api/edges.tsv": 3,
+    "madin_etal/edges.tsv": 3,
+    "mediadive/edges.tsv": 3,
+    "metatraits/edges.tsv": 4,
+    "metatraits_gtdb/edges.tsv": 4,
+    "microbedecoder/edges.tsv": 10,
+    "prego_habitat/edges.tsv": 5,
+    "rhea_mappings/edges.tsv": 3
+  },
+  "excluded_canary_sha256": "e4addcfec2703cf8ef2cf879d5d1c244f5eefbd0cde0096b5e7f7170e06c8641",
+  "excluded_occurrences": 50,
+  "hashes": {
+    "artifacts/edge-recanary-20261113/canary.jsonl": "76b4556e9bb62cde92eaed764710f8bbe4a420b016602be1945cb9ed3d53d703",
+    "artifacts/edge-recanary-20261113/claims.jsonl": "4bb88b72f8131a00db7d6fe167b1e6a9c4b1812b976bc9d7c1b22f8929fb89de"
+  },
+  "method": "SHA256(seed + newline + occurrence_id) within original strata; interleave rank then rule verdict for 3 retained per transform; 3 for first lexical omission reason and 2 for each remaining reason, interleaving transform/verdict strata.",
+  "omitted": 11,
+  "overlap_with_first_canary": 0,
+  "parent_manifest_sha256": "afa87f8109fda0d4d95a8d4c92d01f5908e3174412599c52e8ec6490ea8c61b3",
+  "private_original_canary": {
+    "bytes": 205159,
+    "path": "sample/canary.jsonl",
+    "sha256": "5a5d351de022584c3561d4dd09fbc96202d1fa66849e1fbdbfe83a4ce826116c"
+  },
+  "private_path_base": "phase2 private data directory",
+  "retained": 39,
+  "sample_size": 50,
+  "scientific_retrieval_performed": false,
+  "seed": "20261113-helper3-fresh-recanary-v1",
+  "selected_at": "2026-11-13T08:24:08.058580+00:00",
+  "weight_interpretation": "Original 10k-manifest N_h/n_h weights preserved unchanged. Both canaries use deliberate coverage quotas; these are not recanary inverse inclusion weights or a population accuracy estimator."
+}

@@ -1,0 +1,14 @@
+{
+  "classification_precedes_scientific_retrieval": true,
+  "classified_at": "2026-11-13T08:26:01.569742+00:00",
+  "counts": {
+    "APPLICABLE": 28,
+    "NOT_APPLICABLE": 22
+  },
+  "hashes": {
+    "artifacts/edge-recanary-20261113/applicability.jsonl": "aa61af48b778ae07af17f31d44928431095198a8f91a3ba1666f598a55f2ed66",
+    "artifacts/edge-recanary-20261113/canary.jsonl": "76b4556e9bb62cde92eaed764710f8bbe4a420b016602be1945cb9ed3d53d703",
+    "scripts/adhoc/edge_recanary_20261113/APPLICABILITY.md": "0733ce3273b1f491ec01be60fbe8f5324eeb79dd6e7cbfd4d8b25bbf91fd1ed9",
+    "scripts/adhoc/edge_recanary_20261113/applicability.py": "42825a6ff6da5d2d171a27cfaaf91c92d9f22258e1b522dfa2445f24008d590a"
+  }
+}
