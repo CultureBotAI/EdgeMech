@@ -68,6 +68,7 @@ def upstream(rows):
         results[row["occurrence_id"]].append(
             {
                 "source_path": str(path),
+                "source_relative_path": capture_source_relative_path(path),
                 "source_file_size": path.stat().st_size,
                 "source_file_mtime_ns": path.stat().st_mtime_ns,
                 "locator": locator,
@@ -397,17 +398,13 @@ def main():
         )
         print(json.dumps({key: len(value) for key, value in data.items()}))
     if args.verify:
+        canary_rows = verify_claim_manifest(ARTIFACT)
         data = json.loads((DATA / "source-records-50.json").read_text())
         rows = json.loads((ARTIFACT / "source-adjudications.json").read_text())
         if len(rows) != 50 or len({r["occurrence_id"] for r in rows}) != 50:
             raise ValueError("Expected exactly 50 distinct verdicts")
         proofs = 0
-        expected = {
-            r["canary_ordinal"]: r["occurrence_id"]
-            for r in [
-                json.loads(line) for line in (ARTIFACT / "canary.jsonl").read_text().splitlines()
-            ]
-        }
+        expected = {r["canary_ordinal"]: r["occurrence_id"] for r in canary_rows}
         for row in rows:
             if expected[row["canary_ordinal"]] != row["occurrence_id"]:
                 raise ValueError("Canary occurrence identity mismatch")
@@ -421,7 +418,7 @@ def main():
                     raise ValueError("Snapshot hash mismatch")
                 if evidence["text_sha256"] != rec["text_sha256"]:
                     raise ValueError("Evidence text hash does not bind the source snapshot")
-                relative = rec["source_path"].split("/data/raw/", 1)[-1]
+                relative = source_relative_path(rec)
                 if (
                     evidence["source_relative_path"] != relative
                     or evidence["locator"] != rec["locator"]
@@ -867,7 +864,7 @@ MANUAL = {
 
 def author():
     records = json.loads((DATA / "source-records-50.json").read_text())
-    rows = [json.loads(line) for line in (ARTIFACT / "canary.jsonl").read_text().splitlines()]
+    rows = verify_claim_manifest(ARTIFACT)
     output = []
     for row in rows:
         ordinal = row["canary_ordinal"]
@@ -877,7 +874,7 @@ def author():
             record = records[row["occurrence_id"]][index]
             if quote not in record["text"]:
                 raise ValueError(f"Edge {ordinal} quote is not exact: {quote!r}")
-            public_source = record["source_path"].split("/data/raw/", 1)[-1]
+            public_source = source_relative_path(record)
             url = record["retrieval_url"]
             if "database.csv" == public_source:
                 url = "https://github.com/thackmann/MicrobeDecoder/raw/main/Shiny/MicrobeDecoder/data/database/database.zip"
@@ -927,7 +924,7 @@ def author():
 
 def public_evidence_url(record):
     """Public origin for a private retained source record; never expose its host/path."""
-    relative = record["source_path"].split("/data/raw/", 1)[-1]
+    relative = source_relative_path(record)
     if relative == "database.csv":
         return "https://github.com/thackmann/MicrobeDecoder/raw/main/Shiny/MicrobeDecoder/data/database/database.zip"
     if relative.startswith(("ncbi_", "gtdb_species")):
@@ -935,6 +932,56 @@ def public_evidence_url(record):
     if relative == "madin_etal.csv":
         return "https://github.com/bacteria-archaea-traits/bacteria-archaea-traits/blob/master/output/condensed_traits_NCBI.csv"
     return record["retrieval_url"]
+
+
+def _validated_public_relative(value):
+    """Reject absolute, escaping or noncanonical paths before public serialization."""
+    if not isinstance(value, str) or not value or "\\" in value:
+        raise ValueError("Source relative path must be a nonempty POSIX path")
+    path = Path(value)
+    if not path.parts or path.is_absolute() or ".." in path.parts or ":" in path.parts[0]:
+        raise ValueError("Source path must remain relative to the configured raw root")
+    if path.as_posix() != value or value == ".":
+        raise ValueError("Source relative path must be canonical")
+    return value
+
+
+def capture_source_relative_path(path, raw_root=None):
+    """Bind a newly captured source file to its configured root without leaking it."""
+    root = RAW if raw_root is None else Path(raw_root)
+    try:
+        relative = Path(path).resolve().relative_to(root.resolve()).as_posix()
+    except ValueError as error:
+        raise ValueError("Source file is outside the configured raw root") from error
+    return _validated_public_relative(relative)
+
+
+def source_relative_path(record, raw_root=None):
+    """Read capture-time relative identity or safely adapt pre-relative snapshots."""
+    if "source_relative_path" in record:
+        return _validated_public_relative(record["source_relative_path"])
+    original = record.get("source_path")
+    if not isinstance(original, str) or not original:
+        raise ValueError("Source snapshot lacks its path identity")
+    # Historical private snapshots predate explicit relative-path capture. Only the
+    # known legacy marker is stripped; an unrecognized absolute path never escapes.
+    if "/data/raw/" in original:
+        return _validated_public_relative(original.split("/data/raw/", 1)[1])
+    return capture_source_relative_path(original, raw_root)
+
+
+def verify_claim_manifest(artifact_root=ARTIFACT):
+    """Reject any changed canary claim before replaying its existing source verdict."""
+    root = Path(artifact_root)
+    metadata = json.loads((root / "sampling-metadata.json").read_text())
+    key = (ARTIFACT / "canary.jsonl").as_posix()
+    expected_hash = metadata.get("hashes", {}).get(key)
+    if not isinstance(expected_hash, str) or len(expected_hash) != 64:
+        raise ValueError("Sampling metadata lacks the pinned canary hash")
+    raw = (root / "canary.jsonl").read_bytes()
+    if hashlib.sha256(raw).hexdigest() != expected_hash:
+        raise ValueError("Canary claims do not match the pinned sampling metadata")
+    return [json.loads(line) for line in raw.decode("utf-8").splitlines()]
 
 
 if __name__ == "__main__":

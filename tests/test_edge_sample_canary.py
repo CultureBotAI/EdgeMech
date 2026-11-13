@@ -436,3 +436,110 @@ def test_finalizer_rejects_oa_identity_not_bound_to_raw_search(
     with pytest.raises(ValueError):
         finalizer.finalize(manifest, decisions, retrieval, output)
     assert not output.exists()
+
+
+@pytest.fixture
+def reporter():
+    spec = importlib.util.spec_from_file_location('edge_sample_report', SCRIPT.with_name('report.py'))
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+@pytest.mark.parametrize('relative', ['sample/canary.jsonl',
+                                      'sample/private-provenance/canary.jsonl'])
+def test_report_resolves_both_recorded_private_canary_layouts(reporter, tmp_path, relative):
+    path = tmp_path / relative
+    path.parent.mkdir(parents=True)
+    path.write_text('{"fixture": true}\n')
+    metadata = {'private_original_canary': {
+        'path': relative, 'sha256': hashlib.sha256(path.read_bytes()).hexdigest()}}
+    assert reporter.resolve_original_canary(tmp_path, metadata) == path.resolve()
+
+
+def test_report_rejects_changed_private_canary(reporter, tmp_path):
+    path = tmp_path / 'canary.jsonl'
+    path.write_text('{"fixture": true}\n')
+    metadata = {'private_original_canary': {
+        'path': path.name, 'sha256': hashlib.sha256(path.read_bytes()).hexdigest()}}
+    path.write_text('{"fixture": false}\n')
+    with pytest.raises(ValueError):
+        reporter.resolve_original_canary(tmp_path, metadata)
+
+
+@pytest.mark.parametrize('escape', ['absolute', 'parent', 'symlink'])
+def test_report_rejects_private_canary_path_escape(reporter, tmp_path, escape):
+    data = tmp_path / 'data'
+    data.mkdir()
+    outside = tmp_path / 'outside.jsonl'
+    outside.write_text('{"fixture": true}\n')
+    if escape == 'absolute':
+        relative = str(outside)
+    elif escape == 'parent':
+        relative = '../outside.jsonl'
+    else:
+        (data / 'linked.jsonl').symlink_to(outside)
+        relative = 'linked.jsonl'
+    metadata = {'private_original_canary': {
+        'path': relative, 'sha256': hashlib.sha256(outside.read_bytes()).hexdigest()}}
+    with pytest.raises(ValueError):
+        reporter.resolve_original_canary(data, metadata)
+
+
+@pytest.fixture
+def source_runner():
+    spec = importlib.util.spec_from_file_location(
+        'edge_sample_source', SCRIPT.with_name('source_fidelity.py'))
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def test_source_paths_stay_relative_under_alternate_raw_root(source_runner, tmp_path):
+    raw_root = tmp_path / 'alternate-cache'
+    raw_root.mkdir()
+    source = raw_root / 'table.csv'
+    source.write_text('taxon,trait\nfixture,positive\n')
+    relative = source_runner.capture_source_relative_path(source, raw_root)
+    assert relative == 'table.csv'
+    legacy_record = {'source_path': str(source)}
+    assert source_runner.source_relative_path(legacy_record, raw_root) == relative
+    captured_record = {**legacy_record, 'source_relative_path': relative}
+    assert source_runner.source_relative_path(captured_record) == relative
+    assert str(tmp_path) not in relative
+
+
+def test_source_paths_reject_unknown_absolute_root(source_runner, tmp_path):
+    root = tmp_path / 'approved'
+    root.mkdir()
+    source = tmp_path / 'elsewhere' / 'table.csv'
+    source.parent.mkdir()
+    source.write_text('fixture\n')
+    with pytest.raises(ValueError):
+        source_runner.source_relative_path({'source_path': str(source)}, root)
+    with pytest.raises(ValueError):
+        source_runner.capture_source_relative_path(source, root)
+
+
+@pytest.mark.parametrize('damage', ['absolute', 'parent'])
+def test_source_paths_reject_unsafe_captured_relative_path(source_runner, tmp_path, damage):
+    relative = str(tmp_path / 'table.csv') if damage == 'absolute' else '../table.csv'
+    with pytest.raises(ValueError):
+        source_runner.source_relative_path({'source_relative_path': relative})
+
+
+def test_source_claims_bind_frozen_manifest_bytes(source_runner, tmp_path):
+    path = tmp_path / 'canary.jsonl'
+    rows = [{'occurrence_id': occurrence(index), 'canary_ordinal': index + 1,
+             'subject': 'NCBITaxon:1', 'predicate': 'biolink:has_phenotype',
+             'object': 'METPO:1000698', 'origin_transform': 'fixture/edges.tsv'}
+            for index in range(50)]
+    path.write_text(''.join(json.dumps(row) + '\n' for row in rows))
+    metadata = {'hashes': {'artifacts/edge-sample-review-20261112/canary.jsonl':
+                           hashlib.sha256(path.read_bytes()).hexdigest()}}
+    (tmp_path / 'sampling-metadata.json').write_text(json.dumps(metadata))
+    assert source_runner.verify_claim_manifest(tmp_path) == rows
+    rows[0]['predicate'] = 'biolink:capable_of'
+    path.write_text(''.join(json.dumps(row) + '\n' for row in rows))
+    with pytest.raises(ValueError):
+        source_runner.verify_claim_manifest(tmp_path)

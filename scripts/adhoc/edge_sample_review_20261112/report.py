@@ -22,13 +22,26 @@ def cell(value):
     return str(value).replace('|', '/').replace('\n', ' ')
 
 
+def resolve_original_canary(data, metadata):
+    reference = metadata["private_original_canary"]
+    relative = Path(reference["path"])
+    if relative.is_absolute() or ".." in relative.parts:
+        raise ValueError("Original canary path must be relative to private data")
+    path = data / relative
+    if not path.resolve().is_relative_to(data.resolve()):
+        raise ValueError("Original canary escapes private data")
+    if hashlib.sha256(path.read_bytes()).hexdigest() != reference["sha256"]:
+        raise ValueError("Original canary hash differs from sampling metadata")
+    return path
+
+
 def generate(data, report, pr):
     cohort = load_lines(ART / 'canary.jsonl')
     science = {r['occurrence_id']: r for r in load_lines(ART / 'scientific-ledger.jsonl')}
     source = {r['occurrence_id']: r for r in json.loads((ART / 'source-adjudications.json').read_text())}
     if len(cohort) != 50 or set(source) != set(science) or set(source) != {r['occurrence_id'] for r in cohort}:
         raise ValueError('Require exactly 50 matched two-axis canary rows')
-    original_path = data / 'sample/private-provenance/canary.jsonl'
+    original_path = resolve_original_canary(data, json.loads((ART / "sampling-metadata.json").read_text()))
     originals = {r['occurrence_id']: r for r in load_lines(original_path)}
     for row in cohort:
         if any(row[k] != originals[row['occurrence_id']][k] for k in ('subject', 'predicate', 'object', 'origin_transform', 'canary_ordinal')):
@@ -113,7 +126,7 @@ def generate(data, report, pr):
               'Model time/cost was not metered, so a dollar total cannot honestly be inferred. Direct public API fees incurred were$0 and remain$0 at the same services; Codex/subagent usage depends on the account/model rates and actual tokens. A planning allowance of 0.5–2 minutes of adjudication per edge is 83–332 serial agent-hours, or28–111 hours across three adjudicators, excluding retrieval and reconciliation. This is an explicit budgeting assumption, not a measured rate.', '',
               'Do not fan out the current evidence-search protocol unchanged: recent generic hits and inaccessible original-description full texts leave low resolution. First repair citation identity tables and improve synonym/type-strain and cited-primary-paper targeting, then canary the changed path. If authorized later, use one local retrieval coordinator and one durable cache, then three Codex adjudicators reading disjoint cached50-edge batches grouped by taxon. Preserve all original sample weights and validate ledger coverage centrally. Keep source scans read-only on the storage host and all review/cache output local; a remote32-worker pool would add provider contention without solving evidence gaps. No remote worker sessions were started.', '',
               '## Review findings, checks, and public-repository handling', '',
-              'Code integrity findings64–67 were filed and fixed before finalization: unconditional50-edge bound, full-ID packet filenames, raw-metadata citation identity checks and manifest-byte binding. Follow-up 68 records an internally inconsistent MicrobeDecoder taxon crosswalk; 69 records unrelated inherited dataset DOIs. Follow-ups 70–73 cover salinity-tolerance overreach, zero-percent positive edges, generic sporulation versus endospores, and original taxon-to-publication predicates. Issue 74 records the fixed CSV line-ending check; 75 retains the obsolete observation-predicate finding. No underlying graph fix is included.', '',
+              'Code integrity findings64–67 were filed and fixed before finalization: unconditional50-edge bound, full-ID packet filenames, raw-metadata citation identity checks and manifest-byte binding. Follow-up 68 records an internally inconsistent MicrobeDecoder taxon crosswalk; 69 records unrelated inherited dataset DOIs. Follow-ups 70–73 cover salinity-tolerance overreach, zero-percent positive edges, generic sporulation versus endospores, and original taxon-to-publication predicates. Issue 74 records the fixed CSV line-ending check; 75 retains the obsolete observation-predicate finding. Independent PR review findings 77–79 added guards for alternate raw-root privacy, metadata-driven report paths and source-claim hash binding; all were fixed and regression-tested. The public source transport was parameterized after the live run; that exact revised transport was not live re-canaried and requires a fresh single-record transport canary before any future expansion. No underlying graph fix is included.', '',
               f'Validation receipt: `{json.dumps(validation, sort_keys=True)}`.', '',
               'Before commit, the staged diff was scanned for personal home paths, machine hostnames, email addresses and key-like strings. Public helpers take data locations/hosts as arguments or environment variables. Private command lines, receipts, raw source records and full retrieved text remain outside Git. Public artifacts contain graph identifiers, short quotes, provenance URLs and hashes. Original/private and sanitized/public canary hashes are both recorded; replay uses the original, and identity/triple equivalence is checked. No merge is authorized.', '']
     body = '\n'.join(lines)
