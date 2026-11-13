@@ -1,0 +1,156 @@
+[
+  {
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:aa8fb3ee82e3e42f14412a810092bfce9905eacfd7ae4c783d702011f59821eb",
+    "canary_ordinal": 1,
+    "verdict": "NOT_ASSESSABLE",
+    "rationale": "An API20E citrate observation link has no positive/negative assay result. The edge does not assert citrate utilization; the existence of that observation is a source-fidelity question.",
+    "citations": []
+  },
+  {
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:316b2b134831e895bea115cea7be14d698f9e018608b1c8e1d06827bcd28a491",
+    "canary_ordinal": 2,
+    "verdict": "NOT_ASSESSABLE",
+    "rationale": "BacDive record versus CIP culture-collection accession is an identity mapping, not a biological trait assertion. Assess the original close_match separately from the curated same_as.",
+    "citations": []
+  },
+  {
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:c58d56b9de9263ef2c91ed280dcaf5bd13f31ad7ba976ffe6a63a2f990e1c2d5",
+    "canary_ordinal": 3,
+    "verdict": "NOT_ASSESSABLE",
+    "rationale": "DSM51066 subclass_of Corallococcus coralloides is a strain-to-taxon classification, without a trait, habitat, substrate or reaction assertion.",
+    "citations": []
+  },
+  {
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:6a6532646ea174c4bebf6b255b87e1d7e34da32644ec12dd61bec0c6fce07937",
+    "canary_ordinal": 7,
+    "verdict": "NOT_ASSESSABLE",
+    "rationale": "GOLD organism AMBR158 related_to Streptococcus salivarius is an organism-to-taxonomy link without a specific biological trait.",
+    "citations": []
+  },
+  {
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:deb0e72a7f6e70436c0aae61f3b58dc07879f62b18893246ab2161b82611d319",
+    "canary_ordinal": 8,
+    "verdict": "NOT_ASSESSABLE",
+    "rationale": "GOLD RUG12445 related_to uncultured Lachnospiraceae bacterium is an organism-to-taxonomy link without a specific biological trait.",
+    "citations": []
+  },
+  {
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:65c910c8f7c633bcb031d0a755fee7ca2c9388ed35814e34a8296e61706c9758",
+    "canary_ordinal": 9,
+    "verdict": "NOT_ASSESSABLE",
+    "rationale": "GOLD Neisseria N177_16 related_to the corresponding NCBI taxon is an identifier relationship, not a biological trait assertion.",
+    "citations": []
+  },
+  {
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:399d5df05e92efc91ea6394a52db5b59f46ca33a329c7b5753748986c975caa7",
+    "canary_ordinal": 10,
+    "verdict": "NOT_ASSESSABLE",
+    "rationale": "Assembly GCA_016931655.1 in_taxon GTDB JAFGEJ01 is a classification assertion; biological support of a phenotype cannot be tested from this edge.",
+    "citations": []
+  },
+  {
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:98133b7fa98f8148e99c6d10328741d57a8c358793f67f9a8edbc018ecb9f3ea",
+    "canary_ordinal": 11,
+    "verdict": "NOT_ASSESSABLE",
+    "rationale": "GTDB Kaistella salipaludis close_match NCBI Chryseobacterium salipaludis is a taxonomic name crosswalk requiring source identity review.",
+    "citations": []
+  },
+  {
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:8a6a56aaaf9508884e604b5c94d7d597287a8d0c850fc1a22a967910be325303",
+    "canary_ordinal": 12,
+    "verdict": "NOT_ASSESSABLE",
+    "rationale": "Assembly GCF_030540985.1 in_taxon Pseudomonas aeruginosa is a classification assertion, not evidence of a phenotype or habitat.",
+    "citations": []
+  },
+  {
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:abe0827dc1f103c0f4cd3d09ea4337d2384cf31819bd764c4431a564abc47e0a",
+    "canary_ordinal": 13,
+    "verdict": "NOT_ASSESSABLE",
+    "rationale": "Paracoccus tegillarcae subclass_of Paracoccus asserts taxonomic placement only; source fidelity is assessed independently.",
+    "citations": []
+  },
+  {
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:19e2ddca6ca134b436e72828fc92a461a8aa2cebe79fa4ee1d0e1f62a20b564a",
+    "canary_ordinal": 14,
+    "verdict": "NOT_ASSESSABLE",
+    "rationale": "LPSN Aliivibrio sifiae close_match its NCBI taxon is a source-identifier crosswalk, without a biological trait claim.",
+    "citations": []
+  },
+  {
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:e98c2d2e82653112f3b3223cae50c9469f0532fef9b65d87d114617bd91834ce",
+    "canary_ordinal": 15,
+    "verdict": "NOT_ASSESSABLE",
+    "rationale": "Zhihengliuella halotolerans subclass_of Zhihengliuella is taxonomic placement, without a trait or reaction claim.",
+    "citations": []
+  },
+  {
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:e16db85a8f58008dd540d38912ab7662101608758efde8c86cfd98bcf1ec55f9",
+    "canary_ordinal": 16,
+    "verdict": "NOT_ASSESSABLE",
+    "rationale": "Methanogenium tationis subclass_of Methanogenium is taxonomic placement, without a biological trait assertion.",
+    "citations": []
+  },
+  {
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:4573cb3e9800c7bd090c46a2f09c960a530fa4a9fd647e9d178d189f6881ec50",
+    "canary_ordinal": 17,
+    "verdict": "NOT_ASSESSABLE",
+    "rationale": "The original taxon close_match DOI edge is a publication-identifier relationship, not a biological claim. Its predicate/direction defect and curated mentions rewrite belong to source fidelity.",
+    "citations": []
+  },
+  {
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:617854342948a7f792de9e547580417ec3ccc2696f9429b2aeeadcc8ba1df9d3",
+    "canary_ordinal": 18,
+    "verdict": "NOT_ASSESSABLE",
+    "rationale": "Rhizobium herbae subclass_of Rhizobium is taxonomic placement; the scientific trait axis is not applicable.",
+    "citations": []
+  },
+  {
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:48c0f7dd47658b768a6c5b3d0e85de843a9eb99c7f737ca2cec88a9ae1a3c8d9",
+    "canary_ordinal": 23,
+    "verdict": "NOT_ASSESSABLE",
+    "rationale": "Main solution234 has_part vitaminB12 is a medium recipe composition statement. It does not assert that a taxon grows in or requires that ingredient; source recipe fidelity is assessed separately.",
+    "citations": []
+  },
+  {
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:192571d351f25940fa1d092f9943862376a9603e28391d518c131e3d0341669b",
+    "canary_ordinal": 32,
+    "verdict": "NOT_ASSESSABLE",
+    "rationale": "The Methanomethylophilus alvi to NCBI1281099 close_match is an identity crosswalk, not a biological trait. The incompatible endpoint labels require independent source-fidelity investigation, not an inferred phenotype verdict.",
+    "citations": []
+  },
+  {
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:782a3827d4711d496fbc680fb0e6c14eca6ebb94f330811dfc69c2b4def031f2",
+    "canary_ordinal": 40,
+    "verdict": "NOT_ASSESSABLE",
+    "rationale": "Bergey Type_of_metabolism=Other for Alloyangia pacifica has no specified metabolic phenotype that literature can support or contradict.",
+    "citations": []
+  },
+  {
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:8ad695917cd76d4af637400e50d05489277025b5c4d739e2adef59c37e7ad9e5",
+    "canary_ordinal": 41,
+    "verdict": "NOT_ASSESSABLE",
+    "rationale": "Bergey Type_of_metabolism=Other for Trinickia caryophylli does not define a falsifiable metabolic trait.",
+    "citations": []
+  },
+  {
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:f19e043c44caa5ad3ebcb605b323401faf0d68f336d6f81239463908fd1870b5",
+    "canary_ordinal": 42,
+    "verdict": "NOT_ASSESSABLE",
+    "rationale": "Bergey Type_of_metabolism=Other for Rickettsiella chironomi is unspecified source metadata, not an assessable biological claim.",
+    "citations": []
+  },
+  {
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:ce9817bad7137af955d770ccc403fd9950a1fb2c91021c974a9281cbf3c431ff",
+    "canary_ordinal": 45,
+    "verdict": "NOT_ASSESSABLE",
+    "rationale": "IMG2772190913 in_taxon Leeuwenhoekiella aestuarii is a genome-to-taxon link. Missing graph node metadata does not itself establish biological falsehood.",
+    "citations": []
+  },
+  {
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:3b9afbb11098a3675d6f811ed7abc3ff9c867f0865a03fcc655f5ff30b85b935",
+    "canary_ordinal": 46,
+    "verdict": "NOT_ASSESSABLE",
+    "rationale": "IMG2770939627 in_taxon Marinomonas pollencensis is a genome-to-taxon link. Its omission for missing node metadata is a source/integrity question, not a biological trait judgment.",
+    "citations": []
+  }
+]

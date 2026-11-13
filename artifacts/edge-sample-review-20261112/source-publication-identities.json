@@ -1,0 +1,18 @@
+{
+  "purpose": "Verified database-publication identity, not edge-level biological evidence",
+  "sources": [
+    {"source": "MetaTraits", "doi": "10.1093/nar/gkaf1241", "pmid": "41296543", "url": "https://pubmed.ncbi.nlm.nih.gov/41296543/"},
+    {"source": "MediaDive", "doi": "10.1093/nar/gkac803", "url": "https://mediadive.dsmz.de/about"},
+    {"source": "Rhea", "doi": "10.1093/nar/gkab1016", "pmid": "34755880", "url": "https://www.rhea-db.org/help/publications"},
+    {"source": "GOLD", "doi": "10.1093/nar/gkac974", "pmid": "36318257", "url": "https://pubmed.ncbi.nlm.nih.gov/36318257/"},
+    {"source": "GTDB", "doi": "10.1093/nar/gkab776", "pmid": "34520557", "url": "https://pubmed.ncbi.nlm.nih.gov/34520557/"},
+    {"source": "MicrobeDecoder", "doi": "10.1093/nar/gkag515", "pmid": "42163722", "url": "https://pubmed.ncbi.nlm.nih.gov/42163722/"}
+  ],
+  "supplemental_web_telemetry": {
+    "tool_calls": 8,
+    "search_queries": 10,
+    "open_requests": 7,
+    "publisher_open_failures": 2,
+    "note": "Includes one NCBI taxon-name lookup. The empty HPO PubMed rendering was not used as evidence; primary identifiers were available in search results. Separate from the103 logged Europe PMC API requests. Browser transport retry counts are unavailable."
+  }
+}

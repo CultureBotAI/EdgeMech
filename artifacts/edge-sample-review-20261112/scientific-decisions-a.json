@@ -1,0 +1,124 @@
+{
+  "adjudicating_model": "GPT-6 (runtime variant not exposed)",
+  "protocol": "scripts/adhoc/edge_sample_review_20261112/PROTOCOL.md",
+  "telemetry": {
+    "observed_interval_started_at": "2026-11-13T07:36:26Z",
+    "finished_at": "2026-11-13T07:39:24Z",
+    "observed_interval_seconds": 178,
+    "limitation": "Partial observed batch wall interval, including waits for retrieval packets. The first reading of edge 4 preceded the interval. This is neither total adjudication time nor a measurement of individual-edge adjudication times. No additional API calls were made."
+  },
+  "decisions": [
+    {
+      "ordinal": 4,
+      "occurrence_id": "urn:kg-microbe:occurrence:v1:702c23a8ebce2a6c393f697b6ff37cdd1f590c70c2ae3da93b4dd4d0187cafa1",
+      "verdict": "NOT_FOUND",
+      "adjudicating_model": "GPT-6 (runtime variant not exposed)",
+      "rationale": "The completed temperature search and exact species-description DOI query did not establish an optimum of 22–27 degrees C. The original Sphingomonas molluscorum description, DOI 10.1099/ijs.0.64441-0, was available only as an abstract without temperature measurements. Paper 0 full text Table 2 identifies S. molluscorum An 18T and a growth range of 7–37 degrees C; a growth range is not an optimum. Paper 1 grows the CeMbio isolate JUb134 routinely at 25 degrees C but does not determine its optimum. Other retrieved abstracts provide no scoped optimum measurement. This is bounded evidence non-recovery, not a contradiction of the edge.",
+      "citations": []
+    },
+    {
+      "ordinal": 5,
+      "occurrence_id": "urn:kg-microbe:occurrence:v1:219e1b79bb4910adf4fd86011ec8151ec72ba661ad2edc87443a96749c78a55f",
+      "verdict": "NOT_FOUND",
+      "adjudicating_model": "GPT-6 (runtime variant not exposed)",
+      "rationale": "The two completed queries did not retrieve a NaCl growth range of 1–3 percent for Lewinella cohaerens DSM 23179. The exact DOI 10.1099/ijs.0.65254-0 describes Lewinella agarilytica SST-19T and mentions L. cohaerens ATCC 23123T only as a phylogenetic comparator. Its seawater requirement cannot be transferred to DSM 23179. The retrieved full texts mention L. cohaerens in protein-sequence comparisons or environmental community context; neither supplies the requested strain-specific salinity interval. Salt in an enzyme-purification buffer is not a growth-range measurement.",
+      "citations": []
+    },
+    {
+      "ordinal": 6,
+      "occurrence_id": "urn:kg-microbe:occurrence:v1:63b8c720046854db1e3b6781c00d6d846275265fa1180a2da5ac0e1856c096b8",
+      "verdict": "NOT_FOUND",
+      "adjudicating_model": "GPT-6 (runtime variant not exposed)",
+      "rationale": "The completed synonym-aware pH query and exact original-description DOI query did not supply a pH growth-span width of 1–2 units for Pseudaeromonas sharmana. The original Aeromonas sharmana GPTSA-6T abstract, DOI 10.1099/ijs.0.63972-0, gives the taxonomic description without pH endpoints. Numeric pH ranges in the other abstracts belong to P. aegiceratis ZJS20T or P. paramecii PCS8T. The retrieved wastewater and crab full texts discuss P. sharmana occurrence, not its isolate-level pH limits. Values for related species cannot establish this claim.",
+      "citations": []
+    },
+    {
+      "ordinal": 19,
+      "occurrence_id": "urn:kg-microbe:occurrence:v1:788f331e8b09e35cfdcbe9cd5c44329d9c9f06b2865e97e4da8c55a098bcc41f",
+      "verdict": "NOT_FOUND",
+      "adjudicating_model": "GPT-6 (runtime variant not exposed)",
+      "rationale": "The completed W48906-specific query returned zero hits. The species-level Gram-positive query returned abstracts describing S. aureus generally or other isolates, including RN4220. None identifies W48906 and states its Gram phenotype. Under the protocol's exact-strain scope, the species-level Gram-positive statement cannot be inherited as a measured or explicitly reported W48906 phenotype. No contrary Gram result was found in the bounded packet.",
+      "citations": []
+    },
+    {
+      "ordinal": 20,
+      "occurrence_id": "urn:kg-microbe:occurrence:v1:035ab6470fccc4871a8761d679458319c1e7d0f31b3e97719715981c3deed501",
+      "verdict": "NOT_FOUND",
+      "adjudicating_model": "GPT-6 (runtime variant not exposed)",
+      "rationale": "The completed SS52 query retrieved papers explicitly identifying E. coli O157 SS52, but their available text concerns genome comparisons, prophages, plasmids or fimbrial adherence rather than a Gram-stain result for SS52. The full genomic-comparison paper includes SS52 in its strain analysis without reporting this phenotype. The other retrieved full text tests E. coli ATCC 25922 and mentions a different Streptomyces SS52 in its references. Species-level and other-strain Gram-negative abstracts cannot establish the exact SS52 assertion under this protocol.",
+      "citations": []
+    },
+    {
+      "ordinal": 21,
+      "occurrence_id": "urn:kg-microbe:occurrence:v1:31fcbe092ae2a48ae05a64d1f12280a042c28c26b2ef9b312113048fb04c5ead",
+      "verdict": "NOT_FOUND",
+      "adjudicating_model": "GPT-6 (runtime variant not exposed)",
+      "rationale": "The exact-strain/synonym and sporulation queries completed. Paper 0 full text explicitly lists Ensifer meliloti CIAM1775 in its NodA phylogenetic comparison, which establishes relevant strain mention but does not report non-sporulation. The remaining abstracts and retrieved full texts concern symbiosis, soil communities or fungal spore formation; none states absence of endospore formation for CIAM1775. The bacterial strain phenotype cannot be inferred from genus membership or from fungal sporulation observations.",
+      "citations": []
+    },
+    {
+      "ordinal": 22,
+      "occurrence_id": "urn:kg-microbe:occurrence:v1:e642948d5afc01eeaca37bc6e1a05cdec1d4e3f76a54081715203726daf6a8a4",
+      "verdict": "NOT_FOUND",
+      "adjudicating_model": "GPT-6 (runtime variant not exposed)",
+      "rationale": "The completed GTDB species-label query returned zero hits. The rolled-oats query retrieved a full paper describing growth of Streptomyces calvus isolate 27 on ISP3 oatmeal medium, but no retrieved evidence equates isolate 27 with GTDB Streptomyces sp001746295. Other retrieved studies concern unrelated organisms or feed microbiology. Growth of another Streptomyces isolate on oatmeal medium cannot support the specific taxon-to-DSMZ-medium-84 edge. No adequate publication binding was recovered under the bounded protocol.",
+      "citations": []
+    },
+    {
+      "ordinal": 24,
+      "occurrence_id": "urn:kg-microbe:occurrence:v1:82a79a7402fcf4f1127e952001f7af25ffe73baa1e564bf3575be667b6abd203",
+      "verdict": "NOT_FOUND",
+      "adjudicating_model": "GPT-6 (runtime variant not exposed)",
+      "rationale": "Both completed bounded queries—BacDive with accession 165511, and Clostridium septicum with EG medium—returned zero results. Thus no retrieved publication states that the exact BacDive 165511 strain grows in EG medium. This literature non-recovery is separate from source-record fidelity and does not imply inability to grow or absence of an upstream culture-collection recommendation.",
+      "citations": []
+    },
+    {
+      "ordinal": 25,
+      "occurrence_id": "urn:kg-microbe:occurrence:v1:86e9f9c3d2408395fa427637be7ae71e5024c0deeb17658504cc1429c83e6b0c",
+      "verdict": "NOT_FOUND",
+      "adjudicating_model": "GPT-6 (runtime variant not exposed)",
+      "rationale": "The completed Lactobacillus algidus/fumarate query returned zero hits. PMID 10843056, the retrieved species-description abstract, describes facultative anaerobiosis and homofermentative lactic-acid production, but does not test fumarate as a terminal electron acceptor or explicitly exclude its use. Homofermentation and missing fumarate discussion do not establish the edge's negative respiratory assertion, including its fumarate(2-) chemical scope.",
+      "citations": []
+    },
+    {
+      "ordinal": 26,
+      "occurrence_id": "urn:kg-microbe:occurrence:v1:abf37a5db342fcfeae4b7918e200de005c9a2a96cc14207edf10f985193bddba",
+      "verdict": "NOT_FOUND",
+      "adjudicating_model": "GPT-6 (runtime variant not exposed)",
+      "rationale": "Both nitrate and anaerobiosis/electron-acceptor queries completed, but the retrieved text did not explicitly establish that Alcanivorax borkumensis fails to use nitrate as a respiratory electron acceptor. Nitrate-utilization experiments in paper 0 concern Thermalkanevorax strain L01, not A. borkumensis. Paper 1 concerns antimicrobial silver nanoparticles, where silver nitrate is a preparation reagent. Other papers discuss hydrocarbon metabolism, biofilms or iron limitation. These contexts cannot establish the negative nitrate-respiration assertion for A. borkumensis.",
+      "citations": []
+    },
+    {
+      "ordinal": 27,
+      "occurrence_id": "urn:kg-microbe:occurrence:v1:2d5f43cc1ba4623b0020f9cd6b6647e1a392c38e85704e8a169f500ad5d19fd4",
+      "verdict": "NOT_FOUND",
+      "adjudicating_model": "GPT-6 (runtime variant not exposed)",
+      "rationale": "The manganese and oxidation queries completed without retrieved evidence explicitly excluding manganese oxidation by Vibrio furnissii. The available full texts mention V. furnissii in chemotaxis, decarboxylase, stress-response or community contexts. Manganese-containing superoxide dismutase discussed for V. vulnificus is a different organism and process; neither its presence nor general oxidative-stress physiology demonstrates manganese-substrate oxidation or its absence in V. furnissii. No directional conclusion is justified by this packet.",
+      "citations": []
+    },
+    {
+      "ordinal": 28,
+      "occurrence_id": "urn:kg-microbe:occurrence:v1:177815c9e4c39684189e2004e17840e6f0c42a2824750aad5d7f95bd7c0e5f3e",
+      "verdict": "NOT_FOUND",
+      "adjudicating_model": "GPT-6 (runtime variant not exposed)",
+      "rationale": "The sporulation and exact PMID queries completed. PMID 23114571 describes Actinoplanes hulinensis and includes A. campanulatus DSM 43148T only as a phylogenetic relative. The retrieved full texts mention A. campanulatus as a biocontrol organism without demonstrating its endospore phenotype. The sampled METPO:1000870 definition specifically invokes dormant, stress-resistant endospores; generic actinomycete spores, fungal spores or sporangial terminology cannot be substituted without an explicit semantic correction. No retrieved passage supports or directly refutes that precise phenotype for A. campanulatus.",
+      "citations": []
+    },
+    {
+      "ordinal": 29,
+      "occurrence_id": "urn:kg-microbe:occurrence:v1:a39dea6d504bca2f611bc95078212ba8dcbfcc96782f30e02edc8dd2fb6e086b",
+      "verdict": "NOT_FOUND",
+      "adjudicating_model": "GPT-6 (runtime variant not exposed)",
+      "rationale": "The explicit chemoheterotrophy/heterotrophy query returned zero hits; the taxon-only query retrieved the original A. xinjiangensis description (PMID 21257681) as an abstract. That abstract documents aerobic growth, morphology and cellular chemistry but does not state an organic source of both carbon and energy. Whole-cell sugar composition is not a carbon-utilization assay. The available olive-microbiome full text detects the species, while its chemoheterotrophy assignments concern other taxa and computational community inference. No exact trophic support was recovered in the bounded packet.",
+      "citations": []
+    },
+    {
+      "ordinal": 30,
+      "occurrence_id": "urn:kg-microbe:occurrence:v1:b912410040f3b6027290e16710d457e3e45753a38d8a5adda78f0a8ea423eb9b",
+      "verdict": "NOT_FOUND",
+      "adjudicating_model": "GPT-6 (runtime variant not exposed)",
+      "rationale": "The two completed queries for the GTDB placeholder SYIM01 sp009921765 and assembly GCA_009921765 returned zero hits. No retrieved publication binds that exact organism to a low-to-moderate NaCl optimum or to the 0.3–0.8 M definition of slightly halophilic. The retained graph's numeric annotation is source content, not independent scientific corroboration, and was not promoted as literature evidence.",
+      "citations": []
+    }
+  ]
+}
