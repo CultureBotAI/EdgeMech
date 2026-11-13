@@ -1,0 +1,412 @@
+{
+  "fresh_edges": 50,
+  "identifier_resolution": {
+    "elapsed_seconds": 2.1943602500032284,
+    "request_records": 4,
+    "requests_by_service": {
+      "ncbi": 1,
+      "ols": 3
+    }
+  },
+  "previous_edges": 50,
+  "projection_limitations": "Lower-bound measured-work scenarios from this purposive small canary, not completion estimates. Targeting-plan construction, manual reference selection, software engineering and issue handling were not separately metered and are excluded. Per-transform means assume similar remaining applicable claims and provider/cache behavior. Unobserved applicability cells remain unestimated. Grouped source scan time is shared, not measured per edge. Manual alias and source-association checks remain necessary; unattended expansion is not supported.",
+  "projections_by_transform": {
+    "bacdive/edges.tsv": {
+      "not_applicable": 442,
+      "science_adjudication_seconds": 9713.938995402,
+      "science_api_attempts_by_service": {
+        "europe_pmc": 1648.0
+      },
+      "science_observed_applicable": 1,
+      "science_retrieval_seconds": 5800.139639195724,
+      "scientific_applicable": 206,
+      "source": 648,
+      "source_adjudication_seconds": 7600.056308783999,
+      "source_observed": 3,
+      "unresolved_class": 1
+    },
+    "bactotraits/edges.tsv": {
+      "not_applicable": 0,
+      "science_adjudication_seconds": 19069.282746071996,
+      "science_api_attempts_by_service": {
+        "crossref": 864.0,
+        "download:assets-eu.researchsquare.com": 432.0,
+        "download:www.microbiologyresearch.org": 648.0,
+        "download:www.researchsquare.com": 864.0,
+        "europe_pmc": 2592.0,
+        "ncbi": 216.0,
+        "openalex": 1296.0,
+        "springer": 216.0
+      },
+      "science_observed_applicable": 3,
+      "science_retrieval_seconds": 12415.602699001436,
+      "scientific_applicable": 648,
+      "source": 648,
+      "source_adjudication_seconds": 9824.979410856,
+      "source_observed": 3,
+      "unresolved_class": 0
+    },
+    "gold/edges.tsv": {
+      "not_applicable": 443,
+      "science_adjudication_seconds": 4030.019064515,
+      "science_api_attempts_by_service": {
+        "crossref": 205.0,
+        "europe_pmc": 1435.0,
+        "ncbi": 205.0,
+        "openalex": 205.0,
+        "springer": 205.0
+      },
+      "science_observed_applicable": 1,
+      "science_retrieval_seconds": 3725.889239095195,
+      "scientific_applicable": 205,
+      "source": 648,
+      "source_adjudication_seconds": 6413.579261928,
+      "source_observed": 3,
+      "unresolved_class": 0
+    },
+    "gtdb/edges.tsv": {
+      "not_applicable": 648,
+      "science_adjudication_seconds": 0,
+      "science_api_attempts_by_service": {},
+      "science_observed_applicable": 0,
+      "science_retrieval_seconds": 0,
+      "scientific_applicable": 0,
+      "source": 648,
+      "source_adjudication_seconds": 6755.787575928,
+      "source_observed": 3,
+      "unresolved_class": 0
+    },
+    "lpsn/edges.tsv": {
+      "not_applicable": 648,
+      "science_adjudication_seconds": 0,
+      "science_api_attempts_by_service": {},
+      "science_observed_applicable": 0,
+      "science_retrieval_seconds": 0,
+      "scientific_applicable": 0,
+      "source": 648,
+      "source_adjudication_seconds": 7625.758320071999,
+      "source_observed": 3,
+      "unresolved_class": 0
+    },
+    "lpsn_api/edges.tsv": {
+      "not_applicable": 648,
+      "science_adjudication_seconds": 0,
+      "science_api_attempts_by_service": {},
+      "science_observed_applicable": 0,
+      "science_retrieval_seconds": 0,
+      "scientific_applicable": 0,
+      "source": 648,
+      "source_adjudication_seconds": 6916.296689928,
+      "source_observed": 3,
+      "unresolved_class": 0
+    },
+    "madin_etal/edges.tsv": {
+      "not_applicable": 0,
+      "science_adjudication_seconds": 21693.925251432,
+      "science_api_attempts_by_service": {
+        "crossref": 2376.0,
+        "download:link.springer.com": 216.0,
+        "download:www.jstage.jst.go.jp": 432.0,
+        "download:www.microbiologyresearch.org": 432.0,
+        "europe_pmc": 7776.0,
+        "ncbi": 432.0,
+        "openalex": 1512.0,
+        "springer": 216.0
+      },
+      "science_observed_applicable": 3,
+      "science_retrieval_seconds": 31013.758728145156,
+      "scientific_applicable": 648,
+      "source": 648,
+      "source_adjudication_seconds": 11647.631844000001,
+      "source_observed": 3,
+      "unresolved_class": 0
+    },
+    "mediadive/edges.tsv": {
+      "not_applicable": 325,
+      "science_adjudication_seconds": 9573.829032849,
+      "science_api_attempts_by_service": {
+        "crossref": 807.5,
+        "download:ijs.microbiologyresearch.org": 161.5,
+        "download:journals.asm.org": 161.5,
+        "download:link.springer.com": 161.5,
+        "download:syndication.highwire.org": 161.5,
+        "download:thorax.bmj.com": 161.5,
+        "download:www.microbiologyresearch.org": 323.0,
+        "europe_pmc": 4037.5,
+        "ncbi": 161.5,
+        "openalex": 807.5,
+        "springer": 161.5
+      },
+      "science_observed_applicable": 2,
+      "science_retrieval_seconds": 11368.21655062427,
+      "scientific_applicable": 323,
+      "source": 648,
+      "source_adjudication_seconds": 7128.546327071999,
+      "source_observed": 3,
+      "unresolved_class": 0
+    },
+    "metatraits/edges.tsv": {
+      "not_applicable": 0,
+      "science_adjudication_seconds": 23018.440179733,
+      "science_api_attempts_by_service": {
+        "crossref": 995.0,
+        "download:academic.oup.com": 597.0,
+        "download:jamanetwork.com": 199.0,
+        "download:www.microbiologyresearch.org": 199.0,
+        "europe_pmc": 6368.0,
+        "ncbi": 199.0,
+        "openalex": 995.0
+      },
+      "science_observed_applicable": 4,
+      "science_retrieval_seconds": 33241.371009224786,
+      "scientific_applicable": 796,
+      "source": 796,
+      "source_adjudication_seconds": 8058.495265517001,
+      "source_observed": 4,
+      "unresolved_class": 0
+    },
+    "metatraits_gtdb/edges.tsv": {
+      "not_applicable": 0,
+      "science_adjudication_seconds": 23179.738925074,
+      "science_api_attempts_by_service": {
+        "crossref": 398.0,
+        "download:www.microbiologyresearch.org": 398.0,
+        "europe_pmc": 5771.0,
+        "openalex": 398.0
+      },
+      "science_observed_applicable": 4,
+      "science_retrieval_seconds": 25408.97037359151,
+      "scientific_applicable": 796,
+      "source": 796,
+      "source_adjudication_seconds": 9467.036568716,
+      "source_observed": 4,
+      "unresolved_class": 0
+    },
+    "microbedecoder/edges.tsv": {
+      "not_applicable": 840,
+      "science_adjudication_seconds": 25311.3605982388,
+      "science_api_attempts_by_service": {
+        "crossref": 3053.6,
+        "download:journals.asm.org": 138.8,
+        "download:link.springer.com": 138.8,
+        "download:pubs.acs.org": 138.8,
+        "download:www.microbiologyresearch.org": 277.6,
+        "europe_pmc": 7217.6,
+        "ncbi": 138.8,
+        "openalex": 2220.8,
+        "springer": 138.8,
+        "wiley": 832.8
+      },
+      "science_observed_applicable": 5,
+      "science_retrieval_seconds": 30531.06193530225,
+      "scientific_applicable": 694,
+      "source": 1534,
+      "source_adjudication_seconds": 16505.5629215568,
+      "source_observed": 10,
+      "unresolved_class": 0
+    },
+    "prego_habitat/edges.tsv": {
+      "not_applicable": 0,
+      "science_adjudication_seconds": 45547.780887418994,
+      "science_api_attempts_by_service": {
+        "crossref": 1697.4,
+        "download:aacrjournals.org": 188.6,
+        "download:onlinelibrary.wiley.com": 188.6,
+        "download:www.microbiologyresearch.org": 943.0,
+        "europe_pmc": 10561.6,
+        "ncbi": 188.6,
+        "openalex": 1320.2,
+        "wiley": 188.6
+      },
+      "science_observed_applicable": 5,
+      "science_retrieval_seconds": 44957.122692433746,
+      "scientific_applicable": 943,
+      "source": 943,
+      "source_adjudication_seconds": 10962.0315984402,
+      "source_observed": 5,
+      "unresolved_class": 0
+    },
+    "rhea_mappings/edges.tsv": {
+      "not_applicable": 647,
+      "science_adjudication_seconds": 0,
+      "science_api_attempts_by_service": {},
+      "science_observed_applicable": 0,
+      "science_retrieval_seconds": 0,
+      "scientific_applicable": 0,
+      "source": 647,
+      "source_adjudication_seconds": 8341.578832157667,
+      "source_observed": 3,
+      "unresolved_class": 0
+    }
+  },
+  "recommendation": "Do not expand scientific support to the 10,000-edge sample or to an entire transform. Only four of 28 applicable claims resolved; alias contamination and ambiguous strain queries still require manual screening. After fixing issues 88 and 91, a separately authorized small, manually targeted canary could examine evidence-bearing BactoTraits, MicrobeDecoder and PREGO cases. This run does not justify transform-wide expansion. Source fidelity is more tractable with grouped scans, but its four contradictions and five assessment gaps remain explicit follow-up work.\n\nFailures and throttling: the 425 paper-retrieval HTTP attempts comprised 369 HTTP 200 responses, 15 redirects, 29 HTTP 403 responses, five HTTP 401 responses, three HTTP 400 responses, one HTTP 404 response, one HTTP 429 response from Thorax, and two Europe PMC timeouts. Supplemental identifier resolution added four requests. Even serialized retrieval encountered provider limits; concurrent throughput and long-tail coverage remain untested. Missing or inaccessible evidence was not treated as contradiction.",
+  "remaining_class_counts_by_rule": {
+    "assay_observation": 35,
+    "biological_measurement": 86,
+    "biological_source_field": 451,
+    "habitat_forward": 205,
+    "habitat_inverse": 1020,
+    "identity_taxonomy": 3254,
+    "medium_growth": 333,
+    "metabolic_process": 457,
+    "metabolic_substrate": 1180,
+    "phenotype": 1363,
+    "product_consumption": 127,
+    "reaction_scaffolding": 323,
+    "recipe_composition": 274,
+    "related_identity": 489,
+    "source_units": 6,
+    "susceptibility": 2,
+    "unmapped_bergey_other": 294,
+    "unresolved_class": 1
+  },
+  "remaining_class_counts_by_transform": {
+    "bacdive/edges.tsv": {
+      "not_applicable": 442,
+      "scientific_applicable": 206,
+      "source": 648,
+      "unresolved_class": 1
+    },
+    "bactotraits/edges.tsv": {
+      "not_applicable": 0,
+      "scientific_applicable": 648,
+      "source": 648,
+      "unresolved_class": 0
+    },
+    "gold/edges.tsv": {
+      "not_applicable": 443,
+      "scientific_applicable": 205,
+      "source": 648,
+      "unresolved_class": 0
+    },
+    "gtdb/edges.tsv": {
+      "not_applicable": 648,
+      "scientific_applicable": 0,
+      "source": 648,
+      "unresolved_class": 0
+    },
+    "lpsn/edges.tsv": {
+      "not_applicable": 648,
+      "scientific_applicable": 0,
+      "source": 648,
+      "unresolved_class": 0
+    },
+    "lpsn_api/edges.tsv": {
+      "not_applicable": 648,
+      "scientific_applicable": 0,
+      "source": 648,
+      "unresolved_class": 0
+    },
+    "madin_etal/edges.tsv": {
+      "not_applicable": 0,
+      "scientific_applicable": 648,
+      "source": 648,
+      "unresolved_class": 0
+    },
+    "mediadive/edges.tsv": {
+      "not_applicable": 325,
+      "scientific_applicable": 323,
+      "source": 648,
+      "unresolved_class": 0
+    },
+    "metatraits/edges.tsv": {
+      "not_applicable": 0,
+      "scientific_applicable": 796,
+      "source": 796,
+      "unresolved_class": 0
+    },
+    "metatraits_gtdb/edges.tsv": {
+      "not_applicable": 0,
+      "scientific_applicable": 796,
+      "source": 796,
+      "unresolved_class": 0
+    },
+    "microbedecoder/edges.tsv": {
+      "not_applicable": 840,
+      "scientific_applicable": 694,
+      "source": 1534,
+      "unresolved_class": 0
+    },
+    "prego_habitat/edges.tsv": {
+      "not_applicable": 0,
+      "scientific_applicable": 943,
+      "source": 943,
+      "unresolved_class": 0
+    },
+    "rhea_mappings/edges.tsv": {
+      "not_applicable": 647,
+      "scientific_applicable": 0,
+      "source": 647,
+      "unresolved_class": 0
+    }
+  },
+  "remaining_edges": 9900,
+  "scientific": {
+    "adjudication_seconds": 970.827734129,
+    "api_attempts_by_service": {
+      "crossref": 59,
+      "download:aacrjournals.org": 1,
+      "download:academic.oup.com": 3,
+      "download:assets-eu.researchsquare.com": 2,
+      "download:ijs.microbiologyresearch.org": 1,
+      "download:jamanetwork.com": 1,
+      "download:journals.asm.org": 2,
+      "download:link.springer.com": 3,
+      "download:onlinelibrary.wiley.com": 1,
+      "download:pubs.acs.org": 1,
+      "download:syndication.highwire.org": 1,
+      "download:thorax.bmj.com": 1,
+      "download:www.jstage.jst.go.jp": 2,
+      "download:www.microbiologyresearch.org": 17,
+      "download:www.researchsquare.com": 4,
+      "europe_pmc": 257,
+      "ncbi": 8,
+      "openalex": 49,
+      "springer": 5,
+      "wiley": 7
+    },
+    "applicable": 28,
+    "counts": {
+      "CONTRADICTED": 0,
+      "NOT_APPLICABLE": 22,
+      "NOT_ASSESSABLE": 16,
+      "NOT_FOUND": 8,
+      "SUPPORTED": 4
+    },
+    "resolution_rate": 0.14285714285714285,
+    "resolved": 4,
+    "retrieval_seconds": 1070.8470029549862
+  },
+  "source": {
+    "adjudication_seconds": 588.359313208,
+    "applicable": 50,
+    "counts": {
+      "CONTRADICTED": 4,
+      "NOT_APPLICABLE": 0,
+      "NOT_ASSESSABLE": 5,
+      "NOT_FOUND": 0,
+      "SUPPORTED": 41
+    },
+    "first_transport_canary_seconds": 6.156440167003893,
+    "grouped_extraction_seconds": 57.26406762500119,
+    "resolution_rate": 0.9,
+    "resolved": 45
+  },
+  "validation": {
+    "check_exit_codes": {
+      "packets": 0,
+      "pytest": 0,
+      "ruff": 0,
+      "sampling": 0,
+      "staged_whitespace": 0
+    },
+    "staged_privacy_matches": {
+      "credential_values": 0,
+      "email_addresses": 0,
+      "machine_names": 0,
+      "personal_paths": 0,
+      "terminal_selectors": 0
+    },
+    "status": "passed"
+  }
+}

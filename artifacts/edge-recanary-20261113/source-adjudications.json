@@ -1,0 +1,2041 @@
+[
+  {
+    "canary_ordinal": 1,
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:431acc7f095d028b155771b0e8f77b6fe16240d25a3dd1297d3a8951db29eb0b",
+    "origin_transform": "bacdive/edges.tsv",
+    "claim_target": "original rule-labeled edge",
+    "verdict": "SUPPORTED",
+    "rationale": "BacDive 148960 explicitly records an intraabdominal human sample and the Abdomen source category. Mapping that isolation site to abdomen as location_of this exact strain preserves entity identity and direction; it is an isolation report, not a general host-range claim.",
+    "evidence": [
+      {
+        "record_index": 0,
+        "quote": "\"sample type\": \"Human,pus,intraabdominal,perforated appendix\"",
+        "start": 759,
+        "end": 820,
+        "text_sha256": "d9d6acface1ceec1739b20ad2d0c703b980a3a9a51e74a8731b76af17eae241c",
+        "source_relative_path": "bacdive_strains.json",
+        "locator": "148960",
+        "retrieval_url": "https://bacdive.dsmz.de/strain/148960",
+        "extractor": "source-record-json-canonical/v1",
+        "evidence_level": "source_record",
+        "reference": "doi:10.1093/nar/gkab961",
+        "reference_role": "source database or record provenance; not scientific literature proof"
+      }
+    ],
+    "adjudicating_model": "GPT-6 (runtime model not more specifically exposed)",
+    "source_records_examined": 1,
+    "adjudication_timing": {
+      "started_at": "2026-11-13T08:31:03.534613+00:00",
+      "stopped_at": "2026-11-13T08:31:15.877187+00:00",
+      "elapsed_seconds": 12.342489166,
+      "packet_sha256": "c6d9e62554b1b025b33fd4e21e2df4ec6a12bbea1e6b3916df02dc226fd81709",
+      "decision_sha256": "9cec5c9becf8e90196abb200dc53d1f0a20d27af5029550244d158d3aaeaf039"
+    }
+  },
+  {
+    "canary_ordinal": 2,
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:41953d83b6787e57c6aadf7efe3ef5478770db1eb8e3048a39c4b38b9f207447",
+    "origin_transform": "bacdive/edges.tsv",
+    "claim_target": "original rule-labeled edge",
+    "verdict": "SUPPORTED",
+    "rationale": "The exact BacDive 23873 record gives DSM-Number 27942 and lists DSM 27942 among the culture collection accessions for SGM1-15. The close_match edge therefore preserves the source strain correspondence.",
+    "evidence": [
+      {
+        "record_index": 0,
+        "quote": "\"DSM-Number\": 27942",
+        "start": 2865,
+        "end": 2884,
+        "text_sha256": "595643b77811228e40f23df38bee6593a35a158b18c81c31bdfd8beb833cc018",
+        "source_relative_path": "bacdive_strains.json",
+        "locator": "23873",
+        "retrieval_url": "https://bacdive.dsmz.de/strain/23873",
+        "extractor": "source-record-json-canonical/v1",
+        "evidence_level": "source_record",
+        "reference": "doi:10.1093/nar/gkab961",
+        "reference_role": "source database or record provenance; not scientific literature proof"
+      }
+    ],
+    "adjudicating_model": "GPT-6 (runtime model not more specifically exposed)",
+    "source_records_examined": 3,
+    "adjudication_timing": {
+      "started_at": "2026-11-13T08:31:15.949782+00:00",
+      "stopped_at": "2026-11-13T08:31:27.263513+00:00",
+      "elapsed_seconds": 11.313661833,
+      "packet_sha256": "584ff38171e563a81bd4b66bdee4aa3b62e8fea062e5925e25258ed05c186193",
+      "decision_sha256": "a1001644199d89e985a4003e8765feec29f5f25892e8a99cedd6a0f7eddcae18"
+    }
+  },
+  {
+    "canary_ordinal": 3,
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:a0ccdae71e814a7fdfa57d85dd4118d9eb2bef923da55965304e6434afa8b80c",
+    "origin_transform": "bacdive/edges.tsv",
+    "claim_target": "original rule-labeled edge",
+    "verdict": "SUPPORTED",
+    "rationale": "BacDive 162504 assigns the culture collection accession CCTCC AB 2013273 to species-level NCBI taxon 1226983, named Priestia qingshengii. The strain-to-species subclass direction preserves that classification; the older Bacillus name is explicitly listed as a synonym.",
+    "evidence": [
+      {
+        "record_index": 0,
+        "quote": "\"culture collection no.\": \"JCM 19454, CCTCC AB 2013273\"",
+        "start": 216,
+        "end": 271,
+        "text_sha256": "8a238be6542e7c3595bc3acbf59f7729d5ce00551bb38e41b176b38c01e6f85b",
+        "source_relative_path": "bacdive_strains.json",
+        "locator": "162504",
+        "retrieval_url": "https://bacdive.dsmz.de/strain/162504",
+        "extractor": "source-record-json-canonical/v1",
+        "evidence_level": "source_record",
+        "reference": "doi:10.1093/nar/gkab961",
+        "reference_role": "source database or record provenance; not scientific literature proof"
+      },
+      {
+        "record_index": 0,
+        "quote": "\"NCBI tax id\": 1226983",
+        "start": 1134,
+        "end": 1156,
+        "text_sha256": "8a238be6542e7c3595bc3acbf59f7729d5ce00551bb38e41b176b38c01e6f85b",
+        "source_relative_path": "bacdive_strains.json",
+        "locator": "162504",
+        "retrieval_url": "https://bacdive.dsmz.de/strain/162504",
+        "extractor": "source-record-json-canonical/v1",
+        "evidence_level": "source_record",
+        "reference": "doi:10.1093/nar/gkab961",
+        "reference_role": "source database or record provenance; not scientific literature proof"
+      }
+    ],
+    "adjudicating_model": "GPT-6 (runtime model not more specifically exposed)",
+    "source_records_examined": 4,
+    "adjudication_timing": {
+      "started_at": "2026-11-13T08:31:27.333371+00:00",
+      "stopped_at": "2026-11-13T08:31:38.862746+00:00",
+      "elapsed_seconds": 11.529294875,
+      "packet_sha256": "a12e4547b2009c04359d213018d85447eb00682627042b01605f780605b89a2a",
+      "decision_sha256": "22cea4b30ddc2908edbfc29265b0c9fbaf9e9c85475e53b352b67b18ae5eea83"
+    }
+  },
+  {
+    "canary_ordinal": 4,
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:155d6d2d7ac159eb931374219e919b3e9984224866ecb96f110e77407345f0e4",
+    "origin_transform": "bactotraits/edges.tsv",
+    "claim_target": "original rule-labeled edge",
+    "verdict": "NOT_ASSESSABLE",
+    "rationale": "The exact BactoTraits species row has nonzero NaCl range membership in 1–3, 3–8 and >8 bins. However, the retained METPO target only says NaCl range mid2 and supplies no boundary or unit definition. Without a verified mapping from METPO:1000471 to the upstream bin, I cannot affirm this specific ontology assertion; a positive 3–8 source value alone does not resolve target identity.",
+    "evidence": [
+      {
+        "record_index": 0,
+        "quote": "\"NaR_3_to_8\": \"0.25\"",
+        "start": 660,
+        "end": 680,
+        "text_sha256": "ccd99666526264ee9515ad03c744dd9636b3b467aba912f5fdf1c9bf5cbc58f7",
+        "source_relative_path": "BactoTraits_databaseV2_Jun2022.csv",
+        "locator": "CSV data row 10677",
+        "retrieval_url": "https://ordar.otelo.univ-lorraine.fr/files/ORDAR-53/BactoTraits_databaseV2_Jun2022.csv",
+        "extractor": "source-record-json-canonical/v1",
+        "evidence_level": "source_record",
+        "reference": "doi:10.1016/j.ecolind.2021.108047",
+        "reference_role": "source database or record provenance; not scientific literature proof"
+      }
+    ],
+    "adjudicating_model": "GPT-6 (runtime model not more specifically exposed)",
+    "source_records_examined": 4,
+    "adjudication_timing": {
+      "started_at": "2026-11-13T08:31:38.917760+00:00",
+      "stopped_at": "2026-11-13T08:31:56.561175+00:00",
+      "elapsed_seconds": 17.643296208,
+      "packet_sha256": "fe7339c0bedd5e5d10efc04096aa2b22701a9b918d747721c7923314697cbec7",
+      "decision_sha256": "7652859cc6758cb9318c353d3714ca4bb694b67122b7fc81d94656bca0d8b938"
+    }
+  },
+  {
+    "canary_ordinal": 5,
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:1e9dec218a07f7e480add8ff273e3a9285f79d57746ca74041702839207a8136",
+    "origin_transform": "bactotraits/edges.tsv",
+    "claim_target": "original rule-labeled edge",
+    "verdict": "SUPPORTED",
+    "rationale": "BactoTraits marks non-motile=1 and motile=0 for Rubritalea squalenifaciens, linking BacDive 17851. That linked BacDive record identifies strain taxon 1123071 and DSM 18772, so the phenotype and taxon ID are traceable. The BactoTraits culture-collection string instead says DSM 19353/JCM 14586: retain this upstream inconsistency as a limitation rather than treating those accessions as equivalent.",
+    "evidence": [
+      {
+        "record_index": 0,
+        "quote": "\"non-motile\": \"1\"",
+        "start": 2104,
+        "end": 2121,
+        "text_sha256": "345fd2d00ee93334d975085716692dd4d4c530d5529f04c5b07af0766d5a512a",
+        "source_relative_path": "BactoTraits_databaseV2_Jun2022.csv",
+        "locator": "CSV data row 8521",
+        "retrieval_url": "https://ordar.otelo.univ-lorraine.fr/files/ORDAR-53/BactoTraits_databaseV2_Jun2022.csv",
+        "extractor": "source-record-json-canonical/v1",
+        "evidence_level": "source_record",
+        "reference": "doi:10.1016/j.ecolind.2021.108047",
+        "reference_role": "source database or record provenance; not scientific literature proof"
+      },
+      {
+        "record_index": 0,
+        "quote": "\"Bacdive_ID\": \"17851\"",
+        "start": 196,
+        "end": 217,
+        "text_sha256": "345fd2d00ee93334d975085716692dd4d4c530d5529f04c5b07af0766d5a512a",
+        "source_relative_path": "BactoTraits_databaseV2_Jun2022.csv",
+        "locator": "CSV data row 8521",
+        "retrieval_url": "https://ordar.otelo.univ-lorraine.fr/files/ORDAR-53/BactoTraits_databaseV2_Jun2022.csv",
+        "extractor": "source-record-json-canonical/v1",
+        "evidence_level": "source_record",
+        "reference": "doi:10.1016/j.ecolind.2021.108047",
+        "reference_role": "source database or record provenance; not scientific literature proof"
+      }
+    ],
+    "adjudicating_model": "GPT-6 (runtime model not more specifically exposed)",
+    "source_records_examined": 4,
+    "adjudication_timing": {
+      "started_at": "2026-11-13T08:31:56.620958+00:00",
+      "stopped_at": "2026-11-13T08:32:14.376584+00:00",
+      "elapsed_seconds": 17.755505,
+      "packet_sha256": "b4c1292aa55f3bf6dd8af68d47f52a2b30c7d5c3684c791f8ddd08a641f82824",
+      "decision_sha256": "d8b251e73bc08056c640ab0c001aed8ab0ec12cc49fc35879fe3c67bebe8a42d"
+    }
+  },
+  {
+    "canary_ordinal": 6,
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:29bf84d0c1e9bdf144f85d27aabce2fa1a7399148daab58831dbf297e1a93fc6",
+    "origin_transform": "bactotraits/edges.tsv",
+    "claim_target": "original rule-labeled edge",
+    "verdict": "NOT_ASSESSABLE",
+    "rationale": "Frankia casuarinae has TO_27_to_30=1 in the BactoTraits row, while other optimum bins are zero. The sampled METPO:1000444 only has the label temperature optimum mid2 and no quantitative definition. The exact upstream temperature-bin observation is recoverable, but its mapping to this opaque ontology class is not independently bound by the retained materials.",
+    "evidence": [
+      {
+        "record_index": 0,
+        "quote": "\"TO_27_to_30\": \"1\"",
+        "start": 1312,
+        "end": 1330,
+        "text_sha256": "92162cc9fd8d4b50a6e9bfbdf8cfa60a042c60c34a084313bad34e5575bbca37",
+        "source_relative_path": "BactoTraits_databaseV2_Jun2022.csv",
+        "locator": "CSV data row 10662",
+        "retrieval_url": "https://ordar.otelo.univ-lorraine.fr/files/ORDAR-53/BactoTraits_databaseV2_Jun2022.csv",
+        "extractor": "source-record-json-canonical/v1",
+        "evidence_level": "source_record",
+        "reference": "doi:10.1016/j.ecolind.2021.108047",
+        "reference_role": "source database or record provenance; not scientific literature proof"
+      }
+    ],
+    "adjudicating_model": "GPT-6 (runtime model not more specifically exposed)",
+    "source_records_examined": 4,
+    "adjudication_timing": {
+      "started_at": "2026-11-13T08:32:14.436481+00:00",
+      "stopped_at": "2026-11-13T08:32:24.523764+00:00",
+      "elapsed_seconds": 10.087214583,
+      "packet_sha256": "1d5ed48deddb278547a8a1244e52ba2eaa98ad46d7bec3ed90df47f43a4ce39c",
+      "decision_sha256": "724e7a59ef1c4305b755c5c5cf89c9ebbac2f8620c205a653ab9613d3fe30318"
+    }
+  },
+  {
+    "canary_ordinal": 7,
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:e2e1f2ff6566d433d374697abe49bb47e0c3bbaa0f4a3fc120786100f5276df8",
+    "origin_transform": "gold/edges.tsv",
+    "claim_target": "original rule-labeled edge",
+    "verdict": "NOT_ASSESSABLE",
+    "rationale": "The grouped extraction returned no upstream GOLD record for Go0141317 and ecosystem 3764. The sampled label Hot (42-90C) explains the intended habitat category but is transformed graph metadata, not an independently recovered source observation. This is an extraction/source-coverage gap and does not establish that the organism lacks this habitat.",
+    "evidence": [],
+    "adjudicating_model": "GPT-6 (runtime model not more specifically exposed)",
+    "source_records_examined": 0,
+    "adjudication_timing": {
+      "started_at": "2026-11-13T08:32:24.594228+00:00",
+      "stopped_at": "2026-11-13T08:32:33.518849+00:00",
+      "elapsed_seconds": 8.924561,
+      "packet_sha256": "b2316b6f6ae49820e0e4583ae901507f18709ae2b016d37d901f783196bd9358",
+      "decision_sha256": "7f0d0691c76888826c09c07a985603fef490028656f3cd27d368d5c23ccc2297"
+    }
+  },
+  {
+    "canary_ordinal": 8,
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:08364e6fa56f99861b455bd516ac6d02f644c8bfce840e4d89235827a5274f19",
+    "origin_transform": "gold/edges.tsv",
+    "claim_target": "original rule-labeled edge",
+    "verdict": "SUPPORTED",
+    "rationale": "The retained GOLD native export assigns Go0406053 to NCBITaxon:1396 through organism_v2.ncbi_taxonomy_id. The sampled related_to edge preserves the identifiers and direction, although it weakens the explicit source in_taxon relation. The Bacillus_A display label is not itself an independent taxon-identity validation.",
+    "evidence": [
+      {
+        "record_index": 10,
+        "quote": "\"id\": \"gold:Go0406053-in_taxon-NCBITaxon:1396\"",
+        "start": 4,
+        "end": 50,
+        "text_sha256": "1a9e4c66d4258abf7c9d2a05028c03d5e2358692dfbcfd12134dbbeff546b009",
+        "source_relative_path": "gold/GOLD_edges.tsv",
+        "locator": "TSV data row 272023",
+        "retrieval_url": "https://gold.jgi.doe.gov/organism?id=Go0406053",
+        "extractor": "source-record-json-canonical/v1",
+        "evidence_level": "source_record",
+        "reference": "doi:10.1093/nar/gkac974",
+        "reference_role": "source database or record provenance; not scientific literature proof"
+      }
+    ],
+    "adjudicating_model": "GPT-6 (runtime model not more specifically exposed)",
+    "source_records_examined": 11,
+    "adjudication_timing": {
+      "started_at": "2026-11-13T08:32:33.564507+00:00",
+      "stopped_at": "2026-11-13T08:32:44.230011+00:00",
+      "elapsed_seconds": 10.665425625,
+      "packet_sha256": "6f857ed2a239608817ddbbbffcc3a3912e015b49938263c20f7e44dd18b65b3d",
+      "decision_sha256": "d71306d22a15c3760008ad55cc36369df936700e3c6cb5557819b4c0e1d5d8ec"
+    }
+  },
+  {
+    "canary_ordinal": 9,
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:ed56fbf2385de9e176911719c10aa8481f4d08a80154ae6ebddbe92bb5e49ff1",
+    "origin_transform": "gold/edges.tsv",
+    "claim_target": "original rule-labeled edge",
+    "verdict": "SUPPORTED",
+    "rationale": "GOLD explicitly links organism Go0514321 to NCBITaxon:2576752 with its ncbi_taxonomy_id field. The sampled generic related_to relation is a loss of specificity from in_taxon but does not reverse or replace either identifier. Source fidelity is supported at the native-export level; taxonomic correctness is outside this source-axis finding.",
+    "evidence": [
+      {
+        "record_index": 0,
+        "quote": "\"id\": \"gold:Go0514321-in_taxon-NCBITaxon:2576752\"",
+        "start": 4,
+        "end": 53,
+        "text_sha256": "492ddac45e6a8b31ec88289b32e196eef2cecb58009b89d6f374450b9b645971",
+        "source_relative_path": "gold/GOLD_edges.tsv",
+        "locator": "TSV data row 135120",
+        "retrieval_url": "https://gold.jgi.doe.gov/organism?id=Go0514321",
+        "extractor": "source-record-json-canonical/v1",
+        "evidence_level": "source_record",
+        "reference": "doi:10.1093/nar/gkac974",
+        "reference_role": "source database or record provenance; not scientific literature proof"
+      }
+    ],
+    "adjudicating_model": "GPT-6 (runtime model not more specifically exposed)",
+    "source_records_examined": 1,
+    "adjudication_timing": {
+      "started_at": "2026-11-13T08:32:44.289157+00:00",
+      "stopped_at": "2026-11-13T08:32:54.391736+00:00",
+      "elapsed_seconds": 10.102509958,
+      "packet_sha256": "062466eeacd2bfc778f4433a281199b96d39fe33217b8ad8c4874295c8f13e0a",
+      "decision_sha256": "01d6066b4ba56bea552d4ac54fcbfec3740ef4a616e7ca276554b87f276e9c37"
+    }
+  },
+  {
+    "canary_ordinal": 10,
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:026dd7ede5857bbf50236bf3cee6f4dd91a07760059144ef374ad108aae8fa0c",
+    "origin_transform": "gtdb/edges.tsv",
+    "claim_target": "original rule-labeled edge",
+    "verdict": "SUPPORTED",
+    "rationale": "The GTDB metadata lineage for genome GCA_964517265.1 explicitly places species REEP01 sp964517265 within genus REEP01. Replacing the species-space with the graph underscore preserves the source taxon identifiers, and species subclass_of genus has the correct direction.",
+    "evidence": [
+      {
+        "record_index": 0,
+        "quote": "g__REEP01;s__REEP01 sp964517265",
+        "start": 784,
+        "end": 815,
+        "text_sha256": "4cb392017721b6a2eae94b5d3124db00e99dd35c58da5231642496a690d5869d",
+        "source_relative_path": "gtdb/bac120_metadata.tsv.gz",
+        "locator": "TSV data row 668141",
+        "retrieval_url": "https://gtdb.ecogenomic.org/genome?gid=GB_GCA_964517265.1",
+        "extractor": "source-record-json-canonical/v1",
+        "evidence_level": "source_record",
+        "reference": "doi:10.1093/nar/gkab776",
+        "reference_role": "source database or record provenance; not scientific literature proof"
+      }
+    ],
+    "adjudicating_model": "GPT-6 (runtime model not more specifically exposed)",
+    "source_records_examined": 1,
+    "adjudication_timing": {
+      "started_at": "2026-11-13T08:32:54.443938+00:00",
+      "stopped_at": "2026-11-13T08:33:04.630811+00:00",
+      "elapsed_seconds": 10.186803,
+      "packet_sha256": "64ef7a21d487b68facf318c1f990cfc0b78563e2551f9c5968ee49fab09af712",
+      "decision_sha256": "3a5fa9976878010b7f05793fbc155ddf91f86f09b60b11b380e6e7c78eb87b68"
+    }
+  },
+  {
+    "canary_ordinal": 11,
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:f1e021faa133fcf869f6367e3174b87709e48fbf56d066ee7d619e63d28a6b8b",
+    "origin_transform": "gtdb/edges.tsv",
+    "claim_target": "original rule-labeled edge",
+    "verdict": "SUPPORTED",
+    "rationale": "GTDB assigns this Sphingomicrobium species lineage to NCBI taxon 1977087, whose source name is the broader Pseudomonadota bacterium. A species-to-broader-NCBI broad_match is consistent with that row. The graph object label 0-14-0-80-60-11 sp018897875 is not the source NCBI name and should not be used to interpret the mapping as species equivalence.",
+    "evidence": [
+      {
+        "record_index": 0,
+        "quote": "\"ncbi_species_taxid\": \"1977087\"",
+        "start": 2757,
+        "end": 2788,
+        "text_sha256": "55899db2658158e9c0c5bdd45bede5c66cdeb25e85dcaabbdba99f55ef5f1e42",
+        "source_relative_path": "gtdb/bac120_metadata.tsv.gz",
+        "locator": "TSV data row 198962",
+        "retrieval_url": "https://gtdb.ecogenomic.org/genome?gid=GB_GCA_040389945.1",
+        "extractor": "source-record-json-canonical/v1",
+        "evidence_level": "source_record",
+        "reference": "doi:10.1093/nar/gkab776",
+        "reference_role": "source database or record provenance; not scientific literature proof"
+      },
+      {
+        "record_index": 0,
+        "quote": "\"ncbi_organism_name\": \"Pseudomonadota bacterium\"",
+        "start": 2394,
+        "end": 2442,
+        "text_sha256": "55899db2658158e9c0c5bdd45bede5c66cdeb25e85dcaabbdba99f55ef5f1e42",
+        "source_relative_path": "gtdb/bac120_metadata.tsv.gz",
+        "locator": "TSV data row 198962",
+        "retrieval_url": "https://gtdb.ecogenomic.org/genome?gid=GB_GCA_040389945.1",
+        "extractor": "source-record-json-canonical/v1",
+        "evidence_level": "source_record",
+        "reference": "doi:10.1093/nar/gkab776",
+        "reference_role": "source database or record provenance; not scientific literature proof"
+      }
+    ],
+    "adjudicating_model": "GPT-6 (runtime model not more specifically exposed)",
+    "source_records_examined": 1,
+    "adjudication_timing": {
+      "started_at": "2026-11-13T08:33:04.687600+00:00",
+      "stopped_at": "2026-11-13T08:33:15.488835+00:00",
+      "elapsed_seconds": 10.801159417,
+      "packet_sha256": "dc183b8b9241dfcc681e351ae163cbb54d6dbbcb363ebd3f970919d1c0877870",
+      "decision_sha256": "8ed0b7e6dec8c58e25e9bc90cdceeb695b7ba852a004b171e20684e5865f1cdf"
+    }
+  },
+  {
+    "canary_ordinal": 12,
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:2994f423f2db927d4eb46d9067505162efcabde804685e2676147d422c164f4e",
+    "origin_transform": "gtdb/edges.tsv",
+    "claim_target": "original rule-labeled edge",
+    "verdict": "SUPPORTED",
+    "rationale": "The retained GTDB lineage places Udaeobacter sp046732875 directly under genus Udaeobacter. The graph identifiers are the same rank-prefixed names with spaces normalized to underscores, and the subclass edge runs from species to genus.",
+    "evidence": [
+      {
+        "record_index": 0,
+        "quote": "g__Udaeobacter;s__Udaeobacter sp046732875",
+        "start": 775,
+        "end": 816,
+        "text_sha256": "582229cf145e2ed648da87e7ceb0dccbdb8056e94d4f812bfa737358d2e5e9fc",
+        "source_relative_path": "gtdb/bac120_metadata.tsv.gz",
+        "locator": "TSV data row 823268",
+        "retrieval_url": "https://gtdb.ecogenomic.org/genome?gid=GB_GCA_046732875.1",
+        "extractor": "source-record-json-canonical/v1",
+        "evidence_level": "source_record",
+        "reference": "doi:10.1093/nar/gkab776",
+        "reference_role": "source database or record provenance; not scientific literature proof"
+      }
+    ],
+    "adjudicating_model": "GPT-6 (runtime model not more specifically exposed)",
+    "source_records_examined": 1,
+    "adjudication_timing": {
+      "started_at": "2026-11-13T08:33:15.551955+00:00",
+      "stopped_at": "2026-11-13T08:33:25.840858+00:00",
+      "elapsed_seconds": 10.288831916,
+      "packet_sha256": "31e4973e50124aeefe9fe6e3e85aba029d76227ef1e9c22450cac86024e55125",
+      "decision_sha256": "6c2d582d0bc27a871824bb9b3fe37850a61bd5e5bbabf698d84d3f1e3459a060"
+    }
+  },
+  {
+    "canary_ordinal": 13,
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:b9cddf067006ec37d3fa8447f3d14ad3a8c2cd1bcf60137b04f8854899056ba7",
+    "origin_transform": "lpsn/edges.tsv",
+    "claim_target": "original rule-labeled edge",
+    "verdict": "SUPPORTED",
+    "rationale": "The LPSN API record with id 774056 names Bifidobacterium ruminantium and explicitly sets lpsn_parent_id to 515236. The separate parent record identifies 515236 as genus Bifidobacterium. The sampled subclass relation therefore preserves both the exact IDs and child-to-parent direction.",
+    "evidence": [
+      {
+        "record_index": 9,
+        "quote": "\"lpsn_parent_id\": 515236",
+        "start": 1347,
+        "end": 1371,
+        "text_sha256": "903d8db595c8b9639453febb0b7a8202309b7037bf9a604bde19aaf4d051cea4",
+        "source_relative_path": "lpsn/api_cache/774056.json",
+        "locator": "774056",
+        "retrieval_url": "https://doi.org/10.83108/rn.774056",
+        "extractor": "source-record-json-canonical/v1",
+        "evidence_level": "source_record",
+        "reference": "doi:10.1099/ijsem.0.004332",
+        "reference_role": "source database or record provenance; not scientific literature proof"
+      }
+    ],
+    "adjudicating_model": "GPT-6 (runtime model not more specifically exposed)",
+    "source_records_examined": 10,
+    "adjudication_timing": {
+      "started_at": "2026-11-13T08:33:25.890561+00:00",
+      "stopped_at": "2026-11-13T08:33:38.989240+00:00",
+      "elapsed_seconds": 13.09859,
+      "packet_sha256": "484d26e363a1cbb389b670378ef588e0c0bd33fb4ce0c82dd5f0b837fdebb9f5",
+      "decision_sha256": "d7d5b18020a89ef6f9db4c3932c78887a7c204596dda174557a3a9b559041d19"
+    }
+  },
+  {
+    "canary_ordinal": 14,
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:78725eeeea961ce059a55092aebc34b522b1b4ffc2ea844207ce7049a039cc80",
+    "origin_transform": "lpsn/edges.tsv",
+    "claim_target": "original rule-labeled edge",
+    "verdict": "CONTRADICTED",
+    "rationale": "LPSN identifies 781160 as a species and lists JCM 14905 as one accession of its type strain. A taxon and its nomenclatural type strain are different entities. Encoding their typification relationship as close_match collapses the source distinction; a type-strain or strain-in-taxon relation would preserve it.",
+    "evidence": [
+      {
+        "record_index": 2,
+        "quote": "\"category\": \"species\"",
+        "start": 51,
+        "end": 72,
+        "text_sha256": "8ec8bd4938de062fe83070eb4170b8a424f1307fa3c6307413c08b8d8eb3b6a7",
+        "source_relative_path": "lpsn/api_cache/781160.json",
+        "locator": "781160",
+        "retrieval_url": "https://doi.org/10.83108/rn.781160",
+        "extractor": "source-record-json-canonical/v1",
+        "evidence_level": "source_record",
+        "reference": "doi:10.1099/ijsem.0.004332",
+        "reference_role": "source database or record provenance; not scientific literature proof"
+      },
+      {
+        "record_index": 1,
+        "quote": "\"nomenclatural_type\": \"DSM 44728; JCM 14905; LLR-40K-21; NBRC 102104; NRRL B-16338\"",
+        "start": 182,
+        "end": 265,
+        "text_sha256": "c7024f0fe3d29afec99cc98973bf2fb6f4314fc343ae741ee2ac33c3dadd432c",
+        "source_relative_path": "lpsn_gss.csv",
+        "locator": "CSV data row 29573",
+        "retrieval_url": "https://lpsn.dsmz.de/species/stackebrandtia-nassauensis",
+        "extractor": "source-record-json-canonical/v1",
+        "evidence_level": "source_record",
+        "reference": "doi:10.1099/ijsem.0.004332",
+        "reference_role": "source database or record provenance; not scientific literature proof"
+      }
+    ],
+    "adjudicating_model": "GPT-6 (runtime model not more specifically exposed)",
+    "source_records_examined": 3,
+    "adjudication_timing": {
+      "started_at": "2026-11-13T08:33:39.058049+00:00",
+      "stopped_at": "2026-11-13T08:33:49.908632+00:00",
+      "elapsed_seconds": 10.850510625,
+      "packet_sha256": "286b240e938e8e9b948ec9599907b66808ccfe3e9816d2256fc0f66f35d66dc7",
+      "decision_sha256": "8db6f4122e2911ff0f718287eb9fb529328376f372e567f04eebd616fe841ed2"
+    }
+  },
+  {
+    "canary_ordinal": 15,
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:958b851ced5f6d78d6e1406caa518c6eadc2463b0db28acfa52eb2c5b6d2be14",
+    "origin_transform": "lpsn/edges.tsv",
+    "claim_target": "original rule-labeled edge",
+    "verdict": "SUPPORTED",
+    "rationale": "LPSN record 1533 explicitly has parent 516820, matching Thiobacillus cuprinus subclass_of Thiobacillus. The record also flags this name as a synonym with correct_name_id 782761, Thiomonas delicata. The edge faithfully represents the named LPSN record hierarchy; it should not be read as a claim that Thiobacillus is the current accepted genus of the organism.",
+    "evidence": [
+      {
+        "record_index": 2,
+        "quote": "\"lpsn_parent_id\": 516820",
+        "start": 555,
+        "end": 579,
+        "text_sha256": "68320cad0ef674bd656543d4a6c95a73e1033b126e3ba1353c1492981807742c",
+        "source_relative_path": "lpsn/api_cache/1533.json",
+        "locator": "1533",
+        "retrieval_url": "https://doi.org/10.83108/rn.1533",
+        "extractor": "source-record-json-canonical/v1",
+        "evidence_level": "source_record",
+        "reference": "doi:10.1099/ijsem.0.004332",
+        "reference_role": "source database or record provenance; not scientific literature proof"
+      },
+      {
+        "record_index": 2,
+        "quote": "\"lpsn_taxonomic_status\": \"synonym\"",
+        "start": 583,
+        "end": 617,
+        "text_sha256": "68320cad0ef674bd656543d4a6c95a73e1033b126e3ba1353c1492981807742c",
+        "source_relative_path": "lpsn/api_cache/1533.json",
+        "locator": "1533",
+        "retrieval_url": "https://doi.org/10.83108/rn.1533",
+        "extractor": "source-record-json-canonical/v1",
+        "evidence_level": "source_record",
+        "reference": "doi:10.1099/ijsem.0.004332",
+        "reference_role": "source database or record provenance; not scientific literature proof"
+      }
+    ],
+    "adjudicating_model": "GPT-6 (runtime model not more specifically exposed)",
+    "source_records_examined": 6,
+    "adjudication_timing": {
+      "started_at": "2026-11-13T08:33:49.956896+00:00",
+      "stopped_at": "2026-11-13T08:34:01.312311+00:00",
+      "elapsed_seconds": 11.355336042,
+      "packet_sha256": "e28ad2813a7c12720ceb8fb36a5bbe22fa4064b55f92d9432b3f753741257f51",
+      "decision_sha256": "00b910b5afd75722abbc1d77095e1d9d8902b38148cac93e25393a7e2415ffe4"
+    }
+  },
+  {
+    "canary_ordinal": 16,
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:3b4caafa5ebbb050ff125edf63b1be3fb0580f251696a3b54c208df7b93c7081",
+    "origin_transform": "lpsn_api/edges.tsv",
+    "claim_target": "original rule-labeled edge",
+    "verdict": "SUPPORTED",
+    "rationale": "The exact LPSN API record 792783 gives parent 517407, Actinomadura, so the original subclass edge reproduces the named record hierarchy. LPSN also marks this name as a synonym of Thermomonospora amylolytica, id 798739. That accepted-name change is a separate relation and does not erase the parent field actually attached to 792783.",
+    "evidence": [
+      {
+        "record_index": 3,
+        "quote": "\"lpsn_parent_id\": 517407",
+        "start": 600,
+        "end": 624,
+        "text_sha256": "061b265824b9ce19488608d78be90130cbf475295d4170d0c5149291559e6cde",
+        "source_relative_path": "lpsn/api_cache/792783.json",
+        "locator": "792783",
+        "retrieval_url": "https://doi.org/10.83108/rn.792783",
+        "extractor": "source-record-json-canonical/v1",
+        "evidence_level": "source_record",
+        "reference": "doi:10.1099/ijsem.0.004332",
+        "reference_role": "source database or record provenance; not scientific literature proof"
+      },
+      {
+        "record_index": 3,
+        "quote": "\"lpsn_correct_name_id\": 798739",
+        "start": 566,
+        "end": 596,
+        "text_sha256": "061b265824b9ce19488608d78be90130cbf475295d4170d0c5149291559e6cde",
+        "source_relative_path": "lpsn/api_cache/792783.json",
+        "locator": "792783",
+        "retrieval_url": "https://doi.org/10.83108/rn.792783",
+        "extractor": "source-record-json-canonical/v1",
+        "evidence_level": "source_record",
+        "reference": "doi:10.1099/ijsem.0.004332",
+        "reference_role": "source database or record provenance; not scientific literature proof"
+      }
+    ],
+    "adjudicating_model": "GPT-6 (runtime model not more specifically exposed)",
+    "source_records_examined": 5,
+    "adjudication_timing": {
+      "started_at": "2026-11-13T08:34:01.397553+00:00",
+      "stopped_at": "2026-11-13T08:34:11.888876+00:00",
+      "elapsed_seconds": 10.491249625,
+      "packet_sha256": "e988bd522d1bac18b0d25f8f6edc09dd0a8f81bc57f0f5202bdc811ba5db92a4",
+      "decision_sha256": "570d4aee4224a19267ff24fcb7051d30894bd89bf840d3117f494e3725b63845"
+    }
+  },
+  {
+    "canary_ordinal": 17,
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:eac77b068d22c18c421449189206c1de9b55b3cb04759ffcaf3e0bba7c9bff52",
+    "origin_transform": "lpsn_api/edges.tsv",
+    "claim_target": "original rule-labeled edge",
+    "verdict": "CONTRADICTED",
+    "rationale": "LPSN 8216 stores this DOI in publication_doi and identifies the record itself as species Polaribacter septentrionalilitoris. The publication describes the species; it is not an alternative identifier for the taxon. The original close_match predicate therefore misrepresents a citation relationship, irrespective of any curated later change to the triple.",
+    "evidence": [
+      {
+        "record_index": 2,
+        "quote": "\"publication_doi\": \"10.1099/ijsem.0.004290\"",
+        "start": 918,
+        "end": 961,
+        "text_sha256": "e4ad0285b37c6d2baf6b467e516d6e83855476f582179fc39ef04eadbda852ab",
+        "source_relative_path": "lpsn/api_cache/8216.json",
+        "locator": "8216",
+        "retrieval_url": "https://doi.org/10.83108/rn.8216",
+        "extractor": "source-record-json-canonical/v1",
+        "evidence_level": "source_record",
+        "reference": "doi:10.1099/ijsem.0.004332",
+        "reference_role": "source database or record provenance; not scientific literature proof"
+      }
+    ],
+    "adjudicating_model": "GPT-6 (runtime model not more specifically exposed)",
+    "source_records_examined": 3,
+    "adjudication_timing": {
+      "started_at": "2026-11-13T08:34:12.025366+00:00",
+      "stopped_at": "2026-11-13T08:34:23.456959+00:00",
+      "elapsed_seconds": 11.431515292,
+      "packet_sha256": "7ae288319722fe30b5166a52981a447d22d57ea320c1dfa2c57c3a4e45b0e839",
+      "decision_sha256": "f8d60ed4673cc83edfbad3c9ba402dfb0e25872a443229e1c9668b11818f5bcd"
+    }
+  },
+  {
+    "canary_ordinal": 18,
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:196cb72bfdd5322cfc78a5000243eb1f3c51cef2f705155c82a0f2c6be713ee4",
+    "origin_transform": "lpsn_api/edges.tsv",
+    "claim_target": "original rule-labeled edge",
+    "verdict": "SUPPORTED",
+    "rationale": "The genus record for Aliivibrio, id 517156, explicitly gives lpsn_parent_id 1543. The retained parent record identifies 1543 as family Vibrionaceae, establishing both the correct taxon identities and genus-to-family subclass direction.",
+    "evidence": [
+      {
+        "record_index": 2,
+        "quote": "\"lpsn_parent_id\": 1543",
+        "start": 1275,
+        "end": 1297,
+        "text_sha256": "e0782a3aab33618559befeb11636a113779ef3ef91c3ef772230ac7f598ba8a2",
+        "source_relative_path": "lpsn/api_cache/517156.json",
+        "locator": "517156",
+        "retrieval_url": "https://doi.org/10.83108/rn.517156",
+        "extractor": "source-record-json-canonical/v1",
+        "evidence_level": "source_record",
+        "reference": "doi:10.1099/ijsem.0.004332",
+        "reference_role": "source database or record provenance; not scientific literature proof"
+      }
+    ],
+    "adjudicating_model": "GPT-6 (runtime model not more specifically exposed)",
+    "source_records_examined": 3,
+    "adjudication_timing": {
+      "started_at": "2026-11-13T08:34:23.524222+00:00",
+      "stopped_at": "2026-11-13T08:34:33.621419+00:00",
+      "elapsed_seconds": 10.097127166,
+      "packet_sha256": "6455e715cc9433672afefa1a4c570fb77ed43364e624a9c9446cdfa692310c62",
+      "decision_sha256": "a3b16c25b161fc69d93a1deaa587ea359d49be9ee7d57fb959a2e9907f5f114b"
+    }
+  },
+  {
+    "canary_ordinal": 19,
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:054923c2d2f6e170c7fa2ee0b76d59b9d4eab32f6e9b09165c7a3415bfc17a18",
+    "origin_transform": "madin_etal/edges.tsv",
+    "claim_target": "original rule-labeled edge",
+    "verdict": "SUPPORTED",
+    "rationale": "The Madin source row for Jonquetella anthropi tax_id 428712 lists succinate among carbon_substrates. The frozen predicate label for METPO:2000006 is uses as carbon source, so the sampled chemical, polarity and taxon match this source assertion. This validates the aggregation faithfully; it does not independently resolve whether the original cited observation confused substrate use with fermentation products.",
+    "evidence": [
+      {
+        "record_index": 1,
+        "quote": "\"carbon_substrates\": \"acetate, lactate, phenylacetate, propionate, succinate\"",
+        "start": 4,
+        "end": 81,
+        "text_sha256": "a63d2251f4eb03ba94a801840723656d095fe99341515b72a0ccef44b65d3a79",
+        "source_relative_path": "madin_etal.csv",
+        "locator": "CSV data row 26915",
+        "retrieval_url": "https://github.com/bacteria-archaea-traits/bacteria-archaea-traits/blob/master/output/condensed_traits_NCBI.csv",
+        "extractor": "source-record-json-canonical/v1",
+        "evidence_level": "source_record",
+        "reference": "doi:10.1038/s41597-020-0497-4",
+        "reference_role": "source database or record provenance; not scientific literature proof"
+      }
+    ],
+    "adjudicating_model": "GPT-6 (runtime model not more specifically exposed)",
+    "source_records_examined": 11,
+    "adjudication_timing": {
+      "started_at": "2026-11-13T08:34:33.675345+00:00",
+      "stopped_at": "2026-11-13T08:35:08.098623+00:00",
+      "elapsed_seconds": 34.423044916,
+      "packet_sha256": "fc1d6150dd5dafc6dd7478cc5ab100976414d64741be213dae89b1dc1d8e44aa",
+      "decision_sha256": "584d9506e4acc4352e41271da6c548b3ed75ef27b82bb555fd10846ab97d905f"
+    }
+  },
+  {
+    "canary_ordinal": 20,
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:d4aee202865ace623a2620664b7ab42db92031e8bcc894c45d00aae5809b9e43",
+    "origin_transform": "madin_etal/edges.tsv",
+    "claim_target": "original rule-labeled edge",
+    "verdict": "SUPPORTED",
+    "rationale": "The Madin GOLD-derived row explicitly records cell_shape bacillus for tax_id 1110504 and strain 14628. That exactly supports the graph's bacillus-shaped phenotype as a transcription of the source. The alternative genus spelling Mycoplasma does not change the exact taxon ID; the source's biological reliability is assessed separately.",
+    "evidence": [
+      {
+        "record_index": 0,
+        "quote": "\"cell_shape\": \"bacillus\"",
+        "start": 33,
+        "end": 57,
+        "text_sha256": "3b28536d6637e0046ad71ceb6305926da64834731f307ddf4ae2082ea3097259",
+        "source_relative_path": "madin_etal.csv",
+        "locator": "CSV data row 52563",
+        "retrieval_url": "https://github.com/bacteria-archaea-traits/bacteria-archaea-traits/blob/master/output/condensed_traits_NCBI.csv",
+        "extractor": "source-record-json-canonical/v1",
+        "evidence_level": "source_record",
+        "reference": "doi:10.1038/s41597-020-0497-4",
+        "reference_role": "source database or record provenance; not scientific literature proof"
+      },
+      {
+        "record_index": 0,
+        "quote": "\"tax_id\": \"1110504\"",
+        "start": 886,
+        "end": 905,
+        "text_sha256": "3b28536d6637e0046ad71ceb6305926da64834731f307ddf4ae2082ea3097259",
+        "source_relative_path": "madin_etal.csv",
+        "locator": "CSV data row 52563",
+        "retrieval_url": "https://github.com/bacteria-archaea-traits/bacteria-archaea-traits/blob/master/output/condensed_traits_NCBI.csv",
+        "extractor": "source-record-json-canonical/v1",
+        "evidence_level": "source_record",
+        "reference": "doi:10.1038/s41597-020-0497-4",
+        "reference_role": "source database or record provenance; not scientific literature proof"
+      }
+    ],
+    "adjudicating_model": "GPT-6 (runtime model not more specifically exposed)",
+    "source_records_examined": 7,
+    "adjudication_timing": {
+      "started_at": "2026-11-13T08:35:08.151416+00:00",
+      "stopped_at": "2026-11-13T08:35:18.631272+00:00",
+      "elapsed_seconds": 10.479784292,
+      "packet_sha256": "ef72b3f7d301334b52a865b00d96308fe03b04f95cf6ec4c4de5768fe964763b",
+      "decision_sha256": "3b19645c49e66c36244234ab90ad4c118431e75a9d035c5ebcee6c2a0a5077e2"
+    }
+  },
+  {
+    "canary_ordinal": 21,
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:a897f2eb26a9918531f9464d3daef7cc6b1abf76bbd3aabd5bea90a2e4c99f3c",
+    "origin_transform": "madin_etal/edges.tsv",
+    "claim_target": "original rule-labeled edge",
+    "verdict": "SUPPORTED",
+    "rationale": "The Madin pasteur row for exact taxon 176291 explicitly reports metabolism aerobic, supporting the sampled positive phenotype as a source statement. Other rows for the same taxon say microaerophilic, so the dataset is heterogeneous and this edge should retain its row-level provenance rather than imply unanimity across observations.",
+    "evidence": [
+      {
+        "record_index": 7,
+        "quote": "\"metabolism\": \"aerobic\"",
+        "start": 396,
+        "end": 419,
+        "text_sha256": "101f0a06bc9229a58b5a641739f61fbdaf67a7e6bcc1e1cd50e3235a07670f61",
+        "source_relative_path": "madin_etal.csv",
+        "locator": "CSV data row 142436",
+        "retrieval_url": "https://github.com/bacteria-archaea-traits/bacteria-archaea-traits/blob/master/output/condensed_traits_NCBI.csv",
+        "extractor": "source-record-json-canonical/v1",
+        "evidence_level": "source_record",
+        "reference": "doi:10.1038/s41597-020-0497-4",
+        "reference_role": "source database or record provenance; not scientific literature proof"
+      }
+    ],
+    "adjudicating_model": "GPT-6 (runtime model not more specifically exposed)",
+    "source_records_examined": 16,
+    "adjudication_timing": {
+      "started_at": "2026-11-13T08:35:18.678195+00:00",
+      "stopped_at": "2026-11-13T08:35:27.699649+00:00",
+      "elapsed_seconds": 9.021392292,
+      "packet_sha256": "95d9985302a7b7d9e2d3d3bc9005b109e3b1569de3e58f8fc24fc68f4b72dc69",
+      "decision_sha256": "c3144527ac01621754b39a1b531141c6a3a40c6ec53bc3a6cc3380f0e760fac2"
+    }
+  },
+  {
+    "canary_ordinal": 22,
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:0e976209d5b02634411f0f3f5914b4b0fbc9576a3a172587ce669b5a39f7530d",
+    "origin_transform": "mediadive/edges.tsv",
+    "claim_target": "original rule-labeled edge",
+    "verdict": "SUPPORTED",
+    "rationale": "MediaDive's strain list under medium J14 explicitly associates BacDive 161115, JCM 10962, Eikenella corrodens with growth=1. The paired medium record identifies J14 as EG MEDIUM. The sampled grows-in relation thus preserves the exact strain, medium identifier and positive growth direction.",
+    "evidence": [
+      {
+        "record_index": 12,
+        "quote": "\"bacdive_id\": 161115",
+        "start": 80429,
+        "end": 80449,
+        "text_sha256": "d28efa91cd5a2e37e93fce78ab9e7ff395f863f45cbbeefe123759499aa3117f",
+        "source_relative_path": "mediadive/media_strains.json",
+        "locator": "J14",
+        "retrieval_url": "https://mediadive.dsmz.de/medium/J14",
+        "extractor": "source-record-json-canonical/v1",
+        "evidence_level": "source_record",
+        "reference": "doi:10.1093/nar/gkac803",
+        "reference_role": "source database or record provenance; not scientific literature proof"
+      },
+      {
+        "record_index": 12,
+        "quote": "\"growth\": 1",
+        "start": 78,
+        "end": 89,
+        "text_sha256": "d28efa91cd5a2e37e93fce78ab9e7ff395f863f45cbbeefe123759499aa3117f",
+        "source_relative_path": "mediadive/media_strains.json",
+        "locator": "J14",
+        "retrieval_url": "https://mediadive.dsmz.de/medium/J14",
+        "extractor": "source-record-json-canonical/v1",
+        "evidence_level": "source_record",
+        "reference": "doi:10.1093/nar/gkac803",
+        "reference_role": "source database or record provenance; not scientific literature proof"
+      }
+    ],
+    "adjudicating_model": "GPT-6 (runtime model not more specifically exposed)",
+    "source_records_examined": 13,
+    "adjudication_timing": {
+      "started_at": "2026-11-13T08:35:27.769186+00:00",
+      "stopped_at": "2026-11-13T08:35:36.865979+00:00",
+      "elapsed_seconds": 9.096731084,
+      "packet_sha256": "3228d00b9c7406f4054cb258cd5d1c15c2962464928b2f5fd953446aa2400d50",
+      "decision_sha256": "1fc6ff2a89883f4c1f324066659bbdc186f9a5b018d892d5967b93176a06590f"
+    }
+  },
+  {
+    "canary_ordinal": 23,
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:f48e330280a365fea46d840bc1b272353348bbf3942d67dcde06be8d75d2d378",
+    "origin_transform": "mediadive/edges.tsv",
+    "claim_target": "original rule-labeled edge",
+    "verdict": "SUPPORTED",
+    "rationale": "Medium 1597a's main solution recipe includes 5 ml of Solution K with solution_id 3318. The independent solution record confirms 3318 is Solution K. Thus medium has_part solution preserves both component identity and whole-to-part direction.",
+    "evidence": [
+      {
+        "record_index": 0,
+        "quote": "\"solution_id\": 3318",
+        "start": 2519,
+        "end": 2538,
+        "text_sha256": "2cbb5b048b84ccb09a18a98c9f1ea680a46c872c7611c0a20422d6d917824fb4",
+        "source_relative_path": "mediadive/media_detailed.json",
+        "locator": "1597a",
+        "retrieval_url": "https://mediadive.dsmz.de/medium/1597a",
+        "extractor": "source-record-json-canonical/v1",
+        "evidence_level": "source_record",
+        "reference": "doi:10.1093/nar/gkac803",
+        "reference_role": "source database or record provenance; not scientific literature proof"
+      },
+      {
+        "record_index": 2,
+        "quote": "\"name\": \"Solution K\"",
+        "start": 18,
+        "end": 38,
+        "text_sha256": "030e7869bcda04b87ca8250e3b42550a0806e2b5a22da29fadf2ffcf2f819a8d",
+        "source_relative_path": "mediadive/solutions.json",
+        "locator": "3318",
+        "retrieval_url": "https://mediadive.dsmz.de/solution/3318",
+        "extractor": "source-record-json-canonical/v1",
+        "evidence_level": "source_record",
+        "reference": "doi:10.1093/nar/gkac803",
+        "reference_role": "source database or record provenance; not scientific literature proof"
+      }
+    ],
+    "adjudicating_model": "GPT-6 (runtime model not more specifically exposed)",
+    "source_records_examined": 3,
+    "adjudication_timing": {
+      "started_at": "2026-11-13T08:35:36.914578+00:00",
+      "stopped_at": "2026-11-13T08:35:49.783053+00:00",
+      "elapsed_seconds": 12.868385166,
+      "packet_sha256": "52e9256144d03ce50ad97d73d02ecbab32c964345529e7aab6dceb95366a755f",
+      "decision_sha256": "0982496c0d960e11e3124fc203a6621063c46703789609ce37acc05ef6f33b4e"
+    }
+  },
+  {
+    "canary_ordinal": 24,
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:ff28db362d09476492c0963c4d100313badb2e9e7adf8584f36783bacd8d2eed",
+    "origin_transform": "mediadive/edges.tsv",
+    "claim_target": "original rule-labeled edge",
+    "verdict": "SUPPORTED",
+    "rationale": "MediaDive lists multiple Serratia marcescens strains, including BacDive 5138/DSM 48, with growth=1 under medium 1, whose record is NUTRIENT AGAR. This supports a species-level existence-of-growth assertion for Serratia marcescens. It does not imply all strains or all incubation conditions succeed; strain-specific conditions are lost in the aggregate edge.",
+    "evidence": [
+      {
+        "record_index": 11,
+        "quote": "\"species\": \"Serratia marcescens\"",
+        "start": 3719,
+        "end": 3751,
+        "text_sha256": "4561a1d8b84936bc11ee6377ce824c3a9c71bbaf8678e3171c31ce03e849e0fc",
+        "source_relative_path": "mediadive/media_strains.json",
+        "locator": "1",
+        "retrieval_url": "https://mediadive.dsmz.de/medium/1",
+        "extractor": "source-record-json-canonical/v1",
+        "evidence_level": "source_record",
+        "reference": "doi:10.1093/nar/gkac803",
+        "reference_role": "source database or record provenance; not scientific literature proof"
+      },
+      {
+        "record_index": 10,
+        "quote": "\"name\": \"NUTRIENT AGAR\"",
+        "start": 174,
+        "end": 197,
+        "text_sha256": "670319756f79c5bd555bd67e1b07adcec91cdaf3bd47b18655f29d4a539b85a3",
+        "source_relative_path": "mediadive/media_detailed.json",
+        "locator": "1",
+        "retrieval_url": "https://mediadive.dsmz.de/medium/1",
+        "extractor": "source-record-json-canonical/v1",
+        "evidence_level": "source_record",
+        "reference": "doi:10.1093/nar/gkac803",
+        "reference_role": "source database or record provenance; not scientific literature proof"
+      }
+    ],
+    "adjudicating_model": "GPT-6 (runtime model not more specifically exposed)",
+    "source_records_examined": 12,
+    "adjudication_timing": {
+      "started_at": "2026-11-13T08:35:49.835148+00:00",
+      "stopped_at": "2026-11-13T08:36:00.872636+00:00",
+      "elapsed_seconds": 11.037413042,
+      "packet_sha256": "de5762320bb7c1141f5998a2d743ce749b6332a9dbcf5f485f7a3136f347dd7b",
+      "decision_sha256": "235be8eb00d8c4bcab0dd7ef5af98472c68cd0f400de81f5d707252c67b34a97"
+    }
+  },
+  {
+    "canary_ordinal": 25,
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:7e7a4513f3d5c2978436d69f19042ba17d729fc129ec28fa13c3f9833b461147",
+    "origin_transform": "metatraits/edges.tsv",
+    "claim_target": "original rule-labeled edge",
+    "verdict": "SUPPORTED",
+    "rationale": "The MetaTraits Moraxella ovis summary has an explicit electron acceptor: nitrate entry with false=100% across two observations. The frozen predicate label is does not use as electron acceptor, preserving that negative polarity and the nitrate substrate. The same record separately reports nitrate reduction and denitrification; those were not substituted for the selected electron-acceptor statement.",
+    "evidence": [
+      {
+        "record_index": 5,
+        "quote": "\"name\": \"electron acceptor: nitrate\"",
+        "start": 5777,
+        "end": 5813,
+        "text_sha256": "3c5f029cdccafa0cf895bb3a8ddb6c58cbadd414e23577d5e022c44feff3c2ec",
+        "source_relative_path": "ncbi_species_summary.jsonl.gz",
+        "locator": "JSONL line 30271: Moraxella ovis",
+        "retrieval_url": "https://metatraits.embl.de/",
+        "extractor": "source-record-json-canonical/v1",
+        "evidence_level": "source_record",
+        "reference": "doi:10.1093/nar/gkaf1241",
+        "reference_role": "source database or record provenance; not scientific literature proof"
+      },
+      {
+        "record_index": 5,
+        "quote": "\"majority_label\": \"false: (100%)\"",
+        "start": 58,
+        "end": 91,
+        "text_sha256": "3c5f029cdccafa0cf895bb3a8ddb6c58cbadd414e23577d5e022c44feff3c2ec",
+        "source_relative_path": "ncbi_species_summary.jsonl.gz",
+        "locator": "JSONL line 30271: Moraxella ovis",
+        "retrieval_url": "https://metatraits.embl.de/",
+        "extractor": "source-record-json-canonical/v1",
+        "evidence_level": "source_record",
+        "reference": "doi:10.1093/nar/gkaf1241",
+        "reference_role": "source database or record provenance; not scientific literature proof"
+      }
+    ],
+    "adjudicating_model": "GPT-6 (runtime model not more specifically exposed)",
+    "source_records_examined": 6,
+    "adjudication_timing": {
+      "started_at": "2026-11-13T08:36:00.959210+00:00",
+      "stopped_at": "2026-11-13T08:36:11.816428+00:00",
+      "elapsed_seconds": 10.857143083,
+      "packet_sha256": "be4e9d465f6fb773a3145372c710dc733bbae04531826be476b58502780fba4e",
+      "decision_sha256": "27db78406ed05551a7cd80b30b0c9407cb171bd5b5365b52e0c0bd7f6aa07995"
+    }
+  },
+  {
+    "canary_ordinal": 26,
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:5eab3186def91d4d44ad597b27e56a33b7cedcdff55e6adfe8d18136d124789b",
+    "origin_transform": "metatraits/edges.tsv",
+    "claim_target": "original rule-labeled edge",
+    "verdict": "SUPPORTED",
+    "rationale": "The exact named MetaTraits entry Ochrobactrum sp. 23A/997/2015 reports hydrolysis: xylan as false in its sole observation. METPO:2000039 is labeled does not hydrolyze in the frozen claim, so the negative predicate and xylan object reproduce the source statement. Binding is by the full strain-like taxon name; this summary does not provide an independent numeric taxonomy crosswalk.",
+    "evidence": [
+      {
+        "record_index": 0,
+        "quote": "\"name\": \"hydrolysis: xylan\"",
+        "start": 2164,
+        "end": 2191,
+        "text_sha256": "9941d8e430f11d8e0290f41565917f4290e35149da737511b877ac288ef9a38f",
+        "source_relative_path": "ncbi_species_summary.jsonl.gz",
+        "locator": "JSONL line 33013: Ochrobactrum sp. 23A/997/2015",
+        "retrieval_url": "https://metatraits.embl.de/",
+        "extractor": "source-record-json-canonical/v1",
+        "evidence_level": "source_record",
+        "reference": "doi:10.1093/nar/gkaf1241",
+        "reference_role": "source database or record provenance; not scientific literature proof"
+      },
+      {
+        "record_index": 0,
+        "quote": "\"majority_label\": \"false: (100%)\"",
+        "start": 58,
+        "end": 91,
+        "text_sha256": "9941d8e430f11d8e0290f41565917f4290e35149da737511b877ac288ef9a38f",
+        "source_relative_path": "ncbi_species_summary.jsonl.gz",
+        "locator": "JSONL line 33013: Ochrobactrum sp. 23A/997/2015",
+        "retrieval_url": "https://metatraits.embl.de/",
+        "extractor": "source-record-json-canonical/v1",
+        "evidence_level": "source_record",
+        "reference": "doi:10.1093/nar/gkaf1241",
+        "reference_role": "source database or record provenance; not scientific literature proof"
+      }
+    ],
+    "adjudicating_model": "GPT-6 (runtime model not more specifically exposed)",
+    "source_records_examined": 1,
+    "adjudication_timing": {
+      "started_at": "2026-11-13T08:36:11.886627+00:00",
+      "stopped_at": "2026-11-13T08:36:21.941265+00:00",
+      "elapsed_seconds": 10.054570709,
+      "packet_sha256": "580f8e1b6ce6ec507a770028c54fcc3dcb7d8d82079708b83ad173feeedf0d8d",
+      "decision_sha256": "f34be6e40fef11f191f6604f5e0b0a0bd67860c7e6c199376045be1d5ad5eaa4"
+    }
+  },
+  {
+    "canary_ordinal": 27,
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:802c0927d9f3e5dd4cf87393066040662072c68bf6ccad7502615b0efcb2f6f8",
+    "origin_transform": "metatraits/edges.tsv",
+    "claim_target": "original rule-labeled edge",
+    "verdict": "SUPPORTED",
+    "rationale": "MetaTraits explicitly summarizes electron acceptor: fumarate as false=100% for Stutzerimonas frequens, based on fourteen observations in two databases. The sampled does-not-use-as-electron-acceptor predicate preserves that negative assertion; CHEBI:29806 supplies the fumarate dianion representation rather than a different substrate.",
+    "evidence": [
+      {
+        "record_index": 2,
+        "quote": "\"name\": \"electron acceptor: fumarate\"",
+        "start": 32428,
+        "end": 32465,
+        "text_sha256": "6c9a4d8b71f741ff07458fa922b875039f2251f3d97504b559844f6ddc8bdb92",
+        "source_relative_path": "ncbi_species_summary.jsonl.gz",
+        "locator": "JSONL line 49857: Stutzerimonas frequens",
+        "retrieval_url": "https://metatraits.embl.de/",
+        "extractor": "source-record-json-canonical/v1",
+        "evidence_level": "source_record",
+        "reference": "doi:10.1093/nar/gkaf1241",
+        "reference_role": "source database or record provenance; not scientific literature proof"
+      },
+      {
+        "record_index": 2,
+        "quote": "\"majority_label\": \"false: (100%)\"",
+        "start": 255,
+        "end": 288,
+        "text_sha256": "6c9a4d8b71f741ff07458fa922b875039f2251f3d97504b559844f6ddc8bdb92",
+        "source_relative_path": "ncbi_species_summary.jsonl.gz",
+        "locator": "JSONL line 49857: Stutzerimonas frequens",
+        "retrieval_url": "https://metatraits.embl.de/",
+        "extractor": "source-record-json-canonical/v1",
+        "evidence_level": "source_record",
+        "reference": "doi:10.1093/nar/gkaf1241",
+        "reference_role": "source database or record provenance; not scientific literature proof"
+      }
+    ],
+    "adjudicating_model": "GPT-6 (runtime model not more specifically exposed)",
+    "source_records_examined": 3,
+    "adjudication_timing": {
+      "started_at": "2026-11-13T08:36:22.011114+00:00",
+      "stopped_at": "2026-11-13T08:36:30.930890+00:00",
+      "elapsed_seconds": 8.91971125,
+      "packet_sha256": "14a2f1753c2764f0b632da00defe58c539dbf8328a3ede54790dd9d07606e0dc",
+      "decision_sha256": "f5c43ad203e7263bf6716774428e5d5b6ca4288ca7d7ec29c7df8352eebbfc8f"
+    }
+  },
+  {
+    "canary_ordinal": 28,
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:35145e15e693c995b3dd9a8919e8fd4a32948f6f141fbb6d8254b7b6672e4f06",
+    "origin_transform": "metatraits_gtdb/edges.tsv",
+    "claim_target": "original rule-labeled edge",
+    "verdict": "SUPPORTED",
+    "rationale": "The GTDB-based MetaTraits summary for Microvirga flavescens explicitly has growth: tartrate false=100% in one observation. The frozen predicate label is does not use for growth, preserving the source test category and negative polarity. This is not a fermentation-specific claim and does not establish a species-wide invariant from one assay.",
+    "evidence": [
+      {
+        "record_index": 3,
+        "quote": "\"name\": \"growth: tartrate\"",
+        "start": 16419,
+        "end": 16445,
+        "text_sha256": "c56c55d0170883a51ba20422f80e5a2c65997194f593b4a0dca2022d89293f3f",
+        "source_relative_path": "gtdb_species_summary.jsonl.gz",
+        "locator": "JSONL line 34494: Microvirga flavescens",
+        "retrieval_url": "https://metatraits.embl.de/",
+        "extractor": "source-record-json-canonical/v1",
+        "evidence_level": "source_record",
+        "reference": "doi:10.1093/nar/gkaf1241",
+        "reference_role": "source database or record provenance; not scientific literature proof"
+      },
+      {
+        "record_index": 3,
+        "quote": "\"majority_label\": \"false: (100%)\"",
+        "start": 251,
+        "end": 284,
+        "text_sha256": "c56c55d0170883a51ba20422f80e5a2c65997194f593b4a0dca2022d89293f3f",
+        "source_relative_path": "gtdb_species_summary.jsonl.gz",
+        "locator": "JSONL line 34494: Microvirga flavescens",
+        "retrieval_url": "https://metatraits.embl.de/",
+        "extractor": "source-record-json-canonical/v1",
+        "evidence_level": "source_record",
+        "reference": "doi:10.1093/nar/gkaf1241",
+        "reference_role": "source database or record provenance; not scientific literature proof"
+      }
+    ],
+    "adjudicating_model": "GPT-6 (runtime model not more specifically exposed)",
+    "source_records_examined": 4,
+    "adjudication_timing": {
+      "started_at": "2026-11-13T08:36:31.004791+00:00",
+      "stopped_at": "2026-11-13T08:36:39.793677+00:00",
+      "elapsed_seconds": 8.788825708,
+      "packet_sha256": "490a9de2534856a4fb4e50a8550c20317ad422c1d6829079ad9b8150d82e56cd",
+      "decision_sha256": "eef45a75da8232dc90bfeffce0f115d1303488221118bf59e4fb1b8c45804c2e"
+    }
+  },
+  {
+    "canary_ordinal": 29,
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:f92330e3c61e4be17565c1b4c283d1500c557a648b34a74d197afe2156a03137",
+    "origin_transform": "metatraits_gtdb/edges.tsv",
+    "claim_target": "original rule-labeled edge",
+    "verdict": "SUPPORTED",
+    "rationale": "MetaTraits records degradation: plastic as false=100% for Chryseosolibacter indicus. Retained LPSN 67856 maps indicus to correct_name_id 67969, Chryseosolibacter indicum, explicitly marked spelling-corrected. The sampled does-not-degrade predicate therefore preserves polarity and organism identity through a verified spelling correction. Plastic remains a broad, source-defined material category.",
+    "evidence": [
+      {
+        "record_index": 5,
+        "quote": "\"name\": \"degradation: plastic\"",
+        "start": 7444,
+        "end": 7474,
+        "text_sha256": "bfe6d839fe9e9d555d0b9daa9d23d0c2492ff3d341aceebbed7b72424274b0fd",
+        "source_relative_path": "gtdb_species_summary.jsonl.gz",
+        "locator": "JSONL line 11948: Chryseosolibacter indicus",
+        "retrieval_url": "https://metatraits.embl.de/",
+        "extractor": "source-record-json-canonical/v1",
+        "evidence_level": "source_record",
+        "reference": "doi:10.1093/nar/gkaf1241",
+        "reference_role": "source database or record provenance; not scientific literature proof"
+      },
+      {
+        "record_index": 5,
+        "quote": "\"majority_label\": \"false: (100%)\"",
+        "start": 58,
+        "end": 91,
+        "text_sha256": "bfe6d839fe9e9d555d0b9daa9d23d0c2492ff3d341aceebbed7b72424274b0fd",
+        "source_relative_path": "gtdb_species_summary.jsonl.gz",
+        "locator": "JSONL line 11948: Chryseosolibacter indicus",
+        "retrieval_url": "https://metatraits.embl.de/",
+        "extractor": "source-record-json-canonical/v1",
+        "evidence_level": "source_record",
+        "reference": "doi:10.1093/nar/gkaf1241",
+        "reference_role": "source database or record provenance; not scientific literature proof"
+      }
+    ],
+    "adjudicating_model": "GPT-6 (runtime model not more specifically exposed)",
+    "source_records_examined": 6,
+    "adjudication_timing": {
+      "started_at": "2026-11-13T08:36:39.840184+00:00",
+      "stopped_at": "2026-11-13T08:36:56.850026+00:00",
+      "elapsed_seconds": 17.009726167,
+      "packet_sha256": "5ec6e03529a64a18118c050747629379a2cb6251b452edf04eca0c5ec30cbecd",
+      "decision_sha256": "f4e38dca4b4eeb0739588710ab7a13de3e10c6c5e499c78a1da7439cbb1be0ae"
+    }
+  },
+  {
+    "canary_ordinal": 30,
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:70eafeaca41c674a4ba16a5efabc5a0e425ce5510734bc4ae3fe6df007ea669c",
+    "origin_transform": "metatraits_gtdb/edges.tsv",
+    "claim_target": "original rule-labeled edge",
+    "verdict": "SUPPORTED",
+    "rationale": "The MetaTraits GTDB summary for Frankia alpina reports utilizes: galactarate true=100% in one observation. METPO:2000015 is labeled uses in other way, a generic utilization relation that does not add a specific metabolic mechanism. The Candidatus prefix differs between graph and summary naming, but the species epithet and genus match; independent numeric taxon crosswalk validation remains outside this named-source match.",
+    "evidence": [
+      {
+        "record_index": 0,
+        "quote": "\"name\": \"utilizes: galactarate\"",
+        "start": 18020,
+        "end": 18051,
+        "text_sha256": "a2c89cd3f6cc3ab473e6567a18715455431acda66ae458317cd3017878e48e1a",
+        "source_relative_path": "gtdb_species_summary.jsonl.gz",
+        "locator": "JSONL line 19823: Frankia alpina",
+        "retrieval_url": "https://metatraits.embl.de/",
+        "extractor": "source-record-json-canonical/v1",
+        "evidence_level": "source_record",
+        "reference": "doi:10.1093/nar/gkaf1241",
+        "reference_role": "source database or record provenance; not scientific literature proof"
+      },
+      {
+        "record_index": 0,
+        "quote": "\"majority_label\": \"true: (100%)\"",
+        "start": 58,
+        "end": 90,
+        "text_sha256": "a2c89cd3f6cc3ab473e6567a18715455431acda66ae458317cd3017878e48e1a",
+        "source_relative_path": "gtdb_species_summary.jsonl.gz",
+        "locator": "JSONL line 19823: Frankia alpina",
+        "retrieval_url": "https://metatraits.embl.de/",
+        "extractor": "source-record-json-canonical/v1",
+        "evidence_level": "source_record",
+        "reference": "doi:10.1093/nar/gkaf1241",
+        "reference_role": "source database or record provenance; not scientific literature proof"
+      }
+    ],
+    "adjudicating_model": "GPT-6 (runtime model not more specifically exposed)",
+    "source_records_examined": 1,
+    "adjudication_timing": {
+      "started_at": "2026-11-13T08:36:56.923895+00:00",
+      "stopped_at": "2026-11-13T08:37:08.290542+00:00",
+      "elapsed_seconds": 11.366570167,
+      "packet_sha256": "aa3e85d21d49babbcbb762ce240b9c3d931bafbd78484f57de335d5b0d4c2aa1",
+      "decision_sha256": "77f6edfa3fbce60d2ed863b138277db959c85030ccd1b4cd9d61e4bb8dfd8155"
+    }
+  },
+  {
+    "canary_ordinal": 31,
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:5a289e6c516c8005c7be72cccd40cbefde33e1aab35e60e0a1224517888ac090",
+    "origin_transform": "microbedecoder/edges.tsv",
+    "claim_target": "original rule-labeled edge",
+    "verdict": "SUPPORTED",
+    "rationale": "MicrobeDecoder row 18339 has LPSN_ID 781199, Staphylococcus kloosii, and Bergey_Major_end_products lactate with glucose as substrate. The produces relation is faithful to that end-product field. The same row's NCBI taxonomy fields instead name Salinispora tropica, a clear crosswalk inconsistency; this verdict relies on the explicit LPSN/Bergey identity, not those unrelated NCBI fields.",
+    "evidence": [
+      {
+        "record_index": 0,
+        "quote": "\"Bergey_Major_end_products\": \"lactate\"",
+        "start": 1496,
+        "end": 1534,
+        "text_sha256": "591bb9a20fcd7cacabc2ded3884da5dfe3654517fd752fab82ef93c22cd8a3e9",
+        "source_relative_path": "database.csv",
+        "locator": "CSV data row 18339",
+        "retrieval_url": "https://github.com/thackmann/MicrobeDecoder/raw/main/Shiny/MicrobeDecoder/data/database/database.zip",
+        "extractor": "source-record-json-canonical/v1",
+        "evidence_level": "source_record",
+        "reference": "doi:10.1093/nar/gkag515",
+        "reference_role": "source database or record provenance; not scientific literature proof"
+      },
+      {
+        "record_index": 0,
+        "quote": "\"LPSN_ID\": \"781199\"",
+        "start": 4128,
+        "end": 4147,
+        "text_sha256": "591bb9a20fcd7cacabc2ded3884da5dfe3654517fd752fab82ef93c22cd8a3e9",
+        "source_relative_path": "database.csv",
+        "locator": "CSV data row 18339",
+        "retrieval_url": "https://github.com/thackmann/MicrobeDecoder/raw/main/Shiny/MicrobeDecoder/data/database/database.zip",
+        "extractor": "source-record-json-canonical/v1",
+        "evidence_level": "source_record",
+        "reference": "doi:10.1093/nar/gkag515",
+        "reference_role": "source database or record provenance; not scientific literature proof"
+      }
+    ],
+    "adjudicating_model": "GPT-6 (runtime model not more specifically exposed)",
+    "source_records_examined": 7,
+    "adjudication_timing": {
+      "started_at": "2026-11-13T08:37:08.348886+00:00",
+      "stopped_at": "2026-11-13T08:37:17.753666+00:00",
+      "elapsed_seconds": 9.404716,
+      "packet_sha256": "3b82f8e03a70d40e3ae3df037b28b67e56590717523b33358a2d8343594257f1",
+      "decision_sha256": "69cfa050135a946a421cd9cf96653688342e05deffacb869b166acae9922bff2"
+    }
+  },
+  {
+    "canary_ordinal": 32,
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:bc0ccdeacd77c07acd22afd349f58309daaf6c46c7727a7f1d6dc267ac85cfd6",
+    "origin_transform": "microbedecoder/edges.tsv",
+    "claim_target": "original rule-labeled edge",
+    "verdict": "SUPPORTED",
+    "rationale": "The exact MicrobeDecoder LPSN_ID 775534 row includes sulfite_respiration in FAPROTAX_Type_of_metabolism. The source-local pathway definition specifically denotes sulfite respiration, so the capable_of edge preserves the named source prediction without substituting sulfate respiration. This is fidelity to a functional annotation, not direct experimental validation of sulfite growth.",
+    "evidence": [
+      {
+        "record_index": 0,
+        "quote": "\"FAPROTAX_Type_of_metabolism\": \"chemoheterotrophy;respiration_of_sulfur_compounds;sulfate_respiration;sulfite_respiration;thiosulfate_respiration\"",
+        "start": 1667,
+        "end": 1813,
+        "text_sha256": "dcf78c533e08d0207240536b00905fc9ae7c191426d2509a87f93613d748c8c1",
+        "source_relative_path": "database.csv",
+        "locator": "CSV data row 5072",
+        "retrieval_url": "https://github.com/thackmann/MicrobeDecoder/raw/main/Shiny/MicrobeDecoder/data/database/database.zip",
+        "extractor": "source-record-json-canonical/v1",
+        "evidence_level": "source_record",
+        "reference": "doi:10.1093/nar/gkag515",
+        "reference_role": "source database or record provenance; not scientific literature proof"
+      }
+    ],
+    "adjudicating_model": "GPT-6 (runtime model not more specifically exposed)",
+    "source_records_examined": 4,
+    "adjudication_timing": {
+      "started_at": "2026-11-13T08:37:17.803028+00:00",
+      "stopped_at": "2026-11-13T08:37:27.204971+00:00",
+      "elapsed_seconds": 9.401876709,
+      "packet_sha256": "1f83b2f572c81998ce56ee6dab94aa4576d7da310fe076351223f7083a2eb80d",
+      "decision_sha256": "3544ca6f4d951d80c1252c5a052dc639917a04d5441373f94db4095ba0350d67"
+    }
+  },
+  {
+    "canary_ordinal": 33,
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:8b511fc9c07a2aa0eb178f2319abe148cdafcc6988096c3519e3d693a2f0c377",
+    "origin_transform": "microbedecoder/edges.tsv",
+    "claim_target": "original rule-labeled edge",
+    "verdict": "SUPPORTED",
+    "rationale": "MicrobeDecoder associates LPSN 55124, Tolypothrix lignicola, with the literal token oxygenic_photoautotrophy in its FAPROTAX field. The graph object explicitly means reported source value and the predicate is has_attribute, so this edge preserves that limited assertion rather than upgrading the token to independently established physiology.",
+    "evidence": [
+      {
+        "record_index": 0,
+        "quote": "\"FAPROTAX_Type_of_metabolism\": \"oxygenic_photoautotrophy;photoautotrophy;photosynthetic_cyanobacteria;phototrophy\"",
+        "start": 1484,
+        "end": 1598,
+        "text_sha256": "734d10679dc382884a36f0c9c88687497ce6d8618b94389f2227eb42e65f16ae",
+        "source_relative_path": "database.csv",
+        "locator": "CSV data row 25043",
+        "retrieval_url": "https://github.com/thackmann/MicrobeDecoder/raw/main/Shiny/MicrobeDecoder/data/database/database.zip",
+        "extractor": "source-record-json-canonical/v1",
+        "evidence_level": "source_record",
+        "reference": "doi:10.1093/nar/gkag515",
+        "reference_role": "source database or record provenance; not scientific literature proof"
+      }
+    ],
+    "adjudicating_model": "GPT-6 (runtime model not more specifically exposed)",
+    "source_records_examined": 1,
+    "adjudication_timing": {
+      "started_at": "2026-11-13T08:37:27.262041+00:00",
+      "stopped_at": "2026-11-13T08:37:37.881387+00:00",
+      "elapsed_seconds": 10.619271875,
+      "packet_sha256": "786c357861fa40c5bc2dbaeb713e0accf2123efbd32dd864b32f42181491f835",
+      "decision_sha256": "406777d23f4007ff06cb85503998369d8b019a9ab2990dfa65def6d078608b2b"
+    }
+  },
+  {
+    "canary_ordinal": 34,
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:94a8162705b972aa47cc66a9c81f267bfdc06ce1333ca9329b2fb61c568fcf70",
+    "origin_transform": "prego_habitat/edges.tsv",
+    "claim_target": "original rule-labeled edge",
+    "verdict": "SUPPORTED",
+    "rationale": "PREGO retains the exact pair taxon 1935118 and ENVO:00000447 in both orientations, sourced through JGI IMG / Metagenome-Assembled Genome GOLD with score 4 and TRUE. Rendering the habitat as location_of the taxon is consistent with that habitat association. The sampled missing organism label does not alter these exact source IDs; this evidence is an annotation association, not independent isolation proof.",
+    "evidence": [
+      {
+        "record_index": 0,
+        "quote": "\"1935118\"",
+        "start": 30,
+        "end": 39,
+        "text_sha256": "c4e9605be42f8af3f5f60775f289016e222fffab2c10cd6dd4db931d3393d320",
+        "source_relative_path": "prego/annotated_genomes_isolates_extracted/database_pairs.tsv",
+        "locator": "TSV line 10811238",
+        "retrieval_url": "https://prego.hcmr.gr/",
+        "extractor": "source-record-json-canonical/v1",
+        "evidence_level": "source_record",
+        "reference": "doi:10.3390/microorganisms10020293",
+        "reference_role": "source database or record provenance; not scientific literature proof"
+      },
+      {
+        "record_index": 0,
+        "quote": "\"ENVO:00000447\"",
+        "start": 56,
+        "end": 71,
+        "text_sha256": "c4e9605be42f8af3f5f60775f289016e222fffab2c10cd6dd4db931d3393d320",
+        "source_relative_path": "prego/annotated_genomes_isolates_extracted/database_pairs.tsv",
+        "locator": "TSV line 10811238",
+        "retrieval_url": "https://prego.hcmr.gr/",
+        "extractor": "source-record-json-canonical/v1",
+        "evidence_level": "source_record",
+        "reference": "doi:10.3390/microorganisms10020293",
+        "reference_role": "source database or record provenance; not scientific literature proof"
+      }
+    ],
+    "adjudicating_model": "GPT-6 (runtime model not more specifically exposed)",
+    "source_records_examined": 2,
+    "adjudication_timing": {
+      "started_at": "2026-11-13T08:37:37.935548+00:00",
+      "stopped_at": "2026-11-13T08:37:51.701715+00:00",
+      "elapsed_seconds": 13.766073041,
+      "packet_sha256": "2640e951ade7c6b5b6488ddf0277b29637a94f6373ea3d4cd01b429e81339d33",
+      "decision_sha256": "7dc05740a35a3d8f1e3f2d54ced7ce2baa0d0b37bec23fb9349d40a12063700d"
+    }
+  },
+  {
+    "canary_ordinal": 35,
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:e907a754fd8428fa54be0a5c3ff75f926f74a2137a6b4841a58b0a980e8adde0",
+    "origin_transform": "prego_habitat/edges.tsv",
+    "claim_target": "original rule-labeled edge",
+    "verdict": "SUPPORTED",
+    "rationale": "PREGO explicitly associates taxon 2738661 with ocean ENVO:00000015 through JGI IMG single-amplified-genome records, including a GOLD channel at score 4/TRUE. Both pair orientations occur upstream, so habitat-to-organism location_of does not invert the intended habitat role. The edge is faithful to these source annotations without independently establishing every habitat of the taxon.",
+    "evidence": [
+      {
+        "record_index": 1,
+        "quote": "\"2738661\"",
+        "start": 30,
+        "end": 39,
+        "text_sha256": "a18f6e59b1e2a5cd82dca42298c543f15d1661b992df1655288b486f85c7fd60",
+        "source_relative_path": "prego/annotated_genomes_isolates_extracted/database_pairs.tsv",
+        "locator": "TSV line 15204956",
+        "retrieval_url": "https://prego.hcmr.gr/",
+        "extractor": "source-record-json-canonical/v1",
+        "evidence_level": "source_record",
+        "reference": "doi:10.3390/microorganisms10020293",
+        "reference_role": "source database or record provenance; not scientific literature proof"
+      },
+      {
+        "record_index": 1,
+        "quote": "\"ENVO:00000015\"",
+        "start": 56,
+        "end": 71,
+        "text_sha256": "a18f6e59b1e2a5cd82dca42298c543f15d1661b992df1655288b486f85c7fd60",
+        "source_relative_path": "prego/annotated_genomes_isolates_extracted/database_pairs.tsv",
+        "locator": "TSV line 15204956",
+        "retrieval_url": "https://prego.hcmr.gr/",
+        "extractor": "source-record-json-canonical/v1",
+        "evidence_level": "source_record",
+        "reference": "doi:10.3390/microorganisms10020293",
+        "reference_role": "source database or record provenance; not scientific literature proof"
+      }
+    ],
+    "adjudicating_model": "GPT-6 (runtime model not more specifically exposed)",
+    "source_records_examined": 4,
+    "adjudication_timing": {
+      "started_at": "2026-11-13T08:37:51.765531+00:00",
+      "stopped_at": "2026-11-13T08:38:03.532231+00:00",
+      "elapsed_seconds": 11.766617083,
+      "packet_sha256": "7d3dc28183aeac3b4c3c5bb5310ab80c2095f0600557e4634f90969a86a22086",
+      "decision_sha256": "0428f9957c2829b7cf68f1abe8289b73d16601401b50aeb07473301fa63a6331"
+    }
+  },
+  {
+    "canary_ordinal": 36,
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:cd862de9b834df336bf42e2076e8feae34de8e9af6caf1c426d291d7a9700d53",
+    "origin_transform": "prego_habitat/edges.tsv",
+    "claim_target": "original rule-labeled edge",
+    "verdict": "SUPPORTED",
+    "rationale": "PREGO's environmental-sample record associates exact taxon 265975 with BTO:0000648 through MGnify, reporting 171 of 2483 samples and score 4/TRUE. Converting the tissue-to-taxon association into location_of preserves the tissue's location role and identifiers. The empty graph label is a presentation gap; the source count does not justify an exclusive-habitat claim.",
+    "evidence": [
+      {
+        "record_index": 2,
+        "quote": "\"BTO:0000648\"",
+        "start": 55,
+        "end": 68,
+        "text_sha256": "9386f977839c0ac3bb014f0b4acdf838db2fa4abfb3e631c6170187e82655ae2",
+        "source_relative_path": "prego/environmental_samples_extracted/database_pairs.tsv",
+        "locator": "TSV line 100273",
+        "retrieval_url": "https://prego.hcmr.gr/",
+        "extractor": "source-record-json-canonical/v1",
+        "evidence_level": "source_record",
+        "reference": "doi:10.3390/microorganisms10020293",
+        "reference_role": "source database or record provenance; not scientific literature proof"
+      },
+      {
+        "record_index": 2,
+        "quote": "\"171 of 2483 samples\"",
+        "start": 88,
+        "end": 109,
+        "text_sha256": "9386f977839c0ac3bb014f0b4acdf838db2fa4abfb3e631c6170187e82655ae2",
+        "source_relative_path": "prego/environmental_samples_extracted/database_pairs.tsv",
+        "locator": "TSV line 100273",
+        "retrieval_url": "https://prego.hcmr.gr/",
+        "extractor": "source-record-json-canonical/v1",
+        "evidence_level": "source_record",
+        "reference": "doi:10.3390/microorganisms10020293",
+        "reference_role": "source database or record provenance; not scientific literature proof"
+      }
+    ],
+    "adjudicating_model": "GPT-6 (runtime model not more specifically exposed)",
+    "source_records_examined": 3,
+    "adjudication_timing": {
+      "started_at": "2026-11-13T08:38:03.595282+00:00",
+      "stopped_at": "2026-11-13T08:38:13.630580+00:00",
+      "elapsed_seconds": 10.035230166,
+      "packet_sha256": "45c9b686d749271538080e3b3f84de718f22b27ba85a05d17d21a6aaefc2309e",
+      "decision_sha256": "f44b9658d2a273b5300f5a2045a14e5bffdab5ecb0aa729dfdf8360c2ab71873"
+    }
+  },
+  {
+    "canary_ordinal": 37,
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:b25344ddaa874060d8c84acd412b850dfdae4b348382eb6fc660a96305a634a4",
+    "origin_transform": "rhea_mappings/edges.tsv",
+    "claim_target": "original rule-labeled edge",
+    "verdict": "NOT_ASSESSABLE",
+    "rationale": "No upstream reaction-participant record was captured for RHEA:18662 and CHEBI:57783. The graph's reaction label places NADPH on the product side, but that transformed label alone is not independent source evidence. The grouped extractor covers Rhea mapping/direction tables, not the RDF participant structure required to verify this direction-specific has_output edge.",
+    "evidence": [],
+    "adjudicating_model": "GPT-6 (runtime model not more specifically exposed)",
+    "source_records_examined": 0,
+    "adjudication_timing": {
+      "started_at": "2026-11-13T08:38:13.683889+00:00",
+      "stopped_at": "2026-11-13T08:38:24.795808+00:00",
+      "elapsed_seconds": 11.111843,
+      "packet_sha256": "34485faa9ba218ad2f5947ec159cf7dca407eb4712ef7f66d04d74bc1c94da0f",
+      "decision_sha256": "fd815714b238adde33216871ac44029cd2936d15333806b60bedf59818d28d8f"
+    }
+  },
+  {
+    "canary_ordinal": 38,
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:6895f7f87a0c5e51638887eaa4591caf1cd0cbdbb248142a8de9e5f31aefad74",
+    "origin_transform": "rhea_mappings/edges.tsv",
+    "claim_target": "original rule-labeled edge",
+    "verdict": "NOT_ASSESSABLE",
+    "rationale": "The retained Rhea-to-GO mapping scan yielded no source row for RHEA:78667 to GO:0106386. Their graph labels are chemically compatible at different substrate specificity, but label similarity cannot verify that Rhea actually publishes this cross-reference or that close_match is its intended relation. This remains a source mapping-coverage gap, not a demonstrated contradiction.",
+    "evidence": [],
+    "adjudicating_model": "GPT-6 (runtime model not more specifically exposed)",
+    "source_records_examined": 0,
+    "adjudication_timing": {
+      "started_at": "2026-11-13T08:38:24.870288+00:00",
+      "stopped_at": "2026-11-13T08:38:41.386662+00:00",
+      "elapsed_seconds": 16.516260709,
+      "packet_sha256": "dc6b4d67e17f63559516d38163b8734d715705d703cb7d00e9a63c9f8b59543d",
+      "decision_sha256": "e2d1a9d9f27f7179a5fb384c4f9b54636474073228e80163f5561b57faf9e8f7"
+    }
+  },
+  {
+    "canary_ordinal": 39,
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:3b1ab26b0621e119bf282574aa2367e6b2a0ed8af59cae819f770b69332d9342",
+    "origin_transform": "rhea_mappings/edges.tsv",
+    "claim_target": "original rule-labeled edge",
+    "verdict": "SUPPORTED",
+    "rationale": "Rhea's direction table identifies master reaction 68504 and its left-to-right reaction 68505, with separate reverse and bidirectional IDs. The sampled directionalReaction edge runs from the master to the correct left-to-right identifier, preserving the source distinction rather than treating directional IDs as unrelated reactions.",
+    "evidence": [
+      {
+        "record_index": 0,
+        "quote": "\"RHEA_ID_MASTER\": \"68504\"",
+        "start": 54,
+        "end": 79,
+        "text_sha256": "b1efda06e208ab961427a922a6ca3eb17b27d3273fe31cda240b25f775587e04",
+        "source_relative_path": "rhea/rhea-directions.tsv",
+        "locator": "TSV data row 14036",
+        "retrieval_url": "https://www.rhea-db.org/rhea/68504",
+        "extractor": "source-record-json-canonical/v1",
+        "evidence_level": "source_record",
+        "reference": "doi:10.1093/nar/gkab1016",
+        "reference_role": "source database or record provenance; not scientific literature proof"
+      },
+      {
+        "record_index": 0,
+        "quote": "\"RHEA_ID_LR\": \"68505\"",
+        "start": 29,
+        "end": 50,
+        "text_sha256": "b1efda06e208ab961427a922a6ca3eb17b27d3273fe31cda240b25f775587e04",
+        "source_relative_path": "rhea/rhea-directions.tsv",
+        "locator": "TSV data row 14036",
+        "retrieval_url": "https://www.rhea-db.org/rhea/68504",
+        "extractor": "source-record-json-canonical/v1",
+        "evidence_level": "source_record",
+        "reference": "doi:10.1093/nar/gkab1016",
+        "reference_role": "source database or record provenance; not scientific literature proof"
+      }
+    ],
+    "adjudicating_model": "GPT-6 (runtime model not more specifically exposed)",
+    "source_records_examined": 1,
+    "adjudication_timing": {
+      "started_at": "2026-11-13T08:38:41.507201+00:00",
+      "stopped_at": "2026-11-13T08:38:52.557281+00:00",
+      "elapsed_seconds": 11.05000525,
+      "packet_sha256": "89b21b0bdee092a5f7934c0f6ed544c6e380ec7684189300de0536ff14d051dd",
+      "decision_sha256": "b923bd703ee7bb6748a07f586120ec3e8e676238bbdfe2303727ba0bbdfaaa78"
+    }
+  },
+  {
+    "canary_ordinal": 40,
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:1cd8d31e144fe83fe00e88def9a5120a3440296be692c0890e92f79d558d3c2f",
+    "origin_transform": "microbedecoder/edges.tsv",
+    "claim_target": "original rule-labeled edge",
+    "verdict": "SUPPORTED",
+    "rationale": "For exact LPSN_ID 772572, MicrobeDecoder stores Bergey_Type_of_metabolism as Other. The original has_attribute edge explicitly denotes a reported literal source value, so it is faithful despite its omission from the curated graph as biologically uninformative. Its unrelated NCBI taxonomy fields are not evidence for the subject identity.",
+    "evidence": [
+      {
+        "record_index": 0,
+        "quote": "\"Bergey_Type_of_metabolism\": \"Other\"",
+        "start": 1618,
+        "end": 1654,
+        "text_sha256": "3572d9f1dab96da5eef340b569df788ff7954b15b4c5a636482453f028273556",
+        "source_relative_path": "database.csv",
+        "locator": "CSV data row 125",
+        "retrieval_url": "https://github.com/thackmann/MicrobeDecoder/raw/main/Shiny/MicrobeDecoder/data/database/database.zip",
+        "extractor": "source-record-json-canonical/v1",
+        "evidence_level": "source_record",
+        "reference": "doi:10.1093/nar/gkag515",
+        "reference_role": "source database or record provenance; not scientific literature proof"
+      },
+      {
+        "record_index": 0,
+        "quote": "\"LPSN_ID\": \"772572\"",
+        "start": 3925,
+        "end": 3944,
+        "text_sha256": "3572d9f1dab96da5eef340b569df788ff7954b15b4c5a636482453f028273556",
+        "source_relative_path": "database.csv",
+        "locator": "CSV data row 125",
+        "retrieval_url": "https://github.com/thackmann/MicrobeDecoder/raw/main/Shiny/MicrobeDecoder/data/database/database.zip",
+        "extractor": "source-record-json-canonical/v1",
+        "evidence_level": "source_record",
+        "reference": "doi:10.1093/nar/gkag515",
+        "reference_role": "source database or record provenance; not scientific literature proof"
+      }
+    ],
+    "adjudicating_model": "GPT-6 (runtime model not more specifically exposed)",
+    "source_records_examined": 5,
+    "adjudication_timing": {
+      "started_at": "2026-11-13T08:38:52.621384+00:00",
+      "stopped_at": "2026-11-13T08:39:04.386046+00:00",
+      "elapsed_seconds": 11.7645835,
+      "packet_sha256": "399ec9fdec0f821655835b6a3a5b3ea2caa4476f5433eef4cb20883b438148ee",
+      "decision_sha256": "689195a54f849f8afee675fda027967cb4bc3b466fccc0e91aa7d0b6abf29280"
+    }
+  },
+  {
+    "canary_ordinal": 41,
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:c31191848667b3ce0b77b9e5c0624bbe61ecf1bd11d91de6f093064352caeed4",
+    "origin_transform": "microbedecoder/edges.tsv",
+    "claim_target": "original rule-labeled edge",
+    "verdict": "SUPPORTED",
+    "rationale": "The MicrobeDecoder record explicitly joins LPSN 35168, Nocardioides marmoribigeumensis, to Bergey_Type_of_metabolism Other. Although Bergey's name is the older Marmoricola bigeumensis, the row carries the same DSM 19426 type-strain accession and exact LPSN subject. A reported-value attribute is faithful; its removal for low information content is distinct from source correctness.",
+    "evidence": [
+      {
+        "record_index": 0,
+        "quote": "\"Bergey_Type_of_metabolism\": \"Other\"",
+        "start": 1926,
+        "end": 1962,
+        "text_sha256": "8927641151f214657e0218c09f99e19c319a80a6caf36a5be7f6acf4c0c1fd3f",
+        "source_relative_path": "database.csv",
+        "locator": "CSV data row 12639",
+        "retrieval_url": "https://github.com/thackmann/MicrobeDecoder/raw/main/Shiny/MicrobeDecoder/data/database/database.zip",
+        "extractor": "source-record-json-canonical/v1",
+        "evidence_level": "source_record",
+        "reference": "doi:10.1093/nar/gkag515",
+        "reference_role": "source database or record provenance; not scientific literature proof"
+      },
+      {
+        "record_index": 0,
+        "quote": "\"LPSN_ID\": \"35168\"",
+        "start": 4175,
+        "end": 4193,
+        "text_sha256": "8927641151f214657e0218c09f99e19c319a80a6caf36a5be7f6acf4c0c1fd3f",
+        "source_relative_path": "database.csv",
+        "locator": "CSV data row 12639",
+        "retrieval_url": "https://github.com/thackmann/MicrobeDecoder/raw/main/Shiny/MicrobeDecoder/data/database/database.zip",
+        "extractor": "source-record-json-canonical/v1",
+        "evidence_level": "source_record",
+        "reference": "doi:10.1093/nar/gkag515",
+        "reference_role": "source database or record provenance; not scientific literature proof"
+      }
+    ],
+    "adjudicating_model": "GPT-6 (runtime model not more specifically exposed)",
+    "source_records_examined": 6,
+    "adjudication_timing": {
+      "started_at": "2026-11-13T08:39:04.439610+00:00",
+      "stopped_at": "2026-11-13T08:39:15.488790+00:00",
+      "elapsed_seconds": 11.04910275,
+      "packet_sha256": "ac86ebd99a1ed390880e0d1edd58bf749eaacca6f7abb934f9d5eeb817855c94",
+      "decision_sha256": "a1bb2acaa2d76e5a8ce54d9627faea6667f92d10dac3c63c80a761e51cc46f8f"
+    }
+  },
+  {
+    "canary_ordinal": 42,
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:c251174f9bcef6d96bfcc275e849d46c1b535820ffc2ce01fa369a4992019ffd",
+    "origin_transform": "microbedecoder/edges.tsv",
+    "claim_target": "original rule-labeled edge",
+    "verdict": "SUPPORTED",
+    "rationale": "MicrobeDecoder's Saccharolobus solfataricus row, LPSN_ID 798629, explicitly stores the Bergey metabolism token Other. The graph's reported-value has_attribute preserves that literal, including its lack of physiological specificity. The older Bergey genus Sulfolobus shares DSM 1616 in this row; the conflicting Escherichia coli NCBI crosswalk is excluded from the identity basis.",
+    "evidence": [
+      {
+        "record_index": 0,
+        "quote": "\"Bergey_Type_of_metabolism\": \"Other\"",
+        "start": 1662,
+        "end": 1698,
+        "text_sha256": "138e3cce9b1d825f74f3594adf402c7f668477a8a9260543bb51c06d03729f77",
+        "source_relative_path": "database.csv",
+        "locator": "CSV data row 16931",
+        "retrieval_url": "https://github.com/thackmann/MicrobeDecoder/raw/main/Shiny/MicrobeDecoder/data/database/database.zip",
+        "extractor": "source-record-json-canonical/v1",
+        "evidence_level": "source_record",
+        "reference": "doi:10.1093/nar/gkag515",
+        "reference_role": "source database or record provenance; not scientific literature proof"
+      },
+      {
+        "record_index": 0,
+        "quote": "\"LPSN_ID\": \"798629\"",
+        "start": 3835,
+        "end": 3854,
+        "text_sha256": "138e3cce9b1d825f74f3594adf402c7f668477a8a9260543bb51c06d03729f77",
+        "source_relative_path": "database.csv",
+        "locator": "CSV data row 16931",
+        "retrieval_url": "https://github.com/thackmann/MicrobeDecoder/raw/main/Shiny/MicrobeDecoder/data/database/database.zip",
+        "extractor": "source-record-json-canonical/v1",
+        "evidence_level": "source_record",
+        "reference": "doi:10.1093/nar/gkag515",
+        "reference_role": "source database or record provenance; not scientific literature proof"
+      }
+    ],
+    "adjudicating_model": "GPT-6 (runtime model not more specifically exposed)",
+    "source_records_examined": 9,
+    "adjudication_timing": {
+      "started_at": "2026-11-13T08:39:15.555357+00:00",
+      "stopped_at": "2026-11-13T08:39:26.852573+00:00",
+      "elapsed_seconds": 11.297138542,
+      "packet_sha256": "575fd16c8be58edf19d9e707ace7c341111949bcfa4a9ca6d21be59abad97e89",
+      "decision_sha256": "241566d1a3a93ffeed03defacaf33601d282ebe5c3dfedab884c0cbb1d84537b"
+    }
+  },
+  {
+    "canary_ordinal": 43,
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:04ebc56757a6fd8728114462b18162786ba7b98849ff0a7d114a8ccac4bd6e42",
+    "origin_transform": "metatraits/edges.tsv",
+    "claim_target": "original rule-labeled edge",
+    "verdict": "CONTRADICTED",
+    "rationale": "The exact MetaTraits summary for Thermoanaerobacterales bacterium JdFR-68 reports nitrogen fixation as false=100% in its sole observation. The original capable_of nitrogen fixation edge asserts the opposite polarity. Its later omission is therefore justified by a direct source contradiction, without claiming that the underlying negative observation is independently biologically proven.",
+    "evidence": [
+      {
+        "record_index": 0,
+        "quote": "\"name\": \"nitrogen fixation\"",
+        "start": 9070,
+        "end": 9097,
+        "text_sha256": "569a1fa0ab08e7dc0d259e2f72100f75ee8ef778ac6434d38d1ab639ef42157a",
+        "source_relative_path": "ncbi_species_summary.jsonl.gz",
+        "locator": "JSONL line 51137: Thermoanaerobacterales bacterium JdFR-68",
+        "retrieval_url": "https://metatraits.embl.de/",
+        "extractor": "source-record-json-canonical/v1",
+        "evidence_level": "source_record",
+        "reference": "doi:10.1093/nar/gkaf1241",
+        "reference_role": "source database or record provenance; not scientific literature proof"
+      },
+      {
+        "record_index": 0,
+        "quote": "\"majority_label\": \"false: (100%)\"",
+        "start": 58,
+        "end": 91,
+        "text_sha256": "569a1fa0ab08e7dc0d259e2f72100f75ee8ef778ac6434d38d1ab639ef42157a",
+        "source_relative_path": "ncbi_species_summary.jsonl.gz",
+        "locator": "JSONL line 51137: Thermoanaerobacterales bacterium JdFR-68",
+        "retrieval_url": "https://metatraits.embl.de/",
+        "extractor": "source-record-json-canonical/v1",
+        "evidence_level": "source_record",
+        "reference": "doi:10.1093/nar/gkaf1241",
+        "reference_role": "source database or record provenance; not scientific literature proof"
+      }
+    ],
+    "adjudicating_model": "GPT-6 (runtime model not more specifically exposed)",
+    "source_records_examined": 1,
+    "adjudication_timing": {
+      "started_at": "2026-11-13T08:39:26.907556+00:00",
+      "stopped_at": "2026-11-13T08:39:37.571155+00:00",
+      "elapsed_seconds": 10.663526041,
+      "packet_sha256": "4a90d6af73d957fa8d9263f3ffedf64fee66054f4046fba2fb66f09b0dcc22ee",
+      "decision_sha256": "7c015fe146c6f5eb12f5049460d174d3440c8a8488ca93d8e1d12fb8664e9d79"
+    }
+  },
+  {
+    "canary_ordinal": 44,
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:30bb113a448e0bcc3488a31f6692a3e61be2ef6b0d920bfd1bf4c8edce35208d",
+    "origin_transform": "metatraits_gtdb/edges.tsv",
+    "claim_target": "original rule-labeled edge",
+    "verdict": "CONTRADICTED",
+    "rationale": "MetaTraits' Streptomyces vietnamensis summary explicitly labels psychrophilic false=100%. The original positive has_phenotype psychrophilic edge reverses that observation. The same summary reports a median growth temperature of 30.4 Celsius, but the decisive source comparison is the explicit false psychrophilic entry, not an inferred temperature threshold.",
+    "evidence": [
+      {
+        "record_index": 3,
+        "quote": "\"name\": \"psychrophilic\"",
+        "start": 10119,
+        "end": 10142,
+        "text_sha256": "cfbfc098c7ea8dd781234730f69dea02daf2724c2f427e8a7bdcd2f6cef16a68",
+        "source_relative_path": "gtdb_species_summary.jsonl.gz",
+        "locator": "JSONL line 54021: Streptomyces vietnamensis",
+        "retrieval_url": "https://metatraits.embl.de/",
+        "extractor": "source-record-json-canonical/v1",
+        "evidence_level": "source_record",
+        "reference": "doi:10.1093/nar/gkaf1241",
+        "reference_role": "source database or record provenance; not scientific literature proof"
+      },
+      {
+        "record_index": 3,
+        "quote": "\"majority_label\": \"false: (100%)\"",
+        "start": 58,
+        "end": 91,
+        "text_sha256": "cfbfc098c7ea8dd781234730f69dea02daf2724c2f427e8a7bdcd2f6cef16a68",
+        "source_relative_path": "gtdb_species_summary.jsonl.gz",
+        "locator": "JSONL line 54021: Streptomyces vietnamensis",
+        "retrieval_url": "https://metatraits.embl.de/",
+        "extractor": "source-record-json-canonical/v1",
+        "evidence_level": "source_record",
+        "reference": "doi:10.1093/nar/gkaf1241",
+        "reference_role": "source database or record provenance; not scientific literature proof"
+      }
+    ],
+    "adjudicating_model": "GPT-6 (runtime model not more specifically exposed)",
+    "source_records_examined": 4,
+    "adjudication_timing": {
+      "started_at": "2026-11-13T08:39:37.640146+00:00",
+      "stopped_at": "2026-11-13T08:39:48.048143+00:00",
+      "elapsed_seconds": 10.407926042,
+      "packet_sha256": "56dbac46b48b77307b872ae8368bee193e14581f76a73f9789fa31eabdefb577",
+      "decision_sha256": "87e4a35f6c89b4bb125b029f81079bed0d3bc228ff638c5471973c72765b9358"
+    }
+  },
+  {
+    "canary_ordinal": 45,
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:e52100d6b2465532edbe136356e0053a2a788d6d99d651027c4fa155905949ea",
+    "origin_transform": "microbedecoder/edges.tsv",
+    "claim_target": "original rule-labeled edge",
+    "verdict": "SUPPORTED",
+    "rationale": "MicrobeDecoder explicitly places IMG genome 3005859930 in the row for LPSN 774911, Clostridium lacusfryxellense. Genome in_taxon species preserves this source association and direction. The graph omission stems from a missing IMG subject node, a structural completeness problem rather than a source mismatch; the row's unrelated NCBI mapping is not used here.",
+    "evidence": [
+      {
+        "record_index": 0,
+        "quote": "\"IMG_Genome_ID\": \"3005859930\"",
+        "start": 2200,
+        "end": 2229,
+        "text_sha256": "de6aed94d445534fdb90c657824639d5d632dca5744b1b7f753301482dc98693",
+        "source_relative_path": "database.csv",
+        "locator": "CSV data row 4125",
+        "retrieval_url": "https://github.com/thackmann/MicrobeDecoder/raw/main/Shiny/MicrobeDecoder/data/database/database.zip",
+        "extractor": "source-record-json-canonical/v1",
+        "evidence_level": "source_record",
+        "reference": "doi:10.1093/nar/gkag515",
+        "reference_role": "source database or record provenance; not scientific literature proof"
+      },
+      {
+        "record_index": 0,
+        "quote": "\"LPSN_ID\": \"774911\"",
+        "start": 3858,
+        "end": 3877,
+        "text_sha256": "de6aed94d445534fdb90c657824639d5d632dca5744b1b7f753301482dc98693",
+        "source_relative_path": "database.csv",
+        "locator": "CSV data row 4125",
+        "retrieval_url": "https://github.com/thackmann/MicrobeDecoder/raw/main/Shiny/MicrobeDecoder/data/database/database.zip",
+        "extractor": "source-record-json-canonical/v1",
+        "evidence_level": "source_record",
+        "reference": "doi:10.1093/nar/gkag515",
+        "reference_role": "source database or record provenance; not scientific literature proof"
+      }
+    ],
+    "adjudicating_model": "GPT-6 (runtime model not more specifically exposed)",
+    "source_records_examined": 4,
+    "adjudication_timing": {
+      "started_at": "2026-11-13T08:39:48.113661+00:00",
+      "stopped_at": "2026-11-13T08:39:59.502508+00:00",
+      "elapsed_seconds": 11.388767834,
+      "packet_sha256": "a66a648bba76ac41e2f0ea2757ede93b5d1230fab77a37ee0c8065e358c952cb",
+      "decision_sha256": "7d0a5edbd4d3c507aa774735c3201242c24b467bca283d2f9ee3accedd09930f"
+    }
+  },
+  {
+    "canary_ordinal": 46,
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:777165f404ba6ea1b8c42062df6362c0a2efcd44ce13754233e1f872d8358640",
+    "origin_transform": "microbedecoder/edges.tsv",
+    "claim_target": "original rule-labeled edge",
+    "verdict": "SUPPORTED",
+    "rationale": "The MicrobeDecoder row for Halanaerobium kushneri has IMG_Genome_ID 2681812893 and LPSN_ID 783950, exactly the sampled genome-to-taxon edge. The predicate in_taxon correctly expresses this record assignment. Omission for the absent IMG graph node does not contradict the source association, while the row's cyanobacterial NCBI fields remain an unrelated crosswalk defect.",
+    "evidence": [
+      {
+        "record_index": 0,
+        "quote": "\"IMG_Genome_ID\": \"2681812893\"",
+        "start": 2102,
+        "end": 2131,
+        "text_sha256": "64d1dacfbb46605b682942f6203fe4cc82a9486394c78718ed863e551549810f",
+        "source_relative_path": "database.csv",
+        "locator": "CSV data row 7334",
+        "retrieval_url": "https://github.com/thackmann/MicrobeDecoder/raw/main/Shiny/MicrobeDecoder/data/database/database.zip",
+        "extractor": "source-record-json-canonical/v1",
+        "evidence_level": "source_record",
+        "reference": "doi:10.1093/nar/gkag515",
+        "reference_role": "source database or record provenance; not scientific literature proof"
+      },
+      {
+        "record_index": 0,
+        "quote": "\"LPSN_ID\": \"783950\"",
+        "start": 3846,
+        "end": 3865,
+        "text_sha256": "64d1dacfbb46605b682942f6203fe4cc82a9486394c78718ed863e551549810f",
+        "source_relative_path": "database.csv",
+        "locator": "CSV data row 7334",
+        "retrieval_url": "https://github.com/thackmann/MicrobeDecoder/raw/main/Shiny/MicrobeDecoder/data/database/database.zip",
+        "extractor": "source-record-json-canonical/v1",
+        "evidence_level": "source_record",
+        "reference": "doi:10.1093/nar/gkag515",
+        "reference_role": "source database or record provenance; not scientific literature proof"
+      }
+    ],
+    "adjudicating_model": "GPT-6 (runtime model not more specifically exposed)",
+    "source_records_examined": 4,
+    "adjudication_timing": {
+      "started_at": "2026-11-13T08:39:59.568350+00:00",
+      "stopped_at": "2026-11-13T08:40:11.032388+00:00",
+      "elapsed_seconds": 11.463959875,
+      "packet_sha256": "b4a117d9e9686fa92e30cbf27371cf6a7514080caee7bd306ceb202861e555a3",
+      "decision_sha256": "1daf8358db9a62615008e69189109d10bab2575157a5a96c8e072ea80631acb3"
+    }
+  },
+  {
+    "canary_ordinal": 47,
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:358f925d6342994dbe5598a3d3d2cdfafe3ad30028b7305c3cf21242cf3a9b57",
+    "origin_transform": "microbedecoder/edges.tsv",
+    "claim_target": "original rule-labeled edge",
+    "verdict": "SUPPORTED",
+    "rationale": "MicrobeDecoder's LPSN 783091 record stores BacDive_Salt_concentration 0-10 and its unit as %. The sampled object is explicitly the reported literal 0-10, so has_attribute faithfully records the source string without asserting optimal salinity or growth at every concentration. The graph's redundant-attribute omission is separate from this source-fidelity result.",
+    "evidence": [
+      {
+        "record_index": 0,
+        "quote": "\"BacDive_Salt_concentration\": \"0-10\"",
+        "start": 1216,
+        "end": 1252,
+        "text_sha256": "02f3965c70e68a1a2fa1d44f595af1d89165db4d5e7b75e2eed1aea1c92ebf89",
+        "source_relative_path": "database.csv",
+        "locator": "CSV data row 20904",
+        "retrieval_url": "https://github.com/thackmann/MicrobeDecoder/raw/main/Shiny/MicrobeDecoder/data/database/database.zip",
+        "extractor": "source-record-json-canonical/v1",
+        "evidence_level": "source_record",
+        "reference": "doi:10.1093/nar/gkag515",
+        "reference_role": "source database or record provenance; not scientific literature proof"
+      },
+      {
+        "record_index": 0,
+        "quote": "\"BacDive_Salt_concentration_unit\": \"%\"",
+        "start": 1256,
+        "end": 1294,
+        "text_sha256": "02f3965c70e68a1a2fa1d44f595af1d89165db4d5e7b75e2eed1aea1c92ebf89",
+        "source_relative_path": "database.csv",
+        "locator": "CSV data row 20904",
+        "retrieval_url": "https://github.com/thackmann/MicrobeDecoder/raw/main/Shiny/MicrobeDecoder/data/database/database.zip",
+        "extractor": "source-record-json-canonical/v1",
+        "evidence_level": "source_record",
+        "reference": "doi:10.1093/nar/gkag515",
+        "reference_role": "source database or record provenance; not scientific literature proof"
+      }
+    ],
+    "adjudicating_model": "GPT-6 (runtime model not more specifically exposed)",
+    "source_records_examined": 9,
+    "adjudication_timing": {
+      "started_at": "2026-11-13T08:40:11.106563+00:00",
+      "stopped_at": "2026-11-13T08:40:22.075775+00:00",
+      "elapsed_seconds": 10.96913775,
+      "packet_sha256": "0b5f705f26bbec14781575580bf10b508af15bf2358c0912c5d820966c175e5e",
+      "decision_sha256": "00f66ed6a3a4a5390c255ddffda17e2996c402d5519ba75995a37be60f62809d"
+    }
+  },
+  {
+    "canary_ordinal": 48,
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:ba5dd00ad65782472e8a4e1992880bfb7a77b733efc67fc90348a38749be7d47",
+    "origin_transform": "microbedecoder/edges.tsv",
+    "claim_target": "original rule-labeled edge",
+    "verdict": "SUPPORTED",
+    "rationale": "The exact LPSN 773274 row includes oxidase in BacDive_Enzyme_activity. The graph object explicitly represents that reported token, so has_attribute preserves the source field. Because MicrobeDecoder's flattened list carries no assay sign here, this finding does not promote the token to a positive oxidase phenotype or resolve the underlying BacDive assay result.",
+    "evidence": [
+      {
+        "record_index": 0,
+        "quote": "\"BacDive_Enzyme_activity\": \"DNase;lecithinase;oxidase\"",
+        "start": 217,
+        "end": 271,
+        "text_sha256": "b66ff35f48634881474bd86e031e9a6c5b6ca39fdcd9dc3b9bea44274fae7640",
+        "source_relative_path": "database.csv",
+        "locator": "CSV data row 1693",
+        "retrieval_url": "https://github.com/thackmann/MicrobeDecoder/raw/main/Shiny/MicrobeDecoder/data/database/database.zip",
+        "extractor": "source-record-json-canonical/v1",
+        "evidence_level": "source_record",
+        "reference": "doi:10.1093/nar/gkag515",
+        "reference_role": "source database or record provenance; not scientific literature proof"
+      }
+    ],
+    "adjudicating_model": "GPT-6 (runtime model not more specifically exposed)",
+    "source_records_examined": 13,
+    "adjudication_timing": {
+      "started_at": "2026-11-13T08:40:22.138902+00:00",
+      "stopped_at": "2026-11-13T08:40:32.378612+00:00",
+      "elapsed_seconds": 10.239638917,
+      "packet_sha256": "c14214a9347eefb9c3eed3f5c51f8e4569b25374655f5bb96130d05763ec5652",
+      "decision_sha256": "fd994ff938e9460e5df7ef173959d8148c9cda67bdfe52f6b552b1bef985d932"
+    }
+  },
+  {
+    "canary_ordinal": 49,
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:b36aae20312f264c1add94cb5c9b9b4f5af85268299cb5f59f717902cc8a50ee",
+    "origin_transform": "prego_habitat/edges.tsv",
+    "claim_target": "original rule-labeled edge",
+    "verdict": "SUPPORTED",
+    "rationale": "PREGO records the exact Microbispora taxon 83302–grassland ENVO:00000106 pair through MG-RAST, with directional scores about 1.57 and 1.19 and corresponding sample counts. The original habitat association is traceable, but both scores are below the curated threshold. Source fidelity therefore supports the reported association while leaving its low confidence and justified omission explicit.",
+    "evidence": [
+      {
+        "record_index": 4,
+        "quote": "\"ENVO:00000106\"",
+        "start": 54,
+        "end": 69,
+        "text_sha256": "75ec7d2500c62b113b5f1d840aba7e9a25a82b6769d5b6b5947bc50aeeac1a19",
+        "source_relative_path": "prego/environmental_samples_extracted/database_pairs.tsv",
+        "locator": "TSV line 822019",
+        "retrieval_url": "https://prego.hcmr.gr/",
+        "extractor": "source-record-json-canonical/v1",
+        "evidence_level": "source_record",
+        "reference": "doi:10.3390/microorganisms10020293",
+        "reference_role": "source database or record provenance; not scientific literature proof"
+      },
+      {
+        "record_index": 4,
+        "quote": "\"1.57316357852082\"",
+        "start": 132,
+        "end": 150,
+        "text_sha256": "75ec7d2500c62b113b5f1d840aba7e9a25a82b6769d5b6b5947bc50aeeac1a19",
+        "source_relative_path": "prego/environmental_samples_extracted/database_pairs.tsv",
+        "locator": "TSV line 822019",
+        "retrieval_url": "https://prego.hcmr.gr/",
+        "extractor": "source-record-json-canonical/v1",
+        "evidence_level": "source_record",
+        "reference": "doi:10.3390/microorganisms10020293",
+        "reference_role": "source database or record provenance; not scientific literature proof"
+      }
+    ],
+    "adjudicating_model": "GPT-6 (runtime model not more specifically exposed)",
+    "source_records_examined": 6,
+    "adjudication_timing": {
+      "started_at": "2026-11-13T08:40:32.451183+00:00",
+      "stopped_at": "2026-11-13T08:40:43.176502+00:00",
+      "elapsed_seconds": 10.725247459,
+      "packet_sha256": "68fecde3d60036fa338654e25fd5562d1e584111ca708e5fff34bd8ba76534ea",
+      "decision_sha256": "bf257d7abf9a45d2f834b5e01c7c7af3c98313b748d09cf6c7468bc57f9dd616"
+    }
+  },
+  {
+    "canary_ordinal": 50,
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:7b2e90bec16197ad2979fc0a80d5c89a5e6e0275af24497ad334d4772e1ff413",
+    "origin_transform": "prego_habitat/edges.tsv",
+    "claim_target": "original rule-labeled edge",
+    "verdict": "SUPPORTED",
+    "rationale": "PREGO explicitly contains taxon 536231 paired with ocean ENVO:00000015 through MG-RAST, including 21 of 3441 samples and a score near 1.63. The original location_of edge reproduces that low-confidence association, although the curated threshold appropriately excludes it. A metagenomic assignment does not itself prove viable Roseburia intestinalis L1-82 inhabits ocean water.",
+    "evidence": [
+      {
+        "record_index": 4,
+        "quote": "\"536231\"",
+        "start": 30,
+        "end": 38,
+        "text_sha256": "fa149d8a833bd271e98f31d6e898ddc9e006717c1195441de9f603353410dd08",
+        "source_relative_path": "prego/environmental_samples_extracted/database_pairs.tsv",
+        "locator": "TSV line 767914",
+        "retrieval_url": "https://prego.hcmr.gr/",
+        "extractor": "source-record-json-canonical/v1",
+        "evidence_level": "source_record",
+        "reference": "doi:10.3390/microorganisms10020293",
+        "reference_role": "source database or record provenance; not scientific literature proof"
+      },
+      {
+        "record_index": 4,
+        "quote": "\"1.62932922922134\"",
+        "start": 134,
+        "end": 152,
+        "text_sha256": "fa149d8a833bd271e98f31d6e898ddc9e006717c1195441de9f603353410dd08",
+        "source_relative_path": "prego/environmental_samples_extracted/database_pairs.tsv",
+        "locator": "TSV line 767914",
+        "retrieval_url": "https://prego.hcmr.gr/",
+        "extractor": "source-record-json-canonical/v1",
+        "evidence_level": "source_record",
+        "reference": "doi:10.3390/microorganisms10020293",
+        "reference_role": "source database or record provenance; not scientific literature proof"
+      }
+    ],
+    "adjudicating_model": "GPT-6 (runtime model not more specifically exposed)",
+    "source_records_examined": 6,
+    "adjudication_timing": {
+      "started_at": "2026-11-13T08:40:43.232490+00:00",
+      "stopped_at": "2026-11-13T08:40:55.062583+00:00",
+      "elapsed_seconds": 11.830011458,
+      "packet_sha256": "692b8ab4b3029be3bf5c8bf10387caf8d063b2e39d1443729958a589260feef7",
+      "decision_sha256": "2c73a1161b9b4542d513f4d3b9171477d7ede66988289711dbeade6472b1ee63"
+    }
+  }
+]

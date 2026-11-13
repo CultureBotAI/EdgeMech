@@ -1,0 +1,803 @@
+{
+  "allocation": "8500 equally across 13 retained transforms then verdicts; 1500 equally across five omission reasons then transform/verdict strata, capacity constrained.",
+  "canary_dispositions": {
+    "omit_bergey_other_or_unmapped_hash_attribute": 3,
+    "omit_metatraits_zero_percentage_positive_predicate": 2,
+    "omit_microbedecoder_missing_img_subject_node": 2,
+    "omit_microbedecoder_redundant_bacdive_hash_attribute": 2,
+    "omit_prego_low_confidence_score_lt_3": 2,
+    "retained": 39
+  },
+  "canary_selection": "39 retained: first three rank-interleaved rows per transform; 11 omitted: first 3 for first lexical omission reason, 2 for each remaining reason; not a precision-estimation sample.",
+  "canary_size": 50,
+  "canary_transforms": {
+    "bacdive/edges.tsv": 3,
+    "bactotraits/edges.tsv": 3,
+    "gold/edges.tsv": 3,
+    "gtdb/edges.tsv": 3,
+    "lpsn/edges.tsv": 3,
+    "lpsn_api/edges.tsv": 3,
+    "madin_etal/edges.tsv": 3,
+    "mediadive/edges.tsv": 3,
+    "metatraits/edges.tsv": 4,
+    "metatraits_gtdb/edges.tsv": 4,
+    "microbedecoder/edges.tsv": 10,
+    "prego_habitat/edges.tsv": 5,
+    "rhea_mappings/edges.tsv": 3
+  },
+  "committed_manifest": "Compact identity/claim/stratum derivative. Full 10k source records retained privately; the committed 50-edge canary is a sanitized derivative of the private original.",
+  "duckdb_version": "v1.5.6 (Variegata) 069cc9f9b5",
+  "hashes": {
+    "artifacts/edge-sample-review-20261112/allocation.csv": "341e39f9a44e1bd220e89424a80b62843a5ba956d275bc87543d1ab983a597f0",
+    "artifacts/edge-sample-review-20261112/canary.jsonl": "e4addcfec2703cf8ef2cf879d5d1c244f5eefbd0cde0096b5e7f7170e06c8641",
+    "artifacts/edge-sample-review-20261112/manifest.jsonl": "1457df4e1528d7749f39bc47b6a00d06571ea215e39934216f4bc75a2dc6c4f4",
+    "artifacts/edge-sample-review-20261112/populations.csv": "6d9ef750f7cd04bccd8e223ea8311a6061ddb6400d1817a29c47c96098997db7",
+    "scripts/adhoc/edge_sample_review_20261112/populations.sql": "7daef5711aebc5c015b1a7009f2391bfd6ffce2f1bb8a292734c3b5ad9bb210a",
+    "scripts/adhoc/edge_sample_review_20261112/sample.sql": "ebe9c0c0e629cfa23ede51bb4b2ffc538913ab1dd576f12eaf35b2cb638ffedc"
+  },
+  "inference": "Full manifest has inverse inclusion weights N_h/n_h. Canary is purposive coverage within sample and must not be used to estimate population accuracy or confidence intervals.",
+  "input_files": {
+    "doi": "doi-enrichment-tier0-tier1/curated_non_ontology_edges_tier0_tier1_doi.parquet",
+    "nodes": "node_catalog.parquet",
+    "omitted": "post-merge-curated/omitted_edges_audit_log.parquet",
+    "review": "non_ontology_transform_edge_reviews_all_16.37M.parquet"
+  },
+  "input_identity_limitation": "Input sizes, mtimes and full execution receipt are retained privately; full input SHA-256 was not computed. Public schemas and relative filenames are retained.",
+  "input_schemas": [
+    {
+      "column_name": "row_number",
+      "column_type": "BIGINT",
+      "default": null,
+      "extra": null,
+      "input_file": "review",
+      "key": null,
+      "null": "YES"
+    },
+    {
+      "column_name": "partition_id",
+      "column_type": "INTEGER",
+      "default": null,
+      "extra": null,
+      "input_file": "review",
+      "key": null,
+      "null": "YES"
+    },
+    {
+      "column_name": "occurrence_id",
+      "column_type": "VARCHAR",
+      "default": null,
+      "extra": null,
+      "input_file": "review",
+      "key": null,
+      "null": "YES"
+    },
+    {
+      "column_name": "origin_transform",
+      "column_type": "VARCHAR",
+      "default": null,
+      "extra": null,
+      "input_file": "review",
+      "key": null,
+      "null": "YES"
+    },
+    {
+      "column_name": "transform_row_number",
+      "column_type": "BIGINT",
+      "default": null,
+      "extra": null,
+      "input_file": "review",
+      "key": null,
+      "null": "YES"
+    },
+    {
+      "column_name": "subject",
+      "column_type": "VARCHAR",
+      "default": null,
+      "extra": null,
+      "input_file": "review",
+      "key": null,
+      "null": "YES"
+    },
+    {
+      "column_name": "subject_label",
+      "column_type": "VARCHAR",
+      "default": null,
+      "extra": null,
+      "input_file": "review",
+      "key": null,
+      "null": "YES"
+    },
+    {
+      "column_name": "subject_category",
+      "column_type": "VARCHAR",
+      "default": null,
+      "extra": null,
+      "input_file": "review",
+      "key": null,
+      "null": "YES"
+    },
+    {
+      "column_name": "subject_present_in_nodes",
+      "column_type": "BOOLEAN",
+      "default": null,
+      "extra": null,
+      "input_file": "review",
+      "key": null,
+      "null": "YES"
+    },
+    {
+      "column_name": "predicate",
+      "column_type": "VARCHAR",
+      "default": null,
+      "extra": null,
+      "input_file": "review",
+      "key": null,
+      "null": "YES"
+    },
+    {
+      "column_name": "predicate_label",
+      "column_type": "VARCHAR",
+      "default": null,
+      "extra": null,
+      "input_file": "review",
+      "key": null,
+      "null": "YES"
+    },
+    {
+      "column_name": "relation",
+      "column_type": "VARCHAR",
+      "default": null,
+      "extra": null,
+      "input_file": "review",
+      "key": null,
+      "null": "YES"
+    },
+    {
+      "column_name": "object",
+      "column_type": "VARCHAR",
+      "default": null,
+      "extra": null,
+      "input_file": "review",
+      "key": null,
+      "null": "YES"
+    },
+    {
+      "column_name": "object_label",
+      "column_type": "VARCHAR",
+      "default": null,
+      "extra": null,
+      "input_file": "review",
+      "key": null,
+      "null": "YES"
+    },
+    {
+      "column_name": "object_category",
+      "column_type": "VARCHAR",
+      "default": null,
+      "extra": null,
+      "input_file": "review",
+      "key": null,
+      "null": "YES"
+    },
+    {
+      "column_name": "object_present_in_nodes",
+      "column_type": "BOOLEAN",
+      "default": null,
+      "extra": null,
+      "input_file": "review",
+      "key": null,
+      "null": "YES"
+    },
+    {
+      "column_name": "primary_knowledge_source",
+      "column_type": "VARCHAR",
+      "default": null,
+      "extra": null,
+      "input_file": "review",
+      "key": null,
+      "null": "YES"
+    },
+    {
+      "column_name": "knowledge_level",
+      "column_type": "VARCHAR",
+      "default": null,
+      "extra": null,
+      "input_file": "review",
+      "key": null,
+      "null": "YES"
+    },
+    {
+      "column_name": "agent_type",
+      "column_type": "VARCHAR",
+      "default": null,
+      "extra": null,
+      "input_file": "review",
+      "key": null,
+      "null": "YES"
+    },
+    {
+      "column_name": "presence_verdict",
+      "column_type": "VARCHAR",
+      "default": null,
+      "extra": null,
+      "input_file": "review",
+      "key": null,
+      "null": "YES"
+    },
+    {
+      "column_name": "content_accuracy_verdict",
+      "column_type": "VARCHAR",
+      "default": null,
+      "extra": null,
+      "input_file": "review",
+      "key": null,
+      "null": "YES"
+    },
+    {
+      "column_name": "doi",
+      "column_type": "VARCHAR",
+      "default": null,
+      "extra": null,
+      "input_file": "review",
+      "key": null,
+      "null": "YES"
+    },
+    {
+      "column_name": "snippet",
+      "column_type": "VARCHAR",
+      "default": null,
+      "extra": null,
+      "input_file": "review",
+      "key": null,
+      "null": "YES"
+    },
+    {
+      "column_name": "snippet_source",
+      "column_type": "VARCHAR",
+      "default": null,
+      "extra": null,
+      "input_file": "review",
+      "key": null,
+      "null": "YES"
+    },
+    {
+      "column_name": "review_rationale",
+      "column_type": "VARCHAR",
+      "default": null,
+      "extra": null,
+      "input_file": "review",
+      "key": null,
+      "null": "YES"
+    },
+    {
+      "column_name": "reviewer_worker",
+      "column_type": "VARCHAR",
+      "default": null,
+      "extra": null,
+      "input_file": "review",
+      "key": null,
+      "null": "YES"
+    },
+    {
+      "column_name": "reviewed_at",
+      "column_type": "VARCHAR",
+      "default": null,
+      "extra": null,
+      "input_file": "review",
+      "key": null,
+      "null": "YES"
+    },
+    {
+      "column_name": "global_row_number",
+      "column_type": "BIGINT",
+      "default": null,
+      "extra": null,
+      "input_file": "doi",
+      "key": null,
+      "null": "YES"
+    },
+    {
+      "column_name": "partition_id",
+      "column_type": "INTEGER",
+      "default": null,
+      "extra": null,
+      "input_file": "doi",
+      "key": null,
+      "null": "YES"
+    },
+    {
+      "column_name": "occurrence_id",
+      "column_type": "VARCHAR",
+      "default": null,
+      "extra": null,
+      "input_file": "doi",
+      "key": null,
+      "null": "YES"
+    },
+    {
+      "column_name": "origin_transform",
+      "column_type": "VARCHAR",
+      "default": null,
+      "extra": null,
+      "input_file": "doi",
+      "key": null,
+      "null": "YES"
+    },
+    {
+      "column_name": "transform_row_number",
+      "column_type": "BIGINT",
+      "default": null,
+      "extra": null,
+      "input_file": "doi",
+      "key": null,
+      "null": "YES"
+    },
+    {
+      "column_name": "subject",
+      "column_type": "VARCHAR",
+      "default": null,
+      "extra": null,
+      "input_file": "doi",
+      "key": null,
+      "null": "YES"
+    },
+    {
+      "column_name": "predicate",
+      "column_type": "VARCHAR",
+      "default": null,
+      "extra": null,
+      "input_file": "doi",
+      "key": null,
+      "null": "YES"
+    },
+    {
+      "column_name": "object",
+      "column_type": "VARCHAR",
+      "default": null,
+      "extra": null,
+      "input_file": "doi",
+      "key": null,
+      "null": "YES"
+    },
+    {
+      "column_name": "relation",
+      "column_type": "VARCHAR",
+      "default": null,
+      "extra": null,
+      "input_file": "doi",
+      "key": null,
+      "null": "YES"
+    },
+    {
+      "column_name": "primary_knowledge_source",
+      "column_type": "VARCHAR",
+      "default": null,
+      "extra": null,
+      "input_file": "doi",
+      "key": null,
+      "null": "YES"
+    },
+    {
+      "column_name": "knowledge_level",
+      "column_type": "VARCHAR",
+      "default": null,
+      "extra": null,
+      "input_file": "doi",
+      "key": null,
+      "null": "YES"
+    },
+    {
+      "column_name": "agent_type",
+      "column_type": "VARCHAR",
+      "default": null,
+      "extra": null,
+      "input_file": "doi",
+      "key": null,
+      "null": "YES"
+    },
+    {
+      "column_name": "publications",
+      "column_type": "VARCHAR",
+      "default": null,
+      "extra": null,
+      "input_file": "doi",
+      "key": null,
+      "null": "YES"
+    },
+    {
+      "column_name": "source_citation",
+      "column_type": "VARCHAR",
+      "default": null,
+      "extra": null,
+      "input_file": "doi",
+      "key": null,
+      "null": "YES"
+    },
+    {
+      "column_name": "prego_evidence",
+      "column_type": "VARCHAR",
+      "default": null,
+      "extra": null,
+      "input_file": "doi",
+      "key": null,
+      "null": "YES"
+    },
+    {
+      "column_name": "prego_score",
+      "column_type": "VARCHAR",
+      "default": null,
+      "extra": null,
+      "input_file": "doi",
+      "key": null,
+      "null": "YES"
+    },
+    {
+      "column_name": "prego_channel",
+      "column_type": "VARCHAR",
+      "default": null,
+      "extra": null,
+      "input_file": "doi",
+      "key": null,
+      "null": "YES"
+    },
+    {
+      "column_name": "has_percentage",
+      "column_type": "VARCHAR",
+      "default": null,
+      "extra": null,
+      "input_file": "doi",
+      "key": null,
+      "null": "YES"
+    },
+    {
+      "column_name": "value",
+      "column_type": "VARCHAR",
+      "default": null,
+      "extra": null,
+      "input_file": "doi",
+      "key": null,
+      "null": "YES"
+    },
+    {
+      "column_name": "unit",
+      "column_type": "VARCHAR",
+      "default": null,
+      "extra": null,
+      "input_file": "doi",
+      "key": null,
+      "null": "YES"
+    },
+    {
+      "column_name": "g_l",
+      "column_type": "VARCHAR",
+      "default": null,
+      "extra": null,
+      "input_file": "doi",
+      "key": null,
+      "null": "YES"
+    },
+    {
+      "column_name": "mmol_l",
+      "column_type": "VARCHAR",
+      "default": null,
+      "extra": null,
+      "input_file": "doi",
+      "key": null,
+      "null": "YES"
+    },
+    {
+      "column_name": "description",
+      "column_type": "VARCHAR",
+      "default": null,
+      "extra": null,
+      "input_file": "doi",
+      "key": null,
+      "null": "YES"
+    },
+    {
+      "column_name": "source_column",
+      "column_type": "VARCHAR",
+      "default": null,
+      "extra": null,
+      "input_file": "doi",
+      "key": null,
+      "null": "YES"
+    },
+    {
+      "column_name": "source_record",
+      "column_type": "VARCHAR",
+      "default": null,
+      "extra": null,
+      "input_file": "doi",
+      "key": null,
+      "null": "YES"
+    },
+    {
+      "column_name": "curation_action",
+      "column_type": "VARCHAR",
+      "default": null,
+      "extra": null,
+      "input_file": "doi",
+      "key": null,
+      "null": "YES"
+    },
+    {
+      "column_name": "taxon_authority_doi",
+      "column_type": "VARCHAR",
+      "default": null,
+      "extra": null,
+      "input_file": "doi",
+      "key": null,
+      "null": "YES"
+    },
+    {
+      "column_name": "enriched_taxon_authority_dois",
+      "column_type": "VARCHAR",
+      "default": null,
+      "extra": null,
+      "input_file": "doi",
+      "key": null,
+      "null": "YES"
+    },
+    {
+      "column_name": "dataset_primary_doi",
+      "column_type": "VARCHAR",
+      "default": null,
+      "extra": null,
+      "input_file": "doi",
+      "key": null,
+      "null": "YES"
+    },
+    {
+      "column_name": "doi_enrichment_source",
+      "column_type": "VARCHAR",
+      "default": null,
+      "extra": null,
+      "input_file": "doi",
+      "key": null,
+      "null": "YES"
+    },
+    {
+      "column_name": "enriched_record_dois",
+      "column_type": "VARCHAR",
+      "default": null,
+      "extra": null,
+      "input_file": "doi",
+      "key": null,
+      "null": "YES"
+    },
+    {
+      "column_name": "enriched_pmids",
+      "column_type": "VARCHAR",
+      "default": null,
+      "extra": null,
+      "input_file": "doi",
+      "key": null,
+      "null": "YES"
+    },
+    {
+      "column_name": "global_row_number",
+      "column_type": "BIGINT",
+      "default": null,
+      "extra": null,
+      "input_file": "omitted",
+      "key": null,
+      "null": "YES"
+    },
+    {
+      "column_name": "partition_id",
+      "column_type": "INTEGER",
+      "default": null,
+      "extra": null,
+      "input_file": "omitted",
+      "key": null,
+      "null": "YES"
+    },
+    {
+      "column_name": "occurrence_id",
+      "column_type": "VARCHAR",
+      "default": null,
+      "extra": null,
+      "input_file": "omitted",
+      "key": null,
+      "null": "YES"
+    },
+    {
+      "column_name": "origin_transform",
+      "column_type": "VARCHAR",
+      "default": null,
+      "extra": null,
+      "input_file": "omitted",
+      "key": null,
+      "null": "YES"
+    },
+    {
+      "column_name": "transform_row_number",
+      "column_type": "BIGINT",
+      "default": null,
+      "extra": null,
+      "input_file": "omitted",
+      "key": null,
+      "null": "YES"
+    },
+    {
+      "column_name": "subject",
+      "column_type": "VARCHAR",
+      "default": null,
+      "extra": null,
+      "input_file": "omitted",
+      "key": null,
+      "null": "YES"
+    },
+    {
+      "column_name": "predicate",
+      "column_type": "VARCHAR",
+      "default": null,
+      "extra": null,
+      "input_file": "omitted",
+      "key": null,
+      "null": "YES"
+    },
+    {
+      "column_name": "object",
+      "column_type": "VARCHAR",
+      "default": null,
+      "extra": null,
+      "input_file": "omitted",
+      "key": null,
+      "null": "YES"
+    },
+    {
+      "column_name": "relation",
+      "column_type": "VARCHAR",
+      "default": null,
+      "extra": null,
+      "input_file": "omitted",
+      "key": null,
+      "null": "YES"
+    },
+    {
+      "column_name": "primary_knowledge_source",
+      "column_type": "VARCHAR",
+      "default": null,
+      "extra": null,
+      "input_file": "omitted",
+      "key": null,
+      "null": "YES"
+    },
+    {
+      "column_name": "has_percentage",
+      "column_type": "VARCHAR",
+      "default": null,
+      "extra": null,
+      "input_file": "omitted",
+      "key": null,
+      "null": "YES"
+    },
+    {
+      "column_name": "prego_score",
+      "column_type": "VARCHAR",
+      "default": null,
+      "extra": null,
+      "input_file": "omitted",
+      "key": null,
+      "null": "YES"
+    },
+    {
+      "column_name": "prego_channel",
+      "column_type": "VARCHAR",
+      "default": null,
+      "extra": null,
+      "input_file": "omitted",
+      "key": null,
+      "null": "YES"
+    },
+    {
+      "column_name": "source_column",
+      "column_type": "VARCHAR",
+      "default": null,
+      "extra": null,
+      "input_file": "omitted",
+      "key": null,
+      "null": "YES"
+    },
+    {
+      "column_name": "value",
+      "column_type": "VARCHAR",
+      "default": null,
+      "extra": null,
+      "input_file": "omitted",
+      "key": null,
+      "null": "YES"
+    },
+    {
+      "column_name": "omission_reason",
+      "column_type": "VARCHAR",
+      "default": null,
+      "extra": null,
+      "input_file": "omitted",
+      "key": null,
+      "null": "YES"
+    },
+    {
+      "column_name": "id",
+      "column_type": "VARCHAR",
+      "default": null,
+      "extra": null,
+      "input_file": "nodes",
+      "key": null,
+      "null": "YES"
+    },
+    {
+      "column_name": "name",
+      "column_type": "VARCHAR",
+      "default": null,
+      "extra": null,
+      "input_file": "nodes",
+      "key": null,
+      "null": "YES"
+    },
+    {
+      "column_name": "category",
+      "column_type": "VARCHAR",
+      "default": null,
+      "extra": null,
+      "input_file": "nodes",
+      "key": null,
+      "null": "YES"
+    },
+    {
+      "column_name": "description",
+      "column_type": "VARCHAR",
+      "default": null,
+      "extra": null,
+      "input_file": "nodes",
+      "key": null,
+      "null": "YES"
+    },
+    {
+      "column_name": "origin_node_file",
+      "column_type": "VARCHAR",
+      "default": null,
+      "extra": null,
+      "input_file": "nodes",
+      "key": null,
+      "null": "YES"
+    }
+  ],
+  "method": "Top seeded MD5 occurrence hashes within transform x rule-verdict x disposition; conservative same-hash prefix filtering retains exact top quota, verified for every stratum.",
+  "omitted_sample": 1500,
+  "precision": "At least 653 retained edges per transform. Approximate +/-5% 95% binomial precision at n=385 presumes independent simple random sampling; stratified weights, clustering, assessment missingness and reviewer error require separate treatment.",
+  "private_executed_sql_sha256": "d08a179a3eea4ef18e9d9b19df90b99ea4cc2e9f0a7efe1c0d185cd41079d415",
+  "private_execution_receipt_sha256": "bb850e93986a6ca9e5c2a66a4d2292b65000897aacd19f103f1d4f9705a0f012",
+  "private_full_manifest": {
+    "bytes": 39787605,
+    "path": "sample/manifest.jsonl",
+    "sha256": "afa87f8109fda0d4d95a8d4c92d01f5908e3174412599c52e8ec6490ea8c61b3"
+  },
+  "private_original_canary": {
+    "bytes": 197869,
+    "path": "sample/private-provenance/canary.jsonl",
+    "sha256": "757e9c7f48ba621369c5065167b5fcb2892dcdd5f0a57fe3950d7edacb896ba9"
+  },
+  "remote_sampling_seconds": 11.096261542,
+  "retained_sample": 8500,
+  "sample_size": 10000,
+  "seed": "20261112-helper3-edge-sample-v1",
+  "source_representation": "Original and curated triples remain distinct. Committed canary removes inherited narratives, long descriptions and source prose; full source rows and original canary are retained privately and hash-bound. Catalog label alternatives remain explicit.",
+  "transforms": {
+    "bacdive/edges.tsv": 654,
+    "bactotraits/edges.tsv": 654,
+    "gold/edges.tsv": 654,
+    "gtdb/edges.tsv": 654,
+    "lpsn/edges.tsv": 654,
+    "lpsn_api/edges.tsv": 654,
+    "madin_etal/edges.tsv": 654,
+    "mediadive/edges.tsv": 654,
+    "metatraits/edges.tsv": 804,
+    "metatraits_gtdb/edges.tsv": 804,
+    "microbedecoder/edges.tsv": 1554,
+    "prego_habitat/edges.tsv": 953,
+    "rhea_mappings/edges.tsv": 653
+  }
+}
