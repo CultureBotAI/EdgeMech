@@ -13,6 +13,7 @@ import json
 import re
 from pathlib import Path
 
+from organism_targeting import POLICY, strain_aliases, verified_sources
 from review_clock import begin_review, finish_review
 
 CITATIONS = {
@@ -220,21 +221,27 @@ def finish(source_dir, review_root, ordinal, verdict, rationale, evidence):
     )
 
 
-def targeting(source_dir, output):
+def targeting(source_dir, output, ordinal=None):
+    if Path(output).exists():
+        raise ValueError("Refusing to overwrite existing targeting evidence")
     packets = sorted((Path(source_dir) / "packets").glob("*.json"))
+    if ordinal is not None:
+        packets = [private_packet(source_dir, ordinal)]
     result = []
     for path in packets:
         packet = json.loads(path.read_text())
         edge = packet["edge"]
-        refs, strains = [], set()
+        bindings, names = verified_sources(packet)
+        refs, candidate_refs, strains, candidate_strains = [], [], {}, set()
         seen = set()
         for index, record in enumerate(packet["records"]):
             rec = json.loads(record["text"])
             if not isinstance(rec, dict):
                 continue
+            record_strains = []
             candidates = []
             if record["source_relative_path"].startswith("lpsn/"):
-                strains.update(rec.get("type_strain_names", []))
+                record_strains.extend(rec.get("type_strain_names", []))
                 if rec.get("publication_doi"):
                     candidates.append(
                         (
@@ -258,12 +265,12 @@ def targeting(source_dir, output):
                 classification = rec.get("Name and taxonomic classification", {})
                 strain = classification.get("strain designation")
                 if isinstance(strain, str):
-                    strains.add(strain)
+                    record_strains.append(strain)
                 external = rec.get("External links", {})
                 external = external if isinstance(external, list) else [external]
                 for value in external:
                     if value.get("culture collection no."):
-                        strains.add(str(value["culture collection no."]))
+                        record_strains.append(str(value["culture collection no."]))
                 references = rec.get("Reference", [])
                 references = references if isinstance(references, list) else [references]
                 for ref in references:
@@ -288,11 +295,17 @@ def targeting(source_dir, output):
                     match = re.search(r"10\.\d{4,9}/[^\s;]+", val)
                     if match:
                         candidates.append((field, match.group(0), "row_primary", val))
+            for strain in strain_aliases(record_strains):
+                if index in bindings:
+                    strains.setdefault(strain, bindings[index])
+                else:
+                    candidate_strains.add(strain)
             for field, val, role, title in candidates:
                 doi = val.removeprefix("https://doi.org/").removeprefix("http://dx.doi.org/")
-                if doi in seen:
+                identity_key = (doi, index in bindings)
+                if identity_key in seen:
                     continue
-                seen.add(doi)
+                seen.add(identity_key)
                 quote = (
                     json.dumps(field, ensure_ascii=False)
                     + ": "
@@ -302,13 +315,17 @@ def targeting(source_dir, output):
                     quote = val
                 if quote not in record["text"]:
                     raise ValueError("Targeting citation is not in retained source")
-                refs.append(
+                destination = refs if index in bindings else candidate_refs
+                destination.append(
                     {
                         "reference": "doi:" + doi,
                         "role": role,
                         "title": title,
-                        "identity_verified": True,
-                        "identity_verification_scope": "association to raw source record only; retrieved paper identity remains unverified",
+                        "identity_verified": index in bindings,
+                        "organism_identity_verified": index in bindings,
+                        "source_association_verified": True,
+                        "organism_binding": bindings.get(index),
+                        "identity_verification_scope": "source citation and organism targeting only; paper identity and scientific support remain unverified",
                         "identity_basis": {
                             "quote": quote,
                             "text_sha256": record["text_sha256"],
@@ -323,9 +340,15 @@ def targeting(source_dir, output):
             {
                 "canary_ordinal": edge["canary_ordinal"],
                 "occurrence_id": edge["occurrence_id"],
-                "resolved_names": packet.get("resolved_names", []),
+                "targeting_identity_policy": POLICY,
+                "resolved_names": sorted(names),
+                "name_bindings": names,
+                "candidate_names": sorted(set(packet.get("resolved_names", [])) - set(names)),
                 "strain_designations": sorted(strains),
+                "strain_bindings": strains,
+                "candidate_strain_designations": sorted(candidate_strains - set(strains)),
                 "primary_references": refs,
+                "candidate_primary_references": candidate_refs,
             }
         )
     Path(output).write_text(json.dumps(result, ensure_ascii=False, indent=2) + "\n")
@@ -457,7 +480,7 @@ def main():
             json.loads(args.evidence_json),
         )
     elif args.action == "targeting":
-        targeting(args.source_dir, args.output)
+        targeting(args.source_dir, args.output, args.ordinal)
     else:
         export(args.source_dir, args.review_root, args.output, args.artifact_root)
 

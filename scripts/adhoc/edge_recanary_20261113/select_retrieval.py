@@ -10,6 +10,8 @@ import re
 import xml.etree.ElementTree as ET
 from pathlib import Path
 
+from organism_targeting import POLICY, name_query, strain_query
+
 
 def save(path, value):
     path.parent.mkdir(parents=True, exist_ok=True)
@@ -76,28 +78,21 @@ def main():
             reason = decision.get('fallback_reason', '').strip()
             if reason:
                 ordinal = row['canary_ordinal']
+                if row.get('targeting_identity_policy') != POLICY:
+                    raise ValueError('Legacy targeting plans are replay-only; rebuild exact organism bindings')
                 if ordinal == 34 and identities:
                     resolved = identities['NCBITaxon:1935118']
-                    row['resolved_names'] = [resolved['label'], 'Candidatus Bathyarchaeota archaeon JdFR-10']
+                    row['resolved_names'] = [resolved['label']]
+                    row['name_bindings'] = {resolved['label']: resolved}
                     row['name_resolution'] = resolved
-                    row['general_queries'] = ['("Hecatella orcuttiae" OR "JdFR-10") AND (marine OR ocean OR sediment)',
-                                              '"JdFR-10"']
                 if ordinal == 36 and identities:
                     row['claim_term_resolution'] = identities['BTO:0000648']
-                    row['general_queries'] = ['"Oribacterium" AND (intestine OR intestinal OR gut OR feces OR faeces)', '"Oribacterium"']
-                if ordinal == 1:
-                    row['general_queries'] = ['("CCUG 36646" OR "CCUG36646")', '"Macrococcus" AND (abdomen OR abdominal)']
-                if ordinal == 7:
-                    row['general_queries'] = ['"GG12-C01-17"', '"Sulfolobus acidocaldarius" AND "GG12"']
-                if ordinal == 35:
-                    row['general_queries'] = ['"Pelagibacter" AND ("02_H12" OR "02 H12")', '"Pelagibacter" AND "JGI" AND (marine OR ocean)']
-                if ordinal == 50:
-                    row['general_queries'] = ['TITLE:"Roseburia intestinalis sp. nov."', '("Roseburia intestinalis" OR "L1-82" OR "DSM 14610") AND (ocean OR marine)']
-                if ordinal == 43:
-                    row['general_queries'] = ['"JdFR-68" AND (nitrogen OR nif OR diazotrophy)', '"JdFR-68"']
-                if ordinal not in {1, 7, 34, 35, 36, 43, 50} and row['strain_designations']:
-                    strains = [s.strip() for value in row['strain_designations'] for s in re.split(r'[;,]', value) if s.strip()]
-                    row['general_queries'][1:] = ['(' + ' OR '.join('"' + s.replace('"', '') + '"' for s in strains[:4]) + ')']
+                anchor = name_query(row['resolved_names'])
+                row['general_queries'] = [anchor + ' AND ' + row['claim_search_terms']]
+                if row['strain_designations']:
+                    row['general_queries'].append(strain_query(row['resolved_names'], row['strain_designations']))
+                else:
+                    row['general_queries'].append(anchor)
                 if row['applicability'] != 'APPLICABLE' or not row['general_queries']:
                     raise ValueError('Cannot request fallback for an excluded or untargeted edge')
                 row['fallback_reason'] = reason

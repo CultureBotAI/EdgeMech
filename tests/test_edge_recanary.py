@@ -45,14 +45,22 @@ def setup_inputs(tmp_path, count=1, applicable=True):
              'predicate': 'biolink:has_phenotype', 'object': 'METPO:1000698'}
             for i in range(count)]
     plans = [{'occurrence_id': row['occurrence_id'],
+              'canary_ordinal': 4,
+              'targeting_identity_policy': 'exact-organism-source-bindings/v2',
+              'resolved_names': ['Fixture bacterium'],
+              'name_bindings': {'Fixture bacterium': {'claim_endpoint': 'NCBITaxon:1'}},
+              'strain_designations': [], 'strain_bindings': {},
+              'claim_search_terms': '(NaCl OR salinity OR salt)',
               'applicability': 'APPLICABLE' if applicable else 'NOT_APPLICABLE',
               'applicability_rule': 'fixture-rule',
               'primary_references': [{'reference': 'doi:10.1234/fixture',
                                       'role': 'species_description',
                                       'identity_verified': True,
+                                      'organism_identity_verified': True,
+                                      'organism_binding': {'fixture': 'exact organism'},
                                       'identity_basis': 'Synthetic exact source-record citation'}]
               if applicable else [],
-              'general_queries': ['"Fixture bacterium"'] if applicable else []}
+              'general_queries': ['("Fixture bacterium")'] if applicable else []}
              for row in rows]
     manifest, plan = tmp_path / 'manifest.jsonl', tmp_path / 'plan.json'
     manifest.write_text(''.join(json.dumps(row) + '\n' for row in rows))
@@ -96,6 +104,25 @@ def test_dry_run_is_network_and_output_free(runner, tmp_path, capsys):
     result = json.loads(capsys.readouterr().out)
     assert result['selected_edges'] == 50
     assert result['concurrency'] == 1
+    assert not output.exists()
+
+
+@pytest.mark.parametrize('damage', ['legacy', 'numeric_query', 'unbound_strain', 'unbound_reference'])
+def test_unbound_targeting_is_refused_before_network(runner, tmp_path, damage):
+    manifest, plan, output = setup_inputs(tmp_path)
+    rows = json.loads(plan.read_text())
+    if damage == 'legacy':
+        rows[0].pop('targeting_identity_policy')
+    elif damage == 'numeric_query':
+        rows[0]['general_queries'] = ['("296" OR "37")']
+    elif damage == 'unbound_strain':
+        rows[0]['strain_designations'] = ['ATCC 12706']
+    else:
+        rows[0]['primary_references'][0]['organism_identity_verified'] = False
+    plan.write_text(json.dumps(rows))
+    with pytest.raises(ValueError):
+        runner.run(manifest, plan, output,
+                   opener=lambda *args, **kwargs: pytest.fail('Unbound request reached network'))
     assert not output.exists()
 
 
