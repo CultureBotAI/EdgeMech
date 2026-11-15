@@ -17,6 +17,8 @@ def targeting(monkeypatch):
 
 
 def source(path, record):
+    if path.startswith('lpsn/api_cache/'):
+        record = {'id': int(Path(path).stem), **record}
     text = json.dumps(record, sort_keys=True, indent=2)
     return {'source_relative_path': path, 'locator': Path(path).stem,
             'retrieval_url': 'https://example.test/source', 'text': text,
@@ -56,6 +58,18 @@ def test_subspecies_and_strain_names_never_seed_parent_species(targeting):
     assert targeting.normalized_names('Candidatus Fixture species') == {'Candidatus Fixture species'}
 
 
+def test_public_projection_only_omits_private_annotations(targeting):
+    private = {'subject': 'lpsn:1', 'subject_label': 'Fixture bacterium',
+               'omitted_source_record': {'value': '0-10'}, 'snippet': 'Old cached text',
+               'review_rationale': 'Old inherited review', 'reviewer_worker': 'old-worker',
+               'original_subject_node': {'id': 'lpsn:1', 'description': 'Cached description'}}
+    public = {'subject': 'lpsn:1', 'subject_label': 'Fixture bacterium',
+              'omitted_source_record': {'value': '0-10'}, 'original_subject_node': {'id': 'lpsn:1'}}
+    assert targeting.claim_identity(private) == targeting.claim_identity(public)
+    public['omitted_source_record']['value'] = '1-10'
+    assert targeting.claim_identity(private) != targeting.claim_identity(public)
+
+
 def test_halotolerans_binds_basonym_but_withholds_broader_species(targeting, tmp_path):
     packet = halotolerans_packet()
     proofs, names = targeting.verified_sources(packet)
@@ -81,15 +95,52 @@ def test_halotolerans_binds_basonym_but_withholds_broader_species(targeting, tmp
 
 def test_strain_claim_excludes_other_strain_with_same_species(targeting):
     packet = {'edge': {'occurrence_id': 'fixture:strain', 'subject': 'kgmicrobe.strain:bacdive_1',
-                       'object': 'METPO:1'}, 'records': []}
+                       'object': 'METPO:1', 'canary_ordinal': 22}, 'records': []}
     for bid, strain in [(1, 'DSM 1'), (2, 'DSM 2')]:
         packet['records'].append(source('bacdive_strains.json', {
             'General': {'BacDive-ID': bid, 'NCBI tax id': [{'NCBI tax id': 10}]},
             'Name and taxonomic classification': {'species': 'Fixture bacterium',
-                                                  'strain designation': strain}}))
+                                                  'strain designation': strain},
+            'External links': {'culture collection no.': strain}}))
+    packet['records'].append(source('lpsn/api_cache/9.json', {
+        'full_name': 'Fixture bacterium', 'type_strain_names': ['DSM 2'],
+        'publication_doi': '10.1234/type-strain-description'}))
     proofs, names = targeting.verified_sources(packet)
     assert set(proofs) == {0}
     assert set(names) == {'Fixture bacterium'}
+    result = importlib.import_module('source_adjudicate').packet_targeting(packet)
+    assert result['strain_designations'] == ['DSM 1']
+    assert result['candidate_strain_designations'] == ['DSM 2']
+    assert result['candidate_primary_references'][0]['reference'] == 'doi:10.1234/type-strain-description'
+
+
+def test_type_strain_is_admitted_only_with_matching_culture_identifier(targeting):
+    packet = {'edge': {'occurrence_id': 'fixture:type', 'subject': 'kgmicrobe.strain:bacdive_1',
+                       'object': 'METPO:1'}, 'records': [
+        source('bacdive_strains.json', {
+            'General': {'BacDive-ID': 1},
+            'Name and taxonomic classification': {'species': 'Fixture bacterium'},
+            'External links': {'culture collection no.': 'DSM 1'}}),
+        source('lpsn/api_cache/9.json', {'full_name': 'Fixture bacterium',
+                                       'type_strain_names': ['DSM 1', 'ATCC 111']})]}
+    assert set(targeting.verified_sources(packet)[0]) == {0, 1}
+
+
+@pytest.mark.parametrize('damage', ['missing', 'wrong', 'locator'])
+def test_lpsn_id_is_bound_inside_retained_bytes(targeting, damage):
+    packet = halotolerans_packet()
+    wrapper = packet['records'][0]
+    record = json.loads(wrapper['text'])
+    if damage == 'missing':
+        record.pop('id')
+    elif damage == 'wrong':
+        record['id'] = 777409
+    else:
+        wrapper['locator'] = '777409'
+    wrapper['text'] = json.dumps(record)
+    wrapper['text_sha256'] = hashlib.sha256(wrapper['text'].encode()).hexdigest()
+    with pytest.raises(ValueError, match='LPSN record ID'):
+        targeting.verified_sources(packet)
 
 
 @pytest.mark.parametrize(('name', 'strains', 'expected'), [

@@ -17,7 +17,11 @@ Every new strain fallback includes its organism-name anchor, including numeric
 aliases and collection-prefixed aliases. Repeated aliases are deduplicated before
 the four-alias budget is applied. The retrieval launcher rejects legacy plans,
 missing alias/reference bindings, and queries outside the bounded anchored forms
-before making requests. Legacy packets remain available to the offline replay
+before making requests. The launcher also replays the companion private
+`.sources.json` packets against the selected claim rows and reconstructs every
+name, strain, and primary-reference binding. Public projection excludes only the
+cached node descriptions and inherited snippet/review annotations that the frozen
+public manifest deliberately omitted. Legacy packets remain available to the offline replay
 tools; new retrieval requires rebuilding the targeting plan.
 
 ## Retained edge 47 check
@@ -30,10 +34,12 @@ are withheld as candidates. Two previously selected organism-bound primary
 references remain in the new one-edge plan. The launcher dry-run passes.
 
 The new private plan SHA-256 is
-`f605bfc1bb8e176ae9f9d4f07656875e8ee8e8fd543a0569e61aa2629bade9f5`.
+`79c1059ad7588eeefb3fd2c17ee47aea2392379827b92ca0f8e986fdfbc00e10`.
 The selected manifest SHA-256 is
 `a8b1967729398e3d50922f00fe28aca35b41d2d00bef556b566d0ffee1c85b54`.
-Private outputs are under `.temp/targeting-88-91/` in the implementation worktree.
+The source-packet sidecar SHA-256 is
+`865d2c0688df2da37fa73628c20ec6b3eaf59b8e863b4eca6d84606987ae9a38`.
+Private final outputs are under `.temp/targeting-88-91/review-fixed/` in the implementation worktree.
 They contain no newly retrieved literature and assign no scientific verdict.
 
 To prepare a future single-unit retrieval without altering old evidence:
@@ -52,3 +58,23 @@ A subsequent live canary must use the same retrieval launcher and intended worke
 environment, inspect persisted paper identities and useful content, and separately
 adjudicate the claim. This offline check does not authorize or establish readiness
 for expanding the 10,000-edge review.
+
+## Independent review and disposition
+
+Read-only review at `7c887c9` identified three further defects, filed separately:
+
+- [#95](https://github.com/CultureBotAI/EdgeMech/issues/95): LPSN type strains could
+  become aliases of a non-type strain. Now a retained exact culture identifier
+  must intersect the LPSN type-strain list. Same-species references remain
+  explicitly scoped candidates. The real edge 22 rebind retains its strain scope
+  and yields no strain-bound primary references; the species description is withheld.
+- [#96](https://github.com/CultureBotAI/EdgeMech/issues/96): truthy proof objects
+  were accepted without replay. The source sidecar and exact reconstructed
+  targeting fields are now required before retrieval.
+- [#97](https://github.com/CultureBotAI/EdgeMech/issues/97): filename identity could
+  override a mismatched LPSN response. Record ID, source filename, and locator
+  must now agree; missing and mismatched IDs are refused.
+
+The initial complete suite passed 431 tests. The final candidate adds regressions
+for all three findings and is revalidated before handoff. No issue is silently
+dropped or treated as scientific validation of an edge.

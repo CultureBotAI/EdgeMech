@@ -17,6 +17,22 @@ from source_extract import normalized_names
 POLICY = "exact-organism-source-bindings/v2"
 
 
+def packet_sha256(packet):
+    return hashlib.sha256(json.dumps(packet, sort_keys=True).encode()).hexdigest()
+
+
+def claim_identity(edge):
+    """Omit only the private cached text/old-review annotations stripped at publication."""
+    result = {key: value for key, value in edge.items()
+              if key not in {'review_rationale', 'reviewer_worker', 'snippet'}}
+    for field in ('original_subject_node', 'original_object_node',
+                  'curated_subject_node', 'curated_object_node'):
+        if isinstance(result.get(field), dict):
+            result[field] = {key: value for key, value in result[field].items()
+                             if key != 'description'}
+    return result
+
+
 def strain_aliases(values):
     """Split source lists, remove duplicates, and refuse query syntax as data."""
     aliases = []
@@ -70,7 +86,7 @@ def verified_sources(packet):
                 for v in endpoints if v.startswith("kgmicrobe.strain:") and "bacdive_" not in v}
     taxids = {v.split(":", 1)[1] for v in endpoints if v.startswith("NCBITaxon:")}
     lpsn_ids = {v.split(":", 1)[1]: None for v in endpoints if v.startswith("lpsn:")}
-    names, proofs = {}, {}
+    names, proofs, exact_collections = {}, {}, set(cultures)
     if not strain_claim:
         for side in ("subject", "object"):
             if edge[side].startswith(("NCBITaxon:", "lpsn:", "GTDB:")):
@@ -106,6 +122,7 @@ def verified_sources(packet):
                 related = normalized_names(classification.get("species"))
                 if exact:
                     matched = "exact strain/culture identifier"
+                    exact_collections.update(v.replace("-", " ").casefold() for v in collections)
                 elif not strain_claim and (taxids & tids or set(names) & related):
                     matched = "exact taxon identifier or full taxon name; strain is a search candidate"
                 if matched:
@@ -117,12 +134,21 @@ def verified_sources(packet):
                                 related |= normalized_names(synonym.get("synonym"))
             elif source.startswith("lpsn/api_cache/"):
                 lid = Path(source).stem
+                if str(record.get('id', '')) != lid or str(wrapper['locator']) != lid:
+                    raise ValueError('LPSN record ID, locator, and source filename must agree')
                 related = normalized_names(record.get("full_name"))
                 if lid in lpsn_ids:
                     parent = lpsn_ids[lid]
                     matched = "exact LPSN endpoint" if parent is None else "explicit LPSN basonym/correct-name ID"
                 elif set(names) & related:
                     matched = "exact full organism name"
+                if strain_claim:
+                    type_aliases = {v.replace('-', ' ').casefold()
+                                    for v in strain_aliases(record.get('type_strain_names', []))}
+                    if not type_aliases & exact_collections:
+                        # Same species does not make a non-type strain equivalent
+                        # to the type strain. Keep the entire record a candidate.
+                        matched = None
                 if matched:
                     for field in ("basonym_id", "lpsn_correct_name_id"):
                         if record.get(field):

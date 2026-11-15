@@ -40,31 +40,33 @@ class Response(io.BytesIO):
     headers = {'Content-Type': 'application/json'}
 
 
-def setup_inputs(tmp_path, count=1, applicable=True):
+def setup_inputs(tmp_path, count=1, applicable=True, row_updates=None):
     rows = [{'occurrence_id': f'urn:fixture:{i:064x}', 'subject': 'NCBITaxon:1',
+             'canary_ordinal': 1, 'subject_label': 'Fixture bacterium',
              'predicate': 'biolink:has_phenotype', 'object': 'METPO:1000698'}
             for i in range(count)]
+    for row in rows:
+        row.update(row_updates or {})
+    text = json.dumps({'id': 1, 'full_name': 'Fixture bacterium',
+                       'publication_doi': '10.1234/fixture'})
+    sources = {row['occurrence_id']: {'edge': row, 'records': [{
+        'source_relative_path': 'lpsn/api_cache/1.json', 'locator': '1',
+        'retrieval_url': 'https://example.test/source', 'text': text,
+        'text_sha256': hashlib.sha256(text.encode()).hexdigest()}]} for row in rows}
+    from source_adjudicate import packet_targeting
     plans = [{'occurrence_id': row['occurrence_id'],
-              'canary_ordinal': 4,
-              'targeting_identity_policy': 'exact-organism-source-bindings/v2',
-              'resolved_names': ['Fixture bacterium'],
-              'name_bindings': {'Fixture bacterium': {'claim_endpoint': 'NCBITaxon:1'}},
-              'strain_designations': [], 'strain_bindings': {},
-              'claim_search_terms': '(NaCl OR salinity OR salt)',
+              **packet_targeting(sources[row['occurrence_id']]),
+              'claim_search_terms': '(abdomen OR abdominal OR isolation)',
               'applicability': 'APPLICABLE' if applicable else 'NOT_APPLICABLE',
               'applicability_rule': 'fixture-rule',
-              'primary_references': [{'reference': 'doi:10.1234/fixture',
-                                      'role': 'species_description',
-                                      'identity_verified': True,
-                                      'organism_identity_verified': True,
-                                      'organism_binding': {'fixture': 'exact organism'},
-                                      'identity_basis': 'Synthetic exact source-record citation'}]
+              'primary_references': packet_targeting(sources[row['occurrence_id']])['primary_references']
               if applicable else [],
               'general_queries': ['("Fixture bacterium")'] if applicable else []}
              for row in rows]
     manifest, plan = tmp_path / 'manifest.jsonl', tmp_path / 'plan.json'
     manifest.write_text(''.join(json.dumps(row) + '\n' for row in rows))
     plan.write_text(json.dumps(plans))
+    plan.with_suffix('.sources.json').write_text(json.dumps(sources))
     return manifest, plan, tmp_path / 'output'
 
 
@@ -123,6 +125,35 @@ def test_unbound_targeting_is_refused_before_network(runner, tmp_path, damage):
     with pytest.raises(ValueError):
         runner.run(manifest, plan, output,
                    opener=lambda *args, **kwargs: pytest.fail('Unbound request reached network'))
+    assert not output.exists()
+
+
+@pytest.mark.parametrize('damage', ['foreign_proof', 'renamed_with_old_proof',
+                                    'reference_proof', 'source_claim', 'source_bytes'])
+def test_targeting_proofs_replay_against_selected_raw_source(runner, tmp_path, damage):
+    manifest, plan, output = setup_inputs(tmp_path)
+    rows = json.loads(plan.read_text())
+    if damage == 'foreign_proof':
+        rows[0]['name_bindings']['Fixture bacterium'] = {'occurrence_id': 'foreign'}
+    elif damage == 'renamed_with_old_proof':
+        rows[0]['resolved_names'] = ['Unrelated organism']
+        rows[0]['name_bindings'] = {'Unrelated organism': rows[0]['name_bindings']['Fixture bacterium']}
+        rows[0]['general_queries'] = ['("Unrelated organism")']
+    elif damage == 'reference_proof':
+        rows[0]['primary_references'][0]['organism_binding']['occurrence_id'] = 'foreign'
+    else:
+        sources_path = plan.with_suffix('.sources.json')
+        sources = json.loads(sources_path.read_text())
+        packet = sources[rows[0]['occurrence_id']]
+        if damage == 'source_claim':
+            packet['edge']['subject'] = 'NCBITaxon:2'
+        else:
+            packet['records'][0]['text'] += ' '
+        sources_path.write_text(json.dumps(sources))
+    plan.write_text(json.dumps(rows))
+    with pytest.raises(ValueError):
+        runner.run(manifest, plan, output,
+                   opener=lambda *args, **kwargs: pytest.fail('Invalid proof reached network'))
     assert not output.exists()
 
 
@@ -263,16 +294,11 @@ def test_pdf_title_alone_cannot_substitute_for_doi_binding(runner, tmp_path, mon
 
 
 def test_replay_rejects_dataset_resolved_from_unknown_pmid(runner, tmp_path):
-    manifest, plan_path, output = setup_inputs(tmp_path)
-    plan = json.loads(plan_path.read_text())
-    plan[0]['primary_references'][0]['reference'] = 'pmid:123'
-    plan_path.write_text(json.dumps(plan))
     clock = Clock()
-    runner.run(manifest, plan_path, output,
-               opener=lambda request, timeout: Response(core_payload('10.1093/nar/gkad994')),
-               clock=clock.now, sleeper=clock.sleep, max_ladder_calls=0)
-    packet = json.loads(next((output / 'packets').glob('*.json')).read_text())
-    result = packet['primary'][0]['result']
+    with LiteratureCache(tmp_path / 'cache',
+                         opener=lambda request, timeout: Response(core_payload('10.1093/nar/gkad994')),
+                         clock=clock.now, sleeper=clock.sleep) as client:
+        result = runner.retrieve_reference('pmid:123', client, None, {}, 0)
     assert result['status'] == 'excluded_dataset_or_wrong_inherited_reference'
     assert result['documents'] == []
 
@@ -500,7 +526,8 @@ def test_report_denominator_rejects_changed_frozen_applicability(tmp_path, monke
 def supplemental_packets(runner, tmp_path, monkeypatch):
     monkeypatch.syspath_prepend(str(SCRIPT.parent))
     verifier = load_helper('verify_packets')
-    manifest, plan, output = setup_inputs(tmp_path)
+    manifest, plan, output = setup_inputs(tmp_path, row_updates={
+        'subject': 'NCBITaxon:1935118', 'object': 'BTO:0000648'})
     row = json.loads(manifest.read_text())
     row.update(canary_ordinal=1, subject='NCBITaxon:1935118', object='BTO:0000648')
     manifest.write_text(json.dumps(row) + '\n')

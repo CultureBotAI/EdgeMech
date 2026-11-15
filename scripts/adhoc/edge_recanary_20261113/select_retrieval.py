@@ -82,9 +82,9 @@ def main():
                     raise ValueError('Legacy targeting plans are replay-only; rebuild exact organism bindings')
                 if ordinal == 34 and identities:
                     resolved = identities['NCBITaxon:1935118']
-                    row['resolved_names'] = [resolved['label']]
-                    row['name_bindings'] = {resolved['label']: resolved}
-                    row['name_resolution'] = resolved
+                    # Retain the resolution for inspection. New aliases must go
+                    # through source-packet binding before entering a query.
+                    row['name_resolution_candidate'] = resolved
                 if ordinal == 36 and identities:
                     row['claim_term_resolution'] = identities['BTO:0000648']
                 anchor = name_query(row['resolved_names'])
