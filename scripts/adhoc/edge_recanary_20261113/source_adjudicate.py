@@ -13,7 +13,9 @@ import json
 import re
 from pathlib import Path
 
+from organism_targeting import POLICY, packet_sha256, source_strain_aliases, verified_sources
 from review_clock import begin_review, finish_review
+from targeting_staging import validate_private_output
 
 CITATIONS = {
     "bacdive": "doi:10.1093/nar/gkab961",
@@ -220,114 +222,154 @@ def finish(source_dir, review_root, ordinal, verdict, rationale, evidence):
     )
 
 
-def targeting(source_dir, output):
-    packets = sorted((Path(source_dir) / "packets").glob("*.json"))
-    result = []
-    for path in packets:
-        packet = json.loads(path.read_text())
-        edge = packet["edge"]
-        refs, strains = [], set()
-        seen = set()
-        for index, record in enumerate(packet["records"]):
-            rec = json.loads(record["text"])
-            if not isinstance(rec, dict):
-                continue
-            candidates = []
-            if record["source_relative_path"].startswith("lpsn/"):
-                strains.update(rec.get("type_strain_names", []))
-                if rec.get("publication_doi"):
+def packet_targeting(packet):
+    """Rebuild targeting solely from one retained source packet."""
+    edge = packet["edge"]
+    bindings, names = verified_sources(packet)
+    refs, candidate_refs, strains, candidate_strains = [], [], {}, set()
+    excluded_strains = []
+    seen = set()
+    for index, record in enumerate(packet["records"]):
+        rec = json.loads(record["text"])
+        if not isinstance(rec, dict):
+            continue
+        record_strains = []
+        candidates = []
+        if record["source_relative_path"].startswith("lpsn/"):
+            record_strains.extend(rec.get("type_strain_names", []))
+            if rec.get("publication_doi"):
+                candidates.append(
+                    (
+                        "publication_doi",
+                        rec["publication_doi"],
+                        "species_description",
+                        rec.get("publication_text", ""),
+                    )
+                )
+            for emendation in rec.get("emendations", []):
+                if emendation.get("publication_doi"):
                     candidates.append(
                         (
                             "publication_doi",
-                            rec["publication_doi"],
+                            emendation["publication_doi"],
                             "species_description",
-                            rec.get("publication_text", ""),
+                            emendation.get("publication_text", ""),
                         )
                     )
-                for emendation in rec.get("emendations", []):
-                    if emendation.get("publication_doi"):
-                        candidates.append(
-                            (
-                                "publication_doi",
-                                emendation["publication_doi"],
-                                "species_description",
-                                emendation.get("publication_text", ""),
-                            )
+        if record["source_relative_path"] == "bacdive_strains.json":
+            classification = rec.get("Name and taxonomic classification", {})
+            strain = classification.get("strain designation")
+            if isinstance(strain, str):
+                record_strains.append(strain)
+            external = rec.get("External links", {})
+            external = external if isinstance(external, list) else [external]
+            for value in external:
+                if value.get("culture collection no."):
+                    record_strains.append(str(value["culture collection no."]))
+            references = rec.get("Reference", [])
+            references = references if isinstance(references, list) else [references]
+            for ref in references:
+                val = ref.get("doi/url", "")
+                val = val.removeprefix("https://doi.org/").removeprefix("http://dx.doi.org/")
+                if (
+                    val.startswith("10.")
+                    and not val.startswith(("10.13145/", "10.83108/", "10.60712/"))
+                    and "doi:" + val not in CITATIONS.values()
+                ):
+                    candidates.append(
+                        (
+                            "doi/url",
+                            ref["doi/url"],
+                            "strain_reference",
+                            ref.get("title", ""),
                         )
-            if record["source_relative_path"] == "bacdive_strains.json":
-                classification = rec.get("Name and taxonomic classification", {})
-                strain = classification.get("strain designation")
-                if isinstance(strain, str):
-                    strains.add(strain)
-                external = rec.get("External links", {})
-                external = external if isinstance(external, list) else [external]
-                for value in external:
-                    if value.get("culture collection no."):
-                        strains.add(str(value["culture collection no."]))
-                references = rec.get("Reference", [])
-                references = references if isinstance(references, list) else [references]
-                for ref in references:
-                    val = ref.get("doi/url", "")
-                    val = val.removeprefix("https://doi.org/").removeprefix("http://dx.doi.org/")
-                    if (
-                        val.startswith("10.")
-                        and not val.startswith(("10.13145/", "10.83108/", "10.60712/"))
-                        and "doi:" + val not in CITATIONS.values()
-                    ):
-                        candidates.append(
-                            (
-                                "doi/url",
-                                ref["doi/url"],
-                                "strain_reference",
-                                ref.get("title", ""),
-                            )
-                        )
-            if record["source_relative_path"] == "database.csv":
-                for field in ["Bergey_Article_link", "Literature_Citation"]:
-                    val = rec.get(field, "")
-                    match = re.search(r"10\.\d{4,9}/[^\s;]+", val)
-                    if match:
-                        candidates.append((field, match.group(0), "row_primary", val))
-            for field, val, role, title in candidates:
-                doi = val.removeprefix("https://doi.org/").removeprefix("http://dx.doi.org/")
-                if doi in seen:
-                    continue
-                seen.add(doi)
-                quote = (
-                    json.dumps(field, ensure_ascii=False)
-                    + ": "
-                    + json.dumps(val, ensure_ascii=False)
-                )
-                if quote not in record["text"]:
-                    quote = val
-                if quote not in record["text"]:
-                    raise ValueError("Targeting citation is not in retained source")
-                refs.append(
-                    {
-                        "reference": "doi:" + doi,
-                        "role": role,
-                        "title": title,
-                        "identity_verified": True,
-                        "identity_verification_scope": "association to raw source record only; retrieved paper identity remains unverified",
-                        "identity_basis": {
-                            "quote": quote,
-                            "text_sha256": record["text_sha256"],
-                            "source_relative_path": record["source_relative_path"],
-                            "url": record["retrieval_url"],
-                            "record_index": index,
-                            "source_binding": record.get("binding"),
-                        },
-                    }
-                )
-        result.append(
-            {
-                "canary_ordinal": edge["canary_ordinal"],
-                "occurrence_id": edge["occurrence_id"],
-                "resolved_names": packet.get("resolved_names", []),
-                "strain_designations": sorted(strains),
-                "primary_references": refs,
-            }
-        )
+                    )
+        if record["source_relative_path"] == "database.csv":
+            for field in ["Bergey_Article_link", "Literature_Citation"]:
+                val = rec.get(field, "")
+                match = re.search(r"10\.\d{4,9}/[^\s;]+", val)
+                if match:
+                    candidates.append((field, match.group(0), "row_primary", val))
+        safe_strains, excluded = source_strain_aliases(record_strains)
+        excluded_strains.extend({**item, 'record_index': index,
+                                 'source_relative_path': record['source_relative_path'],
+                                 'locator': record['locator'],
+                                 'text_sha256': record['text_sha256']}
+                                for item in excluded)
+        for strain in safe_strains:
+            if index in bindings:
+                strains.setdefault(strain, bindings[index])
+            else:
+                candidate_strains.add(strain)
+        for field, val, role, title in candidates:
+            doi = val.removeprefix("https://doi.org/").removeprefix("http://dx.doi.org/")
+            identity_key = (doi, index in bindings)
+            if identity_key in seen:
+                continue
+            seen.add(identity_key)
+            quote = (
+                json.dumps(field, ensure_ascii=False)
+                + ": "
+                + json.dumps(val, ensure_ascii=False)
+            )
+            if quote not in record["text"]:
+                quote = val
+            if quote not in record["text"]:
+                raise ValueError("Targeting citation is not in retained source")
+            destination = refs if index in bindings else candidate_refs
+            destination.append(
+                {
+                    "reference": "doi:" + doi,
+                    "role": role,
+                    "title": title,
+                    "identity_verified": index in bindings,
+                    "organism_identity_verified": index in bindings,
+                    "source_association_verified": True,
+                    "organism_binding": bindings.get(index),
+                    "organism_scope": ("exact_bound_organism" if index in bindings else
+                                       "same_species_candidate_not_strain_equivalence"
+                                       if rec.get("full_name") in names else "unbound_candidate"),
+                    "identity_verification_scope": "source citation and organism targeting only; paper identity and scientific support remain unverified",
+                    "identity_basis": {
+                        "quote": quote,
+                        "text_sha256": record["text_sha256"],
+                        "source_relative_path": record["source_relative_path"],
+                        "url": record["retrieval_url"],
+                        "record_index": index,
+                        "source_binding": record.get("binding"),
+                    },
+                }
+            )
+    return (
+        {
+            "canary_ordinal": edge["canary_ordinal"],
+            "occurrence_id": edge["occurrence_id"],
+            "targeting_identity_policy": POLICY,
+            "source_packet_sha256": packet_sha256(packet),
+            "resolved_names": sorted(names),
+            "name_bindings": names,
+            "candidate_names": sorted(set(packet.get("resolved_names", [])) - set(names)),
+            "strain_designations": sorted(strains),
+            "strain_bindings": strains,
+            "candidate_strain_designations": sorted(candidate_strains - set(strains)),
+            "excluded_strain_designations": excluded_strains,
+            "primary_references": refs,
+            "candidate_primary_references": candidate_refs,
+        }
+    )
+
+
+def targeting(source_dir, output, ordinal=None):
+    validate_private_output(output)
+    if Path(output).exists():
+        raise ValueError("Refusing to overwrite existing targeting evidence")
+    packets = sorted((Path(source_dir) / "packets").glob("*.json"))
+    if ordinal is not None:
+        packets = [private_packet(source_dir, ordinal)]
+    result = []
+    for path in packets:
+        packet = json.loads(path.read_text())
+        result.append({**packet_targeting(packet), "source_packet": packet})
     Path(output).write_text(json.dumps(result, ensure_ascii=False, indent=2) + "\n")
     print(
         json.dumps(
@@ -457,7 +499,7 @@ def main():
             json.loads(args.evidence_json),
         )
     elif args.action == "targeting":
-        targeting(args.source_dir, args.output)
+        targeting(args.source_dir, args.output, args.ordinal)
     else:
         export(args.source_dir, args.review_root, args.output, args.artifact_root)
 

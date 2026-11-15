@@ -1,8 +1,9 @@
 """Build primary-first targets for recanary PR76, 2026-11-13.
 
 Inputs: frozen public cohort/applicability and private grouped-source enrichment.
-Outputs: public bounded targeting plan with raw-source association proofs. No
-inherited graph DOI is accepted as a primary reference, even if its syntax is valid.
+Outputs: bounded plan, claim manifest and private raw-source sidecar. Outputs
+inside a Git worktree must be ignored and untracked. No inherited graph DOI is
+accepted as a primary reference, even if its syntax is valid.
 """
 from __future__ import annotations
 
@@ -10,6 +11,10 @@ import argparse
 import hashlib
 import json
 from pathlib import Path
+
+from organism_targeting import POLICY, claim_identity, name_query, strain_query
+from source_adjudicate import packet_targeting
+from targeting_staging import validate_private_output
 
 ROOT = Path(__file__).resolve().parents[3]
 ART = ROOT / 'artifacts/edge-recanary-20261113'
@@ -53,9 +58,11 @@ PRIMARY_CHOICES = {
     5: ['10.1099/ijs.0.65010-0'],
     6: ['10.1099/ijsem.0.001496'],
     19: ['10.1099/ijs.0.65213-0'],
-    20: ['10.1099/0096266x-5-2-67', '10.1007/s10482-018-1047-3'],
+    # Species-only references cannot establish the exact 14628 strain (#104).
+    20: [],
     21: ['10.2323/jgam.25.215', '10.1099/ijs.0.02091-0', '10.1099/ijs.0.64316-0'],
-    22: ['10.1099/00207713-22-2-73'],
+    # The species type description is not bound to this non-type strain (#103).
+    22: [],
     25: ['10.1093/infdis/106.2.162', '10.1099/00221287-51-3-387', '10.1099/ijsem.0.005511'],
     27: ['10.3390/microorganisms10071363'],
     28: ['10.1099/ijsem.0.003189'],
@@ -67,7 +74,8 @@ PRIMARY_CHOICES = {
     47: ['10.1016/s0723-2020(83)80056-3', '10.1111/j.1365-2672.1993.tb01600.x'],
     48: ['10.1099/00207713-44-1-143', '10.1099/00207713-47-3-808', '10.1099/00207713-46-4-939'],
     49: ['10.1099/00207713-49-4-1761'],
-    50: ['10.1099/ijs.0.02143-0', '10.1099/ijs.0.64098-0'],
+    # The species description is not bound to the exact L1-82 strain (#104).
+    50: [],
 }
 
 
@@ -79,22 +87,37 @@ def dedupe(values):
     return list(dict.fromkeys(str(v).strip() for v in values if str(v).strip()))
 
 
-def build(enrichment, destination):
+def build(enrichment, destination, ordinal=None):
     cohort = lines(ART / 'canary.jsonl')
+    if ordinal is not None:
+        cohort = [row for row in cohort if row['canary_ordinal'] == ordinal]
+        if len(cohort) != 1:
+            raise ValueError('Select one frozen canary ordinal')
+    manifest = destination.with_suffix('.manifest.jsonl')
+    sources = destination.with_suffix('.sources.json')
+    receipt_path = destination.with_name(destination.stem + '-receipt.json')
+    # Validate every output before creating any part of the paired plan.
+    for path in (destination, manifest, sources, receipt_path):
+        validate_private_output(path)
+    if any(path.exists() for path in (destination, manifest, sources, receipt_path)):
+        raise ValueError('Refusing to overwrite a targeting plan or its provenance')
     applicability = {r['occurrence_id']: r for r in lines(ART / 'applicability.jsonl')}
     targeting = {r['occurrence_id']: r for r in json.loads(enrichment.read_text())}
     if set(targeting) != {r['occurrence_id'] for r in cohort}:
-        raise ValueError('Source enrichment must cover the exact fresh fifty')
+        raise ValueError('Source enrichment must cover the exact selected cohort')
     plan = []
     for row in cohort:
         oid, ordinal = row['occurrence_id'], row['canary_ordinal']
         scope, target = applicability[oid], targeting[oid]
         applicable = scope['scientific_applicability'] == 'APPLICABLE'
+        packet = target.get('source_packet')
+        if not packet or claim_identity(packet['edge']) != claim_identity(row):
+            raise ValueError('Source packet must bind the exact selected manifest row')
+        if target != {**packet_targeting(packet), 'source_packet': packet}:
+            raise ValueError('Source enrichment differs from replayed organism bindings')
+        if target.get('targeting_identity_policy') != POLICY:
+            raise ValueError('Rebuild source enrichment with exact organism bindings before retrieval')
         names = dedupe(target.get('resolved_names', []))
-        if ordinal == 7 and not names:
-            names = [row['subject_label']]
-        if ordinal == 47:
-            names = [n for n in names if n not in {'Lactobacillus viridescens', 'Weissella viridescens'}]
         strains = dedupe(target.get('strain_designations', []))
         refs, seen = [], set()
         # Only references recovered from the matching upstream record enter here.
@@ -102,7 +125,9 @@ def build(enrichment, destination):
             key = ref['reference'].lower()
             if key in seen:
                 continue
-            if ref.get('identity_verified') is not True or not ref.get('identity_basis'):
+            if (ref.get('identity_verified') is not True or not ref.get('identity_basis')
+                    or ref.get('organism_identity_verified') is not True
+                    or not ref.get('organism_binding')):
                 raise ValueError('Unverified source association')
             refs.append(ref)
             seen.add(key)
@@ -117,37 +142,45 @@ def build(enrichment, destination):
             if ordinal not in TERMS:
                 raise ValueError('Applicable claim needs a reviewed search concept')
             if names:
-                quoted = ['"' + n.replace('"', '') + '"' for n in names[:6]]
-                queries.append('(' + ' OR '.join(quoted) + ') AND ' + TERMS[ordinal])
+                anchor = name_query(names)
+                queries.append(anchor + ' AND ' + TERMS[ordinal])
                 # Second query broadens within resolved names, not to a genus or
                 # unrelated strain: the claim must retain its taxonomic scope.
-                queries.append('(' + ' OR '.join(quoted[:3]) + ')')
-            elif strains:
-                quoted = ['"' + s.replace('"', '') + '"' for s in strains[:4]]
-                queries.append('(' + ' OR '.join(quoted) + ') AND ' + TERMS[ordinal])
+                queries.append(strain_query(names, strains) if strains else anchor)
         plan.append({
             'canary_ordinal': ordinal, 'occurrence_id': oid,
             'applicability': scope['scientific_applicability'],
             'applicability_rule': scope['applicability_rule'],
             'resolved_names': names, 'strain_designations': strains,
+            'targeting_identity_policy': POLICY,
+            'source_packet_sha256': target['source_packet_sha256'],
+            'name_bindings': target['name_bindings'],
+            'strain_bindings': target['strain_bindings'],
+            'claim_search_terms': TERMS.get(ordinal),
             'primary_references': refs[:3] if applicable else [],
             'primary_references_available': available_count if applicable else 0,
             'general_queries': queries if applicable else [],
             'fallback_reason': '',
-            'targeting_policy': 'Raw source association only; inherited graph DOI fields excluded. Retrieved article identifiers independently checked.',
+            'targeting_policy': 'Exact organism/source bindings required; candidate aliases/references withheld. Retrieved article identifiers and claim support require separate checks.',
         })
     destination.write_text(json.dumps(plan, ensure_ascii=False, indent=2) + '\n')
+    manifest.write_text(''.join(json.dumps(row, sort_keys=True) + '\n' for row in cohort))
+    sources.write_text(json.dumps({oid: target['source_packet'] for oid, target in targeting.items()},
+                                  sort_keys=True) + '\n')
     receipt = {'rows': len(plan), 'applicable': sum(p['applicability'] == 'APPLICABLE' for p in plan),
                'plan_sha256': hashlib.sha256(destination.read_bytes()).hexdigest(),
                'source_enrichment_sha256': hashlib.sha256(enrichment.read_bytes()).hexdigest(),
+               'selected_manifest_sha256': hashlib.sha256(manifest.read_bytes()).hexdigest(),
+               'source_packets_sha256': hashlib.sha256(sources.read_bytes()).hexdigest(),
                'cohort_sha256': hashlib.sha256((ART / 'canary.jsonl').read_bytes()).hexdigest()}
-    destination.with_name(destination.stem + '-receipt.json').write_text(json.dumps(receipt, indent=2) + '\n')
+    receipt_path.write_text(json.dumps(receipt, indent=2) + '\n')
     print(json.dumps(receipt))
 
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--enrichment', required=True, type=Path)
-    parser.add_argument('--output', type=Path, default=ART / 'targeting-plan.json')
+    parser.add_argument('--output', type=Path, required=True)
+    parser.add_argument('--ordinal', type=int)
     args = parser.parse_args()
-    build(args.enrichment, args.output)
+    build(args.enrichment, args.output, args.ordinal)

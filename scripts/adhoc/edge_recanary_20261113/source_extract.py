@@ -53,11 +53,9 @@ def normalized_names(name):
     if not name:
         return set()
     name = name.removeprefix("GTDB:").removeprefix("s__").replace("_", " ").strip()
-    result = {name, name.removeprefix("Candidatus ")}
-    words = name.removeprefix("Candidatus ").split()
-    if len(words) >= 2 and words[1] not in {"sp.", "bacterium", "strain", "as"}:
-        result.add(" ".join(words[:2]))
-    return result
+    # #88: normalization is typographic, never a taxonomic equivalence claim.
+    # In particular, a subspecies or strain must not seed its parent species.
+    return {" ".join(name.split())}
 
 
 def extract(rows, raw_root):
@@ -197,6 +195,10 @@ def extract(rows, raw_root):
                     else "taxon-level candidate; cap eight; not strain equivalence",
                 )
                 candidate_counts[key] += not exact
+                if not exact:
+                    # Candidate strains are retained for inspection, but cannot
+                    # bootstrap unrelated names into later source selection.
+                    continue
                 names[key].update(recnames)
                 lpsn = classification.get("LPSN", {})
                 if isinstance(lpsn, dict):
@@ -218,9 +220,9 @@ def extract(rows, raw_root):
     started = begin(path)
     with path.open(encoding="latin1", newline="") as stream:
         for ordinal, rec in enumerate(csv.DictReader(stream), 1):
-            label = " ".join(
-                [rec.get("genus_name", ""), rec.get("sp_epithet", ""), rec.get("subsp_epithet", "")]
-            ).strip()
+            label = " ".join([rec.get("genus_name", ""), rec.get("sp_epithet", "")]).strip()
+            if rec.get("subsp_epithet"):
+                label += " subsp. " + rec["subsp_epithet"]
             for row in rows:
                 key = row["occurrence_id"]
                 if rec.get("record_no") in lpsn_ids[key] or (label and label in names[key]):

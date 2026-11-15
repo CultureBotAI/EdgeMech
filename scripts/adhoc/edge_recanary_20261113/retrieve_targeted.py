@@ -29,6 +29,9 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(ROOT / 'src'))
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from organism_targeting import POLICY, claim_identity, name_query, strain_query  # noqa: E402
+
 from edgemech.literature_cache import (  # noqa: E402
     BASE,
     LiteratureCache,
@@ -111,12 +114,51 @@ def load_inputs(manifest, plan):
         raise ValueError('Expected one to fifty unique canary occurrences')
     if len(plans) != len(rows) or {row['occurrence_id'] for row in plans} != ids:
         raise ValueError('Plan must contain every selected occurrence exactly once')
+    from source_adjudicate import packet_targeting
+    source_packets = json.loads(plan.with_suffix('.sources.json').read_text())
+    if set(source_packets) != ids:
+        raise ValueError('Source packets must cover the exact selected manifest')
+    manifest_rows = {row['occurrence_id']: row for row in rows}
     for row in plans:
         if row.get('applicability') not in {'APPLICABLE', 'NOT_APPLICABLE'}:
             raise ValueError('Applicability must be decided before retrieval')
         if not str(row.get('applicability_rule', '')).strip():
             raise ValueError('Applicability needs a written rule')
         refs = row.get('primary_references', [])
+        packet = source_packets[row['occurrence_id']]
+        if claim_identity(packet['edge']) != claim_identity(manifest_rows[row['occurrence_id']]):
+            raise ValueError('Source packet claim differs from the selected manifest row')
+        rebuilt = packet_targeting(packet)
+        for field in ('canary_ordinal', 'source_packet_sha256', 'resolved_names', 'name_bindings',
+                      'strain_designations', 'strain_bindings'):
+            if row.get(field) != rebuilt[field]:
+                raise ValueError('Targeting differs from source-packet replay: ' + field)
+        if any(ref not in rebuilt['primary_references'] for ref in refs):
+            raise ValueError('Primary reference differs from exact source-packet replay')
+        if row['applicability'] == 'APPLICABLE':
+            if row.get('targeting_identity_policy') != POLICY:
+                raise ValueError('Legacy targeting is replay-only; rebuild exact organism bindings')
+            names, strains = row.get('resolved_names', []), row.get('strain_designations', [])
+            if set(names) != set(row.get('name_bindings', {})) or any(
+                    not proof for proof in row.get('name_bindings', {}).values()):
+                raise ValueError('Every organism name needs a source/endpoint binding')
+            if set(strains) != set(row.get('strain_bindings', {})) or any(
+                    not proof for proof in row.get('strain_bindings', {}).values()):
+                raise ValueError('Every strain alias needs an exact organism/source binding')
+            if row.get('general_queries'):
+                from build_targeting import TERMS
+                anchor = name_query(names)
+                terms = TERMS.get(row.get('canary_ordinal'))
+                if terms is None or row.get('claim_search_terms') != terms:
+                    raise ValueError('Claim search terms differ from the reviewed claim concepts')
+                allowed = {anchor, anchor + ' AND ' + terms}
+                if strains:
+                    allowed.add(strain_query(names, strains))
+                if any(query not in allowed for query in row['general_queries']):
+                    raise ValueError('Every fallback query must retain the verified organism anchor')
+            if any(ref.get('organism_identity_verified') is not True
+                   or not ref.get('organism_binding') for ref in refs):
+                raise ValueError('Primary reference lacks exact organism/source binding')
         if len(refs) > 3 or len(row.get('general_queries', [])) > 2:
             raise ValueError('Bounded plan allows at most three primary references and two queries')
         for ref in refs:
