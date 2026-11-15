@@ -1,0 +1,7 @@
+{
+  "rows": 50,
+  "applicable": 28,
+  "plan_sha256": "98f9673bead4567d5f07d9997bdf8f60f03acd474af83459eaeb22233eaec01c",
+  "source_enrichment_sha256": "e0491f5ab21633932b1d5d4dcd2552da37e183fe6da8e1b2db469c491bcdeb09",
+  "cohort_sha256": "76b4556e9bb62cde92eaed764710f8bbe4a420b016602be1945cb9ed3d53d703"
+}

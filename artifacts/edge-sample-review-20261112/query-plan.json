@@ -1,0 +1,385 @@
+[
+  {
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:aa8fb3ee82e3e42f14412a810092bfce9905eacfd7ae4c783d702011f59821eb",
+    "canary_ordinal": 1,
+    "queries": [],
+    "scope": "No biological trait claim: source identity, classification, recipe, observation-only or unspecified Other; scientific axis not assessable"
+  },
+  {
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:316b2b134831e895bea115cea7be14d698f9e018608b1c8e1d06827bcd28a491",
+    "canary_ordinal": 2,
+    "queries": [],
+    "scope": "No biological trait claim: source identity, classification, recipe, observation-only or unspecified Other; scientific axis not assessable"
+  },
+  {
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:c58d56b9de9263ef2c91ed280dcaf5bd13f31ad7ba976ffe6a63a2f990e1c2d5",
+    "canary_ordinal": 3,
+    "queries": [],
+    "scope": "No biological trait claim: source identity, classification, recipe, observation-only or unspecified Other; scientific axis not assessable"
+  },
+  {
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:702c23a8ebce2a6c393f697b6ff37cdd1f590c70c2ae3da93b4dd4d0187cafa1",
+    "canary_ordinal": 4,
+    "queries": [
+      "\"Sphingomonas molluscorum\" AND temperature",
+      "DOI:\"10.1099/ijs.0.64441-0\""
+    ],
+    "scope": "Biological claim/reaction: bounded exact taxon/strain, trait and citation search"
+  },
+  {
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:219e1b79bb4910adf4fd86011ec8151ec72ba661ad2edc87443a96749c78a55f",
+    "canary_ordinal": 5,
+    "queries": [
+      "\"Lewinella cohaerens\" AND (salinity OR NaCl)",
+      "DOI:\"10.1099/ijs.0.65254-0\""
+    ],
+    "scope": "Biological claim/reaction: bounded exact taxon/strain, trait and citation search"
+  },
+  {
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:63b8c720046854db1e3b6781c00d6d846275265fa1180a2da5ac0e1856c096b8",
+    "canary_ordinal": 6,
+    "queries": [
+      "(\"Pseudaeromonas sharmana\" OR \"Aeromonas sharmana\") AND pH",
+      "DOI:\"10.1099/ijs.0.63972-0\""
+    ],
+    "scope": "Biological claim/reaction: bounded exact taxon/strain, trait and citation search"
+  },
+  {
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:6a6532646ea174c4bebf6b255b87e1d7e34da32644ec12dd61bec0c6fce07937",
+    "canary_ordinal": 7,
+    "queries": [],
+    "scope": "No biological trait claim: source identity, classification, recipe, observation-only or unspecified Other; scientific axis not assessable"
+  },
+  {
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:deb0e72a7f6e70436c0aae61f3b58dc07879f62b18893246ab2161b82611d319",
+    "canary_ordinal": 8,
+    "queries": [],
+    "scope": "No biological trait claim: source identity, classification, recipe, observation-only or unspecified Other; scientific axis not assessable"
+  },
+  {
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:65c910c8f7c633bcb031d0a755fee7ca2c9388ed35814e34a8296e61706c9758",
+    "canary_ordinal": 9,
+    "queries": [],
+    "scope": "No biological trait claim: source identity, classification, recipe, observation-only or unspecified Other; scientific axis not assessable"
+  },
+  {
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:399d5df05e92efc91ea6394a52db5b59f46ca33a329c7b5753748986c975caa7",
+    "canary_ordinal": 10,
+    "queries": [],
+    "scope": "No biological trait claim: source identity, classification, recipe, observation-only or unspecified Other; scientific axis not assessable"
+  },
+  {
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:98133b7fa98f8148e99c6d10328741d57a8c358793f67f9a8edbc018ecb9f3ea",
+    "canary_ordinal": 11,
+    "queries": [],
+    "scope": "No biological trait claim: source identity, classification, recipe, observation-only or unspecified Other; scientific axis not assessable"
+  },
+  {
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:8a6a56aaaf9508884e604b5c94d7d597287a8d0c850fc1a22a967910be325303",
+    "canary_ordinal": 12,
+    "queries": [],
+    "scope": "No biological trait claim: source identity, classification, recipe, observation-only or unspecified Other; scientific axis not assessable"
+  },
+  {
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:abe0827dc1f103c0f4cd3d09ea4337d2384cf31819bd764c4431a564abc47e0a",
+    "canary_ordinal": 13,
+    "queries": [],
+    "scope": "No biological trait claim: source identity, classification, recipe, observation-only or unspecified Other; scientific axis not assessable"
+  },
+  {
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:19e2ddca6ca134b436e72828fc92a461a8aa2cebe79fa4ee1d0e1f62a20b564a",
+    "canary_ordinal": 14,
+    "queries": [],
+    "scope": "No biological trait claim: source identity, classification, recipe, observation-only or unspecified Other; scientific axis not assessable"
+  },
+  {
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:e98c2d2e82653112f3b3223cae50c9469f0532fef9b65d87d114617bd91834ce",
+    "canary_ordinal": 15,
+    "queries": [],
+    "scope": "No biological trait claim: source identity, classification, recipe, observation-only or unspecified Other; scientific axis not assessable"
+  },
+  {
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:e16db85a8f58008dd540d38912ab7662101608758efde8c86cfd98bcf1ec55f9",
+    "canary_ordinal": 16,
+    "queries": [],
+    "scope": "No biological trait claim: source identity, classification, recipe, observation-only or unspecified Other; scientific axis not assessable"
+  },
+  {
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:4573cb3e9800c7bd090c46a2f09c960a530fa4a9fd647e9d178d189f6881ec50",
+    "canary_ordinal": 17,
+    "queries": [],
+    "scope": "No biological trait claim: source identity, classification, recipe, observation-only or unspecified Other; scientific axis not assessable"
+  },
+  {
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:617854342948a7f792de9e547580417ec3ccc2696f9429b2aeeadcc8ba1df9d3",
+    "canary_ordinal": 18,
+    "queries": [],
+    "scope": "No biological trait claim: source identity, classification, recipe, observation-only or unspecified Other; scientific axis not assessable"
+  },
+  {
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:788f331e8b09e35cfdcbe9cd5c44329d9c9f06b2865e97e4da8c55a098bcc41f",
+    "canary_ordinal": 19,
+    "queries": [
+      "\"Staphylococcus aureus\" AND \"W48906\"",
+      "\"Staphylococcus aureus\" AND \"Gram-positive\""
+    ],
+    "scope": "Biological claim/reaction: bounded exact taxon/strain, trait and citation search"
+  },
+  {
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:035ab6470fccc4871a8761d679458319c1e7d0f31b3e97719715981c3deed501",
+    "canary_ordinal": 20,
+    "queries": [
+      "\"Escherichia coli\" AND \"SS52\"",
+      "\"Escherichia coli\" AND \"Gram-negative\""
+    ],
+    "scope": "Biological claim/reaction: bounded exact taxon/strain, trait and citation search"
+  },
+  {
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:31fcbe092ae2a48ae05a64d1f12280a042c28c26b2ef9b312113048fb04c5ead",
+    "canary_ordinal": 21,
+    "queries": [
+      "(\"Sinorhizobium meliloti\" OR \"Ensifer meliloti\") AND \"CIAM1775\"",
+      "\"Sinorhizobium meliloti\" AND (spore OR sporulation)"
+    ],
+    "scope": "Biological claim/reaction: bounded exact taxon/strain, trait and citation search"
+  },
+  {
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:e642948d5afc01eeaca37bc6e1a05cdec1d4e3f76a54081715203726daf6a8a4",
+    "canary_ordinal": 22,
+    "queries": [
+      "\"Streptomyces\" AND \"sp001746295\"",
+      "\"Streptomyces\" AND \"rolled oats\""
+    ],
+    "scope": "Biological claim/reaction: bounded exact taxon/strain, trait and citation search"
+  },
+  {
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:48c0f7dd47658b768a6c5b3d0e85de843a9eb99c7f737ca2cec88a9ae1a3c8d9",
+    "canary_ordinal": 23,
+    "queries": [],
+    "scope": "No biological trait claim: source identity, classification, recipe, observation-only or unspecified Other; scientific axis not assessable"
+  },
+  {
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:82a79a7402fcf4f1127e952001f7af25ffe73baa1e564bf3575be667b6abd203",
+    "canary_ordinal": 24,
+    "queries": [
+      "\"BacDive\" AND \"165511\"",
+      "\"Clostridium septicum\" AND \"EG medium\""
+    ],
+    "scope": "Biological claim/reaction: bounded exact taxon/strain, trait and citation search"
+  },
+  {
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:86e9f9c3d2408395fa427637be7ae71e5024c0deeb17658504cc1429c83e6b0c",
+    "canary_ordinal": 25,
+    "queries": [
+      "\"Lactobacillus algidus\" AND fumarate",
+      "EXT_ID:10843056 AND SRC:MED"
+    ],
+    "scope": "Biological claim/reaction: bounded exact taxon/strain, trait and citation search"
+  },
+  {
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:abf37a5db342fcfeae4b7918e200de005c9a2a96cc14207edf10f985193bddba",
+    "canary_ordinal": 26,
+    "queries": [
+      "\"Alcanivorax borkumensis\" AND nitrate",
+      "\"Alcanivorax borkumensis\" AND (anaerobic OR \"electron acceptor\")"
+    ],
+    "scope": "Biological claim/reaction: bounded exact taxon/strain, trait and citation search"
+  },
+  {
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:2d5f43cc1ba4623b0020f9cd6b6647e1a392c38e85704e8a169f500ad5d19fd4",
+    "canary_ordinal": 27,
+    "queries": [
+      "\"Vibrio furnissii\" AND manganese",
+      "\"Vibrio furnissii\" AND oxidation"
+    ],
+    "scope": "Biological claim/reaction: bounded exact taxon/strain, trait and citation search"
+  },
+  {
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:177815c9e4c39684189e2004e17840e6f0c42a2824750aad5d7f95bd7c0e5f3e",
+    "canary_ordinal": 28,
+    "queries": [
+      "\"Actinoplanes campanulatus\" AND (spore OR sporulation)",
+      "EXT_ID:23114571 AND SRC:MED"
+    ],
+    "scope": "Biological claim/reaction: bounded exact taxon/strain, trait and citation search"
+  },
+  {
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:a39dea6d504bca2f611bc95078212ba8dcbfcc96782f30e02edc8dd2fb6e086b",
+    "canary_ordinal": 29,
+    "queries": [
+      "\"Actinophytocola xinjiangensis\" AND (chemoheterotrophic OR heterotrophic)",
+      "\"Actinophytocola xinjiangensis\""
+    ],
+    "scope": "Biological claim/reaction: bounded exact taxon/strain, trait and citation search"
+  },
+  {
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:b912410040f3b6027290e16710d457e3e45753a38d8a5adda78f0a8ea423eb9b",
+    "canary_ordinal": 30,
+    "queries": [
+      "\"SYIM01\" AND \"sp009921765\"",
+      "\"GCA_009921765\""
+    ],
+    "scope": "Biological claim/reaction: bounded exact taxon/strain, trait and citation search"
+  },
+  {
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:d37350debca99edfe4d9254cefc8b2ec2feba432d05e0341f60f526657e0d98b",
+    "canary_ordinal": 31,
+    "queries": [
+      "\"Treponema stenostreptum\" AND acetate",
+      "EXT_ID:23961314 AND SRC:MED"
+    ],
+    "scope": "Biological claim/reaction: bounded exact taxon/strain, trait and citation search"
+  },
+  {
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:192571d351f25940fa1d092f9943862376a9603e28391d518c131e3d0341669b",
+    "canary_ordinal": 32,
+    "queries": [],
+    "scope": "No biological trait claim: source identity, classification, recipe, observation-only or unspecified Other; scientific axis not assessable"
+  },
+  {
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:415b3432d2f9973834d264021e619e6a1e3e778ff9952bf4d94d82135f417a0c",
+    "canary_ordinal": 33,
+    "queries": [
+      "\"Eucapsis microscopica\" AND photosynthesis",
+      "\"Eucapsis microscopica\""
+    ],
+    "scope": "Biological claim/reaction: bounded exact taxon/strain, trait and citation search"
+  },
+  {
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:a10a477494eb052055a4cf9dbfa079f72d7ee76fe263f162e3b96f396f2bfb61",
+    "canary_ordinal": 34,
+    "queries": [
+      "\"RIFOXYD1_FULL_47_9\"",
+      "\"Amesbacteria\" AND loam"
+    ],
+    "scope": "Biological claim/reaction: bounded exact taxon/strain, trait and citation search"
+  },
+  {
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:c05c9c46b67169e2ab95a26cd8b3deb78d124eada3701d5e7328ae58d5cccb74",
+    "canary_ordinal": 35,
+    "queries": [
+      "\"RIFCSPHIGHO2_02_FULL_41_13\"",
+      "\"Magasanikbacteria\" AND soil"
+    ],
+    "scope": "Biological claim/reaction: bounded exact taxon/strain, trait and citation search"
+  },
+  {
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:8f6aed18dab515809e08baf0077c0cdd867f7462d10950f8a20a749c126eb562",
+    "canary_ordinal": 36,
+    "queries": [
+      "\"Ixodes scapularis\" AND \"organic material\"",
+      "\"Ixodes scapularis\" AND \"leaf litter\""
+    ],
+    "scope": "Biological claim/reaction: bounded exact taxon/strain, trait and citation search"
+  },
+  {
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:0d19fa7f912d4811c87c872f08f9e0914c3862f5a6b3e9f70cf1f57eeb5adcf0",
+    "canary_ordinal": 37,
+    "queries": [
+      "DOI:\"10.1042/bj3030233\"",
+      "DOI:\"10.1124/dmd.110.033829\""
+    ],
+    "scope": "Biological claim/reaction: bounded exact taxon/strain, trait and citation search"
+  },
+  {
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:b8825b3a00381892ab41327341ba9c184e514a1c85e6c1a91eb54a0bacbbcec9",
+    "canary_ordinal": 38,
+    "queries": [
+      "DOI:\"10.1074/jbc.270.11.6181\"",
+      "DOI:\"10.1128/jb.176.11.3400-3402.1994\""
+    ],
+    "scope": "Biological claim/reaction: bounded exact taxon/strain, trait and citation search"
+  },
+  {
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:1665a4c6709711d72857b54b6fc71e860936cc711a10ffecc43becbc3ba14064",
+    "canary_ordinal": 39,
+    "queries": [
+      "DOI:\"10.1128/aem.68.2.634-641.2002\""
+    ],
+    "scope": "Biological claim/reaction: bounded exact taxon/strain, trait and citation search"
+  },
+  {
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:782a3827d4711d496fbc680fb0e6c14eca6ebb94f330811dfc69c2b4def031f2",
+    "canary_ordinal": 40,
+    "queries": [],
+    "scope": "No biological trait claim: source identity, classification, recipe, observation-only or unspecified Other; scientific axis not assessable"
+  },
+  {
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:8ad695917cd76d4af637400e50d05489277025b5c4d739e2adef59c37e7ad9e5",
+    "canary_ordinal": 41,
+    "queries": [],
+    "scope": "No biological trait claim: source identity, classification, recipe, observation-only or unspecified Other; scientific axis not assessable"
+  },
+  {
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:f19e043c44caa5ad3ebcb605b323401faf0d68f336d6f81239463908fd1870b5",
+    "canary_ordinal": 42,
+    "queries": [],
+    "scope": "No biological trait claim: source identity, classification, recipe, observation-only or unspecified Other; scientific axis not assessable"
+  },
+  {
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:2cad956c7d5d6ace49ddb7e887de8eab4a7c1b78410942732e2a44bbd1a00559",
+    "canary_ordinal": 43,
+    "queries": [
+      "\"HOT-871\" AND \"nitrogen fixation\"",
+      "\"Gracilibacteria\" AND \"HOT-871\""
+    ],
+    "scope": "Biological claim/reaction: bounded exact taxon/strain, trait and citation search"
+  },
+  {
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:71bf73e328d775332cc16441da123757e8833fa94ea93a3f8d127dc077a6ca00",
+    "canary_ordinal": 44,
+    "queries": [
+      "\"Streptomyces fagopyri\" AND nitrification",
+      "\"Streptomyces fagopyri\""
+    ],
+    "scope": "Biological claim/reaction: bounded exact taxon/strain, trait and citation search"
+  },
+  {
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:ce9817bad7137af955d770ccc403fd9950a1fb2c91021c974a9281cbf3c431ff",
+    "canary_ordinal": 45,
+    "queries": [],
+    "scope": "No biological trait claim: source identity, classification, recipe, observation-only or unspecified Other; scientific axis not assessable"
+  },
+  {
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:3b9afbb11098a3675d6f811ed7abc3ff9c867f0865a03fcc655f5ff30b85b935",
+    "canary_ordinal": 46,
+    "queries": [],
+    "scope": "No biological trait claim: source identity, classification, recipe, observation-only or unspecified Other; scientific axis not assessable"
+  },
+  {
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:c07cf8aee31697710dd3bc0c3d45fded68cf0963968258e136c68c1345c0e741",
+    "canary_ordinal": 47,
+    "queries": [
+      "\"Aromatoleum toluvorans\" AND anaerobic",
+      "\"Azoarcus toluvorans\" AND anaerobic"
+    ],
+    "scope": "Biological claim/reaction: bounded exact taxon/strain, trait and citation search"
+  },
+  {
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:2d40cea1b75bc2b59235e21be149413d4f75ed91d27e6a6904401fa0225b30d3",
+    "canary_ordinal": 48,
+    "queries": [
+      "\"Longimycelium tulufanense\" AND \"alkaline phosphatase\"",
+      "\"Longimycelium tulufanense\""
+    ],
+    "scope": "Biological claim/reaction: bounded exact taxon/strain, trait and citation search"
+  },
+  {
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:3101023deb7d2ad3a24dc70c55fc7a21b9fa16bdfafc8fc3264f9fdabca653a3",
+    "canary_ordinal": 49,
+    "queries": [
+      "\"Methanohalophilus mahii\" AND \"agricultural soil\"",
+      "\"Methanohalophilus mahii\" AND \"DSM 5219\""
+    ],
+    "scope": "Biological claim/reaction: bounded exact taxon/strain, trait and citation search"
+  },
+  {
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:5a1f69a50ff4d9c87017577f7638b679d9a3f75795146ae2dbcbd4338dcd4b61",
+    "canary_ordinal": 50,
+    "queries": [
+      "\"Catonella morbi\" AND \"anthropogenic\"",
+      "\"Catonella morbi\" AND \"ATCC 51271\""
+    ],
+    "scope": "Biological claim/reaction: bounded exact taxon/strain, trait and citation search"
+  }
+]

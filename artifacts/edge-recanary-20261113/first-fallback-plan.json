@@ -1,0 +1,1702 @@
+[
+  {
+    "canary_ordinal": 1,
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:431acc7f095d028b155771b0e8f77b6fe16240d25a3dd1297d3a8951db29eb0b",
+    "applicability": "APPLICABLE",
+    "applicability_rule": "habitat_inverse",
+    "resolved_names": [
+      "Macrococcus sp."
+    ],
+    "strain_designations": [
+      "CCUG 36646"
+    ],
+    "primary_references": [],
+    "primary_references_available": 0,
+    "general_queries": [
+      "(\"Macrococcus sp.\") AND (abdomen OR abdominal OR isolation)",
+      "(\"Macrococcus sp.\")"
+    ],
+    "fallback_reason": "",
+    "targeting_policy": "Raw source association only; inherited graph DOI fields excluded. Retrieved article identifiers independently checked."
+  },
+  {
+    "canary_ordinal": 2,
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:41953d83b6787e57c6aadf7efe3ef5478770db1eb8e3048a39c4b38b9f207447",
+    "applicability": "NOT_APPLICABLE",
+    "applicability_rule": "identity_taxonomy",
+    "resolved_names": [
+      "Caenimonas terrae"
+    ],
+    "strain_designations": [
+      "DSM 27942, KACC 13365, NBRC 106341",
+      "KACC 13365",
+      "NBRC 106341",
+      "SGM1-15"
+    ],
+    "primary_references": [],
+    "primary_references_available": 0,
+    "general_queries": [],
+    "fallback_reason": "",
+    "targeting_policy": "Raw source association only; inherited graph DOI fields excluded. Retrieved article identifiers independently checked."
+  },
+  {
+    "canary_ordinal": 3,
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:a0ccdae71e814a7fdfa57d85dd4118d9eb2bef923da55965304e6434afa8b80c",
+    "applicability": "NOT_APPLICABLE",
+    "applicability_rule": "identity_taxonomy",
+    "resolved_names": [
+      "Bacillus qingshengii",
+      "Priestia qingshengii"
+    ],
+    "strain_designations": [
+      "CCTCC AB 2013273",
+      "G19",
+      "JCM 19454",
+      "JCM 19454, CCTCC AB 2013273"
+    ],
+    "primary_references": [],
+    "primary_references_available": 0,
+    "general_queries": [],
+    "fallback_reason": "",
+    "targeting_policy": "Raw source association only; inherited graph DOI fields excluded. Retrieved article identifiers independently checked."
+  },
+  {
+    "canary_ordinal": 4,
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:155d6d2d7ac159eb931374219e919b3e9984224866ecb96f110e77407345f0e4",
+    "applicability": "APPLICABLE",
+    "applicability_rule": "phenotype",
+    "resolved_names": [
+      "Paludifilum halophilum",
+      "Paludifilum halophilum Frikha-Dammak et al. 2016"
+    ],
+    "strain_designations": [
+      "CCUG 68698",
+      "DSM 102817",
+      "DSM 102817, CCUG 68698",
+      "SMBg3"
+    ],
+    "primary_references": [
+      {
+        "reference": "doi:10.1099/ijsem.0.001523",
+        "role": "strain_reference",
+        "title": "Paludifilum halophilum gen. nov., sp. nov., a thermoactinomycete isolated from superficial sediment of a solar saltern",
+        "identity_verified": true,
+        "identity_verification_scope": "association to raw source record only; retrieved paper identity remains unverified",
+        "identity_basis": {
+          "quote": "\"doi/url\": \"10.1099/ijsem.0.001523\"",
+          "text_sha256": "766f054d2b862caf7bcef30b41a6addea685f64e92b69a6255a4089e0903ba6e",
+          "source_relative_path": "bacdive_strains.json",
+          "url": "https://bacdive.dsmz.de/strain/132033",
+          "record_index": 1,
+          "source_binding": "exact strain/culture ID"
+        }
+      }
+    ],
+    "primary_references_available": 4,
+    "general_queries": [
+      "(\"Paludifilum halophilum\" OR \"Paludifilum halophilum Frikha-Dammak et al. 2016\") AND (NaCl OR salinity OR salt)",
+      "(\"Paludifilum halophilum\" OR \"Paludifilum halophilum Frikha-Dammak et al. 2016\")"
+    ],
+    "fallback_reason": "The original-description abstract reports optimum NaCl (10% w/v), but not the growth range represented by the edge's NaCl range mid2 class. The publisher full-text request returned403; seek range-specific evidence before a final judgment.",
+    "targeting_policy": "Raw source association only; inherited graph DOI fields excluded. Retrieved article identifiers independently checked."
+  },
+  {
+    "canary_ordinal": 5,
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:1e9dec218a07f7e480add8ff273e3a9285f79d57746ca74041702839207a8136",
+    "applicability": "APPLICABLE",
+    "applicability_rule": "phenotype",
+    "resolved_names": [
+      "Rubritalea squalenifaciens",
+      "Rubritalea squalenifaciens DSM 18772",
+      "Rubritalea squalenifaciens Kasai et al. 2007"
+    ],
+    "strain_designations": [
+      "DSM 18772",
+      "DSM 18772, MBIC 08254, NBRC 103619",
+      "HOact 23",
+      "HOact23",
+      "MBIC 8254",
+      "NBRC 103619"
+    ],
+    "primary_references": [
+      {
+        "reference": "doi:10.1099/ijs.0.65010-0",
+        "role": "species_description",
+        "title": "Kasai H, Katsuta A, Sekiguchi H, Matsuda S, Adachi K, Shindo K, Yoon J, Yokota A, Shizuri Y. Rubritalea squalenifaciens sp. nov., a squalene-producing marine bacterium belonging to subdivision 1 of the phylum 'Verrucomicrobia'. Int J Syst Evol Microbiol 2007; 57:1630-1634.",
+        "identity_verified": true,
+        "identity_verification_scope": "association to raw source record only; retrieved paper identity remains unverified",
+        "identity_basis": {
+          "quote": "\"publication_doi\": \"10.1099/ijs.0.65010-0\"",
+          "text_sha256": "7f20d099484890cb7e0653d24ccc9ac1353d825ac5cc15dae6ed33012aeb5b70",
+          "source_relative_path": "lpsn/api_cache/785725.json",
+          "url": "https://doi.org/10.83108/rn.785725",
+          "record_index": 3,
+          "source_binding": "exact/name-resolved LPSN record; linked names flagged by ID"
+        }
+      }
+    ],
+    "primary_references_available": 4,
+    "general_queries": [
+      "(\"Rubritalea squalenifaciens\" OR \"Rubritalea squalenifaciens DSM 18772\" OR \"Rubritalea squalenifaciens Kasai et al. 2007\") AND (motility OR motile OR flagella)",
+      "(\"Rubritalea squalenifaciens\" OR \"Rubritalea squalenifaciens DSM 18772\" OR \"Rubritalea squalenifaciens Kasai et al. 2007\")"
+    ],
+    "fallback_reason": "",
+    "targeting_policy": "Raw source association only; inherited graph DOI fields excluded. Retrieved article identifiers independently checked."
+  },
+  {
+    "canary_ordinal": 6,
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:29bf84d0c1e9bdf144f85d27aabce2fa1a7399148daab58831dbf297e1a93fc6",
+    "applicability": "APPLICABLE",
+    "applicability_rule": "phenotype",
+    "resolved_names": [
+      "Frankia casuarinae",
+      "Frankia casuarinae Nouioui et al. 2016"
+    ],
+    "strain_designations": [
+      "CECT 9043",
+      "CcI3",
+      "Ccl3, HFP020203, HFPCcl3",
+      "DSM 45818",
+      "DSM 45818, CECT 9043"
+    ],
+    "primary_references": [
+      {
+        "reference": "doi:10.1099/ijsem.0.001496",
+        "role": "strain_reference",
+        "title": "Proposal of a type strain for Frankia alni (Woronin 1866) Von Tubeuf 1895, emended description of Frankia alni, and recognition of Frankia casuarinae sp. nov. and Frankia elaeagni sp. nov",
+        "identity_verified": true,
+        "identity_verification_scope": "association to raw source record only; retrieved paper identity remains unverified",
+        "identity_basis": {
+          "quote": "\"doi/url\": \"10.1099/ijsem.0.001496\"",
+          "text_sha256": "3593dc56b92ea4944ba52e29914aba01b9afe421549ea03c7fe12678b266f9b2",
+          "source_relative_path": "bacdive_strains.json",
+          "url": "https://bacdive.dsmz.de/strain/131723",
+          "record_index": 1,
+          "source_binding": "exact strain/culture ID"
+        }
+      }
+    ],
+    "primary_references_available": 2,
+    "general_queries": [
+      "(\"Frankia casuarinae\" OR \"Frankia casuarinae Nouioui et al. 2016\") AND (temperature OR growth OR optimum)",
+      "(\"Frankia casuarinae\" OR \"Frankia casuarinae Nouioui et al. 2016\")"
+    ],
+    "fallback_reason": "",
+    "targeting_policy": "Raw source association only; inherited graph DOI fields excluded. Retrieved article identifiers independently checked."
+  },
+  {
+    "canary_ordinal": 7,
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:e2e1f2ff6566d433d374697abe49bb47e0c3bbaa0f4a3fc120786100f5276df8",
+    "applicability": "APPLICABLE",
+    "applicability_rule": "habitat_forward",
+    "resolved_names": [
+      "Sulfolobus acidocaldarius GG12-C01-17"
+    ],
+    "strain_designations": [],
+    "primary_references": [],
+    "primary_references_available": 0,
+    "general_queries": [
+      "(\"Sulfolobus acidocaldarius GG12-C01-17\") AND (\"GG12-C01-17\" OR \"hot spring\" OR temperature)",
+      "(\"Sulfolobus acidocaldarius GG12-C01-17\")"
+    ],
+    "fallback_reason": "",
+    "targeting_policy": "Raw source association only; inherited graph DOI fields excluded. Retrieved article identifiers independently checked."
+  },
+  {
+    "canary_ordinal": 8,
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:08364e6fa56f99861b455bd516ac6d02f644c8bfce840e4d89235827a5274f19",
+    "applicability": "NOT_APPLICABLE",
+    "applicability_rule": "related_identity",
+    "resolved_names": [
+      "Bacillus A",
+      "Bacillus A cereus",
+      "Bacillus cereus"
+    ],
+    "strain_designations": [
+      "ATCC 14579",
+      "BCRC 10603",
+      "CCM 2010",
+      "CCRC 10603",
+      "CCUG 7414",
+      "CIP 66.24",
+      "DSM 22649",
+      "DSM 22650",
+      "DSM 22651",
+      "DSM 22652",
+      "DSM 30589",
+      "DSM 30600",
+      "DSM 30783",
+      "DSM 30797",
+      "DSM 31",
+      "ES2-11b1",
+      "ES2-4a1",
+      "GR177, SDA GR177",
+      "HAMBI 1887",
+      "IAM 12605",
+      "IFO 15305",
+      "JCM 2152",
+      "LMG 6923",
+      "NBRC 15305",
+      "NCCB 75008",
+      "NCDO 1771",
+      "NCFB 1771",
+      "NCIB 9373",
+      "NCIMB 9373",
+      "NCTC 2599",
+      "NRRL B-3711",
+      "SU160",
+      "SU226",
+      "TW3/1",
+      "UM 218",
+      "VKM B-504",
+      "W12/3"
+    ],
+    "primary_references": [],
+    "primary_references_available": 0,
+    "general_queries": [],
+    "fallback_reason": "",
+    "targeting_policy": "Raw source association only; inherited graph DOI fields excluded. Retrieved article identifiers independently checked."
+  },
+  {
+    "canary_ordinal": 9,
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:ed56fbf2385de9e176911719c10aa8481f4d08a80154ae6ebddbe92bb5e49ff1",
+    "applicability": "NOT_APPLICABLE",
+    "applicability_rule": "related_identity",
+    "resolved_names": [
+      "unclassified Chromatiales"
+    ],
+    "strain_designations": [],
+    "primary_references": [],
+    "primary_references_available": 0,
+    "general_queries": [],
+    "fallback_reason": "",
+    "targeting_policy": "Raw source association only; inherited graph DOI fields excluded. Retrieved article identifiers independently checked."
+  },
+  {
+    "canary_ordinal": 10,
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:026dd7ede5857bbf50236bf3cee6f4dd91a07760059144ef374ad108aae8fa0c",
+    "applicability": "NOT_APPLICABLE",
+    "applicability_rule": "identity_taxonomy",
+    "resolved_names": [
+      "REEP01 sp964517265",
+      "g  REEP01",
+      "g REEP01"
+    ],
+    "strain_designations": [],
+    "primary_references": [],
+    "primary_references_available": 0,
+    "general_queries": [],
+    "fallback_reason": "",
+    "targeting_policy": "Raw source association only; inherited graph DOI fields excluded. Retrieved article identifiers independently checked."
+  },
+  {
+    "canary_ordinal": 11,
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:f1e021faa133fcf869f6367e3174b87709e48fbf56d066ee7d619e63d28a6b8b",
+    "applicability": "NOT_APPLICABLE",
+    "applicability_rule": "identity_taxonomy",
+    "resolved_names": [
+      "0-14-0-80-60-11 sp018897875",
+      "Sphingomicrobium sp040390365"
+    ],
+    "strain_designations": [],
+    "primary_references": [],
+    "primary_references_available": 0,
+    "general_queries": [],
+    "fallback_reason": "",
+    "targeting_policy": "Raw source association only; inherited graph DOI fields excluded. Retrieved article identifiers independently checked."
+  },
+  {
+    "canary_ordinal": 12,
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:2994f423f2db927d4eb46d9067505162efcabde804685e2676147d422c164f4e",
+    "applicability": "NOT_APPLICABLE",
+    "applicability_rule": "identity_taxonomy",
+    "resolved_names": [
+      "Udaeobacter sp046732875",
+      "g  Udaeobacter",
+      "g Udaeobacter"
+    ],
+    "strain_designations": [],
+    "primary_references": [],
+    "primary_references_available": 0,
+    "general_queries": [],
+    "fallback_reason": "",
+    "targeting_policy": "Raw source association only; inherited graph DOI fields excluded. Retrieved article identifiers independently checked."
+  },
+  {
+    "canary_ordinal": 13,
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:b9cddf067006ec37d3fa8447f3d14ad3a8c2cd1bcf60137b04f8854899056ba7",
+    "applicability": "NOT_APPLICABLE",
+    "applicability_rule": "identity_taxonomy",
+    "resolved_names": [
+      "Bifidobacterium",
+      "Bifidobacterium ruminantium"
+    ],
+    "strain_designations": [
+      "ATCC 49390",
+      "CCUG 34975",
+      "CGMCC 1.2241",
+      "DSM 6489",
+      "DSM 6489, ATCC 49390, CCUG 34975, JCM 8222, CGMCC 1.2241, KCTC 3425, LMG 12588, LMG 21811",
+      "DSM 6490",
+      "DSM 6491",
+      "JCM 34114",
+      "JCM 8221, LMG 18895",
+      "JCM 8222",
+      "JCM 8509, LMG 18896",
+      "LMG 12588",
+      "Ru666",
+      "Ru679",
+      "Ru687"
+    ],
+    "primary_references": [],
+    "primary_references_available": 0,
+    "general_queries": [],
+    "fallback_reason": "",
+    "targeting_policy": "Raw source association only; inherited graph DOI fields excluded. Retrieved article identifiers independently checked."
+  },
+  {
+    "canary_ordinal": 14,
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:78725eeeea961ce059a55092aebc34b522b1b4ffc2ea844207ce7049a039cc80",
+    "applicability": "NOT_APPLICABLE",
+    "applicability_rule": "identity_taxonomy",
+    "resolved_names": [
+      "Stackebrandtia nassauensis"
+    ],
+    "strain_designations": [
+      "DSM 44728",
+      "DSM 44728, CIP 108903, NRRL B-16338, JCM 14905, BCRC 16844, NBRC 102104",
+      "JCM 14905",
+      "LLR-40K-21",
+      "NBRC 102104",
+      "NRRL B-16338"
+    ],
+    "primary_references": [],
+    "primary_references_available": 0,
+    "general_queries": [],
+    "fallback_reason": "",
+    "targeting_policy": "Raw source association only; inherited graph DOI fields excluded. Retrieved article identifiers independently checked."
+  },
+  {
+    "canary_ordinal": 15,
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:958b851ced5f6d78d6e1406caa518c6eadc2463b0db28acfa52eb2c5b6d2be14",
+    "applicability": "NOT_APPLICABLE",
+    "applicability_rule": "identity_taxonomy",
+    "resolved_names": [
+      "Thiobacillus",
+      "Thiobacillus cuprinus",
+      "Thiobacillus delicatus",
+      "Thiomonas delicata"
+    ],
+    "strain_designations": [
+      "DSM 17897",
+      "DSM 5495",
+      "H\u00f65",
+      "IAM 12624",
+      "IFO 14566",
+      "KCTC 2851",
+      "NBRC 102094",
+      "NBRC 102145",
+      "NBRC 14566",
+      "THI 91"
+    ],
+    "primary_references": [],
+    "primary_references_available": 0,
+    "general_queries": [],
+    "fallback_reason": "",
+    "targeting_policy": "Raw source association only; inherited graph DOI fields excluded. Retrieved article identifiers independently checked."
+  },
+  {
+    "canary_ordinal": 16,
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:3b4caafa5ebbb050ff125edf63b1be3fb0580f251696a3b54c208df7b93c7081",
+    "applicability": "NOT_APPLICABLE",
+    "applicability_rule": "identity_taxonomy",
+    "resolved_names": [
+      "Actinomadura",
+      "Actinomadura amylolytica",
+      "Thermomonospora amylolytica"
+    ],
+    "strain_designations": [
+      "CCTCC AA 2012024",
+      "DSM 45822",
+      "JCM 30324",
+      "YIM 77502"
+    ],
+    "primary_references": [],
+    "primary_references_available": 0,
+    "general_queries": [],
+    "fallback_reason": "",
+    "targeting_policy": "Raw source association only; inherited graph DOI fields excluded. Retrieved article identifiers independently checked."
+  },
+  {
+    "canary_ordinal": 17,
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:eac77b068d22c18c421449189206c1de9b55b3cb04759ffcaf3e0bba7c9bff52",
+    "applicability": "NOT_APPLICABLE",
+    "applicability_rule": "identity_taxonomy",
+    "resolved_names": [
+      "Polaribacter septentrionalilitoris"
+    ],
+    "strain_designations": [
+      "ANORD1",
+      "DSM 110039",
+      "MTCC 12685",
+      "MTCC 12685, DSM 110039, NCIMB 15081",
+      "NCIMB 15081"
+    ],
+    "primary_references": [],
+    "primary_references_available": 0,
+    "general_queries": [],
+    "fallback_reason": "",
+    "targeting_policy": "Raw source association only; inherited graph DOI fields excluded. Retrieved article identifiers independently checked."
+  },
+  {
+    "canary_ordinal": 18,
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:196cb72bfdd5322cfc78a5000243eb1f3c51cef2f705155c82a0f2c6be713ee4",
+    "applicability": "NOT_APPLICABLE",
+    "applicability_rule": "identity_taxonomy",
+    "resolved_names": [
+      "Aliivibrio",
+      "Vibrionaceae"
+    ],
+    "strain_designations": [],
+    "primary_references": [],
+    "primary_references_available": 0,
+    "general_queries": [],
+    "fallback_reason": "",
+    "targeting_policy": "Raw source association only; inherited graph DOI fields excluded. Retrieved article identifiers independently checked."
+  },
+  {
+    "canary_ordinal": 19,
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:054923c2d2f6e170c7fa2ee0b76d59b9d4eab32f6e9b09165c7a3415bfc17a18",
+    "applicability": "APPLICABLE",
+    "applicability_rule": "metabolic_substrate",
+    "resolved_names": [
+      "Jonquetella anthropi",
+      "Jonquetella anthropi ADV 126, DSM 22815",
+      "Jonquetella anthropi E3 33 E1",
+      "jonquetella anthropi"
+    ],
+    "strain_designations": [
+      "ADV 126",
+      "AIP 136.05",
+      "CCUG 53819",
+      "CIP 109408",
+      "DSM 22815",
+      "DSM 22815, CCUG 53819, CIP 109408, ADV 126, AIP 136.05"
+    ],
+    "primary_references": [
+      {
+        "reference": "doi:10.1099/ijs.0.65213-0",
+        "role": "species_description",
+        "title": "Jumas-Bilak E, Carlier JP, Jean-Pierre H, Citron D, Bernard K, Damay A, Gay B, Teyssier C, Campos J, Marchandin H. Jonquetella anthropi gen. nov., sp. nov., the first member of the candidate phylum 'Synergistetes' isolated from man. Int J Syst Evol Microbiol 2007; 57:2743-2748.",
+        "identity_verified": true,
+        "identity_verification_scope": "association to raw source record only; retrieved paper identity remains unverified",
+        "identity_basis": {
+          "quote": "\"publication_doi\": \"10.1099/ijs.0.65213-0\"",
+          "text_sha256": "2f96a74f4cfd8c069840741c8d81ca6eb2146cfd013068371a6e35e35ad5633f",
+          "source_relative_path": "lpsn/api_cache/787061.json",
+          "url": "https://doi.org/10.83108/rn.787061",
+          "record_index": 10,
+          "source_binding": "exact/name-resolved LPSN record; linked names flagged by ID"
+        }
+      }
+    ],
+    "primary_references_available": 5,
+    "general_queries": [
+      "(\"Jonquetella anthropi\" OR \"Jonquetella anthropi ADV 126, DSM 22815\" OR \"Jonquetella anthropi E3 33 E1\" OR \"jonquetella anthropi\") AND (succinate OR succinic OR \"carbon source\")",
+      "(\"Jonquetella anthropi\" OR \"Jonquetella anthropi ADV 126, DSM 22815\" OR \"Jonquetella anthropi E3 33 E1\")"
+    ],
+    "fallback_reason": "",
+    "targeting_policy": "Raw source association only; inherited graph DOI fields excluded. Retrieved article identifiers independently checked."
+  },
+  {
+    "canary_ordinal": 20,
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:d4aee202865ace623a2620664b7ab42db92031e8bcc894c45d00aae5809b9e43",
+    "applicability": "APPLICABLE",
+    "applicability_rule": "phenotype",
+    "resolved_names": [
+      "Anulomyces agalaxiae",
+      "Mycoplasma agalactiae",
+      "Mycoplasma agalactiae 14628",
+      "Mycoplasmopsis agalactiae",
+      "Mycoplasmopsis agalactiae 14628"
+    ],
+    "strain_designations": [
+      "CIP 59.7",
+      "CIP 59.7, NCTC 10123",
+      "NCTC 10123",
+      "PG2"
+    ],
+    "primary_references": [
+      {
+        "reference": "doi:10.1099/0096266x-5-2-67",
+        "role": "species_description",
+        "title": "Freundt EA. The classification of the pleuropneumonia group of organisms (Borrelomycetales). International Bulletin of Bacteriological Nomenclature and Taxonomy 1955; 5:67-78.",
+        "identity_verified": true,
+        "identity_verification_scope": "association to raw source record only; retrieved paper identity remains unverified",
+        "identity_basis": {
+          "quote": "\"publication_doi\": \"10.1099/0096266x-5-2-67\"",
+          "text_sha256": "6716081aad3738a440887e54a8b93dabb3f61b13babf155aada6f81cfe56bded",
+          "source_relative_path": "lpsn/api_cache/784318.json",
+          "url": "https://doi.org/10.83108/rn.784318",
+          "record_index": 5,
+          "source_binding": "exact/name-resolved LPSN record; linked names flagged by ID"
+        }
+      },
+      {
+        "reference": "doi:10.1007/s10482-018-1047-3",
+        "role": "species_description",
+        "title": "Gupta RS, Sawnani S, Adeolu M, Alnajar S, Oren A. Phylogenetic framework for the phylum Tenericutes based on genome sequence data: proposal for the creation of a new order Mycoplasmoidales ord. nov., containing two new families Mycoplasmoidaceae fam. nov. and Metamycoplasmataceae fam. nov. harbouring Eperythrozoon, Ureaplasma and five novel genera. Antonie Van Leeuwenhoek 2018; 111:1583-1630.",
+        "identity_verified": true,
+        "identity_verification_scope": "association to raw source record only; retrieved paper identity remains unverified",
+        "identity_basis": {
+          "quote": "\"publication_doi\": \"10.1007/s10482-018-1047-3\"",
+          "text_sha256": "acc2c75c74f851db47559859f0df45a29988e991c4bf72b2676679543a1147d7",
+          "source_relative_path": "lpsn/api_cache/798552.json",
+          "url": "https://doi.org/10.83108/rn.798552",
+          "record_index": 6,
+          "source_binding": "exact/name-resolved LPSN record; linked names flagged by ID"
+        }
+      }
+    ],
+    "primary_references_available": 2,
+    "general_queries": [
+      "(\"Anulomyces agalaxiae\" OR \"Mycoplasma agalactiae\" OR \"Mycoplasma agalactiae 14628\" OR \"Mycoplasmopsis agalactiae\" OR \"Mycoplasmopsis agalactiae 14628\") AND (14628 OR morphology OR pleomorphic OR rod)",
+      "(\"Anulomyces agalaxiae\" OR \"Mycoplasma agalactiae\" OR \"Mycoplasma agalactiae 14628\")"
+    ],
+    "fallback_reason": "",
+    "targeting_policy": "Raw source association only; inherited graph DOI fields excluded. Retrieved article identifiers independently checked."
+  },
+  {
+    "canary_ordinal": 21,
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:a897f2eb26a9918531f9464d3daef7cc6b1abf76bbd3aabd5bea90a2e4c99f3c",
+    "applicability": "APPLICABLE",
+    "applicability_rule": "phenotype",
+    "resolved_names": [
+      "Lactobacillus durianis",
+      "Lactobacillus durianis CCUG 45405",
+      "Lactobacillus vaccinostercus",
+      "Lactobacillus vaccinostercus ATCC 33310",
+      "Lactobacillus vaccinostercus DSM 20634",
+      "Paucilactobacillus vaccinostercus",
+      "lactobacillus durianis",
+      "lactobacillus vaccinostercus"
+    ],
+    "strain_designations": [
+      "ATCC 33310",
+      "CCUG 30723",
+      "CCUG 45405",
+      "CIP 102807",
+      "DSM 15802, CCUG 45405, CIP 107501, LMG 19193, JCM 12184",
+      "DSM 20634",
+      "DSM 20634, ATCC 33310, LMG 9215, NCIMB 11808, NRIC 1075, CCUG 30723, JCM 1716, BCRC 14005, CECT 5925, CIP 102807, KCTC 3608, NCFB 2784, TUA 055B",
+      "JCM 12184",
+      "JCM 1716",
+      "LMG 19193",
+      "LMG 9215",
+      "MC11",
+      "NCIB 11808",
+      "NCIMB 11808",
+      "NRIC 1075",
+      "TUA 055B",
+      "X-94"
+    ],
+    "primary_references": [
+      {
+        "reference": "doi:10.2323/jgam.25.215",
+        "role": "species_description",
+        "title": "Okada S, Suzuki Y, Kozaki M. A new heterofermentative Lactobacillus species with meso-diaminopimelic acid in peptidoglycan, Lactobacillus vaccinostercus Kozaki and Okada sp. nov. J. Gen. Appl. Microbiol. 1979; 25:215-221.",
+        "identity_verified": true,
+        "identity_verification_scope": "association to raw source record only; retrieved paper identity remains unverified",
+        "identity_basis": {
+          "quote": "\"publication_doi\": \"10.2323/jgam.25.215\"",
+          "text_sha256": "87ea95c22e10d605d4cf7c7b5b6469f61b8858c33976cc243437c33037b7fe3b",
+          "source_relative_path": "lpsn/api_cache/777405.json",
+          "url": "https://doi.org/10.83108/rn.777405",
+          "record_index": 15,
+          "source_binding": "exact/name-resolved LPSN record; linked names flagged by ID"
+        }
+      },
+      {
+        "reference": "doi:10.1099/ijs.0.02091-0",
+        "role": "species_description",
+        "title": "Leisner JJ, Vancanneyt M, Lefebvre K, Vandemeulebroecke K, Hoste B, Vilalta NE, Rusul G, Swings J. Lactobacillus durianis sp. nov., isolated from an acid-fermented condiment (tempoyak) in Malaysia. Int J Syst Evol Microbiol 2002; 52:927-931.",
+        "identity_verified": true,
+        "identity_verification_scope": "association to raw source record only; retrieved paper identity remains unverified",
+        "identity_basis": {
+          "quote": "\"publication_doi\": \"10.1099/ijs.0.02091-0\"",
+          "text_sha256": "3f291de1d45066dd749cb17d28a62c05b2283bf098b79206a1cdfe0d8e6e0687",
+          "source_relative_path": "lpsn/api_cache/777298.json",
+          "url": "https://doi.org/10.83108/rn.777298",
+          "record_index": 14,
+          "source_binding": "exact/name-resolved LPSN record; linked names flagged by ID"
+        }
+      },
+      {
+        "reference": "doi:10.1099/ijs.0.64316-0",
+        "role": "species_description",
+        "title": "Dellaglio F, Vancanneyt M, Endo A, Vandamme P, Felis GE, Castioni A, Fujimoto J, Watanabe K, Okada S. Lactobacillus durianis Leisner et al. 2002 is a later heterotypic synonym of Lactobacillus vaccinostercus Kozaki and Okada 1983. Int J Syst Evol Microbiol 2006; 56:1721-1724.",
+        "identity_verified": true,
+        "identity_verification_scope": "association to raw source record only; retrieved paper identity remains unverified",
+        "identity_basis": {
+          "quote": "\"publication_doi\": \"10.1099/ijs.0.64316-0\"",
+          "text_sha256": "87ea95c22e10d605d4cf7c7b5b6469f61b8858c33976cc243437c33037b7fe3b",
+          "source_relative_path": "lpsn/api_cache/777405.json",
+          "url": "https://doi.org/10.83108/rn.777405",
+          "record_index": 15,
+          "source_binding": "exact/name-resolved LPSN record; linked names flagged by ID"
+        }
+      }
+    ],
+    "primary_references_available": 7,
+    "general_queries": [
+      "(\"Lactobacillus durianis\" OR \"Lactobacillus durianis CCUG 45405\" OR \"Lactobacillus vaccinostercus\" OR \"Lactobacillus vaccinostercus ATCC 33310\" OR \"Lactobacillus vaccinostercus DSM 20634\" OR \"Paucilactobacillus vaccinostercus\") AND (aerobic OR anaerobic OR oxygen)",
+      "(\"Lactobacillus durianis\" OR \"Lactobacillus durianis CCUG 45405\" OR \"Lactobacillus vaccinostercus\")"
+    ],
+    "fallback_reason": "",
+    "targeting_policy": "Raw source association only; inherited graph DOI fields excluded. Retrieved article identifiers independently checked."
+  },
+  {
+    "canary_ordinal": 22,
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:0e976209d5b02634411f0f3f5914b4b0fbc9576a3a172587ce669b5a39f7530d",
+    "applicability": "APPLICABLE",
+    "applicability_rule": "medium_growth",
+    "resolved_names": [
+      "Eikenella corrodens"
+    ],
+    "strain_designations": [
+      "195-83",
+      "207-76",
+      "26-73",
+      "333/54-55",
+      "53-83",
+      "638.86",
+      "665.84",
+      "982-85",
+      "ATCC 23834",
+      "CCUG 2138",
+      "CIP 100021",
+      "CIP 100139",
+      "CIP 100439",
+      "CIP 101066",
+      "CIP 102032",
+      "CIP 102646",
+      "CIP 70.75",
+      "CIP 76.122",
+      "DSM 8340",
+      "DSM 8340, ATCC 23834, KCTC 15198, CCUG 2138, JCM 12952, CIP 70.75, LMG 15557, LMG 3978, LMG 7827, NCTC 10596",
+      "JCM 10962",
+      "JCM 12952",
+      "LMG 15557",
+      "NCTC 10596"
+    ],
+    "primary_references": [
+      {
+        "reference": "doi:10.1099/00207713-22-2-73",
+        "role": "species_description",
+        "title": "Jackson FL, Goodman YE. Transfer of the facultatively anaerobic organism Bacteroides corrodens Eiken to a new genus Eikenella. International Journal of Systematic Bacteriology 1972; 22:73-77.",
+        "identity_verified": true,
+        "identity_verification_scope": "association to raw source record only; retrieved paper identity remains unverified",
+        "identity_basis": {
+          "quote": "\"publication_doi\": \"10.1099/00207713-22-2-73\"",
+          "text_sha256": "f787afe98428ffd7f097a277089be57ea81f0191422a4e2c5edc133126f721c5",
+          "source_relative_path": "lpsn/api_cache/775886.json",
+          "url": "https://doi.org/10.83108/rn.775886",
+          "record_index": 10,
+          "source_binding": "exact/name-resolved LPSN record; linked names flagged by ID"
+        }
+      }
+    ],
+    "primary_references_available": 3,
+    "general_queries": [
+      "(\"Eikenella corrodens\") AND (\"EG medium\" OR \"Eggerth\" OR \"Gagnon\")",
+      "(\"Eikenella corrodens\")"
+    ],
+    "fallback_reason": "",
+    "targeting_policy": "Raw source association only; inherited graph DOI fields excluded. Retrieved article identifiers independently checked."
+  },
+  {
+    "canary_ordinal": 23,
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:f48e330280a365fea46d840bc1b272353348bbf3942d67dcde06be8d75d2d378",
+    "applicability": "NOT_APPLICABLE",
+    "applicability_rule": "recipe_composition",
+    "resolved_names": [],
+    "strain_designations": [],
+    "primary_references": [],
+    "primary_references_available": 0,
+    "general_queries": [],
+    "fallback_reason": "",
+    "targeting_policy": "Raw source association only; inherited graph DOI fields excluded. Retrieved article identifiers independently checked."
+  },
+  {
+    "canary_ordinal": 24,
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:ff28db362d09476492c0963c4d100313badb2e9e7adf8584f36783bacd8d2eed",
+    "applicability": "APPLICABLE",
+    "applicability_rule": "medium_growth",
+    "resolved_names": [
+      "Serratia marcescens",
+      "Serratia marcescens subsp. sakuensis"
+    ],
+    "strain_designations": [
+      "296, 5751",
+      "37",
+      "ATCC 13880",
+      "BS 303, 504",
+      "CCUG 1647",
+      "CFBP 4226",
+      "CIP 103235",
+      "DSM 12486",
+      "DSM 12487",
+      "DSM 14187",
+      "DSM 17174, CIP 107489, JCM 11315, CCUG 53879, CCM 7122",
+      "DSM 30121",
+      "DSM 30121, ATCC 13880, CCM 303, DSM 47, NCDC 813-60, NCIB 9155, NCTC 10211, CCUG 1647, JCM 1239, BCRC 10948, CDC 813-60, CECT 846, CGMCC 1.2818, CIP 103235, HAMBI 1286, IAM 12142, KCTC 12457, LMG 2792, NBRC 102204, NCIMB 9155, NRRL B-2544, VKM B-1248, VTT E-97865",
+      "DSM 30122",
+      "DSM 30124",
+      "DSM 30126",
+      "HAMBI 1286",
+      "HY",
+      "JCM 1239",
+      "KRED",
+      "LMG 2792",
+      "NBRC 102204",
+      "NCTC 10211",
+      "NRRL B-2544",
+      "SM-6-F'lac+, W838, SM-6-F'<I>lac</I><SUP>+</SUP>",
+      "Sma, W1659",
+      "VKM B-1248",
+      "WS 10207"
+    ],
+    "primary_references": [],
+    "primary_references_available": 2,
+    "general_queries": [
+      "(\"Serratia marcescens\" OR \"Serratia marcescens subsp. sakuensis\") AND (\"nutrient agar\" OR \"medium 1\" OR DSMZ)",
+      "(\"Serratia marcescens\" OR \"Serratia marcescens subsp. sakuensis\")"
+    ],
+    "fallback_reason": "",
+    "targeting_policy": "Raw source association only; inherited graph DOI fields excluded. Retrieved article identifiers independently checked."
+  },
+  {
+    "canary_ordinal": 25,
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:7e7a4513f3d5c2978436d69f19042ba17d729fc129ec28fa13c3f9833b461147",
+    "applicability": "APPLICABLE",
+    "applicability_rule": "metabolic_substrate",
+    "resolved_names": [
+      "Moraxella ovis",
+      "Neisseria ovis"
+    ],
+    "strain_designations": [
+      "199/55",
+      "199/55, LNP 427",
+      "ATCC 33078",
+      "CCUG 354",
+      "CCUG 47600",
+      "DSM 18075",
+      "DSM 18075, ATCC 33078, CCUG 354, CIP 81.9, LMG 8381, NCTC 11227, CIP 81.09, ITG 2253",
+      "LMG 8381",
+      "NCTC 11227"
+    ],
+    "primary_references": [
+      {
+        "reference": "doi:10.1093/infdis/106.2.162",
+        "role": "species_description",
+        "title": "Lindqvist K. A Neisseria species associated with infectious keratoconjunctivitis of sheep--Neisseria ovis Nov. Spec. J Infect Dis 1960; 106:162-165.",
+        "identity_verified": true,
+        "identity_verification_scope": "association to raw source record only; retrieved paper identity remains unverified",
+        "identity_basis": {
+          "quote": "\"publication_doi\": \"10.1093/infdis/106.2.162\"",
+          "text_sha256": "5dcf3fba8b9bd9117e246768108fe8e9b58eae95e89b05d0ab1bffdf8a50d1ff",
+          "source_relative_path": "lpsn/api_cache/784469.json",
+          "url": "https://doi.org/10.83108/rn.784469",
+          "record_index": 4,
+          "source_binding": "exact/name-resolved LPSN record; linked names flagged by ID"
+        }
+      },
+      {
+        "reference": "doi:10.1099/00221287-51-3-387",
+        "role": "species_description",
+        "title": "Henriksen SD, Bovre K. The taxonomy of the genera Moraxella and Neisseria. J Gen Microbiol 1968; 51:387-392.",
+        "identity_verified": true,
+        "identity_verification_scope": "association to raw source record only; retrieved paper identity remains unverified",
+        "identity_basis": {
+          "quote": "\"publication_doi\": \"10.1099/00221287-51-3-387\"",
+          "text_sha256": "3df252818dd8eb3c8bb5d1e55a858b32051141cad0e9cf5887df8124ceabd389",
+          "source_relative_path": "lpsn/api_cache/784287.json",
+          "url": "https://doi.org/10.83108/rn.784287",
+          "record_index": 3,
+          "source_binding": "exact/name-resolved LPSN record; linked names flagged by ID"
+        }
+      },
+      {
+        "reference": "doi:10.1099/ijsem.0.005511",
+        "role": "species_description",
+        "title": "Li F, Zhu P, Li Z, Zhao W, Gao H, Hong Q, Song J, Yang S. Moraxella nasovis sp. nov., isolated from a sheep with respiratory disease. Int J Syst Evol Microbiol 2022; 72:5511.",
+        "identity_verified": true,
+        "identity_verification_scope": "association to raw source record only; retrieved paper identity remains unverified",
+        "identity_basis": {
+          "quote": "\"publication_doi\": \"10.1099/ijsem.0.005511\"",
+          "text_sha256": "3df252818dd8eb3c8bb5d1e55a858b32051141cad0e9cf5887df8124ceabd389",
+          "source_relative_path": "lpsn/api_cache/784287.json",
+          "url": "https://doi.org/10.83108/rn.784287",
+          "record_index": 3,
+          "source_binding": "exact/name-resolved LPSN record; linked names flagged by ID"
+        }
+      }
+    ],
+    "primary_references_available": 5,
+    "general_queries": [
+      "(\"Moraxella ovis\" OR \"Neisseria ovis\") AND (nitrate OR reduction OR respiration)",
+      "(\"Moraxella ovis\" OR \"Neisseria ovis\")"
+    ],
+    "fallback_reason": "",
+    "targeting_policy": "Raw source association only; inherited graph DOI fields excluded. Retrieved article identifiers independently checked."
+  },
+  {
+    "canary_ordinal": 26,
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:5eab3186def91d4d44ad597b27e56a33b7cedcdff55e6adfe8d18136d124789b",
+    "applicability": "APPLICABLE",
+    "applicability_rule": "metabolic_substrate",
+    "resolved_names": [
+      "Ochrobactrum sp. 23A/997/2015"
+    ],
+    "strain_designations": [],
+    "primary_references": [],
+    "primary_references_available": 0,
+    "general_queries": [
+      "(\"Ochrobactrum sp. 23A/997/2015\") AND (xylan OR hydrolysis OR \"23A/997/2015\")",
+      "(\"Ochrobactrum sp. 23A/997/2015\")"
+    ],
+    "fallback_reason": "",
+    "targeting_policy": "Raw source association only; inherited graph DOI fields excluded. Retrieved article identifiers independently checked."
+  },
+  {
+    "canary_ordinal": 27,
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:802c0927d9f3e5dd4cf87393066040662072c68bf6ccad7502615b0efcb2f6f8",
+    "applicability": "APPLICABLE",
+    "applicability_rule": "metabolic_substrate",
+    "resolved_names": [
+      "Stutzerimonas frequens"
+    ],
+    "strain_designations": [
+      "CCUG 44594",
+      "DNSP21",
+      "DSM 6082",
+      "LMG 18520"
+    ],
+    "primary_references": [
+      {
+        "reference": "doi:10.3390/microorganisms10071363",
+        "role": "species_description",
+        "title": "Gomila M, Mulet M, Garcia-Valdes E, Lalucat J. Genome-Based Taxonomy of the Genus Stutzerimonas and Proposal of S. frequens sp. nov. and S. degradans sp. nov. and Emended Descriptions of S. perfectomarina and S. chloritidismutans. Microorganisms 2022; 10:0.",
+        "identity_verified": true,
+        "identity_verification_scope": "association to raw source record only; retrieved paper identity remains unverified",
+        "identity_basis": {
+          "quote": "\"publication_doi\": \"10.3390/microorganisms10071363\"",
+          "text_sha256": "dc9e3d739ea8b93ff064640931bdef3ab51df850c16542ed58cc00138e195292",
+          "source_relative_path": "lpsn/api_cache/29672.json",
+          "url": "https://doi.org/10.83108/rn.29672",
+          "record_index": 1,
+          "source_binding": "exact/name-resolved LPSN record; linked names flagged by ID"
+        }
+      }
+    ],
+    "primary_references_available": 1,
+    "general_queries": [
+      "(\"Stutzerimonas frequens\") AND (fumarate OR respiration OR \"electron acceptor\")",
+      "(\"Stutzerimonas frequens\")"
+    ],
+    "fallback_reason": "",
+    "targeting_policy": "Raw source association only; inherited graph DOI fields excluded. Retrieved article identifiers independently checked."
+  },
+  {
+    "canary_ordinal": 28,
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:35145e15e693c995b3dd9a8919e8fd4a32948f6f141fbb6d8254b7b6672e4f06",
+    "applicability": "APPLICABLE",
+    "applicability_rule": "metabolic_substrate",
+    "resolved_names": [
+      "Microvirga flavescens"
+    ],
+    "strain_designations": [
+      "GDMCC 1.1356",
+      "KCTC 62433",
+      "KCTC 62433, GDMCC 1.1356",
+      "c27j1"
+    ],
+    "primary_references": [
+      {
+        "reference": "doi:10.1099/ijsem.0.003189",
+        "role": "species_description",
+        "title": "Zhang XJ, Zhang J, Yao Q, Feng GD, Zhu HH. Microvirga flavescens sp. nov., a novel bacterium isolated from forest soil and emended description of the genus Microvirga. Int J Syst Evol Microbiol 2019; 69:667-671.",
+        "identity_verified": true,
+        "identity_verification_scope": "association to raw source record only; retrieved paper identity remains unverified",
+        "identity_basis": {
+          "quote": "\"publication_doi\": \"10.1099/ijsem.0.003189\"",
+          "text_sha256": "ec468a1683e2530fd8e981367b85495b29eb85991ec4961babbab3431a4a100d",
+          "source_relative_path": "lpsn/api_cache/800138.json",
+          "url": "https://doi.org/10.83108/rn.800138",
+          "record_index": 2,
+          "source_binding": "exact/name-resolved LPSN record; linked names flagged by ID"
+        }
+      }
+    ],
+    "primary_references_available": 1,
+    "general_queries": [
+      "(\"Microvirga flavescens\") AND (tartrate OR tartaric OR growth)",
+      "(\"Microvirga flavescens\")"
+    ],
+    "fallback_reason": "",
+    "targeting_policy": "Raw source association only; inherited graph DOI fields excluded. Retrieved article identifiers independently checked."
+  },
+  {
+    "canary_ordinal": 29,
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:f92330e3c61e4be17565c1b4c283d1500c557a648b34a74d197afe2156a03137",
+    "applicability": "APPLICABLE",
+    "applicability_rule": "metabolic_substrate",
+    "resolved_names": [
+      "Chryseosolibacter indicum",
+      "Chryseosolibacter indicus"
+    ],
+    "strain_designations": [
+      "DSM 111597",
+      "DSM 111597, NCCB 100800",
+      "NCCB 100800",
+      "PWU20",
+      "PWu 9393, PWU 20"
+    ],
+    "primary_references": [
+      {
+        "reference": "doi:10.1007/s10482-022-01756-2",
+        "role": "species_description",
+        "title": "Octaviana S, Lorenczyk S, Ackert F, Fenske L, Wink J. Four new members of the family Cytophagaceae: Chryseosolibacter histidini gen. nov., sp. nov., Chryseosolibacter indicus gen. nov., sp. nov., Dawidia cretensis, gen. nov., sp. nov., and Dawidia soli, gen. nov., sp. nov. isolated from diverse habitat. Antonie Van Leeuwenhoek 2022; 115:1059-1072.",
+        "identity_verified": true,
+        "identity_verification_scope": "association to raw source record only; retrieved paper identity remains unverified",
+        "identity_basis": {
+          "quote": "\"publication_doi\": \"10.1007/s10482-022-01756-2\"",
+          "text_sha256": "a6ef3d3093f29b365cfdd80a5c29e5c3137b57b75f2b07b4f8c0970b116322cc",
+          "source_relative_path": "lpsn/api_cache/67856.json",
+          "url": "https://doi.org/10.83108/rn.67856",
+          "record_index": 3,
+          "source_binding": "exact/name-resolved LPSN record; linked names flagged by ID"
+        }
+      }
+    ],
+    "primary_references_available": 1,
+    "general_queries": [
+      "(\"Chryseosolibacter indicum\" OR \"Chryseosolibacter indicus\") AND (plastic OR polymer OR degradation)",
+      "(\"Chryseosolibacter indicum\" OR \"Chryseosolibacter indicus\")"
+    ],
+    "fallback_reason": "",
+    "targeting_policy": "Raw source association only; inherited graph DOI fields excluded. Retrieved article identifiers independently checked."
+  },
+  {
+    "canary_ordinal": 30,
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:70eafeaca41c674a4ba16a5efabc5a0e425ce5510734bc4ae3fe6df007ea669c",
+    "applicability": "APPLICABLE",
+    "applicability_rule": "metabolic_substrate",
+    "resolved_names": [
+      "Candidatus Frankia alpina",
+      "Frankia alpina"
+    ],
+    "strain_designations": [],
+    "primary_references": [],
+    "primary_references_available": 0,
+    "general_queries": [
+      "(\"Candidatus Frankia alpina\" OR \"Frankia alpina\") AND (galactarate OR mucate OR mucic)",
+      "(\"Candidatus Frankia alpina\" OR \"Frankia alpina\")"
+    ],
+    "fallback_reason": "",
+    "targeting_policy": "Raw source association only; inherited graph DOI fields excluded. Retrieved article identifiers independently checked."
+  },
+  {
+    "canary_ordinal": 31,
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:5a289e6c516c8005c7be72cccd40cbefde33e1aab35e60e0a1224517888ac090",
+    "applicability": "APPLICABLE",
+    "applicability_rule": "product_consumption",
+    "resolved_names": [
+      "Staphylococcus kloosii"
+    ],
+    "strain_designations": [
+      "ATCC 43959",
+      "CCUG 30110",
+      "CCUG 38376, CCM 4532",
+      "CIP 103503",
+      "DSM 20676",
+      "DSM 20676, ATCC 43959, CCUG 30110, CCM 3834, SC 210, CIP 103503, GIFU 10764",
+      "DSM 20677",
+      "DSM 30744",
+      "FR2-36",
+      "GV 253",
+      "NCTC 12415",
+      "NRRL B-14766",
+      "SC 210"
+    ],
+    "primary_references": [
+      {
+        "reference": "doi:10.1016/s0723-2020(84)80007-7",
+        "role": "species_description",
+        "title": "Schleifer KH, Kilpper-Balz R, Devriese LA. Staphylococcus arlettae sp. nov., S. equorum sp. nov. and S. kloosii sp. nov. : three New coagulase-negative, novobiocin-resistant species from animals. Syst. Appl. Microbiol. 1984; 5:501-509.",
+        "identity_verified": true,
+        "identity_verification_scope": "association to raw source record only; retrieved paper identity remains unverified",
+        "identity_basis": {
+          "quote": "\"publication_doi\": \"10.1016/s0723-2020(84)80007-7\"",
+          "text_sha256": "aeb57657a82d4cb70503cb33018b5c7dfeb93f90fcaa5f55c4f3fddf0a473646",
+          "source_relative_path": "lpsn/api_cache/781199.json",
+          "url": "https://doi.org/10.83108/rn.781199",
+          "record_index": 6,
+          "source_binding": "exact/name-resolved LPSN record; linked names flagged by ID"
+        }
+      },
+      {
+        "reference": "doi:10.1002/9781118960608.gbm00569",
+        "role": "row_primary",
+        "title": "https://doi.org/10.1002/9781118960608.gbm00569",
+        "identity_verified": true,
+        "identity_verification_scope": "association to raw source record only; retrieved paper identity remains unverified",
+        "identity_basis": {
+          "quote": "10.1002/9781118960608.gbm00569",
+          "text_sha256": "591bb9a20fcd7cacabc2ded3884da5dfe3654517fd752fab82ef93c22cd8a3e9",
+          "source_relative_path": "database.csv",
+          "url": "https://github.com/thackmann/MicrobeDecoder/raw/main/Shiny/MicrobeDecoder/data/database/database.zip",
+          "record_index": 0,
+          "source_binding": "exact source selector"
+        }
+      }
+    ],
+    "primary_references_available": 4,
+    "general_queries": [
+      "(\"Staphylococcus kloosii\") AND (lactate OR \"lactic acid\" OR fermentation)",
+      "(\"Staphylococcus kloosii\")"
+    ],
+    "fallback_reason": "",
+    "targeting_policy": "Raw source association only; inherited graph DOI fields excluded. Retrieved article identifiers independently checked."
+  },
+  {
+    "canary_ordinal": 32,
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:bc0ccdeacd77c07acd22afd349f58309daaf6c46c7727a7f1d6dc267ac85cfd6",
+    "applicability": "APPLICABLE",
+    "applicability_rule": "metabolic_process",
+    "resolved_names": [
+      "Desulfobacter halotolerans"
+    ],
+    "strain_designations": [
+      "DSM 11383",
+      "GSL-Ac1"
+    ],
+    "primary_references": [
+      {
+        "reference": "doi:10.1016/s0723-2020(97)80004-5",
+        "role": "species_description",
+        "title": "Brandt KK, Ingvorsen K. Desulfobacter halotolerans sp. nov., a halotolerant acetate-oxidizing sulfatereducing bacterium isolated from sediments of Great Salt Lake, Utah. Syst Appl Microbiol 1997; 20:366-373.",
+        "identity_verified": true,
+        "identity_verification_scope": "association to raw source record only; retrieved paper identity remains unverified",
+        "identity_basis": {
+          "quote": "\"publication_doi\": \"10.1016/s0723-2020(97)80004-5\"",
+          "text_sha256": "cfaf0ce264e6bffdea1d2c10617921f0e5cc71539eb50338909182f549222247",
+          "source_relative_path": "lpsn/api_cache/775534.json",
+          "url": "https://doi.org/10.83108/rn.775534",
+          "record_index": 3,
+          "source_binding": "exact/name-resolved LPSN record; linked names flagged by ID"
+        }
+      },
+      {
+        "reference": "doi:10.1002/9781118960608.gbm01011.pub2",
+        "role": "row_primary",
+        "title": "https://doi.org/10.1002/9781118960608.gbm01011.pub2",
+        "identity_verified": true,
+        "identity_verification_scope": "association to raw source record only; retrieved paper identity remains unverified",
+        "identity_basis": {
+          "quote": "10.1002/9781118960608.gbm01011.pub2",
+          "text_sha256": "dcf78c533e08d0207240536b00905fc9ae7c191426d2509a87f93613d748c8c1",
+          "source_relative_path": "database.csv",
+          "url": "https://github.com/thackmann/MicrobeDecoder/raw/main/Shiny/MicrobeDecoder/data/database/database.zip",
+          "record_index": 0,
+          "source_binding": "exact source selector"
+        }
+      }
+    ],
+    "primary_references_available": 2,
+    "general_queries": [
+      "(\"Desulfobacter halotolerans\") AND (sulfite OR sulphite OR respiration)",
+      "(\"Desulfobacter halotolerans\")"
+    ],
+    "fallback_reason": "",
+    "targeting_policy": "Raw source association only; inherited graph DOI fields excluded. Retrieved article identifiers independently checked."
+  },
+  {
+    "canary_ordinal": 33,
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:8b511fc9c07a2aa0eb178f2319abe148cdafcc6988096c3519e3d693a2f0c377",
+    "applicability": "APPLICABLE",
+    "applicability_rule": "biological_source_field",
+    "resolved_names": [
+      "Tolypothrix lignicola"
+    ],
+    "strain_designations": [],
+    "primary_references": [],
+    "primary_references_available": 0,
+    "general_queries": [
+      "(\"Tolypothrix lignicola\") AND (oxygenic OR photoautotrophy OR photosynthesis)",
+      "(\"Tolypothrix lignicola\")"
+    ],
+    "fallback_reason": "",
+    "targeting_policy": "Raw source association only; inherited graph DOI fields excluded. Retrieved article identifiers independently checked."
+  },
+  {
+    "canary_ordinal": 34,
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:94a8162705b972aa47cc66a9c81f267bfdc06ce1333ca9329b2fb61c568fcf70",
+    "applicability": "APPLICABLE",
+    "applicability_rule": "habitat_inverse",
+    "resolved_names": [],
+    "strain_designations": [],
+    "primary_references": [],
+    "primary_references_available": 0,
+    "general_queries": [],
+    "fallback_reason": "",
+    "targeting_policy": "Raw source association only; inherited graph DOI fields excluded. Retrieved article identifiers independently checked."
+  },
+  {
+    "canary_ordinal": 35,
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:e907a754fd8428fa54be0a5c3ff75f926f74a2137a6b4841a58b0a980e8adde0",
+    "applicability": "APPLICABLE",
+    "applicability_rule": "habitat_inverse",
+    "resolved_names": [
+      "Candidatus Pelagibacter sp. JGI 02 H12",
+      "Pelagibacter sp. JGI 02 H12"
+    ],
+    "strain_designations": [],
+    "primary_references": [],
+    "primary_references_available": 0,
+    "general_queries": [
+      "(\"Candidatus Pelagibacter sp. JGI 02 H12\" OR \"Pelagibacter sp. JGI 02 H12\") AND (\"02_H12\" OR marine OR ocean)",
+      "(\"Candidatus Pelagibacter sp. JGI 02 H12\" OR \"Pelagibacter sp. JGI 02 H12\")"
+    ],
+    "fallback_reason": "",
+    "targeting_policy": "Raw source association only; inherited graph DOI fields excluded. Retrieved article identifiers independently checked."
+  },
+  {
+    "canary_ordinal": 36,
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:cd862de9b834df336bf42e2076e8feae34de8e9af6caf1c426d291d7a9700d53",
+    "applicability": "APPLICABLE",
+    "applicability_rule": "habitat_inverse",
+    "resolved_names": [
+      "Oribacterium"
+    ],
+    "strain_designations": [],
+    "primary_references": [
+      {
+        "reference": "doi:10.1099/ijs.0.63060-0",
+        "role": "species_description",
+        "title": "Carlier JP, K'ouas G, Bonne I, Lozniewski A, Mory F. Oribacterium sinus gen. nov., sp. nov., within the family 'Lachnospiraceae' (phylum Firmicutes). Int J Syst Evol Microbiol 2004; 54:1611-1615.",
+        "identity_verified": true,
+        "identity_verification_scope": "association to raw source record only; retrieved paper identity remains unverified",
+        "identity_basis": {
+          "quote": "\"publication_doi\": \"10.1099/ijs.0.63060-0\"",
+          "text_sha256": "03e092ce8d000100f6c6cf649a1c47ef64bdac49b2835f3e6c4bc3c29d835126",
+          "source_relative_path": "lpsn/api_cache/516224.json",
+          "url": "https://doi.org/10.83108/rn.516224",
+          "record_index": 1,
+          "source_binding": "exact/name-resolved LPSN record; linked names flagged by ID"
+        }
+      },
+      {
+        "reference": "doi:10.1099/ijs.0.060988-0",
+        "role": "species_description",
+        "title": "Sizova MV, Muller PA, Stancyk D, Panikov NS, Mandalakis M, Hazen A, Hohmann T, Doerfert SN, Fowle W, Earl AM, et al. Oribacterium parvum sp. nov. and Oribacterium asaccharolyticum sp. nov., obligately anaerobic bacteria from the human oral cavity, and emended description of the genus Oribacterium. Int J Syst Evol Microbiol 2014; 64:2642-2649.",
+        "identity_verified": true,
+        "identity_verification_scope": "association to raw source record only; retrieved paper identity remains unverified",
+        "identity_basis": {
+          "quote": "\"publication_doi\": \"10.1099/ijs.0.060988-0\"",
+          "text_sha256": "03e092ce8d000100f6c6cf649a1c47ef64bdac49b2835f3e6c4bc3c29d835126",
+          "source_relative_path": "lpsn/api_cache/516224.json",
+          "url": "https://doi.org/10.83108/rn.516224",
+          "record_index": 1,
+          "source_binding": "exact/name-resolved LPSN record; linked names flagged by ID"
+        }
+      }
+    ],
+    "primary_references_available": 2,
+    "general_queries": [
+      "(\"Oribacterium\") AND (habitat OR isolation OR intestinal)",
+      "(\"Oribacterium\")"
+    ],
+    "fallback_reason": "",
+    "targeting_policy": "Raw source association only; inherited graph DOI fields excluded. Retrieved article identifiers independently checked."
+  },
+  {
+    "canary_ordinal": 37,
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:b25344ddaa874060d8c84acd412b850dfdae4b348382eb6fc660a96305a634a4",
+    "applicability": "NOT_APPLICABLE",
+    "applicability_rule": "reaction_scaffolding",
+    "resolved_names": [],
+    "strain_designations": [],
+    "primary_references": [],
+    "primary_references_available": 0,
+    "general_queries": [],
+    "fallback_reason": "",
+    "targeting_policy": "Raw source association only; inherited graph DOI fields excluded. Retrieved article identifiers independently checked."
+  },
+  {
+    "canary_ordinal": 38,
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:6895f7f87a0c5e51638887eaa4591caf1cd0cbdbb248142a8de9e5f31aefad74",
+    "applicability": "NOT_APPLICABLE",
+    "applicability_rule": "identity_taxonomy",
+    "resolved_names": [],
+    "strain_designations": [],
+    "primary_references": [],
+    "primary_references_available": 0,
+    "general_queries": [],
+    "fallback_reason": "",
+    "targeting_policy": "Raw source association only; inherited graph DOI fields excluded. Retrieved article identifiers independently checked."
+  },
+  {
+    "canary_ordinal": 39,
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:3b1ab26b0621e119bf282574aa2367e6b2a0ed8af59cae819f770b69332d9342",
+    "applicability": "NOT_APPLICABLE",
+    "applicability_rule": "reaction_scaffolding",
+    "resolved_names": [],
+    "strain_designations": [],
+    "primary_references": [],
+    "primary_references_available": 0,
+    "general_queries": [],
+    "fallback_reason": "",
+    "targeting_policy": "Raw source association only; inherited graph DOI fields excluded. Retrieved article identifiers independently checked."
+  },
+  {
+    "canary_ordinal": 40,
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:1cd8d31e144fe83fe00e88def9a5120a3440296be692c0890e92f79d558d3c2f",
+    "applicability": "NOT_APPLICABLE",
+    "applicability_rule": "unmapped_bergey_other",
+    "resolved_names": [
+      "Acidianus ambivalens",
+      "Desulfurolobus ambivalens"
+    ],
+    "strain_designations": [
+      "CIP 104912",
+      "DSM 3772",
+      "DSM 3772, JCM 9191, LEI 10",
+      "JCM 9191",
+      "Lei 10"
+    ],
+    "primary_references": [],
+    "primary_references_available": 0,
+    "general_queries": [],
+    "fallback_reason": "",
+    "targeting_policy": "Raw source association only; inherited graph DOI fields excluded. Retrieved article identifiers independently checked."
+  },
+  {
+    "canary_ordinal": 41,
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:c31191848667b3ce0b77b9e5c0624bbe61ecf1bd11d91de6f093064352caeed4",
+    "applicability": "NOT_APPLICABLE",
+    "applicability_rule": "unmapped_bergey_other",
+    "resolved_names": [
+      "Marmoricola bigeumensis",
+      "Nocardioides marmoribigeumensis"
+    ],
+    "strain_designations": [
+      "DSM 19426",
+      "DSM 19426, KCTC 19287, NBRC 105376, MSL 05, JCM 15624",
+      "JCM 15624",
+      "KCTC 19287",
+      "MSL-05"
+    ],
+    "primary_references": [],
+    "primary_references_available": 0,
+    "general_queries": [],
+    "fallback_reason": "",
+    "targeting_policy": "Raw source association only; inherited graph DOI fields excluded. Retrieved article identifiers independently checked."
+  },
+  {
+    "canary_ordinal": 42,
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:c251174f9bcef6d96bfcc275e849d46c1b535820ffc2ce01fa369a4992019ffd",
+    "applicability": "NOT_APPLICABLE",
+    "applicability_rule": "unmapped_bergey_other",
+    "resolved_names": [
+      "Saccharolobus solfataricus",
+      "Sulfolobus solfataricus"
+    ],
+    "strain_designations": [
+      "ATCC 35091",
+      "DSM 1616",
+      "DSM 1616, ATCC 35091, JCM 8930, IFO 15158, IFO 15331, NBRC 15158, NBRC 15331",
+      "DSM 1617, JCM 11322, ATCC 35092",
+      "DSM 5354",
+      "DSM 5833",
+      "IFO 15331",
+      "JCM 30930",
+      "JCM 8930",
+      "MT-4",
+      "NBRC 15331",
+      "P1",
+      "P1, P1-G",
+      "P2"
+    ],
+    "primary_references": [],
+    "primary_references_available": 0,
+    "general_queries": [],
+    "fallback_reason": "",
+    "targeting_policy": "Raw source association only; inherited graph DOI fields excluded. Retrieved article identifiers independently checked."
+  },
+  {
+    "canary_ordinal": 43,
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:04ebc56757a6fd8728114462b18162786ba7b98849ff0a7d114a8ccac4bd6e42",
+    "applicability": "APPLICABLE",
+    "applicability_rule": "metabolic_process",
+    "resolved_names": [
+      "Thermoanaerobacterales bacterium JdFR-68"
+    ],
+    "strain_designations": [],
+    "primary_references": [],
+    "primary_references_available": 0,
+    "general_queries": [
+      "(\"Thermoanaerobacterales bacterium JdFR-68\") AND (\"JdFR-68\" OR \"nitrogen fixation\" OR diazotrophy)",
+      "(\"Thermoanaerobacterales bacterium JdFR-68\")"
+    ],
+    "fallback_reason": "",
+    "targeting_policy": "Raw source association only; inherited graph DOI fields excluded. Retrieved article identifiers independently checked."
+  },
+  {
+    "canary_ordinal": 44,
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:30bb113a448e0bcc3488a31f6692a3e61be2ef6b0d920bfd1bf4c8edce35208d",
+    "applicability": "APPLICABLE",
+    "applicability_rule": "phenotype",
+    "resolved_names": [
+      "Streptomyces vietnamensis"
+    ],
+    "strain_designations": [
+      "CCTCC M 205143",
+      "DSM 41927",
+      "DSM 41927, CCTCC M205143, IAM 15340, JCM 21785, CCTCC M 205143, NBRC 104153",
+      "GIMV4.0001",
+      "IAM 15340",
+      "JCM 21785"
+    ],
+    "primary_references": [
+      {
+        "reference": "doi:10.1099/ijs.0.64774-0",
+        "role": "species_description",
+        "title": "Zhu HH, Guo J, Yao Q, Yang SZ, Deng MR, Phuong le TB, Hanh VT, Ryan MJ. Streptomyces vietnamensis sp. nov., a streptomycete with violet blue diffusible pigment isolated from soil in Vietnam. Int J Syst Evol Microbiol 2007; 57:1770-1774.",
+        "identity_verified": true,
+        "identity_verification_scope": "association to raw source record only; retrieved paper identity remains unverified",
+        "identity_basis": {
+          "quote": "\"publication_doi\": \"10.1099/ijs.0.64774-0\"",
+          "text_sha256": "4c5ba47260d9bda5e91164d0463be7fb55f7a6308e28529d0382a4df6f56f555",
+          "source_relative_path": "lpsn/api_cache/786561.json",
+          "url": "https://doi.org/10.83108/rn.786561",
+          "record_index": 2,
+          "source_binding": "exact/name-resolved LPSN record; linked names flagged by ID"
+        }
+      }
+    ],
+    "primary_references_available": 3,
+    "general_queries": [
+      "(\"Streptomyces vietnamensis\") AND (temperature OR psychrophilic OR growth)",
+      "(\"Streptomyces vietnamensis\")"
+    ],
+    "fallback_reason": "",
+    "targeting_policy": "Raw source association only; inherited graph DOI fields excluded. Retrieved article identifiers independently checked."
+  },
+  {
+    "canary_ordinal": 45,
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:e52100d6b2465532edbe136356e0053a2a788d6d99d651027c4fa155905949ea",
+    "applicability": "NOT_APPLICABLE",
+    "applicability_rule": "identity_taxonomy",
+    "resolved_names": [
+      "Clostridium lacusfryxellense"
+    ],
+    "strain_designations": [
+      "ATCC BAA-580",
+      "C/C-an/B1",
+      "C/C-an/B1, H10",
+      "DSM 14205",
+      "DSM 14205, ATCC BAA-580"
+    ],
+    "primary_references": [],
+    "primary_references_available": 0,
+    "general_queries": [],
+    "fallback_reason": "",
+    "targeting_policy": "Raw source association only; inherited graph DOI fields excluded. Retrieved article identifiers independently checked."
+  },
+  {
+    "canary_ordinal": 46,
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:777165f404ba6ea1b8c42062df6362c0a2efcd44ce13754233e1f872d8358640",
+    "applicability": "NOT_APPLICABLE",
+    "applicability_rule": "identity_taxonomy",
+    "resolved_names": [
+      "Halanaerobium kushneri"
+    ],
+    "strain_designations": [
+      "ATCC 700103",
+      "VS-751"
+    ],
+    "primary_references": [],
+    "primary_references_available": 0,
+    "general_queries": [],
+    "fallback_reason": "",
+    "targeting_policy": "Raw source association only; inherited graph DOI fields excluded. Retrieved article identifiers independently checked."
+  },
+  {
+    "canary_ordinal": 47,
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:358f925d6342994dbe5598a3d3d2cdfafe3ad30028b7305c3cf21242cf3a9b57",
+    "applicability": "APPLICABLE",
+    "applicability_rule": "biological_source_field",
+    "resolved_names": [
+      "Lactobacillus halotolerans",
+      "Lactobacillus viridescens subsp. halotolerans",
+      "Weissella halotolerans"
+    ],
+    "strain_designations": [
+      "ATCC 12706",
+      "ATCC 35410",
+      "BCRC 11650",
+      "BCRC 14050",
+      "CCM 56",
+      "CCRC 11650",
+      "CCRC 14050",
+      "CCUG 21533",
+      "CCUG 30502",
+      "CCUG 33457",
+      "CCUG 33457, LMG 9469, DSM 20190, ATCC 35410, JCM 1114, BCRC 14050, CECT 573, CGMCC 1.2440, CIP 103005, NCIMB 702781, NRIC 1627, VTT E-98965",
+      "CECT 283",
+      "CECT 573",
+      "CIP 102810",
+      "CIP 103005",
+      "DSM 20190",
+      "DSM 20410",
+      "G1",
+      "IAM 13546",
+      "JCM 1114",
+      "JCM 1174",
+      "LMG 3507",
+      "LMG 9469",
+      "NBIMCC 8897",
+      "NCCB 71015",
+      "NCDO 1655",
+      "NCFB 1655",
+      "NCIB 8965",
+      "NCIMB 8965",
+      "NCTC 13770",
+      "NRIC 1536",
+      "NRIC 1627",
+      "NRRL B-1951",
+      "R61",
+      "VKM B-1528"
+    ],
+    "primary_references": [
+      {
+        "reference": "doi:10.1016/s0723-2020(83)80056-3",
+        "role": "species_description",
+        "title": "Kandler O, Schillinger U, Weiss N. Lactobacillus halotolerans sp.nov., nom.rev. and Lactobacillus minor sp.nov., nom.rev. Syst Appl Microbiol 1983; 4:280-285.",
+        "identity_verified": true,
+        "identity_verification_scope": "association to raw source record only; retrieved paper identity remains unverified",
+        "identity_basis": {
+          "quote": "\"publication_doi\": \"10.1016/s0723-2020(83)80056-3\"",
+          "text_sha256": "7d88c934b4ed33d0e927502641702cdf94e12f44c5fa53d993e34ab892a31b74",
+          "source_relative_path": "lpsn/api_cache/777315.json",
+          "url": "https://doi.org/10.83108/rn.777315",
+          "record_index": 5,
+          "source_binding": "exact/name-resolved LPSN record; linked names flagged by ID"
+        }
+      },
+      {
+        "reference": "doi:10.1111/j.1365-2672.1993.tb01600.x",
+        "role": "species_description",
+        "title": "Collins MD, Samelis J, Metaxopoulos J, Wallbanks S. Taxonomic studies on some leuconostoc-like organisms from fermented sausages: description of a new genus Weissella for the Leuconostoc paramesenteroides group of species. J Appl Bacteriol 1993; 75:595-603.",
+        "identity_verified": true,
+        "identity_verification_scope": "association to raw source record only; retrieved paper identity remains unverified",
+        "identity_basis": {
+          "quote": "\"publication_doi\": \"10.1111/j.1365-2672.1993.tb01600.x\"",
+          "text_sha256": "05c8c80f1340e1c6a891bae1e0c0b3ad2b6ccded187d289ad67d673de5c1693f",
+          "source_relative_path": "lpsn/api_cache/783091.json",
+          "url": "https://doi.org/10.83108/rn.783091",
+          "record_index": 7,
+          "source_binding": "exact/name-resolved LPSN record; linked names flagged by ID"
+        }
+      }
+    ],
+    "primary_references_available": 7,
+    "general_queries": [
+      "(\"Lactobacillus halotolerans\" OR \"Lactobacillus viridescens subsp. halotolerans\" OR \"Weissella halotolerans\") AND (salt OR NaCl OR salinity)",
+      "(\"Lactobacillus halotolerans\" OR \"Lactobacillus viridescens subsp. halotolerans\" OR \"Weissella halotolerans\")"
+    ],
+    "fallback_reason": "",
+    "targeting_policy": "Raw source association only; inherited graph DOI fields excluded. Retrieved article identifiers independently checked."
+  },
+  {
+    "canary_ordinal": 48,
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:ba5dd00ad65782472e8a4e1992880bfb7a77b733efc67fc90348a38749be7d47",
+    "applicability": "APPLICABLE",
+    "applicability_rule": "biological_source_field",
+    "resolved_names": [
+      "Aneurinibacillus aneurinilyticus",
+      "Aneurinibacillus aneurinolyticus",
+      "Bacillus aneurinilyticus",
+      "Bacillus aneurinolyticus"
+    ],
+    "strain_designations": [
+      "ATCC 12856",
+      "DSM 105329",
+      "DSM 5562",
+      "DSM 5562, ATCC 12856, CIP 104007, IAM 1077, IFO 15521, JCM 9024, NBRC 15521, NRS 1589, LMG 15531, LMG 16001, NRRL NRS-1589",
+      "IAM 1077",
+      "IFO 15521",
+      "JCM 7539, IFO 3115, LMG 16008, NBRC 3115, NRRL B-14624",
+      "JCM 9023, ATCC 11376, CIP 104323, LMG 12387, LMG 15967, NCIMB 8698, VKM B-437, VKM B-679",
+      "JCM 9024",
+      "Murayama",
+      "NBRC 15521",
+      "WB01-D5-05-AE"
+    ],
+    "primary_references": [
+      {
+        "reference": "doi:10.1099/00207713-44-1-143",
+        "role": "species_description",
+        "title": "Shida O, Takagi H, Kadowaki K, Yano H, Abe M, Udaka S, Komagata K. Bacillus aneurinolyticus sp. nov., nom. rev. Int. J. Syst. Bacteriol. 1994; 44:143-150.",
+        "identity_verified": true,
+        "identity_verification_scope": "association to raw source record only; retrieved paper identity remains unverified",
+        "identity_basis": {
+          "quote": "\"publication_doi\": \"10.1099/00207713-44-1-143\"",
+          "text_sha256": "cd3346780c8e500629d342bd44f4b862c4383c0d85c1a53ea84a92a6559a8e62",
+          "source_relative_path": "lpsn/api_cache/773634.json",
+          "url": "https://doi.org/10.83108/rn.773634",
+          "record_index": 10,
+          "source_binding": "exact/name-resolved LPSN record; linked names flagged by ID"
+        }
+      },
+      {
+        "reference": "doi:10.1099/00207713-47-3-808",
+        "role": "species_description",
+        "title": "Heyndrickx M, Lebbe L, Vancanneyt M, Kersters K, De Vos P, Logan NA, Forsyth G, Nazli S, Ali N, Berkeley RCW. A polyphasic reassessment of the genus Aneurinibacillus, reclassification of Bacillus thermoaerophilus (Meier-Stauffer et al. 1996) as Aneurinibacillus thermoaerophilus comb. nov., and emended descriptions of A. aneurinilyticus corrig., and A. migulanus, and A. thermoaerophilus. Int. J. Syst. Bacteriol. 1997; 47:808-817.",
+        "identity_verified": true,
+        "identity_verification_scope": "association to raw source record only; retrieved paper identity remains unverified",
+        "identity_basis": {
+          "quote": "\"publication_doi\": \"10.1099/00207713-47-3-808\"",
+          "text_sha256": "313c752c085f443e3b1fedf642c945828dd783066646a292daed760f9f4f15e7",
+          "source_relative_path": "lpsn/api_cache/773274.json",
+          "url": "https://doi.org/10.83108/rn.773274",
+          "record_index": 9,
+          "source_binding": "exact/name-resolved LPSN record; linked names flagged by ID"
+        }
+      },
+      {
+        "reference": "doi:10.1099/00207713-46-4-939",
+        "role": "species_description",
+        "title": "Shida O, Takagi H, Kadowaki K, Komagata K. Proposal for two new genera, Brevibacillus gen. nov. and Aneurinibacillus gen. nov. Int J Syst Bacteriol 1996; 46:939-946.",
+        "identity_verified": true,
+        "identity_verification_scope": "association to raw source record only; retrieved paper identity remains unverified",
+        "identity_basis": {
+          "quote": "\"publication_doi\": \"10.1099/00207713-46-4-939\"",
+          "text_sha256": "313c752c085f443e3b1fedf642c945828dd783066646a292daed760f9f4f15e7",
+          "source_relative_path": "lpsn/api_cache/773274.json",
+          "url": "https://doi.org/10.83108/rn.773274",
+          "record_index": 9,
+          "source_binding": "exact/name-resolved LPSN record; linked names flagged by ID"
+        }
+      }
+    ],
+    "primary_references_available": 6,
+    "general_queries": [
+      "(\"Aneurinibacillus aneurinilyticus\" OR \"Aneurinibacillus aneurinolyticus\" OR \"Bacillus aneurinilyticus\" OR \"Bacillus aneurinolyticus\") AND (oxidase OR phenotype)",
+      "(\"Aneurinibacillus aneurinilyticus\" OR \"Aneurinibacillus aneurinolyticus\" OR \"Bacillus aneurinilyticus\")"
+    ],
+    "fallback_reason": "",
+    "targeting_policy": "Raw source association only; inherited graph DOI fields excluded. Retrieved article identifiers independently checked."
+  },
+  {
+    "canary_ordinal": 49,
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:b36aae20312f264c1add94cb5c9b9b4f5af85268299cb5f59f717902cc8a50ee",
+    "applicability": "APPLICABLE",
+    "applicability_rule": "habitat_inverse",
+    "resolved_names": [
+      "Microbispora corallina"
+    ],
+    "strain_designations": [
+      "ATCC BAA-20",
+      "DF-28",
+      "DF-32",
+      "DSM 44681, JCM 10266",
+      "DSM 44682",
+      "DSM 44682, ATCC BAA-20, IFO 16416, JCM 10267, NBRC 161416, NBRC 16416, BCRC 16341, CGMCC 4.5569",
+      "IFO 16416",
+      "JCM 10267",
+      "NBRC 16416"
+    ],
+    "primary_references": [
+      {
+        "reference": "doi:10.1099/00207713-49-4-1761",
+        "role": "species_description",
+        "title": "Nakajima Y, Kitpreechavanich V, Suzuki K, Kudo T. Microbispora corallina sp. nov., a new species of the genus Microbispora isolated from Thai soil. Int J Syst Bacteriol 1999; 49:1761-1767.",
+        "identity_verified": true,
+        "identity_verification_scope": "association to raw source record only; retrieved paper identity remains unverified",
+        "identity_basis": {
+          "quote": "\"publication_doi\": \"10.1099/00207713-49-4-1761\"",
+          "text_sha256": "9affbd3026d6a116f12f39d353d22be7f26c666c3b3a1cc9fda0b6c236ec8e6e",
+          "source_relative_path": "lpsn/api_cache/778078.json",
+          "url": "https://doi.org/10.83108/rn.778078",
+          "record_index": 3,
+          "source_binding": "exact/name-resolved LPSN record; linked names flagged by ID"
+        }
+      }
+    ],
+    "primary_references_available": 2,
+    "general_queries": [
+      "(\"Microbispora corallina\") AND (grassland OR isolation OR soil)",
+      "(\"Microbispora corallina\")"
+    ],
+    "fallback_reason": "",
+    "targeting_policy": "Raw source association only; inherited graph DOI fields excluded. Retrieved article identifiers independently checked."
+  },
+  {
+    "canary_ordinal": 50,
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:7b2e90bec16197ad2979fc0a80d5c89a5e6e0275af24497ad334d4772e1ff413",
+    "applicability": "APPLICABLE",
+    "applicability_rule": "habitat_inverse",
+    "resolved_names": [
+      "Roseburia intestinalis",
+      "Roseburia intestinalis L1-82"
+    ],
+    "strain_designations": [
+      "DSM 14610",
+      "DSM 14610, CIP 107878, JCM 17583, NCIMB 13810, VTT E-052785",
+      "JCM 31262",
+      "L1-82",
+      "NCIMB 13810"
+    ],
+    "primary_references": [
+      {
+        "reference": "doi:10.1099/ijs.0.02143-0",
+        "role": "species_description",
+        "title": "Duncan SH, Hold GL, Barcenilla A, Stewart CS, Flint HJ. Roseburia intestinalis sp. nov., a novel saccharolytic, butyrate-producing bacterium from human faeces. Int J Syst Evol Microbiol 2002; 52:1615-1620.",
+        "identity_verified": true,
+        "identity_verification_scope": "association to raw source record only; retrieved paper identity remains unverified",
+        "identity_basis": {
+          "quote": "\"publication_doi\": \"10.1099/ijs.0.02143-0\"",
+          "text_sha256": "2365391ae36107b918bfc4e1040af3c3973751d365096bb4da54435d7a5a96ac",
+          "source_relative_path": "lpsn/api_cache/780564.json",
+          "url": "https://doi.org/10.83108/rn.780564",
+          "record_index": 3,
+          "source_binding": "exact/name-resolved LPSN record; linked names flagged by ID"
+        }
+      },
+      {
+        "reference": "doi:10.1099/ijs.0.64098-0",
+        "role": "species_description",
+        "title": "Duncan SH, Aminov RI, Scott KP, Louis P, Stanton TB, Flint HJ. Proposal of Roseburia faecis sp. nov., Roseburia hominis sp. nov. and Roseburia inulinivorans sp. nov., based on isolates from human faeces. Int J Syst Evol Microbiol 2006; 56:2437-2441.",
+        "identity_verified": true,
+        "identity_verification_scope": "association to raw source record only; retrieved paper identity remains unverified",
+        "identity_basis": {
+          "quote": "\"publication_doi\": \"10.1099/ijs.0.64098-0\"",
+          "text_sha256": "2365391ae36107b918bfc4e1040af3c3973751d365096bb4da54435d7a5a96ac",
+          "source_relative_path": "lpsn/api_cache/780564.json",
+          "url": "https://doi.org/10.83108/rn.780564",
+          "record_index": 3,
+          "source_binding": "exact/name-resolved LPSN record; linked names flagged by ID"
+        }
+      }
+    ],
+    "primary_references_available": 3,
+    "general_queries": [
+      "(\"Roseburia intestinalis\" OR \"Roseburia intestinalis L1-82\") AND (\"L1-82\" OR ocean OR isolation)",
+      "(\"Roseburia intestinalis\" OR \"Roseburia intestinalis L1-82\")"
+    ],
+    "fallback_reason": "",
+    "targeting_policy": "Raw source association only; inherited graph DOI fields excluded. Retrieved article identifiers independently checked."
+  }
+]
