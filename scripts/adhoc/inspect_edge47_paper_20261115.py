@@ -44,6 +44,25 @@ class PublicRedirects(HTTPRedirectHandler):
         return super().redirect_request(req, fp, code, msg, headers, newurl)
 
 
+def persist_evidence(destinations):
+    """Preflight all bytes; create missing files without replacing retained evidence."""
+    for path, payload in destinations.items():
+        if path.is_symlink() or (path.exists() and (
+            not path.is_file() or path.read_bytes() != payload
+        )):
+            raise ValueError(f"refusing to replace different retained evidence: {path}")
+    for path, payload in destinations.items():
+        try:
+            with path.open("xb") as stream:
+                stream.write(payload)
+        except FileExistsError:
+            # Also protect evidence created after the preflight check.
+            if path.is_symlink() or not path.is_file() or path.read_bytes() != payload:
+                raise ValueError(f"refusing to replace different retained evidence: {path}")
+        if path.read_bytes() != payload:
+            raise RuntimeError(f"evidence persistence mismatch: {path}")
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--safe-fulltext-module", type=Path)
@@ -57,6 +76,7 @@ def main():
     if ".temp" not in output.parts:
         parser.error("private .temp output required")
     output.mkdir(parents=True, exist_ok=True)
+    destinations = {}
     if args.url:
         if not allowed_url(args.url):
             parser.error("public HTTPS PMC page or asset without credentials/query required")
@@ -69,7 +89,7 @@ def main():
                 parser.error("artifact exceeds 20MiB")
             content_type = response.headers.get("Content-Type")
         artifact = output / args.artifact_name
-        artifact.write_bytes(raw)
+        destinations[artifact] = raw
         receipt = {"url": args.url, "artifact": str(artifact), "bytes": len(raw),
                    "sha256": hashlib.sha256(raw).hexdigest(), "content_type": content_type}
         target = output / (args.artifact_name + ".receipt.json")
@@ -107,7 +127,7 @@ def main():
                      "sections": sections, "figures": figures, "tables": tables}
         text_path = output / "paper-sections.json"
         text = (json.dumps(extracted, indent=2, ensure_ascii=False) + "\n").encode()
-        text_path.write_bytes(text)
+        destinations[text_path] = text
         receipt = {"xml_path": str(xml), "xml_bytes": len(raw),
                    "xml_sha256": hashlib.sha256(raw).hexdigest(), "primary_identifiers": ids,
                    "extracted_path": str(text_path), "extracted_bytes": len(text),
@@ -121,10 +141,12 @@ def main():
             parser.error("PDF signature required")
         text_path = output / "paper-layout.txt"
         info_path = output / "paper-info.txt"
-        subprocess.run(["pdftotext", "-layout", str(pdf), str(text_path)], check=True)
+        converted = subprocess.run(["pdftotext", "-layout", str(pdf), "-"],
+                                   check=True, capture_output=True)
         info = subprocess.run(["pdfinfo", str(pdf)], check=True, capture_output=True)
-        info_path.write_bytes(info.stdout)
-        text = text_path.read_bytes()
+        text = converted.stdout
+        destinations[text_path] = text
+        destinations[info_path] = info.stdout
         receipt = {"pdf_path": str(pdf), "pdf_bytes": len(raw),
                    "pdf_sha256": hashlib.sha256(raw).hexdigest(),
                    "text_path": str(text_path), "text_bytes": len(text),
@@ -134,9 +156,8 @@ def main():
     else:
         parser.error("supply local search module, PDF, or XML")
     payload = (json.dumps(receipt, indent=2) + "\n").encode()
-    target.write_bytes(payload)
-    if target.read_bytes() != payload:
-        raise RuntimeError("receipt persistence mismatch")
+    destinations[target] = payload
+    persist_evidence(destinations)
     print(json.dumps(receipt, indent=2))
 
 
