@@ -11,6 +11,7 @@ import xml.etree.ElementTree as ET
 from pathlib import Path
 
 from organism_targeting import POLICY, name_query, strain_query
+from targeting_staging import validate_private_output
 
 
 def save(path, value):
@@ -64,9 +65,12 @@ def main():
         save(args.output / 'primary-remaining-ids.json', [r['occurrence_id'] for r in plan if r != first])
         print(json.dumps({'first_ordinal': first['canary_ordinal'], 'remaining': len(plan)-1}))
     else:
+        outputs = [args.output / name for name in
+                   ('fallback-ids.json', 'fallback-plan.json', 'fallback-plan.sources.json')]
+        for path in outputs:
+            validate_private_output(path)
         source_bytes = args.plan.with_suffix('.sources.json').read_bytes()
-        if any((args.output / name).exists() for name in
-               ('fallback-ids.json', 'fallback-plan.json', 'fallback-plan.sources.json')):
+        if any(path.exists() for path in outputs):
             raise ValueError('Refusing to overwrite existing fallback evidence')
         selected = []
         identities = load_identifier_resolutions(args.identifiers) if args.identifiers else {}

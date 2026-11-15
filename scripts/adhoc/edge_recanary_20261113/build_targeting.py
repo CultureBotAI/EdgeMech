@@ -1,8 +1,9 @@
 """Build primary-first targets for recanary PR76, 2026-11-13.
 
 Inputs: frozen public cohort/applicability and private grouped-source enrichment.
-Outputs: public bounded targeting plan with raw-source association proofs. No
-inherited graph DOI is accepted as a primary reference, even if its syntax is valid.
+Outputs: bounded plan, claim manifest and private raw-source sidecar. Outputs
+inside a Git worktree must be ignored and untracked. No inherited graph DOI is
+accepted as a primary reference, even if its syntax is valid.
 """
 from __future__ import annotations
 
@@ -13,6 +14,7 @@ from pathlib import Path
 
 from organism_targeting import POLICY, claim_identity, name_query, strain_query
 from source_adjudicate import packet_targeting
+from targeting_staging import validate_private_output
 
 ROOT = Path(__file__).resolve().parents[3]
 ART = ROOT / 'artifacts/edge-recanary-20261113'
@@ -94,6 +96,9 @@ def build(enrichment, destination, ordinal=None):
     manifest = destination.with_suffix('.manifest.jsonl')
     sources = destination.with_suffix('.sources.json')
     receipt_path = destination.with_name(destination.stem + '-receipt.json')
+    # Validate every output before creating any part of the paired plan.
+    for path in (destination, manifest, sources, receipt_path):
+        validate_private_output(path)
     if any(path.exists() for path in (destination, manifest, sources, receipt_path)):
         raise ValueError('Refusing to overwrite a targeting plan or its provenance')
     applicability = {r['occurrence_id']: r for r in lines(ART / 'applicability.jsonl')}

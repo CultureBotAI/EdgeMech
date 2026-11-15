@@ -15,6 +15,7 @@ from pathlib import Path
 
 from organism_targeting import POLICY, packet_sha256, source_strain_aliases, verified_sources
 from review_clock import begin_review, finish_review
+from targeting_staging import validate_private_output
 
 CITATIONS = {
     "bacdive": "doi:10.1093/nar/gkab961",
@@ -359,6 +360,7 @@ def packet_targeting(packet):
 
 
 def targeting(source_dir, output, ordinal=None):
+    validate_private_output(output)
     if Path(output).exists():
         raise ValueError("Refusing to overwrite existing targeting evidence")
     packets = sorted((Path(source_dir) / "packets").glob("*.json"))
