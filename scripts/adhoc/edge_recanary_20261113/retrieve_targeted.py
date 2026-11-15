@@ -3,6 +3,8 @@
 Inputs: explicit applicability/name/reference plan and frozen canary manifest.
 Outputs: private raw responses, evidence packets, and real HTTP-attempt telemetry.
 This helper assigns no scientific verdict and never searches an inapplicable edge.
+New run receipts are immutable receipts/<stage>-<run_id>.json files. Historical
+<stage>-receipt.json files are left untouched; packet stages retain their run_id.
 """
 from __future__ import annotations
 
@@ -20,6 +22,7 @@ import time
 import urllib.error
 import urllib.parse
 import urllib.request
+import uuid
 import xml.etree.ElementTree as ET
 from collections import Counter
 from pathlib import Path
@@ -44,6 +47,14 @@ ROLES = {'species_description', 'strain_reference', 'row_primary'}
 KEYS = {'SPRINGER_API_KEY', 'WILEY_TDM_TOKEN', 'WILEY_TDM_CLIENT_TOKEN',
         'ELSEVIER_API_KEY', 'ELS_API_KEY'}
 SENSITIVE_HEADERS = {'authorization', 'x-els-apikey', 'wiley-tdm-client-token'}
+PUBLISHER_ORIGINS = {('https', host, 443) for host in
+                     ('api.wiley.com', 'api.elsevier.com', 'api.springernature.com')}
+HEADER_ORIGINS = {
+    'authorization': PUBLISHER_ORIGINS,
+    'wiley-tdm-client-token': {('https', 'api.wiley.com', 443)},
+    'x-els-apikey': {('https', 'api.elsevier.com', 443)},
+}
+SENSITIVE_QUERY_KEYS = {'apikey', 'accesstoken', 'token'}
 DATASET_REGISTRY = ROOT / 'artifacts/edge-sample-review-20261112/source-publication-identities.json'
 WRONG_INHERITED_DOIS = {'10.1093/nar/' + suffix for suffix in
                         ('gkad994', 'gkad1005', 'gkac886', 'gkac887', 'gkab894', 'gkac1003')}
@@ -54,9 +65,11 @@ def sha(data):
     return hashlib.sha256(data).hexdigest()
 
 
-def save(path, value):
+def save(path, value, *, exclusive=False):
+    FA._validate_staging_destination(path)
     path.parent.mkdir(parents=True, exist_ok=True)
-    with path.open('w') as handle:
+    FA._validate_staging_destination(path)
+    with path.open('x' if exclusive else 'w') as handle:
         json.dump(value, handle, ensure_ascii=False, indent=2)
         handle.write('\n')
         handle.flush()
@@ -122,7 +135,51 @@ def safe_url(url):
         raise ValueError('Refusing URL credentials or missing hostname')
     query = urllib.parse.urlencode([(key, '[redacted]') for key, _ in
                                    urllib.parse.parse_qsl(parsed.query, keep_blank_values=True)])
-    return urllib.parse.urlunsplit((parsed.scheme, parsed.hostname, parsed.path, query, ''))
+    return urllib.parse.urlunsplit((parsed.scheme, parsed.netloc, parsed.path, query, ''))
+
+
+def origin(url):
+    parsed = urllib.parse.urlsplit(url)
+    if (parsed.scheme not in {'https', 'http'} or not parsed.hostname
+            or parsed.username is not None or parsed.password is not None):
+        raise ValueError('Only HTTP(S) URLs without userinfo are allowed')
+    port = parsed.port if parsed.port is not None else (443 if parsed.scheme == 'https' else 80)
+    return parsed.scheme, parsed.hostname, port
+
+
+def sensitive_query(key):
+    return re.sub('[-_]', '', key).lower() in SENSITIVE_QUERY_KEYS
+
+
+def authenticated_origin(request):
+    """Reject credentials outside their exact HTTPS publisher origin before I/O."""
+    destination = origin(request.full_url)
+    for key, _ in request.header_items():
+        if key.lower() in SENSITIVE_HEADERS and destination not in HEADER_ORIGINS[key.lower()]:
+            raise ValueError('Refusing credentials outside their HTTPS publisher origin')
+    query = urllib.parse.parse_qsl(urllib.parse.urlsplit(request.full_url).query,
+                                  keep_blank_values=True)
+    if any(sensitive_query(key) for key, _ in query) and destination not in PUBLISHER_ORIGINS:
+        raise ValueError('Refusing query credentials outside HTTPS publisher origins')
+    return destination
+
+
+def redirect_request(request, location):
+    """Origin-changing hops are anonymous, including scheme and port changes."""
+    redirected = urllib.parse.urljoin(request.full_url, location)
+    destination = origin(redirected)
+    headers = dict(request.header_items())
+    if destination != origin(request.full_url):
+        headers = {key: value for key, value in headers.items()
+                   if key.lower() not in SENSITIVE_HEADERS}
+        parsed = urllib.parse.urlsplit(redirected)
+        query = urllib.parse.urlencode([
+            (key, value) for key, value in
+            urllib.parse.parse_qsl(parsed.query, keep_blank_values=True)
+            if not sensitive_query(key)
+        ])
+        redirected = urllib.parse.urlunsplit((parsed.scheme, parsed.netloc, parsed.path, query, ''))
+    return urllib.request.Request(redirected, headers=headers)
 
 
 def service(url):
@@ -171,9 +228,10 @@ class Transport:
             request = urllib.request.Request(request)
         for _ in range(6):
             url = request.full_url
-            parsed = urllib.parse.urlsplit(url)
-            if parsed.scheme not in {'https', 'http'}:
-                raise ValueError('Only HTTP(S) is allowed in network transport')
+            authenticated_origin(request)
+            FA._validate_staging_destination(self.root / 'sentinel.response')
+            log_path = self.root.parent / 'http-attempts.jsonl'
+            FA._validate_staging_destination(log_path)
             if re.search(r'[^\s/]+@[^\s/]+', urllib.parse.unquote(url)):
                 raise ValueError('Refusing personal-address disclosure in request URL')
             endpoint = safe_url(url)
@@ -197,6 +255,7 @@ class Transport:
                     event['status'] = str(response.status)
                     event['response_sha256'] = sha(raw)
                     target = self.root / (sha(raw) + '.response')
+                    FA._validate_staging_destination(target)
                     if not target.exists():
                         with target.open('xb') as handle:
                             handle.write(raw)
@@ -213,12 +272,7 @@ class Transport:
                     self.next_at = max(self.next_at, self.clock() + wait)
                 location = error.headers.get('Location')
                 if error.code in {301, 302, 303, 307, 308} and location:
-                    redirected = urllib.parse.urljoin(url, location)
-                    headers = dict(request.header_items())
-                    if urllib.parse.urlsplit(redirected).hostname != parsed.hostname:
-                        headers = {key: value for key, value in headers.items()
-                                   if key.lower() not in SENSITIVE_HEADERS}
-                    request = urllib.request.Request(redirected, headers=headers)
+                    request = redirect_request(request, location)
                     continue
                 raise
             except Exception as error:
@@ -227,7 +281,8 @@ class Transport:
             finally:
                 event['elapsed_seconds'] = self.clock() - started
                 self.events.append(event)
-                with (self.root.parent / 'http-attempts.jsonl').open('a') as handle:
+                FA._validate_staging_destination(log_path)
+                with log_path.open('a') as handle:
                     handle.write(json.dumps(event) + '\n')
                     handle.flush()
                     os.fsync(handle.fileno())
@@ -406,6 +461,7 @@ def fulltext_ladder(metadata, client, transport, credentials, max_calls):
                         response = {'url': safe_url(url), 'response_sha256': sha(raw),
                                     'response_path': sha(raw) + '.response', 'status': 'retrieved'}
                         target = client.root / response['response_path']
+                        FA._validate_staging_destination(target)
                         if not target.exists():
                             target.write_bytes(raw)
                     else:
@@ -489,12 +545,23 @@ def replay_document(result, document, client):
             'pmcid': metadata.get('pmcid'), 'title': metadata.get('title')}
 
 
+def preflight_outputs(output, plans, stage, receipt_path):
+    for path in (output / 'cache' / 'sentinel.response', output / 'http-attempts.jsonl',
+                 output / receipt_path):
+        FA._validate_staging_destination(path)
+    for plan_row in plans:
+        packet = output / 'packets' / (sha(plan_row['occurrence_id'].encode()) + '.json')
+        FA._validate_staging_destination(packet)
+        if stage == 'primary' and packet.exists():
+            raise FileExistsError('Primary packet already exists; use a new output or disjoint selection')
+
+
 def run(manifest, plan, output, *, stage='primary', edge_ids=None, dry_run=False,
         tdm_env=None, max_ladder_calls=4, opener=None, clock=time.time, sleeper=time.sleep):
     rows, plans, manifest_hash = load_inputs(manifest, plan)
     if stage not in {'primary', 'fallback'} or not 0 <= max_ladder_calls <= 8:
         raise ValueError('Invalid stage or full-text call budget')
-    selected = set(edge_ids or [row['occurrence_id'] for row in rows])
+    selected = set([row['occurrence_id'] for row in rows] if edge_ids is None else edge_ids)
     if not selected or not selected <= {row['occurrence_id'] for row in rows}:
         raise ValueError('Selected IDs must be a nonempty subset of the manifest')
     if stage == 'fallback' and edge_ids is None:
@@ -503,14 +570,15 @@ def run(manifest, plan, output, *, stage='primary', edge_ids=None, dry_run=False
     for row in plans:
         if stage == 'fallback' and row['applicability'] == 'APPLICABLE' and not row.get('fallback_reason', '').strip():
             raise ValueError('Fallback requires an authored insufficiency reason')
+    run_id = uuid.uuid4().hex
+    receipt_path = 'receipts/' + stage + '-' + run_id + '.json'
+    preflight_outputs(output, plans, stage, receipt_path)
     if dry_run:
         print(json.dumps({'stage': stage, 'selected_edges': len(plans),
                           'applicable_edges': sum(r['applicability'] == 'APPLICABLE' for r in plans),
                           'primary_references': sum(len(r.get('primary_references', [])) for r in plans),
                           'max_ladder_calls_per_reference': max_ladder_calls, 'concurrency': 1}))
         return
-    # Raw text must be outside tracked directories; retain the existing staging guard.
-    FA._validate_staging_destination(output / 'sentinel.response')
     output.mkdir(parents=True, exist_ok=True)
     (output / 'cache').mkdir(exist_ok=True)
     transport = Transport(output / 'cache', opener=opener, clock=clock, sleeper=sleeper)
@@ -520,11 +588,13 @@ def run(manifest, plan, output, *, stage='primary', edge_ids=None, dry_run=False
     by_id = {row['occurrence_id']: row for row in rows}
     reference_results = {}
     with LiteratureCache(output / 'cache', opener=transport, clock=clock, sleeper=sleeper) as client:
+        preflight_outputs(output, plans, stage, receipt_path)
         for plan_row in plans:
             oid = plan_row['occurrence_id']
             packet_path = output / 'packets' / (sha(oid.encode()) + '.json')
             claim_hash = sha(json.dumps(by_id[oid], sort_keys=True).encode())
             if stage == 'fallback':
+                FA._validate_staging_destination(packet_path)
                 packet = json.loads(packet_path.read_text())
                 if packet['claim_sha256'] != claim_hash or packet['manifest_sha256'] != manifest_hash:
                     raise ValueError('Fallback primary packet differs from frozen manifest')
@@ -565,20 +635,23 @@ def run(manifest, plan, output, *, stage='primary', edge_ids=None, dry_run=False
             else:
                 packet['retrieval_status'] = 'NOT_APPLICABLE'
             events = transport.events[before:]
-            packet['stages'].append({'stage': stage, 'wall_seconds': time.monotonic() - started,
+            packet['stages'].append({'stage': stage, 'run_id': run_id,
+                                     'wall_seconds': time.monotonic() - started,
                                      'api_attempts': len(events),
                                      'api_attempts_by_service': dict(Counter(e['service'] for e in events)),
                                      'failure_counts': dict(Counter(e['status'] for e in events if e['status'] != '200')),
                                      'targeting_plan': plan_row})
-            save(packet_path, packet)
+            save(packet_path, packet, exclusive=stage == 'primary')
             print(json.dumps({'edge': oid, 'stage': stage, 'calls': len(events),
                               'seconds': packet['stages'][-1]['wall_seconds']}), flush=True)
-    receipt = {'stage': stage, 'selected_edges': len(plans), 'manifest_sha256': manifest_hash,
+    receipt = {'stage': stage, 'run_id': run_id, 'receipt_path': receipt_path,
+               'selected_occurrence_ids': sorted(selected),
+               'selected_edges': len(plans), 'manifest_sha256': manifest_hash,
                'plan_sha256': sha(plan.read_bytes()), 'wall_seconds': time.monotonic() - t0,
                'api_attempts': len(transport.events),
                'api_attempts_by_service': dict(Counter(e['service'] for e in transport.events)),
                'status_counts': dict(Counter(e['status'] for e in transport.events))}
-    save(output / (stage + '-receipt.json'), receipt)
+    save(output / receipt_path, receipt, exclusive=True)
     print(json.dumps(receipt), flush=True)
     return receipt
 
