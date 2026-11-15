@@ -61,9 +61,14 @@ def test_subspecies_and_strain_names_never_seed_parent_species(targeting):
 def test_public_projection_only_omits_private_annotations(targeting):
     private = {'subject': 'lpsn:1', 'subject_label': 'Fixture bacterium',
                'omitted_source_record': {'value': '0-10'}, 'snippet': 'Old cached text',
+               'curated_source_record': {'subject': 'lpsn:1', 'value': '42',
+                                         'description': 'Private description',
+                                         'prego_evidence': 'Private source passage',
+                                         'source_citation': 'Private citation narrative'},
                'review_rationale': 'Old inherited review', 'reviewer_worker': 'old-worker',
                'original_subject_node': {'id': 'lpsn:1', 'description': 'Cached description'}}
     public = {'subject': 'lpsn:1', 'subject_label': 'Fixture bacterium',
+              'curated_source_record': {'subject': 'lpsn:1', 'value': '42'},
               'omitted_source_record': {'value': '0-10'}, 'original_subject_node': {'id': 'lpsn:1'}}
     assert targeting.claim_identity(private) == targeting.claim_identity(public)
     public['omitted_source_record']['value'] = '1-10'
@@ -186,10 +191,13 @@ def test_fallback_selector_anchors_saved_numeric_alias_lists(targeting, tmp_path
             'occurrence_id': row['occurrence_id'], 'fallback_reason': 'Primary evidence incomplete'}))
     plan = tmp_path / 'plan.json'
     plan.write_text(json.dumps(rows))
+    sidecar = plan.with_suffix('.sources.json')
+    sidecar.write_text(json.dumps({'fixture:source': 'synthetic retained bytes'}))
     monkeypatch.setattr('sys.argv', ['select_retrieval', '--plan', str(plan), '--output',
                                     str(tmp_path / 'selection'), '--reviews', str(tmp_path / 'reviews')])
     selector.main()
     selected = json.loads((tmp_path / 'selection/fallback-plan.json').read_text())
+    assert (tmp_path / 'selection/fallback-plan.sources.json').read_bytes() == sidecar.read_bytes()
     for row in selected:
         assert all(query.startswith(targeting.name_query(row['resolved_names']) + ' AND ')
                    for query in row['general_queries'])

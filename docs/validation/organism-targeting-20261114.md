@@ -19,9 +19,9 @@ the four-alias budget is applied. The retrieval launcher rejects legacy plans,
 missing alias/reference bindings, and queries outside the bounded anchored forms
 before making requests. The launcher also replays the companion private
 `.sources.json` packets against the selected claim rows and reconstructs every
-name, strain, and primary-reference binding. Public projection excludes only the
-cached node descriptions and inherited snippet/review annotations that the frozen
-public manifest deliberately omitted. Legacy packets remain available to the offline replay
+name, strain, and primary-reference binding. Claim comparison reuses the exact
+recursive `public_canary` projection that produced the frozen public manifests;
+it does not maintain a second list of fields to strip. Legacy packets remain available to the offline replay
 tools; new retrieval requires rebuilding the targeting plan.
 
 ## Retained edge 47 check
@@ -78,3 +78,15 @@ Read-only review at `7c887c9` identified three further defects, filed separately
 The initial complete suite passed 431 tests. The final candidate adds regressions
 for all three findings and is revalidated before handoff. No issue is silently
 dropped or treated as scientific validation of an edge.
+
+A second read-only pass at `ac473dc` found two integration defects, also fixed:
+
+- [#98](https://github.com/CultureBotAI/EdgeMech/issues/98): the fallback selector
+  now preserves the raw source sidecar under the fallback plan's filename. A
+  selector-to-launcher regression verifies the resulting plan passes preflight.
+- [#99](https://github.com/CultureBotAI/EdgeMech/issues/99): claim comparison now
+  calls the existing publication projection directly, including nested PREGO
+  source prose, while all non-projected IDs, values, and source-row fields remain
+  exact. `scripts/adhoc/audit_targeting_compatibility_20261114.py` checks both
+  retained 50-edge cohorts without network access and reports projection/hash
+  mismatches separately from any unavailable organism targeting.

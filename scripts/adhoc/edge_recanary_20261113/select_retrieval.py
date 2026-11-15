@@ -64,6 +64,10 @@ def main():
         save(args.output / 'primary-remaining-ids.json', [r['occurrence_id'] for r in plan if r != first])
         print(json.dumps({'first_ordinal': first['canary_ordinal'], 'remaining': len(plan)-1}))
     else:
+        source_bytes = args.plan.with_suffix('.sources.json').read_bytes()
+        if any((args.output / name).exists() for name in
+               ('fallback-ids.json', 'fallback-plan.json', 'fallback-plan.sources.json')):
+            raise ValueError('Refusing to overwrite existing fallback evidence')
         selected = []
         identities = load_identifier_resolutions(args.identifiers) if args.identifiers else {}
         for row in plan:
@@ -99,6 +103,7 @@ def main():
                 selected.append(row['occurrence_id'])
         save(args.output / 'fallback-ids.json', selected)
         save(args.output / 'fallback-plan.json', plan)
+        (args.output / 'fallback-plan.sources.json').write_bytes(source_bytes)
         print(json.dumps({'fallback_edges': len(selected)}))
 
 

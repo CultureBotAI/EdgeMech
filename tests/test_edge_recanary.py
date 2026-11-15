@@ -206,6 +206,24 @@ def test_fallback_requires_selection_and_authored_reason(runner, tmp_path):
         runner.run(manifest, plan, output, stage='fallback', edge_ids=[oid], dry_run=True)
 
 
+def test_selector_fallback_output_passes_launcher_source_replay(runner, tmp_path, monkeypatch):
+    selector = load_helper('select_retrieval')
+    manifest, plan, output = setup_inputs(tmp_path)
+    oid = json.loads(manifest.read_text())['occurrence_id']
+    reviews = tmp_path / 'reviews/decisions/scientific'
+    reviews.mkdir(parents=True)
+    (reviews / '1-primary.json').write_text(json.dumps({
+        'occurrence_id': oid, 'fallback_reason': 'Fixture primary lacked the requested measurement'}))
+    selected = tmp_path / 'selection'
+    monkeypatch.setattr('sys.argv', ['select_retrieval', '--plan', str(plan), '--output', str(selected),
+                                    '--reviews', str(tmp_path / 'reviews')])
+    selector.main()
+    runner.run(manifest, selected / 'fallback-plan.json', output, stage='fallback',
+               edge_ids=[oid], dry_run=True,
+               opener=lambda *args, **kwargs: pytest.fail('Dry run reached network'))
+    assert not output.exists()
+
+
 def test_real_attempt_telemetry_counts_redirects_and_strips_credentials(runner, tmp_path):
     root = tmp_path / 'cache'
     root.mkdir()

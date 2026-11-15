@@ -8,6 +8,7 @@ No network, scientific verdicts, or changes to the frozen November 13 artifacts.
 from __future__ import annotations
 
 import hashlib
+import importlib.util
 import json
 import re
 from pathlib import Path
@@ -15,6 +16,11 @@ from pathlib import Path
 from source_extract import normalized_names
 
 POLICY = "exact-organism-source-bindings/v2"
+_PROJECTION_SPEC = importlib.util.spec_from_file_location(
+    'edge_targeting_publication_projection',
+    Path(__file__).resolve().parents[1] / 'edge_sample_review_20261112/build_sample.py')
+_PROJECTION = importlib.util.module_from_spec(_PROJECTION_SPEC)
+_PROJECTION_SPEC.loader.exec_module(_PROJECTION)
 
 
 def packet_sha256(packet):
@@ -22,15 +28,8 @@ def packet_sha256(packet):
 
 
 def claim_identity(edge):
-    """Omit only the private cached text/old-review annotations stripped at publication."""
-    result = {key: value for key, value in edge.items()
-              if key not in {'review_rationale', 'reviewer_worker', 'snippet'}}
-    for field in ('original_subject_node', 'original_object_node',
-                  'curated_subject_node', 'curated_object_node'):
-        if isinstance(result.get(field), dict):
-            result[field] = {key: value for key, value in result[field].items()
-                             if key != 'description'}
-    return result
+    """Reuse the exact recursive publication projection; do not duplicate its rules."""
+    return _PROJECTION.public_canary([edge])[0]
 
 
 def strain_aliases(values):
