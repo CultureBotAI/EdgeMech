@@ -96,3 +96,11 @@ fresh edge 24 contains a source strain alias with HTML. Unsafe source components
 are now retained with source hashes as excluded aliases; independently valid
 plain aliases remain available. No HTML is stripped to manufacture equivalence,
 and manually supplied unsafe query aliases still fail validation.
+
+The final builder review and full-cohort preflight found stale primary choices
+for exact strains: [#103](https://github.com/CultureBotAI/EdgeMech/issues/103)
+(edge 22) and [#104](https://github.com/CultureBotAI/EdgeMech/issues/104)
+(edges 20 and 50). The new-path choices for those rows are explicitly empty;
+species papers remain candidates, and anchored fallback searches remain available.
+Builder-to-launcher regressions cover all three rows. The choice audit helper and
+actual 50-row build check the integration beyond enrichment reconstruction.

@@ -152,6 +152,58 @@ def test_source_html_alias_is_preserved_but_never_promoted_to_a_query(targeting)
         targeting.strain_query(['Serratia marcescens'], [raw])
 
 
+def test_non_type_strain_builds_with_no_species_primary_reference(targeting, tmp_path):
+    builder = importlib.import_module('build_targeting')
+    row = next(row for row in builder.lines(builder.ART / 'canary.jsonl')
+               if row['canary_ordinal'] == 22)
+    packet = {'edge': row, 'records': [
+        source('bacdive_strains.json', {
+            'General': {'BacDive-ID': 161115},
+            'Name and taxonomic classification': {'species': 'Eikenella corrodens'},
+            'External links': {'culture collection no.': 'JCM 10962'}}),
+        source('lpsn/api_cache/775886.json', {
+            'full_name': 'Eikenella corrodens', 'type_strain_names': ['JCM 12952'],
+            'publication_doi': '10.1099/00207713-22-2-73'})]}
+    enriched = importlib.import_module('source_adjudicate').packet_targeting(packet)
+    assert enriched['primary_references'] == []
+    assert enriched['candidate_primary_references'][0]['reference'] == 'doi:10.1099/00207713-22-2-73'
+    enrichment = tmp_path / 'enrichment.json'
+    enrichment.write_text(json.dumps([{**enriched, 'source_packet': packet}]))
+    destination = tmp_path / 'plan.json'
+    builder.build(enrichment, destination, ordinal=22)
+    [plan] = json.loads(destination.read_text())
+    assert plan['primary_references'] == []
+    assert plan['general_queries'][1] == '("Eikenella corrodens") AND ("JCM 10962")'
+    importlib.import_module('retrieve_targeted').load_inputs(
+        destination.with_suffix('.manifest.jsonl'), destination)
+
+
+@pytest.mark.parametrize(('ordinal', 'species', 'dois'), [
+    (20, 'Mycoplasma agalactiae', ['10.1099/0096266x-5-2-67', '10.1007/s10482-018-1047-3']),
+    (50, 'Roseburia intestinalis', ['10.1099/ijs.0.02143-0', '10.1099/ijs.0.64098-0'])])
+def test_strain_qualified_taxon_builds_without_species_only_choices(
+        targeting, tmp_path, ordinal, species, dois):
+    builder = importlib.import_module('build_targeting')
+    row = next(row for row in builder.lines(builder.ART / 'canary.jsonl')
+               if row['canary_ordinal'] == ordinal)
+    packet = {'edge': row, 'records': [source('lpsn/api_cache/123.json', {
+        'full_name': species, 'publication_doi': dois[0],
+        'emendations': [{'publication_doi': dois[1]}]})]}
+    enriched = importlib.import_module('source_adjudicate').packet_targeting(packet)
+    assert enriched['primary_references'] == []
+    assert len(enriched['candidate_primary_references']) == 2
+    enrichment = tmp_path / 'enrichment.json'
+    enrichment.write_text(json.dumps([{**enriched, 'source_packet': packet}]))
+    destination = tmp_path / 'plan.json'
+    builder.build(enrichment, destination, ordinal=ordinal)
+    [plan] = json.loads(destination.read_text())
+    assert plan['primary_references'] == []
+    assert all(query.startswith(targeting.name_query(enriched['resolved_names']))
+               for query in plan['general_queries'])
+    importlib.import_module('retrieve_targeted').load_inputs(
+        destination.with_suffix('.manifest.jsonl'), destination)
+
+
 @pytest.mark.parametrize('damage', ['missing', 'wrong', 'locator'])
 def test_lpsn_id_is_bound_inside_retained_bytes(targeting, damage):
     packet = halotolerans_packet()
