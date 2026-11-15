@@ -131,6 +131,27 @@ def test_type_strain_is_admitted_only_with_matching_culture_identifier(targeting
     assert set(targeting.verified_sources(packet)[0]) == {0, 1}
 
 
+def test_source_html_alias_is_preserved_but_never_promoted_to_a_query(targeting):
+    raw = "SM-6-F'<I>lac</I><SUP>+</SUP>"
+    packet = {'edge': {'occurrence_id': 'fixture:24', 'canary_ordinal': 24,
+                       'subject': 'NCBITaxon:615', 'subject_label': 'Serratia marcescens',
+                       'object': 'mediadive.medium:1'}, 'records': [
+        source('bacdive_strains.json', {
+            'General': {'BacDive-ID': 5145, 'NCBI tax id': [{'NCBI tax id': 615}]},
+            'Name and taxonomic classification': {'species': 'Serratia marcescens',
+                                                  'strain designation': "SM-6-F'lac+, W838, " + raw},
+            'External links': {'culture collection no.': 'DSM 1, ' + raw}})]}
+    result = importlib.import_module('source_adjudicate').packet_targeting(packet)
+    assert result['strain_designations'] == ['DSM 1', "SM-6-F'lac+", 'W838']
+    assert {item['raw_alias'].strip() for item in result['excluded_strain_designations']} == {raw}
+    assert all(item['record_index'] == 0 for item in result['excluded_strain_designations'])
+    query = targeting.strain_query(result['resolved_names'], result['strain_designations'])
+    assert query.startswith('("Serratia marcescens") AND ')
+    assert '<' not in query
+    with pytest.raises(ValueError, match='Unsafe strain'):
+        targeting.strain_query(['Serratia marcescens'], [raw])
+
+
 @pytest.mark.parametrize('damage', ['missing', 'wrong', 'locator'])
 def test_lpsn_id_is_bound_inside_retained_bytes(targeting, damage):
     packet = halotolerans_packet()

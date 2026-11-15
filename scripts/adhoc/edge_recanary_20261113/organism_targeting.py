@@ -49,6 +49,19 @@ def strain_aliases(values):
     return aliases
 
 
+def source_strain_aliases(values):
+    """Partition raw source aliases; never rewrite unsafe markup into a query."""
+    accepted, excluded = [], []
+    for value in values:
+        parts = re.split(r"[;,]", value) if isinstance(value, str) else [value]
+        for part in parts:
+            try:
+                accepted.extend(strain_aliases([part]))
+            except ValueError as error:
+                excluded.append({'raw_alias': part, 'reason': str(error)})
+    return strain_aliases(accepted), excluded
+
+
 def name_query(names):
     names = list(dict.fromkeys(names))
     if not names:
@@ -111,8 +124,8 @@ def verified_sources(packet):
                 bid = str(general.get("BacDive-ID", ""))
                 external = record.get("External links", {})
                 external = external if isinstance(external, list) else [external]
-                collections = strain_aliases([str(v.get("culture collection no.", ""))
-                                             for v in external if isinstance(v, dict)])
+                collections, _ = source_strain_aliases([v.get("culture collection no.", "")
+                                                       for v in external if isinstance(v, dict)])
                 exact = bid in bids or bool(cultures & {v.replace("-", " ").casefold()
                                                       for v in collections})
                 taxa = general.get("NCBI tax id", [])
@@ -142,8 +155,8 @@ def verified_sources(packet):
                 elif set(names) & related:
                     matched = "exact full organism name"
                 if strain_claim:
-                    type_aliases = {v.replace('-', ' ').casefold()
-                                    for v in strain_aliases(record.get('type_strain_names', []))}
+                    safe_types, _ = source_strain_aliases(record.get('type_strain_names', []))
+                    type_aliases = {v.replace('-', ' ').casefold() for v in safe_types}
                     if not type_aliases & exact_collections:
                         # Same species does not make a non-type strain equivalent
                         # to the type strain. Keep the entire record a candidate.

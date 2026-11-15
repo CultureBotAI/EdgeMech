@@ -90,3 +90,9 @@ A second read-only pass at `ac473dc` found two integration defects, also fixed:
   exact. `scripts/adhoc/audit_targeting_compatibility_20261114.py` checks both
   retained 50-edge cohorts without network access and reports projection/hash
   mismatches separately from any unavailable organism targeting.
+
+The all-cohort audit also found [#101](https://github.com/CultureBotAI/EdgeMech/issues/101):
+fresh edge 24 contains a source strain alias with HTML. Unsafe source components
+are now retained with source hashes as excluded aliases; independently valid
+plain aliases remain available. No HTML is stripped to manufacture equivalence,
+and manually supplied unsafe query aliases still fail validation.

@@ -13,7 +13,7 @@ import json
 import re
 from pathlib import Path
 
-from organism_targeting import POLICY, packet_sha256, strain_aliases, verified_sources
+from organism_targeting import POLICY, packet_sha256, source_strain_aliases, verified_sources
 from review_clock import begin_review, finish_review
 
 CITATIONS = {
@@ -226,6 +226,7 @@ def packet_targeting(packet):
     edge = packet["edge"]
     bindings, names = verified_sources(packet)
     refs, candidate_refs, strains, candidate_strains = [], [], {}, set()
+    excluded_strains = []
     seen = set()
     for index, record in enumerate(packet["records"]):
         rec = json.loads(record["text"])
@@ -288,7 +289,13 @@ def packet_targeting(packet):
                 match = re.search(r"10\.\d{4,9}/[^\s;]+", val)
                 if match:
                     candidates.append((field, match.group(0), "row_primary", val))
-        for strain in strain_aliases(record_strains):
+        safe_strains, excluded = source_strain_aliases(record_strains)
+        excluded_strains.extend({**item, 'record_index': index,
+                                 'source_relative_path': record['source_relative_path'],
+                                 'locator': record['locator'],
+                                 'text_sha256': record['text_sha256']}
+                                for item in excluded)
+        for strain in safe_strains:
             if index in bindings:
                 strains.setdefault(strain, bindings[index])
             else:
@@ -344,6 +351,7 @@ def packet_targeting(packet):
             "strain_designations": sorted(strains),
             "strain_bindings": strains,
             "candidate_strain_designations": sorted(candidate_strains - set(strains)),
+            "excluded_strain_designations": excluded_strains,
             "primary_references": refs,
             "candidate_primary_references": candidate_refs,
         }
