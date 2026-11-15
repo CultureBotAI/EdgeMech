@@ -104,11 +104,16 @@ def trace(packet_path, raw_root, output):
     if halophily != [expected_observation]:
         raise ValueError("halophily observation differs from this bounded review")
     reference_ids = {str(item.get("@ref")) for item in halophily}
-    references = bacdive.get("references", [])
+    references = bacdive.get("Reference", [])
     if isinstance(references, dict):
         references = [references]
+    if not isinstance(references, list) or any(not isinstance(item, dict) for item in references):
+        raise ValueError("invalid BacDive Reference records")
     matched_refs = [item for item in references
-                    if str(item.get("@id", item.get("id", ""))) in reference_ids]
+                    if str(item.get("@id", "")) in reference_ids]
+    if any(sum(str(item.get("@id", "")) == reference for item in matched_refs) != 1
+           for reference in reference_ids):
+        raise ValueError("halophily requires exactly one matching BacDive Reference record")
 
     transformed = raw_root.parent / "transformed/microbedecoder/edges.tsv"
     paired = []
@@ -119,7 +124,10 @@ def trace(packet_path, raw_root, output):
                 paired.append({"tsv_line": number, **row})
     csv_sha = file_digest(raw_root / "database.csv")
     expected_record = "sha256:" + csv_sha + "#record=20904"
-    if len(paired) != 2 or any(row.get("source_record") != expected_record for row in paired):
+    expected_columns = ["BacDive_Salt_concentration", "BacDive_Salt_concentration_unit"]
+    if sorted(row["source_column"] for row in paired) != sorted(expected_columns):
+        raise ValueError("current transformed siblings require exactly one concentration and one unit row")
+    if any(row.get("source_record") != expected_record for row in paired):
         raise ValueError("current transformed sibling rows do not share the exact CSV source record")
     summary = {
         "occurrence_id": OCCURRENCE,
