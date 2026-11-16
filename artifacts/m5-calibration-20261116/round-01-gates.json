@@ -1,0 +1,461 @@
+{
+  "accounting_helper_sha256": "fde63ff28774eea19a550647a9b4a61398046f118769ed9002b7a2460c3b4766",
+  "adjudicator": {
+    "exposure": "Read required profile mentioning prior fresh-05 canary, frozen guide with contextual interpretation, and source endpoint containing inherited reviewed prose; those were not independent evidence. Read sealed initial matrices only after receipts and initial comparison. No historical authored ratings read.",
+    "id": "round01-independent-adjudicator",
+    "independence_limit": "Separate session with no historical matrices or coordinator reports read. Same-model operational review, not independent domain-expert validation.",
+    "model": "gpt-6-astra",
+    "model_basis": "Coordinator independently verified parent runtime session 01a1e612-21be-7313-844f-4249535ca119 turn_context.model=gpt-6-astra. Spawn used no model override; collaboration tool contract inherits parent model. Child-specific telemetry unavailable.",
+    "session_basis": "Canonical tool-managed child identity supplied by collaboration NEW_TASK.",
+    "session_id": "/root/round01_adjudication"
+  },
+  "disagreements": [
+    {
+      "adjudication": {
+        "axis": "claim",
+        "case_id": "first-01",
+        "evidence_ids": [
+          "metpo20260612",
+          "first-01-catalog"
+        ],
+        "final_category": "NOT_ASSESSABLE",
+        "original_categories": {
+          "reviewer_a": "INSUFFICIENT_EVIDENCE",
+          "reviewer_b": "NOT_ASSESSABLE"
+        },
+        "rationale": "The original METPO:2000511 assay-link semantics cannot be reconstructed from the retained release: it contains an obsolete label and deprecation flag without operative definition or domain/range. BacDive AH 405 has a citrate assay entry, but CIT+ cannot replace the original predicate with citrate metabolism. This is an interpretation limit, not evidence of negative citrate utilization. This disposition does not alter either sealed initial category or the initial agreement gate.",
+        "status": "resolved"
+      },
+      "axis": "claim",
+      "blocks_passage": false,
+      "case_id": "first-01",
+      "disposition": "pending_adjudication",
+      "reviewer_a": "INSUFFICIENT_EVIDENCE",
+      "reviewer_b": "NOT_ASSESSABLE"
+    },
+    {
+      "adjudication": {
+        "axis": "object_node",
+        "case_id": "fresh-04",
+        "evidence_ids": [
+          "metpo20260612",
+          "biolink440",
+          "biolink442"
+        ],
+        "final_category": "CORRECT",
+        "original_categories": {
+          "reviewer_a": "CORRECT",
+          "reviewer_b": "UNRESOLVED"
+        },
+        "rationale": "Exact METPO 1000471 is present in the frozen OWL. NaCl range mid2 matches rdfs:label; NaR_3_to_8 is a related synonym. The class descends through NaCl range, salinity phenotype with numerical limits and phenotype/quality, supporting PhenotypicQuality. OWL phenotype class with a quantitative restriction, not a literal measurement or the source membership fraction. The equivalent-class expression specifies a has-value decimal interval inclusive 3-8 and UCUM percent; ancestors supply the numerical-growth-range meaning. Percent basis is not specified. Missing explanation of source fraction 0.25 affects the assertion/source mapping, not the independently defined node. METPO release 2026-06-12 provides the exact expression and ancestry; Independent semantic assessment against retained Biolink 4.4.0 and 4.4.2. Relevant definitions agree; neither file establishes the ontology bytes that generated the sampled graph. This does not certify sampled-version provenance. This disposition does not alter either sealed initial category or the initial agreement gate.",
+        "status": "resolved"
+      },
+      "axis": "object_node",
+      "blocks_passage": false,
+      "case_id": "fresh-04",
+      "disposition": "pending_adjudication",
+      "reviewer_a": "CORRECT",
+      "reviewer_b": "UNRESOLVED"
+    },
+    {
+      "adjudication": {
+        "axis": "object_node",
+        "case_id": "fresh-05",
+        "evidence_ids": [
+          "metpo20260612",
+          "biolink440",
+          "biolink442"
+        ],
+        "final_category": "UNRESOLVED",
+        "original_categories": {
+          "reviewer_a": "CORRECT",
+          "reviewer_b": "UNRESOLVED"
+        },
+        "rationale": "Exact METPO 1000703 is present in the retained OWL. Own label and prose express nonmotility. A phenotype-quality category is plausible but does not resolve its contradictory inherited meaning. OWL subclass of METPO 1000701. Own definition denies autonomous movement, while direct parent 1000701 explicitly denotes ability to move independently. This definition/hierarchy tension prevents complete CORRECT; it does not establish that the bacterium is motile. Both terms inspected in METPO release 2026-06-12; Independent semantic assessment against retained Biolink 4.4.0 and 4.4.2. Relevant definitions agree; neither file establishes the ontology bytes that generated the sampled graph. This does not certify sampled-version provenance. The resolved CORRECT judgment remains unsupported and the node validity is still unresolved; this disagreement blocks passage.",
+        "status": "unresolved"
+      },
+      "axis": "object_node",
+      "blocks_passage": true,
+      "case_id": "fresh-05",
+      "disposition": "pending_adjudication",
+      "reviewer_a": "CORRECT",
+      "reviewer_b": "UNRESOLVED"
+    },
+    {
+      "adjudication": {
+        "axis": "object_node",
+        "case_id": "fresh-47",
+        "evidence_ids": [
+          "packet-fresh-47",
+          "biolink440",
+          "biolink442"
+        ],
+        "final_category": "UNRESOLVED",
+        "original_categories": {
+          "reviewer_a": "CORRECT",
+          "reviewer_b": "UNRESOLVED"
+        },
+        "rationale": "The hash-minted local attribute identifier is present in the endpoint, but independent generation/version authority is absent from the case-bound files. The displayed 0-10 reported-field label agrees with the packet. Biolink Attribute fits the stated type; generic class meaning cannot validate this exact local identifier. Reported source field value, not optimum or maximum measurement. The local definition limits meaning to a reported MicrobeDecoder token; that self-description is not independent validation of the node generation and uniqueness. No independent versioned local vocabulary definition/generation artifact; Independent semantic assessment against retained Biolink 4.4.0 and 4.4.2. Relevant definitions agree; neither file establishes the ontology bytes that generated the sampled graph. This does not certify sampled-version provenance. The resolved CORRECT judgment remains unsupported and the node validity is still unresolved; this disagreement blocks passage.",
+        "status": "unresolved"
+      },
+      "axis": "object_node",
+      "blocks_passage": true,
+      "case_id": "fresh-47",
+      "disposition": "pending_adjudication",
+      "reviewer_a": "CORRECT",
+      "reviewer_b": "UNRESOLVED"
+    }
+  ],
+  "expansion_authorized": false,
+  "final_categories": {
+    "first-01": {
+      "claim": "NOT_ASSESSABLE",
+      "literature": "NOT_APPLICABLE",
+      "object_node": "UNRESOLVED",
+      "relation": "UNRESOLVED",
+      "source_fidelity": "SUPPORTED",
+      "subject_node": "CORRECT"
+    },
+    "first-28": {
+      "claim": "INSUFFICIENT_EVIDENCE",
+      "literature": "NO_MATCH",
+      "object_node": "CORRECT",
+      "relation": "INCORRECT",
+      "source_fidelity": "NOT_ASSESSABLE",
+      "subject_node": "CORRECT"
+    },
+    "first-30": {
+      "claim": "INSUFFICIENT_EVIDENCE",
+      "literature": "NO_MATCH",
+      "object_node": "CORRECT",
+      "relation": "INCORRECT",
+      "source_fidelity": "CONTRADICTED",
+      "subject_node": "UNRESOLVED"
+    },
+    "first-32": {
+      "claim": "CONTRADICTED_AS_STATED",
+      "literature": "NOT_APPLICABLE",
+      "object_node": "CORRECT",
+      "relation": "INCORRECT",
+      "source_fidelity": "SUPPORTED",
+      "subject_node": "CORRECT"
+    },
+    "first-43": {
+      "claim": "INSUFFICIENT_EVIDENCE",
+      "literature": "NO_MATCH",
+      "object_node": "CORRECT",
+      "relation": "UNRESOLVED",
+      "source_fidelity": "CONTRADICTED",
+      "subject_node": "CORRECT"
+    },
+    "fresh-04": {
+      "claim": "INSUFFICIENT_EVIDENCE",
+      "literature": "PARTIAL",
+      "object_node": "CORRECT",
+      "relation": "INCORRECT",
+      "source_fidelity": "NOT_ASSESSABLE",
+      "subject_node": "CORRECT"
+    },
+    "fresh-05": {
+      "claim": "SUPPORTED_AS_STATED",
+      "literature": "SUPPORTS",
+      "object_node": "UNRESOLVED",
+      "relation": "INCORRECT",
+      "source_fidelity": "NOT_ASSESSABLE",
+      "subject_node": "CORRECT"
+    },
+    "fresh-14": {
+      "claim": "CONTRADICTED_AS_STATED",
+      "literature": "NOT_APPLICABLE",
+      "object_node": "CORRECT",
+      "relation": "INCORRECT",
+      "source_fidelity": "CONTRADICTED",
+      "subject_node": "CORRECT"
+    },
+    "fresh-32": {
+      "claim": "INSUFFICIENT_EVIDENCE",
+      "literature": "PARTIAL",
+      "object_node": "UNRESOLVED",
+      "relation": "UNRESOLVED",
+      "source_fidelity": "SUPPORTED",
+      "subject_node": "UNRESOLVED"
+    },
+    "fresh-47": {
+      "claim": "INSUFFICIENT_EVIDENCE",
+      "literature": "PARTIAL",
+      "object_node": "UNRESOLVED",
+      "relation": "CORRECT",
+      "source_fidelity": "SUPPORTED",
+      "subject_node": "UNRESOLVED"
+    }
+  },
+  "final_critical_label_classes": {
+    "unsupported CONFLICTING_EVIDENCE": {
+      "emitted_labels": 0,
+      "status": "untested_label_class",
+      "unsupported_labels": 0
+    },
+    "unsupported CONTRADICTED_AS_STATED": {
+      "emitted_labels": 2,
+      "status": "audited",
+      "unsupported_labels": 0
+    },
+    "unsupported CORRECT model judgment": {
+      "emitted_labels": 14,
+      "status": "audited",
+      "unsupported_labels": 0
+    },
+    "unsupported INCORRECT model judgment": {
+      "emitted_labels": 6,
+      "status": "audited",
+      "unsupported_labels": 0
+    },
+    "unsupported SUPPORTED_AS_STATED": {
+      "emitted_labels": 1,
+      "status": "audited",
+      "unsupported_labels": 0
+    }
+  },
+  "final_gates": {
+    "critical_overclaims": {
+      "final_unsupported_labels": 0,
+      "initial_unsupported_labels": 8,
+      "maximum": 0,
+      "passed": false
+    },
+    "disagreement_disposition": {
+      "blocking_unresolved_disagreements": 2,
+      "passed": false
+    },
+    "evidence_replay": {
+      "authored_status": "failed",
+      "passed": false,
+      "reason": "Receipt existence and audit assertions are not semantic, quote, authority or immutable canonical-pair replay.",
+      "receipts": [
+        {
+          "path": ".temp/m5-worker-run-20261116/adjudication/package-replay.json",
+          "sha256": "eef37d5fc257a4319d482685ac5523802ab707fb2ea2c6c7bae6d9cc540b6ab5"
+        },
+        {
+          "path": ".temp/m5-worker-run-20261116/adjudication/canonical-replay.json",
+          "sha256": "103cda457e8066ced5085d10980e8e1efd88caa1a85ba958e2c49311268dc7db"
+        },
+        {
+          "path": ".temp/m5-worker-run-20261116/adjudication/reviewer-a-fresh-05-validation.json",
+          "sha256": "a66e46ee112a1da8cf7ed9b424518f81e298406a38986fea15a6e4d4a76b0eb1"
+        },
+        {
+          "path": ".temp/m5-worker-run-20261116/adjudication/reviewer-b-fresh-05-validation.json",
+          "sha256": "1aee994fa1d2375c5a3e415e96b492d257920c9a08897a476a02f13f59aab9b9"
+        },
+        {
+          "path": ".temp/m5-worker-run-20261116/adjudication/reviewer-result-inspection.json",
+          "sha256": "3d40c9cfc010c1051c6b86c2357092b2f61c607198d54c5b1a6c32591127283f"
+        }
+      ],
+      "required_fraction": 1.0,
+      "status": "failed"
+    },
+    "exact_authority_backed_incorrect_model_judgments": {
+      "case_ids": [
+        "first-28",
+        "first-30",
+        "first-32",
+        "fresh-04",
+        "fresh-05",
+        "fresh-14"
+      ],
+      "denominator": null,
+      "minimum": 1,
+      "numerator": 6,
+      "passed": true,
+      "scope": "authored evidence audit; independent replay required"
+    },
+    "exact_paper_backed_directional_claims": {
+      "case_ids": [
+        "fresh-05"
+      ],
+      "denominator": null,
+      "minimum": 1,
+      "numerator": 1,
+      "passed": true,
+      "scope": "authored evidence audit; independent replay required"
+    },
+    "final_authored_axes": {
+      "denominator": 60,
+      "minimum": 60,
+      "numerator": 60,
+      "passed": true,
+      "unassessed": 0
+    },
+    "resolved_claims": {
+      "denominator": 10,
+      "minimum": 2,
+      "numerator": 3,
+      "passed": true
+    },
+    "resolved_modeling_per_axis": {
+      "object_node": {
+        "denominator": 10,
+        "minimum": 5,
+        "numerator": 6,
+        "passed": true
+      },
+      "relation": {
+        "denominator": 10,
+        "minimum": 5,
+        "numerator": 7,
+        "passed": true
+      },
+      "subject_node": {
+        "denominator": 10,
+        "minimum": 5,
+        "numerator": 7,
+        "passed": true
+      }
+    },
+    "resolved_source_fidelity": {
+      "denominator": 10,
+      "minimum": 8,
+      "numerator": 7,
+      "passed": false
+    }
+  },
+  "initial_critical_label_classes": {
+    "unsupported CONFLICTING_EVIDENCE": {
+      "emitted_labels": 0,
+      "status": "untested_label_class",
+      "unsupported_labels": 0
+    },
+    "unsupported CONTRADICTED_AS_STATED": {
+      "emitted_labels": 4,
+      "status": "audited",
+      "unsupported_labels": 0
+    },
+    "unsupported CORRECT model judgment": {
+      "emitted_labels": 33,
+      "status": "audited",
+      "unsupported_labels": 6
+    },
+    "unsupported INCORRECT model judgment": {
+      "emitted_labels": 14,
+      "status": "audited",
+      "unsupported_labels": 2
+    },
+    "unsupported SUPPORTED_AS_STATED": {
+      "emitted_labels": 2,
+      "status": "audited",
+      "unsupported_labels": 0
+    }
+  },
+  "initial_gates": {
+    "endpoint_roles_retained": {
+      "denominator": 20,
+      "minimum": 20,
+      "numerator": 20,
+      "passed": true
+    },
+    "initial_claim_agreement": {
+      "denominator": 10,
+      "minimum": 9,
+      "numerator": 9,
+      "passed": true
+    },
+    "initial_exact_category_agreement": {
+      "denominator": 60,
+      "minimum": 54,
+      "numerator": 56,
+      "passed": true
+    },
+    "initial_per_axis_agreement": {
+      "claim": {
+        "denominator": 10,
+        "minimum": 8,
+        "numerator": 9,
+        "passed": true
+      },
+      "literature": {
+        "denominator": 10,
+        "minimum": 8,
+        "numerator": 10,
+        "passed": true
+      },
+      "object_node": {
+        "denominator": 10,
+        "minimum": 8,
+        "numerator": 7,
+        "passed": false
+      },
+      "relation": {
+        "denominator": 10,
+        "minimum": 8,
+        "numerator": 10,
+        "passed": true
+      },
+      "source_fidelity": {
+        "denominator": 10,
+        "minimum": 8,
+        "numerator": 10,
+        "passed": true
+      },
+      "subject_node": {
+        "denominator": 10,
+        "minimum": 8,
+        "numerator": 10,
+        "passed": true
+      }
+    },
+    "packets_replayed": {
+      "denominator": 10,
+      "minimum": 10,
+      "numerator": 10,
+      "passed": true
+    }
+  },
+  "input_pins": [
+    {
+      "path": ".temp/m5-worker-run-20261116/package/round-01-manifest.json",
+      "sha256": "14175634b794a90124bb66a458af3c30f23ca40e10731c4ba89226134a89f4ab"
+    },
+    {
+      "path": ".temp/m5-worker-run-20261116/reviewer-a/initial-matrix.json",
+      "sha256": "db495e98d185eb8bbe256e208afc37c9361954e0b19cf9eecd0a485e6c540be9"
+    },
+    {
+      "path": ".temp/m5-worker-run-20261116/reviewer-b/initial-matrix.json",
+      "sha256": "a3121b21640ca28f175700fbec01bc08aaa7232bb5c81f304c83affa926357e5"
+    },
+    {
+      "path": ".temp/m5-worker-run-20261116/initial-comparison.json",
+      "sha256": "6b8aacdabb0edc52da8438472533ba22cb35af6beab30fa1c6b32c345eb6d242"
+    },
+    {
+      "path": ".temp/m5-worker-run-20261116/adjudication/audit.json",
+      "sha256": "aa4e0f8baf7386f45f2bd2c76ca737a52f88d6888f814afc0d1ef61ae8d34f67"
+    }
+  ],
+  "interpretation": "Operational calibration accounting; no expert independence or scientific correctness follows from agreement or saved output.",
+  "literature": {
+    "all_ten": {
+      "first-01": "NOT_APPLICABLE",
+      "first-28": "NO_MATCH",
+      "first-30": "NO_MATCH",
+      "first-32": "NOT_APPLICABLE",
+      "first-43": "NO_MATCH",
+      "fresh-04": "PARTIAL",
+      "fresh-05": "SUPPORTS",
+      "fresh-14": "NOT_APPLICABLE",
+      "fresh-32": "PARTIAL",
+      "fresh-47": "PARTIAL"
+    },
+    "applicability_deviations": [],
+    "exact_directional": 1,
+    "experimental_denominator": 7
+  },
+  "package_sha256": "14175634b794a90124bb66a458af3c30f23ca40e10731c4ba89226134a89f4ab",
+  "remaining_90_authorized_by_result": false,
+  "round_id": "m5-calibration-20261116-round01",
+  "schema": "edgemech-calibration-adjudication-gates/v1",
+  "scientific_calibration_passed": false,
+  "status": "failed_gate"
+}

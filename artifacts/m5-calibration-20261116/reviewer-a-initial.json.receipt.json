@@ -1,0 +1,14 @@
+{
+  "matrix_path": ".temp/m5-worker-run-20261116/reviewer-a/initial-matrix.json",
+  "matrix_sha256": "db495e98d185eb8bbe256e208afc37c9361954e0b19cf9eecd0a485e6c540be9",
+  "package_sha256": "14175634b794a90124bb66a458af3c30f23ca40e10731c4ba89226134a89f4ab",
+  "reviewer": {
+    "historical_exposure": "Required docs/record-review-profile.md mentions partial fresh-05 canary and identity conflict; required evidence-guide-v2.json mentions coordinator issue145 and quarantine; allowlisted fresh-32 endpoint description contains inherited reviewed vocabulary prose. These are excluded as judgment evidence. No other reviewer outputs, historical rating matrices, raw original_occurrence, curated records or dispositions inspected.",
+    "id": "reviewer-a",
+    "model": "gpt-6-astra",
+    "session_id": "01a1e61f-534d-7db3-a921-683a6eeffa64"
+  },
+  "saved_at": "2026-11-16T20:54:55.112374+00:00",
+  "schema": "edgemech-calibration-round/v1",
+  "scope": "immutable_initial_matrix_not_canonical_review"
+}
