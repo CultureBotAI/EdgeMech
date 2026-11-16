@@ -1,0 +1,77 @@
+{
+  "input_hashes_verified": 124,
+  "manifest_sha256": "14175634b794a90124bb66a458af3c30f23ca40e10731c4ba89226134a89f4ab",
+  "packet_replay": [
+    {
+      "case_id": "first-01",
+      "endpoint_records_verified": 2,
+      "inputs_verified": 2,
+      "measurement_status": "unresolved",
+      "occurrence_id": "urn:kg-microbe:occurrence:v1:aa8fb3ee82e3e42f14412a810092bfce9905eacfd7ae4c783d702011f59821eb"
+    },
+    {
+      "case_id": "first-28",
+      "endpoint_records_verified": 2,
+      "inputs_verified": 2,
+      "measurement_status": "unresolved",
+      "occurrence_id": "urn:kg-microbe:occurrence:v1:177815c9e4c39684189e2004e17840e6f0c42a2824750aad5d7f95bd7c0e5f3e"
+    },
+    {
+      "case_id": "first-30",
+      "endpoint_records_verified": 2,
+      "inputs_verified": 2,
+      "measurement_status": "unresolved",
+      "occurrence_id": "urn:kg-microbe:occurrence:v1:b912410040f3b6027290e16710d457e3e45753a38d8a5adda78f0a8ea423eb9b"
+    },
+    {
+      "case_id": "first-32",
+      "endpoint_records_verified": 2,
+      "inputs_verified": 2,
+      "measurement_status": "unresolved",
+      "occurrence_id": "urn:kg-microbe:occurrence:v1:192571d351f25940fa1d092f9943862376a9603e28391d518c131e3d0341669b"
+    },
+    {
+      "case_id": "first-43",
+      "endpoint_records_verified": 2,
+      "inputs_verified": 2,
+      "measurement_status": "unresolved",
+      "occurrence_id": "urn:kg-microbe:occurrence:v1:2cad956c7d5d6ace49ddb7e887de8eab4a7c1b78410942732e2a44bbd1a00559"
+    },
+    {
+      "case_id": "fresh-04",
+      "endpoint_records_verified": 2,
+      "inputs_verified": 2,
+      "measurement_status": "unresolved",
+      "occurrence_id": "urn:kg-microbe:occurrence:v1:155d6d2d7ac159eb931374219e919b3e9984224866ecb96f110e77407345f0e4"
+    },
+    {
+      "case_id": "fresh-05",
+      "endpoint_records_verified": 2,
+      "inputs_verified": 2,
+      "measurement_status": "unresolved",
+      "occurrence_id": "urn:kg-microbe:occurrence:v1:1e9dec218a07f7e480add8ff273e3a9285f79d57746ca74041702839207a8136"
+    },
+    {
+      "case_id": "fresh-14",
+      "endpoint_records_verified": 2,
+      "inputs_verified": 2,
+      "measurement_status": "unresolved",
+      "occurrence_id": "urn:kg-microbe:occurrence:v1:78725eeeea961ce059a55092aebc34b522b1b4ffc2ea844207ce7049a039cc80"
+    },
+    {
+      "case_id": "fresh-32",
+      "endpoint_records_verified": 2,
+      "inputs_verified": 2,
+      "measurement_status": "unresolved",
+      "occurrence_id": "urn:kg-microbe:occurrence:v1:bc0ccdeacd77c07acd22afd349f58309daaf6c46c7727a7f1d6dc267ac85cfd6"
+    },
+    {
+      "case_id": "fresh-47",
+      "endpoint_records_verified": 2,
+      "inputs_verified": 2,
+      "measurement_status": "source_bound",
+      "occurrence_id": "urn:kg-microbe:occurrence:v1:358f925d6342994dbe5598a3d3d2cdfafe3ad30028b7305c3cf21242cf3a9b57"
+    }
+  ],
+  "scope": "input_and_packet_replay_only_not_proof_replay_or_entailment"
+}
