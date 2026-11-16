@@ -112,7 +112,7 @@ def test_successful_canary_persists_replayable_private_receipt_and_no_model_over
     for name in ("metadata.json", "canary-receipt.json", "events.jsonl", "stderr.log", "final.md"):
         assert stat.S_IMODE((output / name).stat().st_mode) == 0o600
     assert "--approve-for-me" in controls["command"]
-    assert "workspace-write" in controls["command"]
+    assert "--sandbox" not in controls["command"]  # conflicts with --approve-for-me
     assert "--model" not in controls["command"] and "-m" not in controls["command"]
     with pytest.raises(ValueError, match="already exists"):
         module.launch(args)

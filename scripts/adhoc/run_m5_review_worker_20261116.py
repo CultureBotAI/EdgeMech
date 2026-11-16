@@ -259,7 +259,8 @@ def launch(args):
     if args.role != "canary":
         require(args.canary_receipt, "A passing canary receipt is required")
         canary = verify_receipt(args.canary_receipt, bindings, root, environment)
-    command = [str(codex), "exec", "--approve-for-me", "--sandbox", "workspace-write",
+    # Automatic approval review already selects workspace-write (CLI issue #142).
+    command = [str(codex), "exec", "--approve-for-me",
                "--json", "--color", "never", "-C", str(root), "-o", str(output / "final.md")]
     for directory in args.add_dir:
         directory = Path(directory).resolve(strict=True)
