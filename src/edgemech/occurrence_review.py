@@ -255,8 +255,9 @@ def validate_occurrence_review(root: Path, review: dict, packet_path: str, proof
                             if p["kind"] == "packet" and p["scope"] == "exact"}
             _require(not {"supports", "refutes"} <= source_roles,
                      "Opposing exact source evidence requires NOT_ASSESSABLE")
-            _require(any(p["kind"] == "packet" and p["support"] == role for p in linked),
-                     "Source judgment requires packet evidence with a matching support role")
+            _require(any(p["kind"] == "packet" and p["scope"] == "exact"
+                         and p["support"] == role for p in linked),
+                     "Source judgment requires exact-scope packet evidence with a matching support role")
         axes[axis] = category
     _require(axes.keys() == CATEGORIES.keys(), "Every occurrence requires all six assessment axes")
     if axes["claim"] == "SUPPORTED_AS_STATED":

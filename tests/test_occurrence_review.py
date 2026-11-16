@@ -242,6 +242,26 @@ def test_122_opposing_source_proofs_cannot_resolve_one_way(case):
     assert validate(case)["assessments"]["source_fidelity"] == "NOT_ASSESSABLE"
 
 
+@pytest.mark.parametrize(("label", "role"), [("SUPPORTED", "supports"), ("CONTRADICTED", "refutes")])
+@pytest.mark.parametrize("scope", ["partial", "context"])
+@pytest.mark.parametrize("opposition", [False, True])
+def test_125_partial_source_evidence_cannot_resolve_full_source_verdict(case, label, role, scope, opposition):
+    category(case[1], "source_fidelity", label)
+    case[2]["proofs"][1].update(support=role, scope=scope)
+    case[1]["evidence"][1]["support"] = role
+    if opposition:
+        opposite = "refutes" if role == "supports" else "supports"
+        proof, evidence = deepcopy(case[2]["proofs"][1]), deepcopy(case[1]["evidence"][1])
+        proof.update(evidence_id="source-opposition", support=opposite, scope="exact")
+        evidence.update(evidence_id="source-opposition", support=opposite)
+        link_proof(case, proof, evidence)
+    repin_sidecar(case)
+    with pytest.raises(ReviewError, match="exact-scope packet evidence"):
+        validate(case)
+    category(case[1], "source_fidelity", "NOT_ASSESSABLE")
+    assert validate(case)["assessments"]["source_fidelity"] == "NOT_ASSESSABLE"
+
+
 @pytest.mark.parametrize("identity", ["same", "doi_only", "pmcid_only", "distinct"])
 def test_124_quotation_budget_joins_publication_aliases_across_raw_bytes(case, identity):
     root, review, sidecar = case

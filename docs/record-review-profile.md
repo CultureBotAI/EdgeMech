@@ -96,6 +96,8 @@ for claim or literature binds both axes (#121). Opposing exact modeling
 authorities require `UNRESOLVED`, and opposing source proofs require
 `NOT_ASSESSABLE` (#122). The 25-word quotation budget groups verified DOI/PMCID
 aliases across raw representations of the same publication (#124).
+Resolved source fidelity itself requires an exact-scope packet proof of the
+corresponding role; partial/context proofs cannot resolve it (#125).
 
 Full paper bodies and raw source packets are private. Public canonical reviews
 contain bounded quotations, references, hashes, locators, assessments, findings

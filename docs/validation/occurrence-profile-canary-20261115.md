@@ -44,10 +44,18 @@ retains the same six judgments, two evidence items, one quotation, and zero
 provider calls/admissions. This is a repeated review of the same occurrence,
 not an increase in population coverage.
 
-To replay the corrected canary while its retained private inputs are present:
+A second read-only pass found #125: partial/context packet evidence could still
+resolve source fidelity. It was filed before requiring an exact-scope proof and
+adding regressions for both resolved labels, with and without opposing exact
+evidence. A third single-unit execution at **2026-11-16T02:59:04Z** passed the
+same launcher and persisted/read back the [final canary](../../reviews/structured/20261116T025904Z-edge47-occurrence-profile/review.md)
+in `.temp/occurrence-canary-edge47-125-fixed-20261115/`. Its six judgments and
+evidence counts are unchanged; all earlier bundles remain intact.
+
+To replay the final canary while its retained private inputs are present:
 
 ```sh
-PYTHONPATH=src python -m edgemech.occurrence_review check --review reviews/structured/20261116T025553Z-edge47-occurrence-profile/review.yaml --packet .temp/occurrence-canary-edge47-120-fixed-20261115/packet.json --proofs .temp/occurrence-canary-edge47-120-fixed-20261115/proofs.json
+PYTHONPATH=src python -m edgemech.occurrence_review check --review reviews/structured/20261116T025904Z-edge47-occurrence-profile/review.yaml --packet .temp/occurrence-canary-edge47-125-fixed-20261115/packet.json --proofs .temp/occurrence-canary-edge47-125-fixed-20261115/proofs.json
 ```
 
 The review pins its implementation inputs as observed at execution. If those
