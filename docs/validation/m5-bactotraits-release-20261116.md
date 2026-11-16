@@ -39,6 +39,18 @@ historical HTTP404. Publication requires a fresh complete dependency chain,
 canonical merge and lineage verification, a working artifact publication source,
 separate human approval, and verification of the published asset bytes.
 
+The second GitHub inspection at `2026-11-16T21:20:12Z` again found 14 releases,
+with newest asset modification on August 26. The canonical configuration has
+24 source keys from 15 producers. After the planned ontologies/BacDive/BactoTraits
+chain, 12 additional whole-source completions remain: gold, gtdb, lpsn, lpsn_api,
+madin_etal, mediadive, metatraits, metatraits_gtdb, microbedecoder,
+ontologies_stubs, prego (habitat only), and rhea_mappings. Independent review
+confirmed their completion records were absent using exact paths including
+ignored files. This establishes an unmet full-release dependency; it does not
+by itself establish that rebuilding them is infeasible. The global ontology
+raw-input preflight does not certify those sources' input availability or
+freshness.
+
 Independent review found that the first archive stat observation rounded its
 nanosecond timestamp by 24 ns through JavaScript Number serialization. The original
 observation is preserved. A new Python-written observation records exact
