@@ -142,12 +142,38 @@ the earlier scoped RO canary was not substituted for whole-source completion.
 The complete chain receipt SHA256 is
 `c5defa64ee549fbc4ef6978ca4cc1fbe441ee319d465eb1188a836cc6534119e`.
 
-The next BacDive unit uses the same canonical output placement, launcher,
+The BacDive unit used the same canonical output placement, launcher,
 Python environment and single-worker/thread limits. Its plan pins six original
 inputs totaling 14.875 GB, including the actual 14.074 GB NCBITaxon DB, with
-188.416 GB free before staging. BacDive and full BactoTraits completion, followed
-by the ordinary strict BactoTraits-only merge, remain pending in this checkpoint.
-No completion marker is synthesized and no freshness check is disabled.
+188.416 GB free before staging. It completed with 298,502 nodes and 4,454,892
+edges, nine finalization audits and an actual producer fingerprint. The full
+private chain receipt SHA256 is
+`6742881bc5743bdf8ed12023638634ad628f482377ad8f0ad0799936585103bd`;
+the wrapper confirmed existing raw inputs, implementation and upstream outputs
+were unchanged. The retained NCBITaxon database matched the authority version
+but had no historical toolchain record; the ordinary run records that limitation
+and no historical record was invented. Independent review verified all 16 source
+artifacts, 97 upstream artifacts, 521 named paths and exact graph counts. The
+target SPO has zero occurrences in the new BacDive graph; its fresh lookup has
+one BacDive17851 to NCBITaxon:1123071 mapping at data row 22,928.
+
+The full BactoTraits producer then completed with 9,757 nodes and 87,788 edges,
+using the original full CSV and that new lookup. Independent review verified
+all nine source artifacts, 113 upstream artifacts and 530 named paths. Exactly
+one audit preserves all 105 fields of original row 8521, with the expected
+complete-row and full-CSV hashes. Its SHA256 is
+`ca287b5941761b5ba857a142d2896cefb285039a0fa5638d23075e5e26297160`.
+The fresh lookup and mapping each retain one identity entry for traceability;
+the pruned producer cache has none, and the finalized source has zero target
+SPO occurrences. The full BactoTraits chain receipt SHA256 is
+`36968cb32f7c10ec883160503e369bf1ad19ecfa3b8203395e327f24db93a445`.
+
+The [compact production record](m5-bactotraits-production-20261116.json) binds
+all three completed sources, full authority bytes, runtime, configurations,
+implementation and output hashes without embedding native histories. Its
+source-only scope does not assert merged-graph or publication success. The
+strict merged candidate is currently running in this checkpoint. No completion
+marker was synthesized and no freshness check was disabled.
 
 The strict merge helper preserves canonical semantics and records explicit
 path-only configuration changes: absolute source paths and exclusive output
@@ -158,6 +184,14 @@ complete source receipts and verifies the complete quarantined row, retained
 intermediate joins and streamed merged outputs. Its 24 focused tests also pass
 independently. A BactoTraits-only candidate cannot establish full-snapshot
 publication.
+
+The first strict merge plan refused an inherited EdgeMech `PYTHONPATH` because
+it exposed an extra distribution. The failed plan was preserved; a new plan
+used the explicit KG path and the same native thread limits as the producers,
+and matched all 346 pinned distributions. No package or runtime guard changed
+([#163](https://github.com/CultureBotAI/EdgeMech/issues/163)). Independent review
+then verified 457 input pins and all 26 path-only configuration deltas before
+the ordinary single-process CLI was started.
 
 ## Independent review and checks
 
@@ -183,8 +217,14 @@ affected checks pass without changing assertions or guards
 pre-existing fixture dependence on newly produced canonical taxonomy data
 ([KG #1873](https://github.com/Knowledge-Graph-Hub/kg-microbe/issues/1873)). A
 pristine verification checkout at exactly the same committed candidate passes
-that real test canary; the unchanged standard full gate there remains pending.
-The populated-checkout failure and every earlier log remain preserved.
+that real test canary and all four unchanged standard gate stages, with 9,968
+passed and 56 skipped. The populated-checkout run completed with 9,974 passed,
+33 failed and 17 skipped; all 33 failures have the same fixture-cache mismatch,
+and the affected fixture cases pass in the pristine checkout. The pristine
+checkout has additional ordinary local-data skips; this is not a claim that
+every optional integration test ran there. No assertions, selectors or
+producer guards were changed. The known fixture defect, populated-checkout
+failure and every earlier log remain preserved.
 
 Read-only review found two new helper boundary cases: exact temporary-root paths
 were accepted, and imported terminal receipts did not require consistent exit

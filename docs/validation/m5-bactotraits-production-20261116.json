@@ -1,0 +1,486 @@
+{
+  "inputs": {
+    "current_go_cache": {
+      "fresh_build_receipt": {
+        "bytes": 75201,
+        "path": "data/validation-bactotraits-130/production-ro-canary-r3/receipt.json",
+        "sha256": "dd96bdb5d482e75458b545a658ddd4d1117e53e61f38d84b5f27cabc17d90001"
+      },
+      "java_history_note": "Original toolchain record is preserved; separately pinned supplements identify the actual JVM.",
+      "members": {
+        "go.db": {
+          "bytes": 403886080,
+          "path": "data/raw/go.db",
+          "sha256": "61312e19177a3280ff1d186129dccdb1db63bf2cbad4faef088c7ace4cf16d4d"
+        },
+        "go.db.toolchain.json": {
+          "bytes": 922,
+          "path": "data/raw/go.db.toolchain.json",
+          "sha256": "c7141519a33b8629b16cb8b90d7f1b17d88e9d3f7086eafc75d3e2036a434d57"
+        }
+      }
+    },
+    "fresh_bacdive_lookup": {
+      "bytes": 39069347,
+      "path": "kg_microbe/transform_utils/bacdive/tmp/bacdive.tsv",
+      "sha256": "b01032d4bc41b3342ab12e9aa68901551e83cb05bfa2a9b1b1aa4d2ab1479904",
+      "source_receipt": "chain-canonical-bacdive-r1.json"
+    },
+    "original_full_csv": {
+      "bytes": 8973561,
+      "original_retained_identity_matches_staged": true,
+      "path": "data/raw/BactoTraits_databaseV2_Jun2022.csv",
+      "sha256": "18316d7a0b6c2bef6fcb96a7659c2e3f3734c14786f383c2a93fefe2ae226a4b"
+    },
+    "retained_ncbitaxon_db": {
+      "authority_version": "2026-07-12",
+      "build_history": "Retained database has no historical toolchain record; no original builder is inferred.",
+      "bytes": 14073847808,
+      "matching_owl_gzip_version": "2026-07-12",
+      "original_retained_identity_matches_staged": true,
+      "path": "data/raw/ncbitaxon.db",
+      "sha256": "8474ba4f4c341b8578ac10d5661b315be8a3c6f0687b4d2e7e61b55e34faea34",
+      "toolchain_record_present": false
+    },
+    "retained_ncbitaxon_owl_gzip": {
+      "bytes": 71846044,
+      "original_retained_identity_matches_staged": true,
+      "path": "data/raw/ncbitaxon.owl.gz",
+      "sha256": "65be93c022e45b0fe6d6d311bf0a18ba08cc29f7de5e0207ee06823ec65f5671"
+    }
+  },
+  "merged_graph_verified": false,
+  "observed_at": "2026-11-16T21:53:36.263324+00:00",
+  "profile": "m5-canonical-production-summary/v1",
+  "published_release_verified": false,
+  "quarantine_audit": {
+    "bacdive_id": "17851",
+    "bytes": 3764,
+    "complete_raw_row_field_count": 105,
+    "disposition": "quarantine_mixed_strain_row",
+    "exact_copy_path": "full-bactotraits-audit/bactotraits_identity_quarantine.tsv",
+    "ncbitaxon_id": "NCBITaxon:1123071",
+    "original_path": "data/transformed/bactotraits/bactotraits_identity_quarantine.tsv",
+    "policy_sha256": "b26d514f1a1fa97d6d5d5a44498fc8bf1f98fa7e2ad3883d4fdfeb6789523844",
+    "reviewed_source_data_row": "8521",
+    "reviewed_source_sha256": "18316d7a0b6c2bef6fcb96a7659c2e3f3734c14786f383c2a93fefe2ae226a4b",
+    "row_count": 1,
+    "row_sha256": "345fd2d00ee93334d975085716692dd4d4c530d5529f04c5b07af0766d5a512a",
+    "rule_id": "bactotraits-17851-mixed-strain",
+    "sha256": "ca287b5941761b5ba857a142d2896cefb285039a0fa5638d23075e5e26297160",
+    "source_data_row": "8521",
+    "source_sha256": "18316d7a0b6c2bef6fcb96a7659c2e3f3734c14786f383c2a93fefe2ae226a4b"
+  },
+  "runtime": {
+    "authority_guards": {
+      "KG_CHEBI_VERSION_CHECK": "strict",
+      "KG_GO_VERSION_CHECK": "strict",
+      "KG_NCBITAXON_VERSION_CHECK": "strict",
+      "KG_SEMSQL_BUILD": "on"
+    },
+    "canonical_wrapper": {
+      "bytes": 15032,
+      "path": "scripts/adhoc/m5_release_chain_20261116.py",
+      "sha256": "affc4be45c6444634220680cdac9dd941a3b2a36e1e2b40dd151208c0a1158ca"
+    },
+    "interpreter_binary_observed_during_summary": {
+      "bytes": 33816,
+      "name": "python3.10",
+      "sha256": "dd20469f55259b6d0aafbbd2a2b250a3645dfcbd1c70923cbb478e07537c951e"
+    },
+    "java": {
+      "implementation": {
+        "actual_runtime_launcher": {
+          "bytes": 70432,
+          "file": "java",
+          "sha256": "c8586bb2233ed876cbf5a4e556389b2569e13b4413fc595aeafa530a6ba9ee6b"
+        },
+        "actual_runtime_vm": {
+          "bytes": 20062816,
+          "file": "libjvm.dylib",
+          "sha256": "983be5b9be8d8c90442c4e33bf789db0c2ba9bca022ace978dffd5c1b4c9c100"
+        }
+      },
+      "original_go_record_java_metadata_issue": "https://github.com/Knowledge-Graph-Hub/kg-microbe/issues/1872",
+      "supplement_files": {
+        "java-runtime-implementation-r3.json": {
+          "bytes": 1786,
+          "sha256": "ec76081f31d0e639082cb3eb359f82f2c138fd31e8538f2c7282b4dfd14a1451"
+        },
+        "java-runtime-supplement-r3.json": {
+          "bytes": 2223,
+          "sha256": "b697bb006e0754712d28cd0a3bf47628b3f11cd24506ebeab51058d98a175ac1"
+        }
+      },
+      "version_output": "openjdk version \"27\" 2026-09-15\nOpenJDK Runtime Environment Temurin-27+35 (build 27+35)\nOpenJDK 64-Bit Server VM Temurin-27+35 (build 27+35, mixed mode, sharing)"
+    },
+    "kg_launcher": {
+      "bytes": 11117,
+      "path": "scripts/adhoc/run_bactotraits_production_unit_20261116.py",
+      "sha256": "2a079d57f95ce857d737c7fe22eabb71944a7456f29ba37107e009b33927bcb3"
+    },
+    "native_thread_caps": {
+      "BLIS_NUM_THREADS": "1",
+      "MKL_NUM_THREADS": "1",
+      "NUMEXPR_MAX_THREADS": "1",
+      "NUMEXPR_NUM_THREADS": "1",
+      "OMP_NUM_THREADS": "1",
+      "OPENBLAS_NUM_THREADS": "1",
+      "RAYON_NUM_THREADS": "1",
+      "VECLIB_MAXIMUM_THREADS": "1"
+    },
+    "packages": {
+      "PyYAML": "6.0.3",
+      "kgx": "2.7.0",
+      "oaklib": "0.7.4",
+      "pandas": "2.3.3",
+      "semsql": "0.4.0"
+    },
+    "poetry_lock": {
+      "bytes": 706221,
+      "sha256": "a9e8336e172faef6449ed79a2dde8df7932a5cfb9ba368e7a93a7c7ab83d7f6f"
+    },
+    "producer_commit": "b631cacf5bca2f5f993e85bacb96578919cc7d92",
+    "python": "3.10.11 (main, Oct 10 2026, 16:38:29) [Clang 21.0.0 (clang-2100.3.34.2)]",
+    "source_processes": 1
+  },
+  "scope": "Three actual source producers; no merge or published-release success is asserted.",
+  "sources": {
+    "bacdive": {
+      "chain_receipt": {
+        "bytes": 89180901,
+        "path": "chain-canonical-bacdive-r1.json",
+        "sha256": "6742881bc5743bdf8ed12023638634ad628f482377ad8f0ad0799936585103bd"
+      },
+      "completed_at": "2026-11-16T21:41:50.812680+00:00",
+      "configuration_digest": "0a81d9b04db86753ae8760ca855fa9a46d1636e08aae174a6714edb3b7fc236c",
+      "configuration_digest_format": "sha256 of compact sorted-key environment JSON",
+      "counts": {
+        "edges": 4454892,
+        "nodes": 298502
+      },
+      "existing_raw_inputs_unchanged": true,
+      "finalizer_code_fingerprint": "f4586479a17fc1e8ae7c7749b18780a7823c160abfde359d97076466d5d1d722",
+      "finalizer_graph_and_audit_members": {
+        "clinical_isolation_category_dispositions.tsv": {
+          "bytes": 8316125,
+          "sha256": "2a30533412b36fdfba70bb3d9b1b909a0f6cde0e0b8749032e0e183062f99df3"
+        },
+        "ec_substrate_corrections.tsv": {
+          "bytes": 5628,
+          "sha256": "05b16360ec55536a1880e4c046ab1914207f0946a937a3a438376a07c6d512db"
+        },
+        "edges.tsv": {
+          "bytes": 729983149,
+          "sha256": "c4e024e1074d0708132eae3ab822175bab7138184880c26c0b645888f28e7a95"
+        },
+        "go_reference_resolution.tsv": {
+          "bytes": 11809,
+          "sha256": "ed92b622a4c301bab97580348d495b5ce46a9fe2e283f91a341838b941bfb812"
+        },
+        "isolation_category_identity_dispositions.tsv": {
+          "bytes": 78073408,
+          "sha256": "6ad2f49af2526851bd408efa1e69079248418356cd7a4c0e76966f5bf02fa94d"
+        },
+        "ncit_isolation_category_dispositions.tsv": {
+          "bytes": 30491,
+          "sha256": "f05f5bae3cfb21b20c8659c94540b72ec5988e910faa1a1fbbc6ad33c13faa16"
+        },
+        "nodes.tsv": {
+          "bytes": 40014221,
+          "sha256": "444b7be456e3af5c9e19423616135110214e4de7f543cbbe0f3977a630ee96d9"
+        },
+        "source_canonicalization.tsv": {
+          "bytes": 1149,
+          "sha256": "cbe429560d5c20c35126b32883c7fc5ae1b8bcb1c44b1da1443b1734c5a161cd"
+        },
+        "source_finalization.json": {
+          "bytes": 84796227,
+          "sha256": "368e62a41633f45d3581600a535e38a9d7d6b36c0bae713729e68de07954a7b5"
+        },
+        "source_fingerprint.json": {
+          "bytes": 3376,
+          "sha256": "e065fc15fb93666afd2decb37cd45ed9de560e1a0db85978aa1facb5ae9632b6"
+        },
+        "source_metadata_exclusions.tsv": {
+          "bytes": 62,
+          "sha256": "f0bfb347a870f737dd13e48920e6eda693bc99db3f081a4326bc76efdd538564"
+        },
+        "source_reference_resolution.tsv": {
+          "bytes": 1110744,
+          "sha256": "3218bd82c4b99f6f4d401299b6aca3c5507afe1c4b10393113d67493ff8d9555"
+        },
+        "taxonomy_assertion_dispositions.tsv": {
+          "bytes": 27838410,
+          "sha256": "e2289bbbcff0afe42fb4edfd352c8c889b2c03b9f6a57d1feaed5e1707f2e9d0"
+        }
+      },
+      "inner_receipt": {
+        "bytes": 99263,
+        "path": "data/validation-bactotraits-130/canonical-bacdive-r1/receipt.json",
+        "sha256": "4daca3c36bf310ea158ef4a57f8b1b30488733915ba6fcbc7ae429d4ffb32c9b"
+      },
+      "original_inputs_unchanged_at_execution_end": true,
+      "preexisting_ancillary_unchanged": true,
+      "producer_commit": "b631cacf5bca2f5f993e85bacb96578919cc7d92",
+      "source_directory": "data/transformed/bacdive",
+      "started_at": "2026-11-16T21:18:31.276450+00:00",
+      "upstream_unchanged": true
+    },
+    "bactotraits": {
+      "chain_receipt": {
+        "bytes": 116138,
+        "path": "chain-canonical-bactotraits-r1.json",
+        "sha256": "36968cb32f7c10ec883160503e369bf1ad19ecfa3b8203395e327f24db93a445"
+      },
+      "completed_at": "2026-11-16T21:46:09.913751+00:00",
+      "configuration_digest": "c8918a56d98964bdb47272b6f09fe48379ff8a77ebb6d91a431aaff267ced6df",
+      "configuration_digest_format": "sha256 of compact sorted-key environment JSON",
+      "counts": {
+        "edges": 87788,
+        "nodes": 9757
+      },
+      "existing_raw_inputs_unchanged": true,
+      "finalizer_code_fingerprint": "f4586479a17fc1e8ae7c7749b18780a7823c160abfde359d97076466d5d1d722",
+      "finalizer_graph_and_audit_members": {
+        "bactotraits_identity_quarantine.tsv": {
+          "bytes": 3764,
+          "sha256": "ca287b5941761b5ba857a142d2896cefb285039a0fa5638d23075e5e26297160"
+        },
+        "edges.tsv": {
+          "bytes": 9864659,
+          "sha256": "9331f45f9b3e049e7498779777b769f2675eb339ab91f7eee15cbf8a689d07db"
+        },
+        "go_reference_resolution.tsv": {
+          "bytes": 204,
+          "sha256": "082792210b81208e4bfab7db9686e1d64a7bc98366f9bc0b7a4a302d1e8cfacc"
+        },
+        "nodes.tsv": {
+          "bytes": 894226,
+          "sha256": "64898938613a6b242d20e513d57e351fecf72a77d14ca3e301d63a1962367b64"
+        },
+        "source_canonicalization.tsv": {
+          "bytes": 48,
+          "sha256": "4e6a2e08ad0ec3ed46d69cf49c5790c4c0bc253c6cb18d9f1866363bedbd4870"
+        },
+        "source_finalization.json": {
+          "bytes": 10419,
+          "sha256": "4261b67c32a05e6f7bc7fc2cd1cbef49ec8fb975eeb47b4de55cae5dfc8ec6c6"
+        },
+        "source_fingerprint.json": {
+          "bytes": 2020,
+          "sha256": "6b19adc93c888ce9a6881d528a5bc5c4a9fcce91d9bef79401426132f2723968"
+        },
+        "source_metadata_exclusions.tsv": {
+          "bytes": 62,
+          "sha256": "f0bfb347a870f737dd13e48920e6eda693bc99db3f081a4326bc76efdd538564"
+        },
+        "source_reference_resolution.tsv": {
+          "bytes": 312981,
+          "sha256": "4939410635da7ec5fe52e13bf0a8cc4934739cc0dd6507fcdd7bc098591b0d97"
+        }
+      },
+      "inner_receipt": {
+        "bytes": 102453,
+        "path": "data/validation-bactotraits-130/canonical-bactotraits-r1/receipt.json",
+        "sha256": "dd87233b672b4c9c9d830425c7ee8ce19bbc66ed32e349fbed4e1eb05687ef48"
+      },
+      "original_inputs_unchanged_at_execution_end": true,
+      "preexisting_ancillary_unchanged": true,
+      "producer_commit": "b631cacf5bca2f5f993e85bacb96578919cc7d92",
+      "source_directory": "data/transformed/bactotraits",
+      "started_at": "2026-11-16T21:45:41.395528+00:00",
+      "upstream_unchanged": true
+    },
+    "ontologies": {
+      "chain_receipt": {
+        "bytes": 156174,
+        "path": "chain-canonical-ontologies-r1.json",
+        "sha256": "c5defa64ee549fbc4ef6978ca4cc1fbe441ee319d465eb1188a836cc6534119e"
+      },
+      "completed_at": "2026-11-16T21:15:47.530538+00:00",
+      "configuration_digest": "5418f48bc234704ad984abaf79a26481a4a5161a1b7e9e9561a80571d7db6670",
+      "configuration_digest_format": "sha256 of compact sorted-key environment JSON",
+      "counts": {
+        "edges": 1729253,
+        "nodes": 1355041
+      },
+      "existing_raw_inputs_unchanged": true,
+      "finalizer_code_fingerprint": "f4586479a17fc1e8ae7c7749b18780a7823c160abfde359d97076466d5d1d722",
+      "finalizer_graph_and_audit_members": {
+        "chebi_edges.tsv": {
+          "bytes": 46268462,
+          "sha256": "9a74dd1a3d92a5f82fd7361c58d1ba971abde1f8ebb5c8f2ed0c77990544e1e1"
+        },
+        "chebi_nodes.tsv": {
+          "bytes": 66294335,
+          "sha256": "02024ca0a29cafaac16b43a06a786edd0368a8a646b75ab1002b6239c1219f60"
+        },
+        "ec_edges.tsv": {
+          "bytes": 1260032,
+          "sha256": "c86152c532704fb368c7c5ce98ed0371b8570bc1fd5bb51aa4ada938de3b0d19"
+        },
+        "ec_nodes.tsv": {
+          "bytes": 2065473,
+          "sha256": "84418ecbd7f46a4d08e63c90d4c5f2a6bb1f3ba88b0b564d8e02053c7a1a0ca1"
+        },
+        "envo_edges.tsv": {
+          "bytes": 1215217,
+          "sha256": "86296283b8956be14f87d541ac71a10092ea1001dd68c7e15d894bd876cbdc8a"
+        },
+        "envo_nodes.tsv": {
+          "bytes": 1292759,
+          "sha256": "ff195ed17339df155c90e3af7677f6f6c6a02a0a4b8222f86d7665c68641db0a"
+        },
+        "foodon_edges.tsv": {
+          "bytes": 6566822,
+          "sha256": "cf0014be93a186021667d59a6c69e59ad1ed5fcfafee620ccde105a18f2eca2f"
+        },
+        "foodon_kernel_quarantine.tsv": {
+          "bytes": 94917,
+          "sha256": "6b7feb1493a629c9b5dcaabe7f2662663f42316c634f0ce384e5c045c6535137"
+        },
+        "foodon_nodes.tsv": {
+          "bytes": 7066327,
+          "sha256": "5337050e9527b4c80b59d7f4afb1a543579503bcb676de9834d0658c31a67e5d"
+        },
+        "go_edges.tsv": {
+          "bytes": 7735534,
+          "sha256": "dfa175a58b2317e112b3d920aee93eab4046bb76af2a3b03b3e4f28b3a180125"
+        },
+        "go_nodes.tsv": {
+          "bytes": 15147094,
+          "sha256": "23df80dbbbc80cf7a6ac411eff2265b9c0b1cc5c15793ec8495ca74fb59d6ac3"
+        },
+        "go_reference_resolution.tsv": {
+          "bytes": 49595009,
+          "sha256": "e0ea9d2401f6b6b50a7864a7e6e92da01335373774df38cc08de125b27bba926"
+        },
+        "hp_edges.tsv": {
+          "bytes": 2584221,
+          "sha256": "0adb692f275158d3d1d35eff6b0239315dfb7f52d320ecc7fbf7a1eb8b4a4c88"
+        },
+        "hp_nodes.tsv": {
+          "bytes": 5094035,
+          "sha256": "2eedfe6bb7c1bed2a5d96a7af9837e10c155cf608ff9002d2321ce0d20e9768c"
+        },
+        "metpo_edges.tsv": {
+          "bytes": 34308,
+          "sha256": "57dfb68fa09db5e7b9284470df4c717b9b3f9830e151a731cbed5a1c91abf8cb"
+        },
+        "metpo_nodes.tsv": {
+          "bytes": 65883,
+          "sha256": "6483bee2d730fb55ab58830aa1a87106fbf2531192a4018324a8579169f48266"
+        },
+        "mondo_edges.tsv": {
+          "bytes": 12721442,
+          "sha256": "fac90452121124151fef1705a443fed42b0dedc6e1cd3522d7b7a51be5be6519"
+        },
+        "mondo_nodes.tsv": {
+          "bytes": 17176022,
+          "sha256": "2bd3b13e6131d6eb780a3f248858ea61672f1109678d4d05afc2ee164b6b86d0"
+        },
+        "native_relation_dispositions.tsv": {
+          "bytes": 1125605,
+          "sha256": "d25dc3e19cbd1a18162ae04b48685f7e7c8760dd405fbd83c86e909338de51a9"
+        },
+        "ncbitaxon_edges.tsv": {
+          "bytes": 116390818,
+          "sha256": "4b9597974319bb030fd07682f00755404d26ee6297ece30f99feb88915048e95"
+        },
+        "ncbitaxon_nodes.tsv": {
+          "bytes": 104657178,
+          "sha256": "c7c9bd85b3871a8d323a833a164b4bab3e2ef9798a3456e55a218476dad56580"
+        },
+        "ontology_metadata_exclusions.tsv": {
+          "bytes": 818850,
+          "sha256": "472c6fda2dc56544fe0103e59d099dc62ffc56d62cd7145d486d4a2d34f512d1"
+        },
+        "ontology_parent_dispositions.tsv": {
+          "bytes": 15455868,
+          "sha256": "3d59e84b8e6d4939d75ae7f3b811763b778555424a9b618298b56de84394aedf"
+        },
+        "pato_edges.tsv": {
+          "bytes": 2064720,
+          "sha256": "bc682e3966169f40b7cbf78a52844f9638609c021d89ade77817b34f724490e6"
+        },
+        "pato_nodes.tsv": {
+          "bytes": 2341468,
+          "sha256": "45734a73037daa50601d4262c704129b7488f88ed93d7d56bbc54037573747c8"
+        },
+        "ro_edges.tsv": {
+          "bytes": 9271,
+          "sha256": "015699c43eede656b82759b30ae68ee873b59dd910cf62306fe54bc78772b9ca"
+        },
+        "ro_nodes.tsv": {
+          "bytes": 177483,
+          "sha256": "94a72f26e170a9fb28e00712ecc1f09551273f18dcbb0ff749dcc5bbc365efe9"
+        },
+        "source_canonicalization.tsv": {
+          "bytes": 25524472,
+          "sha256": "c3e9b35325164fd3d015c59e3536f67fc98454bed2a071ab8220a99c6214ce29"
+        },
+        "source_finalization.json": {
+          "bytes": 46411,
+          "sha256": "f6d80648081b1f18fcff51eaf05209eeeae8d5e10d9b4b369b18653f10fe16b2"
+        },
+        "source_fingerprint.json": {
+          "bytes": 4385,
+          "sha256": "76f4f151a24a864daa4e9ed0edb6ee94449154d35977c7ab95299faf1a2e24db"
+        },
+        "source_metadata_exclusions.tsv": {
+          "bytes": 62,
+          "sha256": "f0bfb347a870f737dd13e48920e6eda693bc99db3f081a4326bc76efdd538564"
+        },
+        "source_reference_resolution.tsv": {
+          "bytes": 279610,
+          "sha256": "37734fa7d77e5833b074ac365b6debce50f1ac98dab1420b091522d4ca7a5dce"
+        },
+        "taxrank_edges.tsv": {
+          "bytes": 9228,
+          "sha256": "0a6d62353510003c438a82d66eb4fafd5c0be9e034ae771686512334fa81ff11"
+        },
+        "taxrank_nodes.tsv": {
+          "bytes": 9046,
+          "sha256": "b4ded9e2479674558e8c3100fbd07fcc27b6690ea46feb79fb159640c873973e"
+        },
+        "uberon_edges.tsv": {
+          "bytes": 8350913,
+          "sha256": "5d75961bf657df579ab02496c9c03205db4dd54aa2999a2118d28dd64b35302f"
+        },
+        "uberon_nodes.tsv": {
+          "bytes": 8122603,
+          "sha256": "23f96f9a513b081b0ef24a22d9f4c7d662489bfbac014679fe4492196f04586a"
+        },
+        "upa_edges.tsv": {
+          "bytes": 307754,
+          "sha256": "189f856fd89c32be0880f65abfa0283a8f968dcf568d26ddcf3c4501db69a87d"
+        },
+        "upa_nodes.tsv": {
+          "bytes": 398234,
+          "sha256": "4cb2b06ffe73eed9a66e6c1f29e4afd3010eb9a667cbdef412e488d3e30c9fd2"
+        },
+        "upa_route_review.tsv": {
+          "bytes": 11779832,
+          "sha256": "3614e6abc27b1b66e3f1dd81db6ca9214860063bce73abe446c16e5dc12df9f2"
+        }
+      },
+      "inner_receipt": {
+        "bytes": 89899,
+        "path": "data/validation-bactotraits-130/canonical-ontologies-r1/receipt.json",
+        "sha256": "f6169dcdfc7822cbc4de7174a59a516ee4b1acf1e15af886da6f4add0246631f"
+      },
+      "original_inputs_unchanged_at_execution_end": true,
+      "preexisting_ancillary_unchanged": true,
+      "producer_commit": "b631cacf5bca2f5f993e85bacb96578919cc7d92",
+      "source_directory": "data/transformed/ontologies",
+      "started_at": "2026-11-16T21:00:05.307047+00:00",
+      "upstream_unchanged": true
+    }
+  },
+  "summary_helper": {
+    "bytes": 15495,
+    "path": "summarize_m5_production_20261116.py",
+    "sha256": "74d2e5d18d3d68c2cb79d7439bfcc991252e8ae8e9d7405887b8ddd8d00a9435"
+  }
+}
