@@ -1,0 +1,730 @@
+{
+  "canary_case_id": "fresh-47",
+  "cases": [
+    {
+      "case_id": "first-01",
+      "cohort": "first",
+      "endpoints": {
+        "object": {
+          "category": "biolink:Procedure",
+          "id": "kgmicrobe.assay:API_20E_CIT",
+          "label": "API 20E - Citrate",
+          "private_record_sha256": "4960ca96b4840cadea8f5990e3b1bec938a7ff80fd3893fac4acbf2a3884f175",
+          "public_record_sha256": "4c55e7cdfdb4280bb3cf1b0ed7dccb96c782e2e698154a846ed4736e2a2c0af7"
+        },
+        "subject": {
+          "category": "biolink:OrganismTaxon",
+          "id": "kgmicrobe.strain:bacdive_171442",
+          "label": "bacdive_171442 as AH 405 of NCBITaxon:1396",
+          "private_record_sha256": "2406f8c7b4831ca003e8a8855ee3531fabfee8d95e856714db960ae3a1d824ab",
+          "public_record_sha256": "82859ad2e7a31605e494671b35de824682370b0bffc3a1d045a920369e916bcb"
+        }
+      },
+      "historical_selection_rationale": "API-kit observation and retained predicate identity",
+      "occurrence_id": "urn:kg-microbe:occurrence:v1:aa8fb3ee82e3e42f14412a810092bfce9905eacfd7ae4c783d702011f59821eb",
+      "ordinal": 1,
+      "original_assertion": {
+        "object": "kgmicrobe.assay:API_20E_CIT",
+        "object_category": "biolink:Procedure",
+        "object_label": "API 20E - Citrate",
+        "occurrence_id": "urn:kg-microbe:occurrence:v1:aa8fb3ee82e3e42f14412a810092bfce9905eacfd7ae4c783d702011f59821eb",
+        "origin_transform": "bacdive/edges.tsv",
+        "predicate": "METPO:2000511",
+        "relation": "METPO:2000511",
+        "subject": "kgmicrobe.strain:bacdive_171442",
+        "subject_category": "biolink:OrganismTaxon",
+        "subject_label": "bacdive_171442 as AH 405 of NCBITaxon:1396",
+        "transform_row_number": 3378887
+      },
+      "private_derivation": {
+        "edge_selector": "canary_ordinal=1",
+        "historical_raw_root": "/Users/marcin/Documents/VIMSS/ontology/KG-Hub/KG-Microbe/kg-microbe/data/raw",
+        "kind": "selected-private-edge-and-source-map",
+        "records_selector": "urn:kg-microbe:occurrence:v1:aa8fb3ee82e3e42f14412a810092bfce9905eacfd7ae4c783d702011f59821eb",
+        "retained_fields": "all original wrapper fields and exact text unchanged",
+        "source_relative_path_rule": "source_path relative to historical_raw_root"
+      },
+      "private_upstream_inputs": [
+        {
+          "path": "sample/private-provenance/canary.jsonl",
+          "sha256": "757e9c7f48ba621369c5065167b5fcb2892dcdd5f0a57fe3950d7edacb896ba9"
+        },
+        {
+          "path": "source/source-records-50.json",
+          "sha256": "20967c6ddd2a11778dd062064f2a8b202d02fd6f8f98fc153e5091fa69f128d3"
+        }
+      ],
+      "public_input": {
+        "path": "artifacts/edge-sample-review-20261112/canary.jsonl",
+        "sha256": "e4addcfec2703cf8ef2cf879d5d1c244f5eefbd0cde0096b5e7f7170e06c8641"
+      },
+      "public_selector": "canary_ordinal=1;occurrence_id=urn:kg-microbe:occurrence:v1:aa8fb3ee82e3e42f14412a810092bfce9905eacfd7ae4c783d702011f59821eb",
+      "source_record_bindings": [
+        {
+          "locator": "171442",
+          "source_relative_path": "bacdive_strains.json",
+          "text_sha256": "8ed1ca096768d714b58bdb6d19bf2d6db206ee7925a4697e06a4dc649e5c8144"
+        }
+      ]
+    },
+    {
+      "case_id": "first-28",
+      "cohort": "first",
+      "endpoints": {
+        "object": {
+          "category": "biolink:PhenotypicQuality",
+          "id": "METPO:1000870",
+          "label": "sporulation",
+          "private_record_sha256": "30423c07f6ddf56736b2a286ce202b7f6663cb7294039c50cfb0701089bb74e6",
+          "public_record_sha256": "286cefa006551d73dc747847befb7558cbf67f17ad3636db3be8ddb31b8ed81a"
+        },
+        "subject": {
+          "category": "biolink:OrganismTaxon",
+          "id": "NCBITaxon:113559",
+          "label": "Actinoplanes campanulatus",
+          "private_record_sha256": "27a75e2965ef9994c641a6b4d9129e5fb40680daf727c54fc246b85488ee7287",
+          "public_record_sha256": "6354a5afb00679b02045b91e67f86f3a1c82d5cd74b3c718e44030cb5601e0c0"
+        }
+      },
+      "historical_selection_rationale": "Generic sporulation versus a specific spore phenotype",
+      "occurrence_id": "urn:kg-microbe:occurrence:v1:177815c9e4c39684189e2004e17840e6f0c42a2824750aad5d7f95bd7c0e5f3e",
+      "ordinal": 28,
+      "original_assertion": {
+        "object": "METPO:1000870",
+        "object_category": "biolink:PhenotypicQuality",
+        "object_label": "sporulation",
+        "occurrence_id": "urn:kg-microbe:occurrence:v1:177815c9e4c39684189e2004e17840e6f0c42a2824750aad5d7f95bd7c0e5f3e",
+        "origin_transform": "metatraits_gtdb/edges.tsv",
+        "predicate": "biolink:has_phenotype",
+        "relation": "RO:0002200",
+        "subject": "NCBITaxon:113559",
+        "subject_category": "biolink:OrganismTaxon",
+        "subject_label": "Actinoplanes campanulatus",
+        "transform_row_number": 96074
+      },
+      "private_derivation": {
+        "edge_selector": "canary_ordinal=28",
+        "historical_raw_root": "/Users/marcin/Documents/VIMSS/ontology/KG-Hub/KG-Microbe/kg-microbe/data/raw",
+        "kind": "selected-private-edge-and-source-map",
+        "records_selector": "urn:kg-microbe:occurrence:v1:177815c9e4c39684189e2004e17840e6f0c42a2824750aad5d7f95bd7c0e5f3e",
+        "retained_fields": "all original wrapper fields and exact text unchanged",
+        "source_relative_path_rule": "source_path relative to historical_raw_root"
+      },
+      "private_upstream_inputs": [
+        {
+          "path": "sample/private-provenance/canary.jsonl",
+          "sha256": "757e9c7f48ba621369c5065167b5fcb2892dcdd5f0a57fe3950d7edacb896ba9"
+        },
+        {
+          "path": "source/source-records-50.json",
+          "sha256": "20967c6ddd2a11778dd062064f2a8b202d02fd6f8f98fc153e5091fa69f128d3"
+        }
+      ],
+      "public_input": {
+        "path": "artifacts/edge-sample-review-20261112/canary.jsonl",
+        "sha256": "e4addcfec2703cf8ef2cf879d5d1c244f5eefbd0cde0096b5e7f7170e06c8641"
+      },
+      "public_selector": "canary_ordinal=28;occurrence_id=urn:kg-microbe:occurrence:v1:177815c9e4c39684189e2004e17840e6f0c42a2824750aad5d7f95bd7c0e5f3e",
+      "source_record_bindings": [
+        {
+          "locator": "JSONL line 1498: Actinoplanes campanulatus",
+          "source_relative_path": "gtdb_species_summary.jsonl.gz",
+          "text_sha256": "0bf0d3cf44cf54982b9f88ea25666a02d5bec3fc86209911e79c9761ba46a896"
+        }
+      ]
+    },
+    {
+      "case_id": "first-30",
+      "cohort": "first",
+      "endpoints": {
+        "object": {
+          "category": "biolink:PhenotypicQuality",
+          "id": "METPO:1000625",
+          "label": "slightly halophilic",
+          "private_record_sha256": "d151558e94554d6c1daec95da7cc7bf01aa9af4831957b3c05bfaec244a736d8",
+          "public_record_sha256": "f9dff68cdf5758c49e10db1bf7534afae023e6f7421a5fa0a10bf5a27583a0cf"
+        },
+        "subject": {
+          "category": "biolink:OrganismTaxon",
+          "id": "GTDB:s__SYIM01_sp009921765",
+          "label": "SYIM01 sp009921765",
+          "private_record_sha256": "84d989d0bdff5f1908933c0ee250a7bb61fdbaeb3f1cda3d5f2907d46a02d556",
+          "public_record_sha256": "f23ec214f654a678233d0815da18ae808554a3443e7c3df97ebccbedf179d502"
+        }
+      },
+      "historical_selection_rationale": "Salinity maximum, tolerance and preference distinctions",
+      "occurrence_id": "urn:kg-microbe:occurrence:v1:b912410040f3b6027290e16710d457e3e45753a38d8a5adda78f0a8ea423eb9b",
+      "ordinal": 30,
+      "original_assertion": {
+        "object": "METPO:1000625",
+        "object_category": "biolink:PhenotypicQuality",
+        "object_label": "slightly halophilic",
+        "occurrence_id": "urn:kg-microbe:occurrence:v1:b912410040f3b6027290e16710d457e3e45753a38d8a5adda78f0a8ea423eb9b",
+        "origin_transform": "metatraits_gtdb/edges.tsv",
+        "predicate": "biolink:has_phenotype",
+        "relation": "RO:0002200",
+        "subject": "GTDB:s__SYIM01_sp009921765",
+        "subject_category": "biolink:OrganismTaxon",
+        "subject_label": "SYIM01 sp009921765",
+        "transform_row_number": 2984816
+      },
+      "private_derivation": {
+        "edge_selector": "canary_ordinal=30",
+        "historical_raw_root": "/Users/marcin/Documents/VIMSS/ontology/KG-Hub/KG-Microbe/kg-microbe/data/raw",
+        "kind": "selected-private-edge-and-source-map",
+        "records_selector": "urn:kg-microbe:occurrence:v1:b912410040f3b6027290e16710d457e3e45753a38d8a5adda78f0a8ea423eb9b",
+        "retained_fields": "all original wrapper fields and exact text unchanged",
+        "source_relative_path_rule": "source_path relative to historical_raw_root"
+      },
+      "private_upstream_inputs": [
+        {
+          "path": "sample/private-provenance/canary.jsonl",
+          "sha256": "757e9c7f48ba621369c5065167b5fcb2892dcdd5f0a57fe3950d7edacb896ba9"
+        },
+        {
+          "path": "source/source-records-50.json",
+          "sha256": "20967c6ddd2a11778dd062064f2a8b202d02fd6f8f98fc153e5091fa69f128d3"
+        }
+      ],
+      "public_input": {
+        "path": "artifacts/edge-sample-review-20261112/canary.jsonl",
+        "sha256": "e4addcfec2703cf8ef2cf879d5d1c244f5eefbd0cde0096b5e7f7170e06c8641"
+      },
+      "public_selector": "canary_ordinal=30;occurrence_id=urn:kg-microbe:occurrence:v1:b912410040f3b6027290e16710d457e3e45753a38d8a5adda78f0a8ea423eb9b",
+      "source_record_bindings": [
+        {
+          "locator": "JSONL line 54895: SYIM01 sp009921765",
+          "source_relative_path": "gtdb_species_summary.jsonl.gz",
+          "text_sha256": "e837c6090d7b2e748fd8f3ce2cb24bee9acf482c244183b303fe409e5bf44614"
+        }
+      ]
+    },
+    {
+      "case_id": "first-32",
+      "cohort": "first",
+      "endpoints": {
+        "object": {
+          "category": "biolink:OrganismTaxon",
+          "id": "NCBITaxon:1281099",
+          "label": "Escherichia coli HVH 169 (4-1075578)",
+          "private_record_sha256": "e1ecbe2488b486adff0f79fea2959785bbe3aa49cad95bd5f89cbd545ec417e7",
+          "public_record_sha256": "b69ab0ba271e8d8896ad150497f7f3f0880aaa7cbbb0acc83e03692b113c883b"
+        },
+        "subject": {
+          "category": "biolink:OrganismTaxon",
+          "id": "lpsn:46511",
+          "label": "Methanomethylophilus alvi",
+          "private_record_sha256": "9722bbb3c0b0136b00698e158ceea3bfacc77364ac794070ab89d678604e3eb6",
+          "public_record_sha256": "fc398d3575af68d932f8b1b18be233edc23b946a8ff7296c200efe35b59c31c1"
+        }
+      },
+      "historical_selection_rationale": "Discordant organism identifier crosswalk",
+      "occurrence_id": "urn:kg-microbe:occurrence:v1:192571d351f25940fa1d092f9943862376a9603e28391d518c131e3d0341669b",
+      "ordinal": 32,
+      "original_assertion": {
+        "object": "NCBITaxon:1281099",
+        "object_category": "biolink:OrganismTaxon",
+        "object_label": "Escherichia coli HVH 169 (4-1075578)",
+        "occurrence_id": "urn:kg-microbe:occurrence:v1:192571d351f25940fa1d092f9943862376a9603e28391d518c131e3d0341669b",
+        "origin_transform": "microbedecoder/edges.tsv",
+        "predicate": "biolink:close_match",
+        "relation": "skos:closeMatch",
+        "subject": "lpsn:46511",
+        "subject_category": "biolink:OrganismTaxon",
+        "subject_label": "Methanomethylophilus alvi",
+        "transform_row_number": 85111
+      },
+      "private_derivation": {
+        "edge_selector": "canary_ordinal=32",
+        "historical_raw_root": "/Users/marcin/Documents/VIMSS/ontology/KG-Hub/KG-Microbe/kg-microbe/data/raw",
+        "kind": "selected-private-edge-and-source-map",
+        "records_selector": "urn:kg-microbe:occurrence:v1:192571d351f25940fa1d092f9943862376a9603e28391d518c131e3d0341669b",
+        "retained_fields": "all original wrapper fields and exact text unchanged",
+        "source_relative_path_rule": "source_path relative to historical_raw_root"
+      },
+      "private_upstream_inputs": [
+        {
+          "path": "sample/private-provenance/canary.jsonl",
+          "sha256": "757e9c7f48ba621369c5065167b5fcb2892dcdd5f0a57fe3950d7edacb896ba9"
+        },
+        {
+          "path": "source/source-records-50.json",
+          "sha256": "20967c6ddd2a11778dd062064f2a8b202d02fd6f8f98fc153e5091fa69f128d3"
+        }
+      ],
+      "public_input": {
+        "path": "artifacts/edge-sample-review-20261112/canary.jsonl",
+        "sha256": "e4addcfec2703cf8ef2cf879d5d1c244f5eefbd0cde0096b5e7f7170e06c8641"
+      },
+      "public_selector": "canary_ordinal=32;occurrence_id=urn:kg-microbe:occurrence:v1:192571d351f25940fa1d092f9943862376a9603e28391d518c131e3d0341669b",
+      "source_record_bindings": [
+        {
+          "locator": "CSV data row 10743",
+          "source_relative_path": "database.csv",
+          "text_sha256": "c38a95d8c3d7c80365f0af82e7d6d5ee4eeee234254764ca18220d2b8f1ad2de"
+        }
+      ]
+    },
+    {
+      "case_id": "first-43",
+      "cohort": "first",
+      "endpoints": {
+        "object": {
+          "category": "biolink:BiologicalProcess",
+          "id": "METPO:1005039",
+          "label": "nitrogen fixation",
+          "private_record_sha256": "04ca144efa1f6ac7275a993059440755d664139589821d0faf1db9e662e2b388",
+          "public_record_sha256": "62a07aeaee3a76af75fe6f555e87c196cb1e8b4400e213c74e214bfdad8b167e"
+        },
+        "subject": {
+          "category": "biolink:OrganismTaxon",
+          "id": "NCBITaxon:1540872",
+          "label": "Candidatus Gracilibacteria bacterium HOT-871",
+          "private_record_sha256": "2365c85d02226c9e2eca91ef2a16b2e436cbdf1aaf7e80ec469e0f30f891b776",
+          "public_record_sha256": "fbdf6dc578a455d8633bf88c9873c5c37a44c2e46f1371cccd1695d37f3166cf"
+        }
+      },
+      "historical_selection_rationale": "Zero-positive capability and original omission context",
+      "occurrence_id": "urn:kg-microbe:occurrence:v1:2cad956c7d5d6ace49ddb7e887de8eab4a7c1b78410942732e2a44bbd1a00559",
+      "ordinal": 43,
+      "original_assertion": {
+        "object": "METPO:1005039",
+        "object_category": "biolink:BiologicalProcess",
+        "object_label": "nitrogen fixation",
+        "occurrence_id": "urn:kg-microbe:occurrence:v1:2cad956c7d5d6ace49ddb7e887de8eab4a7c1b78410942732e2a44bbd1a00559",
+        "origin_transform": "metatraits/edges.tsv",
+        "predicate": "biolink:capable_of",
+        "relation": "RO:0002215",
+        "subject": "NCBITaxon:1540872",
+        "subject_category": "biolink:OrganismTaxon",
+        "subject_label": "Candidatus Gracilibacteria bacterium HOT-871",
+        "transform_row_number": 820840
+      },
+      "private_derivation": {
+        "edge_selector": "canary_ordinal=43",
+        "historical_raw_root": "/Users/marcin/Documents/VIMSS/ontology/KG-Hub/KG-Microbe/kg-microbe/data/raw",
+        "kind": "selected-private-edge-and-source-map",
+        "records_selector": "urn:kg-microbe:occurrence:v1:2cad956c7d5d6ace49ddb7e887de8eab4a7c1b78410942732e2a44bbd1a00559",
+        "retained_fields": "all original wrapper fields and exact text unchanged",
+        "source_relative_path_rule": "source_path relative to historical_raw_root"
+      },
+      "private_upstream_inputs": [
+        {
+          "path": "sample/private-provenance/canary.jsonl",
+          "sha256": "757e9c7f48ba621369c5065167b5fcb2892dcdd5f0a57fe3950d7edacb896ba9"
+        },
+        {
+          "path": "source/source-records-50.json",
+          "sha256": "20967c6ddd2a11778dd062064f2a8b202d02fd6f8f98fc153e5091fa69f128d3"
+        }
+      ],
+      "public_input": {
+        "path": "artifacts/edge-sample-review-20261112/canary.jsonl",
+        "sha256": "e4addcfec2703cf8ef2cf879d5d1c244f5eefbd0cde0096b5e7f7170e06c8641"
+      },
+      "public_selector": "canary_ordinal=43;occurrence_id=urn:kg-microbe:occurrence:v1:2cad956c7d5d6ace49ddb7e887de8eab4a7c1b78410942732e2a44bbd1a00559",
+      "source_record_bindings": [
+        {
+          "locator": "JSONL line 10486: Candidatus Gracilibacteria bacterium HOT-871",
+          "source_relative_path": "ncbi_species_summary.jsonl.gz",
+          "text_sha256": "899d048ab49589171e5a2718d5b308f793544eddf0a88d9463c9f2f8160ba83e"
+        }
+      ]
+    },
+    {
+      "case_id": "fresh-04",
+      "cohort": "fresh",
+      "endpoints": {
+        "object": {
+          "category": "biolink:PhenotypicQuality",
+          "id": "METPO:1000471",
+          "label": "NaCl range mid2",
+          "private_record_sha256": "7f3eb7467865d1c4944fcf5011f4ec70f65425ab6394b07d94b6e917ae1e37aa",
+          "public_record_sha256": "b9c68e75532806beedcf711046f7ec0a863ee846bf4aa578927cae96c04cf1fd"
+        },
+        "subject": {
+          "category": "biolink:OrganismTaxon",
+          "id": "NCBITaxon:1642702",
+          "label": "Paludifilum halophilum",
+          "private_record_sha256": "ede7703e017e2dcc9c69076acb16df514c3d8c952d74fe82c5102813ed0487ac",
+          "public_record_sha256": "2046d4d80601b5a5134c4f2a532b20aa7dd5b9f7c1125a110dd5777aa1696694"
+        }
+      },
+      "historical_selection_rationale": "Quantitative range-bin definition and units",
+      "occurrence_id": "urn:kg-microbe:occurrence:v1:155d6d2d7ac159eb931374219e919b3e9984224866ecb96f110e77407345f0e4",
+      "ordinal": 4,
+      "original_assertion": {
+        "object": "METPO:1000471",
+        "object_category": "biolink:PhenotypicQuality",
+        "object_label": "NaCl range mid2",
+        "occurrence_id": "urn:kg-microbe:occurrence:v1:155d6d2d7ac159eb931374219e919b3e9984224866ecb96f110e77407345f0e4",
+        "origin_transform": "bactotraits/edges.tsv",
+        "predicate": "biolink:has_phenotype",
+        "relation": "RO:0002200",
+        "subject": "NCBITaxon:1642702",
+        "subject_category": "biolink:OrganismTaxon",
+        "subject_label": "Paludifilum halophilum",
+        "transform_row_number": 85027
+      },
+      "private_derivation": {
+        "kind": "retained-complete-source-packet",
+        "selector": "urn:kg-microbe:occurrence:v1:155d6d2d7ac159eb931374219e919b3e9984224866ecb96f110e77407345f0e4"
+      },
+      "private_upstream_inputs": [
+        {
+          "path": "phase2/source/packets/04.json",
+          "sha256": "fe7339c0bedd5e5d10efc04096aa2b22701a9b918d747721c7923314697cbec7"
+        }
+      ],
+      "public_input": {
+        "path": "artifacts/edge-recanary-20261113/canary.jsonl",
+        "sha256": "76b4556e9bb62cde92eaed764710f8bbe4a420b016602be1945cb9ed3d53d703"
+      },
+      "public_selector": "canary_ordinal=4;occurrence_id=urn:kg-microbe:occurrence:v1:155d6d2d7ac159eb931374219e919b3e9984224866ecb96f110e77407345f0e4",
+      "source_record_bindings": [
+        {
+          "locator": "CSV data row 10677",
+          "source_relative_path": "BactoTraits_databaseV2_Jun2022.csv",
+          "text_sha256": "ccd99666526264ee9515ad03c744dd9636b3b467aba912f5fdf1c9bf5cbc58f7"
+        },
+        {
+          "locator": "132033",
+          "source_relative_path": "bacdive_strains.json",
+          "text_sha256": "766f054d2b862caf7bcef30b41a6addea685f64e92b69a6255a4089e0903ba6e"
+        },
+        {
+          "locator": "CSV data row 22088",
+          "source_relative_path": "lpsn_gss.csv",
+          "text_sha256": "15a346c22b2b243d0dbf94c851a6bc28edc03f55a9f7a2d4730e1fdcdf58af51"
+        },
+        {
+          "locator": "794916",
+          "source_relative_path": "lpsn/api_cache/794916.json",
+          "text_sha256": "30447ca0ee1e6e00c5bf3b7a7de50fc73f03fd81ed9fdab986ed2f8e130045b3"
+        }
+      ]
+    },
+    {
+      "case_id": "fresh-05",
+      "cohort": "fresh",
+      "endpoints": {
+        "object": {
+          "category": "biolink:PhenotypicQuality",
+          "id": "METPO:1000703",
+          "label": "non motile",
+          "private_record_sha256": "0818e5ede02a3a6bfd80509d160fc851703c48eab8ade84888728493c6d77809",
+          "public_record_sha256": "9fa538e85a3054ba71e9915f5db05f210ef61c95476a417ae053e80a0a21a3f6"
+        },
+        "subject": {
+          "category": "biolink:OrganismTaxon",
+          "id": "NCBITaxon:1123071",
+          "label": "Rubritalea squalenifaciens DSM 18772",
+          "private_record_sha256": "9a5e9a935498292fb33c8dc2b006a864d8ded30d36660a71cf04bdd4e34ba642",
+          "public_record_sha256": "1e9459e17b91edfb8345993a9beafbcf2fba27c3ab3f8c406bf4d0d0761c4086"
+        }
+      },
+      "historical_selection_rationale": "Historical evidence-positive control candidate; not a gold label",
+      "occurrence_id": "urn:kg-microbe:occurrence:v1:1e9dec218a07f7e480add8ff273e3a9285f79d57746ca74041702839207a8136",
+      "ordinal": 5,
+      "original_assertion": {
+        "object": "METPO:1000703",
+        "object_category": "biolink:PhenotypicQuality",
+        "object_label": "non motile",
+        "occurrence_id": "urn:kg-microbe:occurrence:v1:1e9dec218a07f7e480add8ff273e3a9285f79d57746ca74041702839207a8136",
+        "origin_transform": "bactotraits/edges.tsv",
+        "predicate": "biolink:has_phenotype",
+        "relation": "RO:0002200",
+        "subject": "NCBITaxon:1123071",
+        "subject_category": "biolink:OrganismTaxon",
+        "subject_label": "Rubritalea squalenifaciens DSM 18772",
+        "transform_row_number": 78420
+      },
+      "private_derivation": {
+        "kind": "retained-complete-source-packet",
+        "selector": "urn:kg-microbe:occurrence:v1:1e9dec218a07f7e480add8ff273e3a9285f79d57746ca74041702839207a8136"
+      },
+      "private_upstream_inputs": [
+        {
+          "path": "phase2/source/packets/05.json",
+          "sha256": "b4c1292aa55f3bf6dd8af68d47f52a2b30c7d5c3684c791f8ddd08a641f82824"
+        }
+      ],
+      "public_input": {
+        "path": "artifacts/edge-recanary-20261113/canary.jsonl",
+        "sha256": "76b4556e9bb62cde92eaed764710f8bbe4a420b016602be1945cb9ed3d53d703"
+      },
+      "public_selector": "canary_ordinal=5;occurrence_id=urn:kg-microbe:occurrence:v1:1e9dec218a07f7e480add8ff273e3a9285f79d57746ca74041702839207a8136",
+      "source_record_bindings": [
+        {
+          "locator": "CSV data row 8521",
+          "source_relative_path": "BactoTraits_databaseV2_Jun2022.csv",
+          "text_sha256": "345fd2d00ee93334d975085716692dd4d4c530d5529f04c5b07af0766d5a512a"
+        },
+        {
+          "locator": "17851",
+          "source_relative_path": "bacdive_strains.json",
+          "text_sha256": "32ec4a66fd66fed770ea4723df9df3a1e3e1e8e5f2b1394c89d685fb9abe60a3"
+        },
+        {
+          "locator": "CSV data row 27332",
+          "source_relative_path": "lpsn_gss.csv",
+          "text_sha256": "5ae0e8922a4f5a66162c3857fed27c9c1920d5b8f858909c07f2d259155493e7"
+        },
+        {
+          "locator": "785725",
+          "source_relative_path": "lpsn/api_cache/785725.json",
+          "text_sha256": "7f20d099484890cb7e0653d24ccc9ac1353d825ac5cc15dae6ed33012aeb5b70"
+        }
+      ]
+    },
+    {
+      "case_id": "fresh-14",
+      "cohort": "fresh",
+      "endpoints": {
+        "object": {
+          "category": "biolink:OrganismTaxon",
+          "id": "kgmicrobe.strain:JCM-14905",
+          "label": "JCM 14905",
+          "private_record_sha256": "a2082f61a2e0f2021ec82f95e5cfce1b30fa26519d2ceadc448ed7a87d795c4a",
+          "public_record_sha256": "b45fa3db7acbf2bc41c97ec25995bbef6fcea2d973e596a0210d3630540ca090"
+        },
+        "subject": {
+          "category": "biolink:OrganismTaxon",
+          "id": "lpsn:781160",
+          "label": "Stackebrandtia nassauensis",
+          "private_record_sha256": "6beb7eba8d718329c54da606a6f14c04efae97041dd2542711bc97ef9a17ee34",
+          "public_record_sha256": "11b99ad27209ca40e203b487dd25f5dc648c3eead0b8dddd656ea2b30d366255"
+        }
+      },
+      "historical_selection_rationale": "Species identity versus a nomenclatural type-strain accession",
+      "occurrence_id": "urn:kg-microbe:occurrence:v1:78725eeeea961ce059a55092aebc34b522b1b4ffc2ea844207ce7049a039cc80",
+      "ordinal": 14,
+      "original_assertion": {
+        "object": "kgmicrobe.strain:JCM-14905",
+        "object_category": "biolink:OrganismTaxon",
+        "object_label": "JCM 14905",
+        "occurrence_id": "urn:kg-microbe:occurrence:v1:78725eeeea961ce059a55092aebc34b522b1b4ffc2ea844207ce7049a039cc80",
+        "origin_transform": "lpsn/edges.tsv",
+        "predicate": "biolink:close_match",
+        "relation": "skos:closeMatch",
+        "subject": "lpsn:781160",
+        "subject_category": "biolink:OrganismTaxon",
+        "subject_label": "Stackebrandtia nassauensis",
+        "transform_row_number": 116674
+      },
+      "private_derivation": {
+        "kind": "retained-complete-source-packet",
+        "selector": "urn:kg-microbe:occurrence:v1:78725eeeea961ce059a55092aebc34b522b1b4ffc2ea844207ce7049a039cc80"
+      },
+      "private_upstream_inputs": [
+        {
+          "path": "phase2/source/packets/14.json",
+          "sha256": "286b240e938e8e9b948ec9599907b66808ccfe3e9816d2256fc0f66f35d66dc7"
+        }
+      ],
+      "public_input": {
+        "path": "artifacts/edge-recanary-20261113/canary.jsonl",
+        "sha256": "76b4556e9bb62cde92eaed764710f8bbe4a420b016602be1945cb9ed3d53d703"
+      },
+      "public_selector": "canary_ordinal=14;occurrence_id=urn:kg-microbe:occurrence:v1:78725eeeea961ce059a55092aebc34b522b1b4ffc2ea844207ce7049a039cc80",
+      "source_record_bindings": [
+        {
+          "locator": "5848",
+          "source_relative_path": "bacdive_strains.json",
+          "text_sha256": "ea768fc9898ae1625cfa0ecb50e0c1ddb2f497350171e65938da0a9e79ea587c"
+        },
+        {
+          "locator": "CSV data row 29573",
+          "source_relative_path": "lpsn_gss.csv",
+          "text_sha256": "c7024f0fe3d29afec99cc98973bf2fb6f4314fc343ae741ee2ac33c3dadd432c"
+        },
+        {
+          "locator": "781160",
+          "source_relative_path": "lpsn/api_cache/781160.json",
+          "text_sha256": "8ec8bd4938de062fe83070eb4170b8a424f1307fa3c6307413c08b8d8eb3b6a7"
+        }
+      ]
+    },
+    {
+      "case_id": "fresh-32",
+      "cohort": "fresh",
+      "endpoints": {
+        "object": {
+          "category": "biolink:BiologicalProcess",
+          "id": "kgmicrobe.pathway:microbedecoder_faprotax_type_of_metabolism_48701f8146aa9f1120798eee257448f7d5f71e73e4216acf3d14c101a9fc0fd8",
+          "label": "sulfite_respiration",
+          "private_record_sha256": "63bea457100f4e4ad245d2f373bd88684e58434c326b050faaad2a89126a23db",
+          "public_record_sha256": "3be7074ecb3b1dd6c9c64fbc5eaf7396894084dbb1125631719539251a7ec0c7"
+        },
+        "subject": {
+          "category": "biolink:OrganismTaxon",
+          "id": "lpsn:775534",
+          "label": "Desulfobacter halotolerans",
+          "private_record_sha256": "d98f26532949eb03e90823b8a0e9cfc488bba07f9f0ebfd7c8e7f34a153ceeb5",
+          "public_record_sha256": "ccf60f5f34393f3aba617bff7f0c3a0353664840e6ca52179c2ca535f501fc1e"
+        }
+      },
+      "historical_selection_rationale": "Second historical evidence-positive control candidate; not a gold label",
+      "occurrence_id": "urn:kg-microbe:occurrence:v1:bc0ccdeacd77c07acd22afd349f58309daaf6c46c7727a7f1d6dc267ac85cfd6",
+      "ordinal": 32,
+      "original_assertion": {
+        "object": "kgmicrobe.pathway:microbedecoder_faprotax_type_of_metabolism_48701f8146aa9f1120798eee257448f7d5f71e73e4216acf3d14c101a9fc0fd8",
+        "object_category": "biolink:BiologicalProcess",
+        "object_label": "sulfite_respiration",
+        "occurrence_id": "urn:kg-microbe:occurrence:v1:bc0ccdeacd77c07acd22afd349f58309daaf6c46c7727a7f1d6dc267ac85cfd6",
+        "origin_transform": "microbedecoder/edges.tsv",
+        "predicate": "biolink:capable_of",
+        "relation": "RO:0002215",
+        "subject": "lpsn:775534",
+        "subject_category": "biolink:OrganismTaxon",
+        "subject_label": "Desulfobacter halotolerans",
+        "transform_row_number": 153238
+      },
+      "private_derivation": {
+        "kind": "retained-complete-source-packet",
+        "selector": "urn:kg-microbe:occurrence:v1:bc0ccdeacd77c07acd22afd349f58309daaf6c46c7727a7f1d6dc267ac85cfd6"
+      },
+      "private_upstream_inputs": [
+        {
+          "path": "phase2/source/packets/32.json",
+          "sha256": "1f83b2f572c81998ce56ee6dab94aa4576d7da310fe076351223f7083a2eb80d"
+        }
+      ],
+      "public_input": {
+        "path": "artifacts/edge-recanary-20261113/canary.jsonl",
+        "sha256": "76b4556e9bb62cde92eaed764710f8bbe4a420b016602be1945cb9ed3d53d703"
+      },
+      "public_selector": "canary_ordinal=32;occurrence_id=urn:kg-microbe:occurrence:v1:bc0ccdeacd77c07acd22afd349f58309daaf6c46c7727a7f1d6dc267ac85cfd6",
+      "source_record_bindings": [
+        {
+          "locator": "CSV data row 5072",
+          "source_relative_path": "database.csv",
+          "text_sha256": "dcf78c533e08d0207240536b00905fc9ae7c191426d2509a87f93613d748c8c1"
+        },
+        {
+          "locator": "3962",
+          "source_relative_path": "bacdive_strains.json",
+          "text_sha256": "2849c3eede9ef337774385350bcffd262a3ac1326469ae340ef764479d7b62be"
+        },
+        {
+          "locator": "CSV data row 8507",
+          "source_relative_path": "lpsn_gss.csv",
+          "text_sha256": "5e7cdcae893efd800b475bfb4ee3ddb35ecb6491dc3ce09e9046f4ecc86758aa"
+        },
+        {
+          "locator": "775534",
+          "source_relative_path": "lpsn/api_cache/775534.json",
+          "text_sha256": "cfaf0ce264e6bffdea1d2c10617921f0e5cc71539eb50338909182f549222247"
+        }
+      ]
+    },
+    {
+      "case_id": "fresh-47",
+      "cohort": "fresh",
+      "endpoints": {
+        "object": {
+          "category": "biolink:Attribute",
+          "id": "kgmicrobe.source_attribute:microbedecoder_bacdive_salt_concentration_957364e5f4deef2d770daafc66abdd29b5e50582f31be4fe7b65f03602388f15",
+          "label": "reported Salt concentration: 0-10 (source value)",
+          "private_record_sha256": "1a7f23cd79737ab6b19d4d51c662509c7d78a809bad1a25b246bbd948871af16",
+          "public_record_sha256": "8d39186e480ef49c46471f5dc4d99ed5798101a6b1d67f83421a0e75380df1f7"
+        },
+        "subject": {
+          "category": "biolink:OrganismTaxon",
+          "id": "lpsn:783091",
+          "label": "Weissella halotolerans",
+          "private_record_sha256": "d3047369ed576a888b24f9aaa91e0291626e5f448e8790bc9703bd2ae5cabb2d",
+          "public_record_sha256": "4998210a201209cc2996cc41ff8404dde4b3920471aaecee99b87441bd7725f3"
+        }
+      },
+      "historical_selection_rationale": "Retained partial paper evidence and strain-specific measurement context",
+      "occurrence_id": "urn:kg-microbe:occurrence:v1:358f925d6342994dbe5598a3d3d2cdfafe3ad30028b7305c3cf21242cf3a9b57",
+      "ordinal": 47,
+      "original_assertion": {
+        "object": "kgmicrobe.source_attribute:microbedecoder_bacdive_salt_concentration_957364e5f4deef2d770daafc66abdd29b5e50582f31be4fe7b65f03602388f15",
+        "object_category": "biolink:Attribute",
+        "object_label": "reported Salt concentration: 0-10 (source value)",
+        "occurrence_id": "urn:kg-microbe:occurrence:v1:358f925d6342994dbe5598a3d3d2cdfafe3ad30028b7305c3cf21242cf3a9b57",
+        "origin_transform": "microbedecoder/edges.tsv",
+        "predicate": "biolink:has_attribute",
+        "relation": "SIO:000008",
+        "subject": "lpsn:783091",
+        "subject_category": "biolink:OrganismTaxon",
+        "subject_label": "Weissella halotolerans",
+        "transform_row_number": 241764
+      },
+      "private_derivation": {
+        "kind": "retained-complete-source-packet",
+        "selector": "urn:kg-microbe:occurrence:v1:358f925d6342994dbe5598a3d3d2cdfafe3ad30028b7305c3cf21242cf3a9b57"
+      },
+      "private_upstream_inputs": [
+        {
+          "path": "phase2/source/packets/47.json",
+          "sha256": "0b5f705f26bbec14781575580bf10b508af15bf2358c0912c5d820966c175e5e"
+        }
+      ],
+      "public_input": {
+        "path": "artifacts/edge-recanary-20261113/canary.jsonl",
+        "sha256": "76b4556e9bb62cde92eaed764710f8bbe4a420b016602be1945cb9ed3d53d703"
+      },
+      "public_selector": "canary_ordinal=47;occurrence_id=urn:kg-microbe:occurrence:v1:358f925d6342994dbe5598a3d3d2cdfafe3ad30028b7305c3cf21242cf3a9b57",
+      "source_record_bindings": [
+        {
+          "locator": "CSV data row 20904",
+          "source_relative_path": "database.csv",
+          "text_sha256": "02f3965c70e68a1a2fa1d44f595af1d89165db4d5e7b75e2eed1aea1c92ebf89"
+        },
+        {
+          "locator": "6845",
+          "source_relative_path": "bacdive_strains.json",
+          "text_sha256": "49506010e66f0b71b66f86485c9231af0ca2c059c4f266d762c15de6d1d402c0"
+        },
+        {
+          "locator": "CSV data row 14914",
+          "source_relative_path": "lpsn_gss.csv",
+          "text_sha256": "f5d0d00b93758cb514c88ae16a8fd38608f3f0b0da01465cae7460d375b6de23"
+        },
+        {
+          "locator": "CSV data row 15112",
+          "source_relative_path": "lpsn_gss.csv",
+          "text_sha256": "197a4a69702cb579b9b6ab17d7bb8f89262e0f8a563bba033819a83f3d99b947"
+        },
+        {
+          "locator": "CSV data row 33747",
+          "source_relative_path": "lpsn_gss.csv",
+          "text_sha256": "e3d2b03ae2b83c6c0bf48d6171b8e38c55ac063be4e89e4efd764c9b3b5b7f63"
+        },
+        {
+          "locator": "777315",
+          "source_relative_path": "lpsn/api_cache/777315.json",
+          "text_sha256": "7d88c934b4ed33d0e927502641702cdf94e12f44c5fa53d993e34ab892a31b74"
+        },
+        {
+          "locator": "777409",
+          "source_relative_path": "lpsn/api_cache/777409.json",
+          "text_sha256": "8753c10ad0e636709a227f068bd1b3f316e6ae3829e4972e57db185a02b64ea2"
+        },
+        {
+          "locator": "783091",
+          "source_relative_path": "lpsn/api_cache/783091.json",
+          "text_sha256": "05c8c80f1340e1c6a891bae1e0c0b3ad2b6ccded187d289ad67d673de5c1693f"
+        },
+        {
+          "locator": "783100",
+          "source_relative_path": "lpsn/api_cache/783100.json",
+          "text_sha256": "f290b43d20a88598b0bbd9c1b9c019631750bedf41d24dd2d8d35e6985da223d"
+        }
+      ]
+    }
+  ],
+  "cohort_id": "edge-calibration-20261115",
+  "historical_labels_are_gold": false,
+  "population": {
+    "new_review_coverage": 0,
+    "retained_occurrences": 100,
+    "unreviewed_sample_occurrences": 9900
+  },
+  "profile": "edgemech-calibration-cohort/v1",
+  "scientific_status": "unassessed",
+  "selection": "purposive retained-case preparation"
+}

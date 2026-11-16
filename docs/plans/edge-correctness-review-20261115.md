@@ -2,6 +2,8 @@
 
 Planning baseline: EdgeMech `2cc688b7527986b68377305acb24fac9697eef04`, 2026-11-15 (America/Los_Angeles). This plan implements the user's priority: find and correct edge problems, categorically assess the statement, retain DOI-linked literature snippets, and check the relation and both endpoint nodes. It describes **proposed implementation**, not new scientific results or an enabled review service.
 
+Implementation update, 2026-11-15: PR #120 has merged the local profile and complete packet implementation described below. The proposal's baseline statements are historical; [the installed profile](../record-review-profile.md) governs current validation. [Ten-case calibration preparation](edge-calibration-20261115.md) now pins the challenge cohort and operational thresholds before new scoring. No calibration pass or native capability enablement is implied.
+
 Start with the existing 100 distinct canary occurrences and their endpoint nodes. Add a new assessment layer; preserve both frozen canaries and all original source/review bytes. The other 9,900 sampled occurrences remain unreviewed. Larger graph coverage requires a separately pinned population and explicit accounting; these 100 do not establish population accuracy.
 
 ## 1. Required assessment for every occurrence

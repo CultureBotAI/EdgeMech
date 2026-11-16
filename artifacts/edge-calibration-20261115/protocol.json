@@ -1,0 +1,63 @@
+{
+  "profile": "edgemech-calibration-protocol/v1",
+  "cohort_id": "edge-calibration-20261115",
+  "status": "preregistered_preparation_no_new_ratings",
+  "baseline_commit": "c446cf5440c7c4d764459f3ed82aae3901e09d1d",
+  "canary_case_id": "fresh-47",
+  "population": {"retained_occurrences": 100, "selected_occurrences": 10, "deferred_occurrences": 9900},
+  "selection": {
+    "first": [1, 28, 30, 32, 43],
+    "fresh": [4, 5, 14, 32, 47],
+    "method": "Purposive challenge cohort chosen using historical issues and evidence types; no random-sample accuracy inference.",
+    "historical_labels": "Selection context only; never a gold standard or a new rating.",
+    "replacement_policy": "No case replacement after new ratings. A changed cohort, evidence package or threshold requires a separately identified round retaining the original."
+  },
+  "axes": ["claim", "literature", "relation", "subject_node", "object_node", "source_fidelity"],
+  "experimental_literature": {
+    "applicable_case_ids": ["first-28", "first-30", "first-43", "fresh-04", "fresh-05", "fresh-32", "fresh-47"],
+    "not_applicable_case_ids": ["first-01", "first-32", "fresh-14"],
+    "denominator": 7,
+    "rationale": "The three structural cases assert an observation link without a result, an identity match, and a taxon/type-strain match. Their identity, claim, relation, nodes and source fidelity still require assessment with appropriate authority evidence. All ten retain a literature category. A reviewer challenging applicability records a protocol deviation; the denominator is not silently changed."
+  },
+  "independence": {
+    "reviewers": 2,
+    "categories_per_reviewer": 60,
+    "design": "Separate fresh review sessions, same pinned evidence package, no access to the other new rating matrix before both are frozen. Record historical-label exposure and model identity; same-model sessions are not independent expert validation.",
+    "adjudication": "Preserve both initial matrices and every disagreement. A separate evidence-based disposition follows raw agreement calculation. Unresolved disagreement over any resolved claim or modeling judgment blocks passage.",
+    "evidence_freeze": "Before either reviewer starts, pin source packets, full evidence inputs, authority versions, proof adapters and instructions in an immutable round manifest. This preparation protocol is not that evidence freeze."
+  },
+  "thresholds": {
+    "packets_replayed": {"minimum": 10, "denominator": 10},
+    "endpoint_roles_retained": {"minimum": 20, "denominator": 20},
+    "final_authored_axes": {"minimum": 60, "denominator": 60, "unassessed_allowed": 0},
+    "initial_exact_category_agreement": {"minimum": 54, "denominator": 60},
+    "initial_per_axis_agreement": {"minimum": 8, "denominator": 10},
+    "initial_claim_agreement": {"minimum": 9, "denominator": 10},
+    "critical_overclaims": {
+      "maximum": 0,
+      "classes": ["unsupported SUPPORTED_AS_STATED", "unsupported CONTRADICTED_AS_STATED", "unsupported CONFLICTING_EVIDENCE", "unsupported CORRECT model judgment", "unsupported INCORRECT model judgment"],
+      "denominator": "Report each class separately over all corresponding labels emitted by both reviewers before reconciliation; zero emitted labels means untested, never zero error proved. Also audit final labels."
+    },
+    "evidence_replay": {"required_fraction": 1.0, "scope": "Every cited input, quote, DOI or alternate publication identity, authority version, packet and saved canonical review pair; no unverifiable item omitted from denominator."},
+    "resolved_claims": {"minimum": 2, "denominator": 10, "categories": ["SUPPORTED_AS_STATED", "CONTRADICTED_AS_STATED", "CONFLICTING_EVIDENCE"]},
+    "resolved_source_fidelity": {"minimum": 8, "denominator": 10, "categories": ["SUPPORTED", "CONTRADICTED"]},
+    "resolved_modeling_per_axis": {"minimum": 5, "denominator": 10, "axes": ["relation", "subject_node", "object_node"], "categories": ["CORRECT", "INCORRECT"]},
+    "exact_paper_backed_directional_claims": {"minimum": 1},
+    "exact_authority_backed_incorrect_model_judgments": {"minimum": 1}
+  },
+  "interpretation": {
+    "threshold_basis": "Conservative operational design choices fixed before scoring, not a statistical guarantee or externally validated scientific standard.",
+    "failure_policy": "Improve evidence or rubric and register a new round; retain failed results. Do not lower thresholds after observing ratings.",
+    "passing_scope": "Passing all criteria permits deeper review of the remaining retained 90 only. It does not admit graph assertions or expand to the other 9900.",
+    "expansion_requirements": "All retained-100 accounting, evidence/modeling gates and at least one independently verified real correction against regenerated candidate bytes remain mandatory.",
+    "resolution_reporting": "Publish each resolution numerator/denominator, all ten literature categories, exact literature support/refutation/conflict over the seven applicable cases, six initial category confusion tables, all disagreements and unresolved blockers. Do not combine axes into a truth score."
+  },
+  "preparation_constraints": {
+    "network_requests": 0,
+    "new_scientific_ratings": 0,
+    "graph_admissions": 0,
+    "native_record_review_enabled": false,
+    "native_evidence_reference_validation_enabled": false,
+    "authenticated_general_helper": "Deferred pending separately authorized merge of PR102; local retained-evidence preparation is permitted."
+  }
+}
