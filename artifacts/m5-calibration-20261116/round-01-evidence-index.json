@@ -1,0 +1,221 @@
+{
+  "current_taxonomy": [
+    {
+      "limits": "Current taxonomy snapshot; does not establish sampled graph ontology release or biological phenotype.",
+      "raw_sha256": "7735a7ec8eb55c0c9a4ab0cf2d7df799e7948066b79d5c73d571d696bbcde62a",
+      "retrieved": "2026-11-16T20:38:57.884586+00:00",
+      "taxid": "113559",
+      "version": "2025/04/11 17:22:02"
+    },
+    {
+      "limits": "Current taxonomy snapshot; does not establish sampled graph ontology release or biological phenotype.",
+      "raw_sha256": "37433381f5915338ee3e342a85ea15e8417fcf7b9bb7f08871cac084f958490d",
+      "retrieved": "2026-11-16T20:38:28.005741+00:00",
+      "taxid": "1281099",
+      "version": "2013/01/11 12:14:10"
+    },
+    {
+      "limits": "Current taxonomy snapshot; does not establish sampled graph ontology release or biological phenotype.",
+      "raw_sha256": "e3c3c74d3106e779e9f4864c782c58b5a2f91cd7f5260817776c38059e630772",
+      "retrieved": "2026-11-16T20:39:02.936683+00:00",
+      "taxid": "1123071",
+      "version": "2014/05/01 13:16:02"
+    },
+    {
+      "limits": "Current taxonomy snapshot; does not establish sampled graph ontology release or biological phenotype.",
+      "raw_sha256": "0aa142b0b0c7d908246323c7b2c03efdd8e0d5bf6e079defa801aea0bf127cb8",
+      "retrieved": "2026-11-16T20:38:47.832457+00:00",
+      "taxid": "1642702",
+      "version": "2018/11/23 13:57:52"
+    },
+    {
+      "limits": "Current taxonomy snapshot; does not establish sampled graph ontology release or biological phenotype.",
+      "raw_sha256": "859322125da66ed892711942cba9129cb50896d1cd5dd2ba5de3d714db49e6d2",
+      "retrieved": "2026-11-16T20:39:00.430672+00:00",
+      "taxid": "1540872",
+      "version": "2016/10/19 16:56:42"
+    }
+  ],
+  "fresh14_scope": {
+    "case_id": "fresh-14",
+    "maintained_producer_commit": "2d94ed094167d94402f21400a9ad7dc4f7f20438",
+    "modeling_convention_status": "current strain subclass_of taxon is explicit project domain/range exception",
+    "occurrence_id": "urn:kg-microbe:occurrence:v1:78725eeeea961ce059a55092aebc34b522b1b4ffc2ea844207ce7049a039cc80",
+    "sampled_ontology_version_status": "incompletely bound; retained local producer fingerprint says4.4.2 but does not hash-bind sampled full inputs; staged4.4.0 distinct"
+  },
+  "literature_case_limits": [
+    {
+      "case_id": "first-28",
+      "occurrence_id": "urn:kg-microbe:occurrence:v1:177815c9e4c39684189e2004e17840e6f0c42a2824750aad5d7f95bd7c0e5f3e",
+      "search_scope": [
+        "Retained literature packet exact-name/spore queries and PMID23114571",
+        "Valency search_by_title Actinoplanes campanulatus limit5",
+        "Tavily exact species sporangia max5",
+        "Europe PMC exact PMID40193184 core metadata"
+      ],
+      "unresolved_evidence_gap": "PMID23114571 describes Actinoplanes hulinensis and comparison to campanulatus; not an exact species sporulation experiment. New PMID40193184 identifies2025 synonym revision but has no abstract. No exact target endospore/sporangial experiment obtained from this bounded search. Do not convert broad genus sporangia evidence into endospore evidence."
+    },
+    {
+      "case_id": "first-30",
+      "occurrence_id": "urn:kg-microbe:occurrence:v1:b912410040f3b6027290e16710d457e3e45753a38d8a5adda78f0a8ea423eb9b",
+      "search_scope": [
+        "Retained Europe PMC queries SYIM01 sp009921765 and GCA_009921765",
+        "Valency search_by_abstract exact identifiers plus salinity limit3",
+        "Tavily exact identifiers max5"
+      ],
+      "unresolved_evidence_gap": "No exact publication or release-pinned GTDB identity authority obtained. Valency semantic fallback and Tavily hits were irrelevant and must not serve as evidence. A maximum-tolerance aggregate does not itself establish salt preference."
+    },
+    {
+      "case_id": "first-43",
+      "occurrence_id": "urn:kg-microbe:occurrence:v1:2cad956c7d5d6ace49ddb7e887de8eab4a7c1b78410942732e2a44bbd1a00559",
+      "search_scope": [
+        "Retained Europe PMC exact HOT-871 nitrogen fixation and Gracilibacteria HOT-871 queries",
+        "Valency search_by_abstract HOT-871 nitrogen fixation limit3"
+      ],
+      "unresolved_evidence_gap": "Retained broader Gracilibacteria papers and new irrelevant semantic fallback do not resolve exact organism nitrogen fixation. Original10 observations lack individual method/organism/source trail; zero-positive aggregate is not independent experimental refutation."
+    },
+    {
+      "case_id": "fresh-04",
+      "occurrence_id": "urn:kg-microbe:occurrence:v1:155d6d2d7ac159eb931374219e919b3e9984224866ecb96f110e77407345f0e4",
+      "search_scope": [
+        "Retained source packet04/BacDive132033/LPSN794916 and all corresponding literature-cache records",
+        "Reinspected primary abstract PMID27671055 and full JATS PMC7038168",
+        "Current DSM102218 catalogue and NCBI1642702"
+      ],
+      "unresolved_evidence_gap": "Original row accession conflict: DSM102218/CSURP2414 differs from primary nominal SMBg3=DSM102817=CCUG68698. DSM102218 catalogue reports Clostridium sp. Bin3-8 definition, units and fractional membership must be established separately; primary optimum/range cannot silently repair source identity. See separate fresh04-identity-conflict.json; coordinator has filed issue145."
+    },
+    {
+      "case_id": "fresh-05",
+      "occurrence_id": "urn:kg-microbe:occurrence:v1:1e9dec218a07f7e480add8ff273e3a9285f79d57746ca74041702839207a8136",
+      "search_scope": [
+        "Retained source packet05, primary PMID17625207 core abstract",
+        "Reinspected retained DSM18772/DSM19353/JCM14586/BacDive17851 authority text",
+        "Current NCBI1123071"
+      ],
+      "unresolved_evidence_gap": "Primary abstract directly describes nominal DSM18772=HOact23 nonmotility, but original row mixed accessions do not identify which field belongs to which strain. No full paper inspected. Quarantine cannot decide original biological truth or permit replacement identity."
+    },
+    {
+      "case_id": "fresh-32",
+      "occurrence_id": "urn:kg-microbe:occurrence:v1:bc0ccdeacd77c07acd22afd349f58309daaf6c46c7727a7f1d6dc267ac85cfd6",
+      "search_scope": [
+        "Retained source packet32 and complete associated primary/fallback literature response cache",
+        "Reinspected primary JATS metadata and Table1 header/final column of PMC4546703"
+      ],
+      "unresolved_evidence_gap": "Table1 explicitly gives sulfite for target species but is comparative reporting citing Brandt/Ingvorsen1997 DOI10.1016/s0723-2020(97)80004-5. Underlying1997 complete paper not obtained. Current paper experiments concern APT3, not GSL-Ac1. Exact relation semantics/strain-generalization remain reviewer responsibilities."
+    },
+    {
+      "case_id": "fresh-47",
+      "occurrence_id": "urn:kg-microbe:occurrence:v1:358f925d6342994dbe5598a3d3d2cdfafe3ad30028b7305c3cf21242cf3a9b57",
+      "search_scope": [
+        "Retained source packet47/BacDive6845 and LPSN species/synonym records",
+        "Retained original-description abstracts PMID23194599,8294308",
+        "Reinspected complete PMC11117391 JATS for GI38 identity and assay conditions"
+      ],
+      "unresolved_evidence_gap": "The retained2024 paper reports GI38 and tests3.0/6.5%NaCl in MRS30C2d, not original G1/DSM20190 full0-10 range. Original-description abstracts do not state that range. Do not attach routine cultivation conditions to the source assay or infer optimum/maximum."
+    }
+  ],
+  "package_sha256": "14175634b794a90124bb66a458af3c30f23ca40e10731c4ba89226134a89f4ab",
+  "publications": [
+    {
+      "case_id": "fresh-04",
+      "evidence_id": "fresh04-original-description",
+      "limitations": "BactoTraits row collection codes conflict; abstract does not define METPO1000471 or BactoTraits encoding.",
+      "primary_identity": {
+        "doi": "10.1099/ijsem.0.001523",
+        "inspected_extent": "abstract",
+        "kind": "europepmc_abstract",
+        "pmcid": null,
+        "pmid": "27671055",
+        "reference": "https://doi.org/10.1099/ijsem.0.001523",
+        "title": "Paludifilum halophilum gen. nov., sp. nov., a thermoactinomycete isolated from superficial sediment of a solar saltern."
+      },
+      "raw_sha256": "0936f6d23e71af74055f902eee841e2f1249c58c622bb98fac1731ccfecc0257",
+      "scope_rationale": "Original description of SMBg3=DSM102817. Abstract reports optimum, not full range or fractional bin.",
+      "text_sha256": "f7a71bcc1fabf09251a2caaec44aa99f51bcba1c0aef98018e1d820110e37fa0"
+    },
+    {
+      "case_id": "fresh-04",
+      "evidence_id": "fresh04-primary-growth-context",
+      "limitations": "The paper supports stated strain range only. It does not define the sampled bin or repair mixed culture accessions. Separate routine cultivation conditions from this range passage.",
+      "primary_identity": {
+        "doi": "10.1155/2020/4805706",
+        "inspected_extent": "full_text",
+        "kind": "jats",
+        "pmcid": "PMC7038168",
+        "pmid": "32104693",
+        "reference": "https://doi.org/10.1155/2020/4805706",
+        "title": "Enhancement of Antibacterial Activity of Paludifilum halophilum and Identification of N-(1-Carboxy-ethyl)-phthalamic Acid as the Main Bioactive Compound"
+      },
+      "raw_sha256": "9f9ced0667978d0c8b9d6f90cfbebdde5513d42a9ced9fe4853d18070c7625a4",
+      "scope_rationale": "Same nominal Paludifilum SMBg3 strain examined; passage in Results describes salt range.",
+      "text_sha256": "8943f1042d8d5d1376742e6c8f64da5873ae0837a5682e31f6a684d7a78201c1"
+    },
+    {
+      "case_id": "fresh-05",
+      "evidence_id": "fresh05-original-description",
+      "limitations": "Original graph endpoint nominal DSM18772; source row also carries distinct DSM19353/JCM14586. Neither quarantine nor this abstract identifies which row fields came from which strain; source binding remains independent.",
+      "primary_identity": {
+        "doi": "10.1099/ijs.0.65010-0",
+        "inspected_extent": "abstract",
+        "kind": "europepmc_abstract",
+        "pmcid": null,
+        "pmid": "17625207",
+        "reference": "https://doi.org/10.1099/ijs.0.65010-0",
+        "title": "Rubritalea squalenifaciens sp. nov., a squalene-producing marine bacterium belonging to subdivision 1 of the phylum 'Verrucomicrobia'."
+      },
+      "raw_sha256": "82d96c9481a6d11eefc5976e65b2863e10bed3cedf8b02f9b09cdb92802cf807",
+      "scope_rationale": "Primary abstract explicitly reports nonmotility and equivalence of HOact23,MBIC08254,DSM18772.",
+      "text_sha256": "28ae92fb2c8f9d7319bd5ea1effc5587e84e9fb4ea78d6aa6e7a0499eb896f89"
+    },
+    {
+      "case_id": "fresh-32",
+      "evidence_id": "fresh32-comparative-table",
+      "limitations": "Comparative table attributes prior characterization to Brandt and Ingvorsen1997, DOI10.1016/s0723-2020(97)80004-5; this paper primary work is on Desulfonatronobacter acetoxydans APT3. Original 1997 full text remains unavailable here; this is secondary reporting of the target species trait within a primary research article. Not direct new target-strain experiments.",
+      "primary_identity": {
+        "doi": "10.1007/s00792-015-0765-y",
+        "inspected_extent": "full_text",
+        "kind": "jats",
+        "pmcid": "PMC4546703",
+        "pmid": "26085472",
+        "reference": "https://doi.org/10.1007/s00792-015-0765-y",
+        "title": "Desulfonatronobacter acetoxydans sp. nov.,: a first acetate-oxidizing, extremely salt-tolerant alkaliphilic SRB from a hypersaline soda lake"
+      },
+      "raw_sha256": "4e8b045ec2a2393ebe3716c9a335d5c6b21c96e239388c43a5ec45f3226e30c9",
+      "scope_rationale": "Table1 final species column Desulfobacter halotolerans; Electron acceptors final cell lists sulfate,sulfite,thiosulfate. Header+entire row preserved together to prevent wrong-column inference.",
+      "text_sha256": "22ed587fad15b4dcccee5f428f9cefda4e37e0668262105bf58bffaa428f8cf1"
+    },
+    {
+      "case_id": "fresh-47",
+      "evidence_id": "fresh47-other-isolate",
+      "limitations": "GI38 is not original BacDive6845/G1/DSM20190; no exact original strain complete0-10 range evidence. Preserve partial scope. Paper does not calibrate meaning of database source_attribute.",
+      "primary_identity": {
+        "doi": "10.3390/ani14101394",
+        "inspected_extent": "full_text",
+        "kind": "jats",
+        "pmcid": "PMC11117391",
+        "pmid": "38791612",
+        "reference": "https://doi.org/10.3390/ani14101394",
+        "title": "Genotypic and Phenotypic Characteristics of Lactic Acid Bacteria Associated with Forage Plants in the Native Grassland of Western Inner Mongolia and Their Application for Alfalfa Silage Fermentation"
+      },
+      "raw_sha256": "df87ed3eabcefee07f32f61c7b909e616dd072b1cd7ee7dafff42f5872345838",
+      "scope_rationale": "GI38 is placed closest to W.halotolerans by sequence; paper assay is 3.0/6.5 percent NaCl, MRS broth30C2d.",
+      "text_sha256": "c362647d98982d919cf5f5734733affeae31d84bc77a32f62541cf07e07044d4"
+    }
+  ],
+  "round_id": "m5-calibration-20261116-round01",
+  "sampled_version_limit": "Local producer4.4.2 fingerprint is not a complete hash chain to sampled inputs. Staged4.4.0 is distinct. Assess semantic applicability and version uncertainty explicitly.",
+  "scope": "bounded metadata and evidence limits; no new axis ratings",
+  "structural_cases": {
+    "first-01": {
+      "catalog": "first-01-catalog",
+      "scope": "Original assay link only; source CIT+ does not convert original procedure link into a citrate-metabolism claim. Retain original METPO2000511 and category/definition/version checks independently."
+    },
+    "first-32": {
+      "catalogs": [
+        "first-32-catalog",
+        "ncbi-1281099"
+      ],
+      "scope": "Original LPSN46511 close_match NCBI1281099; assess both identifiers without replacement. Current catalogs independently identify each endpoint; source row remains unchanged."
+    }
+  }
+}

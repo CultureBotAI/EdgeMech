@@ -1,0 +1,1339 @@
+{
+  "cases": [
+    {
+      "case_id": "first-01",
+      "endpoints": {
+        "object": {
+          "category": "biolink:Procedure",
+          "id": "kgmicrobe.assay:API_20E_CIT",
+          "label": "API 20E - Citrate",
+          "private_record_sha256": "4960ca96b4840cadea8f5990e3b1bec938a7ff80fd3893fac4acbf2a3884f175",
+          "public_record_sha256": "4c55e7cdfdb4280bb3cf1b0ed7dccb96c782e2e698154a846ed4736e2a2c0af7"
+        },
+        "subject": {
+          "category": "biolink:OrganismTaxon",
+          "id": "kgmicrobe.strain:bacdive_171442",
+          "label": "bacdive_171442 as AH 405 of NCBITaxon:1396",
+          "private_record_sha256": "2406f8c7b4831ca003e8a8855ee3531fabfee8d95e856714db960ae3a1d824ab",
+          "public_record_sha256": "82859ad2e7a31605e494671b35de824682370b0bffc3a1d045a920369e916bcb"
+        }
+      },
+      "evidence_ids": [
+        "packet-first-01",
+        "biolink440",
+        "biolink442",
+        "metpo20260612",
+        "skos2009",
+        "lpsn-glossary",
+        "maintained-maintained-biolink-revalidation",
+        "maintained-maintained-lpsn",
+        "maintained-maintained-download",
+        "first-01-catalog"
+      ],
+      "occurrence_id": "urn:kg-microbe:occurrence:v1:aa8fb3ee82e3e42f14412a810092bfce9905eacfd7ae4c783d702011f59821eb",
+      "original_assertion": {
+        "object": "kgmicrobe.assay:API_20E_CIT",
+        "object_category": "biolink:Procedure",
+        "object_label": "API 20E - Citrate",
+        "occurrence_id": "urn:kg-microbe:occurrence:v1:aa8fb3ee82e3e42f14412a810092bfce9905eacfd7ae4c783d702011f59821eb",
+        "origin_transform": "bacdive/edges.tsv",
+        "predicate": "METPO:2000511",
+        "relation": "METPO:2000511",
+        "subject": "kgmicrobe.strain:bacdive_171442",
+        "subject_category": "biolink:OrganismTaxon",
+        "subject_label": "bacdive_171442 as AH 405 of NCBITaxon:1396",
+        "transform_row_number": 3378887
+      },
+      "packet_path": ".temp/edge-calibration-20261115/first-01/packet.json",
+      "reviewer_view_path": ".temp/m5-worker-run-20261116/package/cases-v2/first-01/view.json"
+    },
+    {
+      "case_id": "first-28",
+      "endpoints": {
+        "object": {
+          "category": "biolink:PhenotypicQuality",
+          "id": "METPO:1000870",
+          "label": "sporulation",
+          "private_record_sha256": "30423c07f6ddf56736b2a286ce202b7f6663cb7294039c50cfb0701089bb74e6",
+          "public_record_sha256": "286cefa006551d73dc747847befb7558cbf67f17ad3636db3be8ddb31b8ed81a"
+        },
+        "subject": {
+          "category": "biolink:OrganismTaxon",
+          "id": "NCBITaxon:113559",
+          "label": "Actinoplanes campanulatus",
+          "private_record_sha256": "27a75e2965ef9994c641a6b4d9129e5fb40680daf727c54fc246b85488ee7287",
+          "public_record_sha256": "6354a5afb00679b02045b91e67f86f3a1c82d5cd74b3c718e44030cb5601e0c0"
+        }
+      },
+      "evidence_ids": [
+        "packet-first-28",
+        "biolink440",
+        "biolink442",
+        "metpo20260612",
+        "skos2009",
+        "lpsn-glossary",
+        "maintained-maintained-biolink-revalidation",
+        "maintained-maintained-lpsn",
+        "maintained-maintained-download",
+        "ncbi-113559"
+      ],
+      "occurrence_id": "urn:kg-microbe:occurrence:v1:177815c9e4c39684189e2004e17840e6f0c42a2824750aad5d7f95bd7c0e5f3e",
+      "original_assertion": {
+        "object": "METPO:1000870",
+        "object_category": "biolink:PhenotypicQuality",
+        "object_label": "sporulation",
+        "occurrence_id": "urn:kg-microbe:occurrence:v1:177815c9e4c39684189e2004e17840e6f0c42a2824750aad5d7f95bd7c0e5f3e",
+        "origin_transform": "metatraits_gtdb/edges.tsv",
+        "predicate": "biolink:has_phenotype",
+        "relation": "RO:0002200",
+        "subject": "NCBITaxon:113559",
+        "subject_category": "biolink:OrganismTaxon",
+        "subject_label": "Actinoplanes campanulatus",
+        "transform_row_number": 96074
+      },
+      "packet_path": ".temp/edge-calibration-20261115/first-28/packet.json",
+      "reviewer_view_path": ".temp/m5-worker-run-20261116/package/cases-v2/first-28/view.json"
+    },
+    {
+      "case_id": "first-30",
+      "endpoints": {
+        "object": {
+          "category": "biolink:PhenotypicQuality",
+          "id": "METPO:1000625",
+          "label": "slightly halophilic",
+          "private_record_sha256": "d151558e94554d6c1daec95da7cc7bf01aa9af4831957b3c05bfaec244a736d8",
+          "public_record_sha256": "f9dff68cdf5758c49e10db1bf7534afae023e6f7421a5fa0a10bf5a27583a0cf"
+        },
+        "subject": {
+          "category": "biolink:OrganismTaxon",
+          "id": "GTDB:s__SYIM01_sp009921765",
+          "label": "SYIM01 sp009921765",
+          "private_record_sha256": "84d989d0bdff5f1908933c0ee250a7bb61fdbaeb3f1cda3d5f2907d46a02d556",
+          "public_record_sha256": "f23ec214f654a678233d0815da18ae808554a3443e7c3df97ebccbedf179d502"
+        }
+      },
+      "evidence_ids": [
+        "packet-first-30",
+        "biolink440",
+        "biolink442",
+        "metpo20260612",
+        "skos2009",
+        "lpsn-glossary",
+        "maintained-maintained-biolink-revalidation",
+        "maintained-maintained-lpsn",
+        "maintained-maintained-download"
+      ],
+      "occurrence_id": "urn:kg-microbe:occurrence:v1:b912410040f3b6027290e16710d457e3e45753a38d8a5adda78f0a8ea423eb9b",
+      "original_assertion": {
+        "object": "METPO:1000625",
+        "object_category": "biolink:PhenotypicQuality",
+        "object_label": "slightly halophilic",
+        "occurrence_id": "urn:kg-microbe:occurrence:v1:b912410040f3b6027290e16710d457e3e45753a38d8a5adda78f0a8ea423eb9b",
+        "origin_transform": "metatraits_gtdb/edges.tsv",
+        "predicate": "biolink:has_phenotype",
+        "relation": "RO:0002200",
+        "subject": "GTDB:s__SYIM01_sp009921765",
+        "subject_category": "biolink:OrganismTaxon",
+        "subject_label": "SYIM01 sp009921765",
+        "transform_row_number": 2984816
+      },
+      "packet_path": ".temp/edge-calibration-20261115/first-30/packet.json",
+      "reviewer_view_path": ".temp/m5-worker-run-20261116/package/cases-v2/first-30/view.json"
+    },
+    {
+      "case_id": "first-32",
+      "endpoints": {
+        "object": {
+          "category": "biolink:OrganismTaxon",
+          "id": "NCBITaxon:1281099",
+          "label": "Escherichia coli HVH 169 (4-1075578)",
+          "private_record_sha256": "e1ecbe2488b486adff0f79fea2959785bbe3aa49cad95bd5f89cbd545ec417e7",
+          "public_record_sha256": "b69ab0ba271e8d8896ad150497f7f3f0880aaa7cbbb0acc83e03692b113c883b"
+        },
+        "subject": {
+          "category": "biolink:OrganismTaxon",
+          "id": "lpsn:46511",
+          "label": "Methanomethylophilus alvi",
+          "private_record_sha256": "9722bbb3c0b0136b00698e158ceea3bfacc77364ac794070ab89d678604e3eb6",
+          "public_record_sha256": "fc398d3575af68d932f8b1b18be233edc23b946a8ff7296c200efe35b59c31c1"
+        }
+      },
+      "evidence_ids": [
+        "packet-first-32",
+        "biolink440",
+        "biolink442",
+        "metpo20260612",
+        "skos2009",
+        "lpsn-glossary",
+        "maintained-maintained-biolink-revalidation",
+        "maintained-maintained-lpsn",
+        "maintained-maintained-download",
+        "ncbi-1281099",
+        "first-32-catalog"
+      ],
+      "occurrence_id": "urn:kg-microbe:occurrence:v1:192571d351f25940fa1d092f9943862376a9603e28391d518c131e3d0341669b",
+      "original_assertion": {
+        "object": "NCBITaxon:1281099",
+        "object_category": "biolink:OrganismTaxon",
+        "object_label": "Escherichia coli HVH 169 (4-1075578)",
+        "occurrence_id": "urn:kg-microbe:occurrence:v1:192571d351f25940fa1d092f9943862376a9603e28391d518c131e3d0341669b",
+        "origin_transform": "microbedecoder/edges.tsv",
+        "predicate": "biolink:close_match",
+        "relation": "skos:closeMatch",
+        "subject": "lpsn:46511",
+        "subject_category": "biolink:OrganismTaxon",
+        "subject_label": "Methanomethylophilus alvi",
+        "transform_row_number": 85111
+      },
+      "packet_path": ".temp/edge-calibration-20261115/first-32/packet.json",
+      "reviewer_view_path": ".temp/m5-worker-run-20261116/package/cases-v2/first-32/view.json"
+    },
+    {
+      "case_id": "first-43",
+      "endpoints": {
+        "object": {
+          "category": "biolink:BiologicalProcess",
+          "id": "METPO:1005039",
+          "label": "nitrogen fixation",
+          "private_record_sha256": "04ca144efa1f6ac7275a993059440755d664139589821d0faf1db9e662e2b388",
+          "public_record_sha256": "62a07aeaee3a76af75fe6f555e87c196cb1e8b4400e213c74e214bfdad8b167e"
+        },
+        "subject": {
+          "category": "biolink:OrganismTaxon",
+          "id": "NCBITaxon:1540872",
+          "label": "Candidatus Gracilibacteria bacterium HOT-871",
+          "private_record_sha256": "2365c85d02226c9e2eca91ef2a16b2e436cbdf1aaf7e80ec469e0f30f891b776",
+          "public_record_sha256": "fbdf6dc578a455d8633bf88c9873c5c37a44c2e46f1371cccd1695d37f3166cf"
+        }
+      },
+      "evidence_ids": [
+        "packet-first-43",
+        "biolink440",
+        "biolink442",
+        "metpo20260612",
+        "skos2009",
+        "lpsn-glossary",
+        "maintained-maintained-biolink-revalidation",
+        "maintained-maintained-lpsn",
+        "maintained-maintained-download",
+        "ncbi-1540872"
+      ],
+      "occurrence_id": "urn:kg-microbe:occurrence:v1:2cad956c7d5d6ace49ddb7e887de8eab4a7c1b78410942732e2a44bbd1a00559",
+      "original_assertion": {
+        "object": "METPO:1005039",
+        "object_category": "biolink:BiologicalProcess",
+        "object_label": "nitrogen fixation",
+        "occurrence_id": "urn:kg-microbe:occurrence:v1:2cad956c7d5d6ace49ddb7e887de8eab4a7c1b78410942732e2a44bbd1a00559",
+        "origin_transform": "metatraits/edges.tsv",
+        "predicate": "biolink:capable_of",
+        "relation": "RO:0002215",
+        "subject": "NCBITaxon:1540872",
+        "subject_category": "biolink:OrganismTaxon",
+        "subject_label": "Candidatus Gracilibacteria bacterium HOT-871",
+        "transform_row_number": 820840
+      },
+      "packet_path": ".temp/edge-calibration-20261115/first-43/packet.json",
+      "reviewer_view_path": ".temp/m5-worker-run-20261116/package/cases-v2/first-43/view.json"
+    },
+    {
+      "case_id": "fresh-04",
+      "endpoints": {
+        "object": {
+          "category": "biolink:PhenotypicQuality",
+          "id": "METPO:1000471",
+          "label": "NaCl range mid2",
+          "private_record_sha256": "7f3eb7467865d1c4944fcf5011f4ec70f65425ab6394b07d94b6e917ae1e37aa",
+          "public_record_sha256": "b9c68e75532806beedcf711046f7ec0a863ee846bf4aa578927cae96c04cf1fd"
+        },
+        "subject": {
+          "category": "biolink:OrganismTaxon",
+          "id": "NCBITaxon:1642702",
+          "label": "Paludifilum halophilum",
+          "private_record_sha256": "ede7703e017e2dcc9c69076acb16df514c3d8c952d74fe82c5102813ed0487ac",
+          "public_record_sha256": "2046d4d80601b5a5134c4f2a532b20aa7dd5b9f7c1125a110dd5777aa1696694"
+        }
+      },
+      "evidence_ids": [
+        "packet-fresh-04",
+        "biolink440",
+        "biolink442",
+        "metpo20260612",
+        "skos2009",
+        "lpsn-glossary",
+        "maintained-maintained-biolink-revalidation",
+        "maintained-maintained-lpsn",
+        "maintained-maintained-download",
+        "fresh04-original-description",
+        "fresh04-primary-growth-context",
+        "ncbi-1642702",
+        "fresh04-dsm102218",
+        "fresh04-identity-context"
+      ],
+      "occurrence_id": "urn:kg-microbe:occurrence:v1:155d6d2d7ac159eb931374219e919b3e9984224866ecb96f110e77407345f0e4",
+      "original_assertion": {
+        "object": "METPO:1000471",
+        "object_category": "biolink:PhenotypicQuality",
+        "object_label": "NaCl range mid2",
+        "occurrence_id": "urn:kg-microbe:occurrence:v1:155d6d2d7ac159eb931374219e919b3e9984224866ecb96f110e77407345f0e4",
+        "origin_transform": "bactotraits/edges.tsv",
+        "predicate": "biolink:has_phenotype",
+        "relation": "RO:0002200",
+        "subject": "NCBITaxon:1642702",
+        "subject_category": "biolink:OrganismTaxon",
+        "subject_label": "Paludifilum halophilum",
+        "transform_row_number": 85027
+      },
+      "packet_path": ".temp/edge-calibration-20261115/fresh-04/packet.json",
+      "reviewer_view_path": ".temp/m5-worker-run-20261116/package/cases-v2/fresh-04/view.json"
+    },
+    {
+      "case_id": "fresh-05",
+      "endpoints": {
+        "object": {
+          "category": "biolink:PhenotypicQuality",
+          "id": "METPO:1000703",
+          "label": "non motile",
+          "private_record_sha256": "0818e5ede02a3a6bfd80509d160fc851703c48eab8ade84888728493c6d77809",
+          "public_record_sha256": "9fa538e85a3054ba71e9915f5db05f210ef61c95476a417ae053e80a0a21a3f6"
+        },
+        "subject": {
+          "category": "biolink:OrganismTaxon",
+          "id": "NCBITaxon:1123071",
+          "label": "Rubritalea squalenifaciens DSM 18772",
+          "private_record_sha256": "9a5e9a935498292fb33c8dc2b006a864d8ded30d36660a71cf04bdd4e34ba642",
+          "public_record_sha256": "1e9459e17b91edfb8345993a9beafbcf2fba27c3ab3f8c406bf4d0d0761c4086"
+        }
+      },
+      "evidence_ids": [
+        "packet-fresh-05",
+        "biolink440",
+        "biolink442",
+        "metpo20260612",
+        "skos2009",
+        "lpsn-glossary",
+        "maintained-maintained-biolink-revalidation",
+        "maintained-maintained-lpsn",
+        "maintained-maintained-download",
+        "fresh05-original-description",
+        "ncbi-1123071",
+        "fresh05-dsm19353",
+        "fresh05-dsm18772",
+        "fresh05-jcm14586",
+        "fresh05-bacdive17851"
+      ],
+      "occurrence_id": "urn:kg-microbe:occurrence:v1:1e9dec218a07f7e480add8ff273e3a9285f79d57746ca74041702839207a8136",
+      "original_assertion": {
+        "object": "METPO:1000703",
+        "object_category": "biolink:PhenotypicQuality",
+        "object_label": "non motile",
+        "occurrence_id": "urn:kg-microbe:occurrence:v1:1e9dec218a07f7e480add8ff273e3a9285f79d57746ca74041702839207a8136",
+        "origin_transform": "bactotraits/edges.tsv",
+        "predicate": "biolink:has_phenotype",
+        "relation": "RO:0002200",
+        "subject": "NCBITaxon:1123071",
+        "subject_category": "biolink:OrganismTaxon",
+        "subject_label": "Rubritalea squalenifaciens DSM 18772",
+        "transform_row_number": 78420
+      },
+      "packet_path": ".temp/edge-calibration-20261115/fresh-05/packet.json",
+      "reviewer_view_path": ".temp/m5-worker-run-20261116/package/cases-v2/fresh-05/view.json"
+    },
+    {
+      "case_id": "fresh-14",
+      "endpoints": {
+        "object": {
+          "category": "biolink:OrganismTaxon",
+          "id": "kgmicrobe.strain:JCM-14905",
+          "label": "JCM 14905",
+          "private_record_sha256": "a2082f61a2e0f2021ec82f95e5cfce1b30fa26519d2ceadc448ed7a87d795c4a",
+          "public_record_sha256": "b45fa3db7acbf2bc41c97ec25995bbef6fcea2d973e596a0210d3630540ca090"
+        },
+        "subject": {
+          "category": "biolink:OrganismTaxon",
+          "id": "lpsn:781160",
+          "label": "Stackebrandtia nassauensis",
+          "private_record_sha256": "6beb7eba8d718329c54da606a6f14c04efae97041dd2542711bc97ef9a17ee34",
+          "public_record_sha256": "11b99ad27209ca40e203b487dd25f5dc648c3eead0b8dddd656ea2b30d366255"
+        }
+      },
+      "evidence_ids": [
+        "packet-fresh-14",
+        "biolink440",
+        "biolink442",
+        "metpo20260612",
+        "skos2009",
+        "lpsn-glossary",
+        "fresh14-authority-1",
+        "fresh14-authority-2",
+        "fresh14-authority-3",
+        "fresh14-authority-4",
+        "fresh14-authority-5",
+        "fresh14-authority-6",
+        "fresh14-authority-7",
+        "maintained-maintained-biolink-revalidation",
+        "maintained-maintained-lpsn",
+        "maintained-maintained-download"
+      ],
+      "occurrence_id": "urn:kg-microbe:occurrence:v1:78725eeeea961ce059a55092aebc34b522b1b4ffc2ea844207ce7049a039cc80",
+      "original_assertion": {
+        "object": "kgmicrobe.strain:JCM-14905",
+        "object_category": "biolink:OrganismTaxon",
+        "object_label": "JCM 14905",
+        "occurrence_id": "urn:kg-microbe:occurrence:v1:78725eeeea961ce059a55092aebc34b522b1b4ffc2ea844207ce7049a039cc80",
+        "origin_transform": "lpsn/edges.tsv",
+        "predicate": "biolink:close_match",
+        "relation": "skos:closeMatch",
+        "subject": "lpsn:781160",
+        "subject_category": "biolink:OrganismTaxon",
+        "subject_label": "Stackebrandtia nassauensis",
+        "transform_row_number": 116674
+      },
+      "packet_path": ".temp/edge-calibration-20261115/fresh-14/packet.json",
+      "reviewer_view_path": ".temp/m5-worker-run-20261116/package/cases-v2/fresh-14/view.json"
+    },
+    {
+      "case_id": "fresh-32",
+      "endpoints": {
+        "object": {
+          "category": "biolink:BiologicalProcess",
+          "id": "kgmicrobe.pathway:microbedecoder_faprotax_type_of_metabolism_48701f8146aa9f1120798eee257448f7d5f71e73e4216acf3d14c101a9fc0fd8",
+          "label": "sulfite_respiration",
+          "private_record_sha256": "63bea457100f4e4ad245d2f373bd88684e58434c326b050faaad2a89126a23db",
+          "public_record_sha256": "3be7074ecb3b1dd6c9c64fbc5eaf7396894084dbb1125631719539251a7ec0c7"
+        },
+        "subject": {
+          "category": "biolink:OrganismTaxon",
+          "id": "lpsn:775534",
+          "label": "Desulfobacter halotolerans",
+          "private_record_sha256": "d98f26532949eb03e90823b8a0e9cfc488bba07f9f0ebfd7c8e7f34a153ceeb5",
+          "public_record_sha256": "ccf60f5f34393f3aba617bff7f0c3a0353664840e6ca52179c2ca535f501fc1e"
+        }
+      },
+      "evidence_ids": [
+        "packet-fresh-32",
+        "biolink440",
+        "biolink442",
+        "metpo20260612",
+        "skos2009",
+        "lpsn-glossary",
+        "maintained-maintained-biolink-revalidation",
+        "maintained-maintained-lpsn",
+        "maintained-maintained-download",
+        "fresh32-comparative-table"
+      ],
+      "occurrence_id": "urn:kg-microbe:occurrence:v1:bc0ccdeacd77c07acd22afd349f58309daaf6c46c7727a7f1d6dc267ac85cfd6",
+      "original_assertion": {
+        "object": "kgmicrobe.pathway:microbedecoder_faprotax_type_of_metabolism_48701f8146aa9f1120798eee257448f7d5f71e73e4216acf3d14c101a9fc0fd8",
+        "object_category": "biolink:BiologicalProcess",
+        "object_label": "sulfite_respiration",
+        "occurrence_id": "urn:kg-microbe:occurrence:v1:bc0ccdeacd77c07acd22afd349f58309daaf6c46c7727a7f1d6dc267ac85cfd6",
+        "origin_transform": "microbedecoder/edges.tsv",
+        "predicate": "biolink:capable_of",
+        "relation": "RO:0002215",
+        "subject": "lpsn:775534",
+        "subject_category": "biolink:OrganismTaxon",
+        "subject_label": "Desulfobacter halotolerans",
+        "transform_row_number": 153238
+      },
+      "packet_path": ".temp/edge-calibration-20261115/fresh-32/packet.json",
+      "reviewer_view_path": ".temp/m5-worker-run-20261116/package/cases-v2/fresh-32/view.json"
+    },
+    {
+      "case_id": "fresh-47",
+      "endpoints": {
+        "object": {
+          "category": "biolink:Attribute",
+          "id": "kgmicrobe.source_attribute:microbedecoder_bacdive_salt_concentration_957364e5f4deef2d770daafc66abdd29b5e50582f31be4fe7b65f03602388f15",
+          "label": "reported Salt concentration: 0-10 (source value)",
+          "private_record_sha256": "1a7f23cd79737ab6b19d4d51c662509c7d78a809bad1a25b246bbd948871af16",
+          "public_record_sha256": "8d39186e480ef49c46471f5dc4d99ed5798101a6b1d67f83421a0e75380df1f7"
+        },
+        "subject": {
+          "category": "biolink:OrganismTaxon",
+          "id": "lpsn:783091",
+          "label": "Weissella halotolerans",
+          "private_record_sha256": "d3047369ed576a888b24f9aaa91e0291626e5f448e8790bc9703bd2ae5cabb2d",
+          "public_record_sha256": "4998210a201209cc2996cc41ff8404dde4b3920471aaecee99b87441bd7725f3"
+        }
+      },
+      "evidence_ids": [
+        "packet-fresh-47",
+        "biolink440",
+        "biolink442",
+        "metpo20260612",
+        "skos2009",
+        "lpsn-glossary",
+        "maintained-maintained-biolink-revalidation",
+        "maintained-maintained-lpsn",
+        "maintained-maintained-download",
+        "fresh47-other-isolate"
+      ],
+      "occurrence_id": "urn:kg-microbe:occurrence:v1:358f925d6342994dbe5598a3d3d2cdfafe3ad30028b7305c3cf21242cf3a9b57",
+      "original_assertion": {
+        "object": "kgmicrobe.source_attribute:microbedecoder_bacdive_salt_concentration_957364e5f4deef2d770daafc66abdd29b5e50582f31be4fe7b65f03602388f15",
+        "object_category": "biolink:Attribute",
+        "object_label": "reported Salt concentration: 0-10 (source value)",
+        "occurrence_id": "urn:kg-microbe:occurrence:v1:358f925d6342994dbe5598a3d3d2cdfafe3ad30028b7305c3cf21242cf3a9b57",
+        "origin_transform": "microbedecoder/edges.tsv",
+        "predicate": "biolink:has_attribute",
+        "relation": "SIO:000008",
+        "subject": "lpsn:783091",
+        "subject_category": "biolink:OrganismTaxon",
+        "subject_label": "Weissella halotolerans",
+        "transform_row_number": 241764
+      },
+      "packet_path": ".temp/edge-calibration-20261115/fresh-47/packet.json",
+      "reviewer_view_path": ".temp/m5-worker-run-20261116/package/cases-v2/fresh-47/view.json"
+    }
+  ],
+  "cohort_id": "edge-calibration-20261115",
+  "created_at": "2026-11-16T20:44:13.043020+00:00",
+  "files": [
+    {
+      "path": "artifacts/edge-calibration-20261115/protocol.json",
+      "role": "protocol",
+      "sha256": "d24b9e1e9833d70407bf06a04ae6c0ff92f5564149a3b51e6402e5416e866517"
+    },
+    {
+      "path": "artifacts/edge-calibration-20261115/cohort.json",
+      "role": "cohort",
+      "sha256": "1dc756b0ba628756baf544cacf36f0a1ab2e4c68eed6724ee281205f22d606ee"
+    },
+    {
+      "path": "docs/record-review-profile.md",
+      "role": "profile",
+      "sha256": "45e4a564d4926ad491e6a8c2ec4426f8249dfc18318d8c7e2e4d4422dd8143f6"
+    },
+    {
+      "path": "scripts/adhoc/calibration_round_20261116.py",
+      "role": "round_helper",
+      "sha256": "df7a0992b9dc2affb46be6e3f5b96675b597c7e68b9d558d5e6a5d6737d279b1"
+    },
+    {
+      "evidence_ids": [],
+      "path": "src/edgemech/occurrence_packet.py",
+      "role": "proof_adapter",
+      "sha256": "7526fcb6f4467a342abc644c8f607b9b8c6fb395eac159c61f4654594cc490d7"
+    },
+    {
+      "evidence_ids": [],
+      "path": "src/edgemech/occurrence_review.py",
+      "role": "proof_adapter",
+      "sha256": "8821065a01a03752f1952accd0ae7fb53c5d31e85a8f5be621c2d8a7f43d43e3"
+    },
+    {
+      "evidence_ids": [],
+      "path": "src/edgemech/literature_cache.py",
+      "role": "proof_adapter",
+      "sha256": "12e3d920e2a9978c25b5d7626aae087ccd089609c367339a240eb8f37b7a3fef"
+    },
+    {
+      "evidence_ids": [],
+      "path": "src/edgemech/contract-pins.json",
+      "role": "proof_adapter",
+      "sha256": "788ecc876a432feebeb89627fbe5a40dba1c1001598683c19834e4626667842c"
+    },
+    {
+      "evidence_ids": [],
+      "path": "src/edgemech/storage/parquet.py",
+      "role": "proof_adapter",
+      "sha256": "6f821fb6ce4dde27041fd85bbd6118106642566edad049fe6d4efa7688578dc9"
+    },
+    {
+      "evidence_ids": [],
+      "path": "src/edgemech/pins.py",
+      "role": "proof_adapter",
+      "sha256": "1287b62bc74e6b50e1335d14160db575fc095e90aadd76c50713cf7a5329f137"
+    },
+    {
+      "evidence_ids": [],
+      "path": "schema/record_review.yaml",
+      "role": "proof_adapter",
+      "sha256": "229baf9b69118a1fe318e4c31085c0820e4e3d1365e7b04d6ace451b7c35f9bb"
+    },
+    {
+      "evidence_ids": [],
+      "path": "scripts/record_review.py",
+      "role": "proof_adapter",
+      "sha256": "95a4ec41e38ec47ba3578e76838c46a0adbf47e49ad3636524735d08cfcb1c4d"
+    },
+    {
+      "evidence_ids": [],
+      "path": "uv.lock",
+      "role": "proof_adapter",
+      "sha256": "47482728f31c1fb0776fe4486372bad47526abccbb23e9fdcb3728f757cfdd05"
+    },
+    {
+      "evidence_ids": [],
+      "path": "scripts/adhoc/prepare_m5_reviewer_views_20261116.py",
+      "role": "proof_adapter",
+      "sha256": "3eb8af61237aa49f7a7946c35906dec95758948519aef4180fff0e8e67a656b1"
+    },
+    {
+      "evidence_ids": [],
+      "path": "scripts/adhoc/assemble_m5_package_20261116.py",
+      "role": "proof_adapter",
+      "sha256": "72fadce339c3a2f6148cd79fb45484bac0b973eb85acb24ecf3b15fb7bd364a1"
+    },
+    {
+      "evidence_ids": [],
+      "path": "scripts/adhoc/m5_review_20261116/blinded-review.md",
+      "role": "instructions",
+      "sha256": "0c366e225f7b3ce3d4bee707b1cf905881c03ac96370b89d555888de1af305cd"
+    },
+    {
+      "evidence_ids": [],
+      "path": "docs/record-reviews.md",
+      "role": "instructions",
+      "sha256": "452a19ab688276747b7c4308523a14d4d99c1c39ef6909ae8a90b85b7a9b3e9b"
+    },
+    {
+      "evidence_ids": [
+        "packet-first-01"
+      ],
+      "path": ".temp/edge-calibration-20261115/first-01/packet.json",
+      "role": "packet",
+      "sha256": "b516c976dbdb13900c8e6e83f740c7fa962afa23af6f5aa293f846cdfa768926"
+    },
+    {
+      "evidence_ids": [],
+      "path": ".temp/edge-calibration-20261115/first-01/occurrence.json",
+      "role": "private_input",
+      "sha256": "9e4967a3d69399ae026c5054cdd874c02df81d689846e382a819eff1eb4d9036"
+    },
+    {
+      "evidence_ids": [],
+      "path": ".temp/edge-calibration-20261115/first-01/source.json",
+      "role": "private_input",
+      "sha256": "b16d35eca46dc4f83ee6b7aa9a4630e6e4ae2ccdfaba45be30c3b1e9ce3a24b0"
+    },
+    {
+      "evidence_ids": [],
+      "path": ".temp/edge-calibration-20261115/first-01/receipt.json",
+      "role": "private_input",
+      "sha256": "06e551b04ca75b0dc8dde32d1e042492cbda3d0e4cb6d2c0fb578b90912d7e45"
+    },
+    {
+      "evidence_ids": [],
+      "path": ".temp/m5-worker-run-20261116/package/cases-v2/first-01/view.json",
+      "role": "reviewer_view",
+      "sha256": "5a6eb38b5fccc5d2a314c78a31f398d9da553b71f6fd6ecb585bac07973cbe5d"
+    },
+    {
+      "evidence_ids": [],
+      "path": ".temp/m5-worker-run-20261116/package/cases-v2/first-01/receipt.json",
+      "role": "receipt",
+      "sha256": "7c841838f865f71224c32cb5ae5e76c471c3df1b71a0c73bda1b1d119546c9b1"
+    },
+    {
+      "evidence_ids": [
+        "packet-first-28"
+      ],
+      "path": ".temp/edge-calibration-20261115/first-28/packet.json",
+      "role": "packet",
+      "sha256": "eb5e38bf636fed915f15ee9bd2ce9f1d4d010eb8c1e8d815a17e1de265bcd527"
+    },
+    {
+      "evidence_ids": [],
+      "path": ".temp/edge-calibration-20261115/first-28/occurrence.json",
+      "role": "private_input",
+      "sha256": "0f48424854ed44e039e0ebe0a53768bcd78a63a583c732d0295f176c4e57f186"
+    },
+    {
+      "evidence_ids": [],
+      "path": ".temp/edge-calibration-20261115/first-28/source.json",
+      "role": "private_input",
+      "sha256": "a11495091472648e39d2b4a7b1190676cbefbf5a95791784910617c90c38522d"
+    },
+    {
+      "evidence_ids": [],
+      "path": ".temp/edge-calibration-20261115/first-28/receipt.json",
+      "role": "private_input",
+      "sha256": "90b6edca629314b4ca3ae869558d63117c83331ea8685ed281bb4fa90a45d4ae"
+    },
+    {
+      "evidence_ids": [],
+      "path": ".temp/m5-worker-run-20261116/package/cases-v2/first-28/view.json",
+      "role": "reviewer_view",
+      "sha256": "061c50271ed2a872b29c569d9990f34d1bb5220072166eee0a47ea4d70306fe0"
+    },
+    {
+      "evidence_ids": [],
+      "path": ".temp/m5-worker-run-20261116/package/cases-v2/first-28/receipt.json",
+      "role": "receipt",
+      "sha256": "5ebb9690577e410bb348b3c44a5754abd6ad626372c80b93346341fb75453ecc"
+    },
+    {
+      "evidence_ids": [
+        "packet-first-30"
+      ],
+      "path": ".temp/edge-calibration-20261115/first-30/packet.json",
+      "role": "packet",
+      "sha256": "68ae9cbdb5c02a160c3497977ce191924e9aed8c89321f3da7924770df3ffc82"
+    },
+    {
+      "evidence_ids": [],
+      "path": ".temp/edge-calibration-20261115/first-30/occurrence.json",
+      "role": "private_input",
+      "sha256": "a75775ad5e3ebcbf20481a158cb3d81762ff40f95de914fdf5d41a740d4dd4aa"
+    },
+    {
+      "evidence_ids": [],
+      "path": ".temp/edge-calibration-20261115/first-30/source.json",
+      "role": "private_input",
+      "sha256": "a63d6966a081eacd6b9149ae03c41964aa5f64a4e781abcd88e66a3e654af493"
+    },
+    {
+      "evidence_ids": [],
+      "path": ".temp/edge-calibration-20261115/first-30/receipt.json",
+      "role": "private_input",
+      "sha256": "74c40ee1756194a872a1b752745f12205fe934cfd7d7b3ad7046e685d6a2b6f5"
+    },
+    {
+      "evidence_ids": [],
+      "path": ".temp/m5-worker-run-20261116/package/cases-v2/first-30/view.json",
+      "role": "reviewer_view",
+      "sha256": "d4f6eb929193286ebcfafd8f18e0388e39b30860ba245f3f29cbb9d3ce1c47c6"
+    },
+    {
+      "evidence_ids": [],
+      "path": ".temp/m5-worker-run-20261116/package/cases-v2/first-30/receipt.json",
+      "role": "receipt",
+      "sha256": "3f1bbc193d8277760f4e6317fb6cabdccd0f2deb59cb994c0f19f334f35e56b0"
+    },
+    {
+      "evidence_ids": [
+        "packet-first-32"
+      ],
+      "path": ".temp/edge-calibration-20261115/first-32/packet.json",
+      "role": "packet",
+      "sha256": "32cb804b4f6e0f678f01faf3ecf351146101d1beb0abe6e77ecbffedd470ded2"
+    },
+    {
+      "evidence_ids": [],
+      "path": ".temp/edge-calibration-20261115/first-32/occurrence.json",
+      "role": "private_input",
+      "sha256": "d80216b91e94eec7e6fe6f8feaf070539286ab7f4601f056562b99b9a2e81c3a"
+    },
+    {
+      "evidence_ids": [],
+      "path": ".temp/edge-calibration-20261115/first-32/source.json",
+      "role": "private_input",
+      "sha256": "5c1d2f4d001642bc136718e7ddd67d231d9ca0589b6c406a5d110dd6a6dcdc1e"
+    },
+    {
+      "evidence_ids": [],
+      "path": ".temp/edge-calibration-20261115/first-32/receipt.json",
+      "role": "private_input",
+      "sha256": "997ee23ad92f6adb3f38dd5019eedca75cd7b532610474e68658db7c77586574"
+    },
+    {
+      "evidence_ids": [],
+      "path": ".temp/m5-worker-run-20261116/package/cases-v2/first-32/view.json",
+      "role": "reviewer_view",
+      "sha256": "d79e19d5eefd89bfd18cf208bc7d912c96a094e29dc2d83adf0a021dd9e4c0d1"
+    },
+    {
+      "evidence_ids": [],
+      "path": ".temp/m5-worker-run-20261116/package/cases-v2/first-32/receipt.json",
+      "role": "receipt",
+      "sha256": "7edf6a65b209ae235cea0a49d5a882e476e365f4f828e620da61cfe94380e824"
+    },
+    {
+      "evidence_ids": [
+        "packet-first-43"
+      ],
+      "path": ".temp/edge-calibration-20261115/first-43/packet.json",
+      "role": "packet",
+      "sha256": "70decffa3ed755ad913171964494b4edfcf84b2341a34a76a925837f1565befc"
+    },
+    {
+      "evidence_ids": [],
+      "path": ".temp/edge-calibration-20261115/first-43/occurrence.json",
+      "role": "private_input",
+      "sha256": "693719992316abf9c8b64915f7ce67e45bf1ac45b8d2cdb167eef4c9f29acbeb"
+    },
+    {
+      "evidence_ids": [],
+      "path": ".temp/edge-calibration-20261115/first-43/source.json",
+      "role": "private_input",
+      "sha256": "387def480444da8fb12044aa3a61ce4289e28376d263d45da5238771d510de40"
+    },
+    {
+      "evidence_ids": [],
+      "path": ".temp/edge-calibration-20261115/first-43/receipt.json",
+      "role": "private_input",
+      "sha256": "895ac7934aa036d6492575fb79bb76b7787159d222bbf3cd677c37b778da127b"
+    },
+    {
+      "evidence_ids": [],
+      "path": ".temp/m5-worker-run-20261116/package/cases-v2/first-43/view.json",
+      "role": "reviewer_view",
+      "sha256": "ebf1c12e5508611112718684565dc312eba61f1105533f0333ff146b767c83c3"
+    },
+    {
+      "evidence_ids": [],
+      "path": ".temp/m5-worker-run-20261116/package/cases-v2/first-43/receipt.json",
+      "role": "receipt",
+      "sha256": "8c75d5626a26bdd2a1d6bdf2fecfd242542ac94c52e14b0ea4240cd06d918d5a"
+    },
+    {
+      "evidence_ids": [
+        "packet-fresh-04"
+      ],
+      "path": ".temp/edge-calibration-20261115/fresh-04/packet.json",
+      "role": "packet",
+      "sha256": "5249d3331588e1973f5c19414cb5aff171b13d510499567a29954b3059fa716e"
+    },
+    {
+      "evidence_ids": [],
+      "path": ".temp/edge-calibration-20261115/fresh-04/occurrence.json",
+      "role": "private_input",
+      "sha256": "612e5ae32211e83a93281dd4f5a0138de0af184917e0bbfdb26bdfae3866a778"
+    },
+    {
+      "evidence_ids": [],
+      "path": ".temp/edge-calibration-20261115/fresh-04/source.json",
+      "role": "private_input",
+      "sha256": "df54157ef0e6e4eee09bf44fd512481f710a19c0526985f4f44333ea0a450c02"
+    },
+    {
+      "evidence_ids": [],
+      "path": ".temp/edge-calibration-20261115/fresh-04/receipt.json",
+      "role": "private_input",
+      "sha256": "d71494a5a407ac275b883af4854c435680eb47ff0edab3405514a7f6e5f61fca"
+    },
+    {
+      "evidence_ids": [],
+      "path": ".temp/m5-worker-run-20261116/package/cases-v2/fresh-04/view.json",
+      "role": "reviewer_view",
+      "sha256": "16d8c0e110cfd2e3d60b971dd9b34038f633dcf06ea880c2e13040192f7a7c7f"
+    },
+    {
+      "evidence_ids": [],
+      "path": ".temp/m5-worker-run-20261116/package/cases-v2/fresh-04/receipt.json",
+      "role": "receipt",
+      "sha256": "0253746e1ea39070b753126ab995d1c2912d083088b5d0c084547962bf95dfd8"
+    },
+    {
+      "evidence_ids": [
+        "packet-fresh-05"
+      ],
+      "path": ".temp/edge-calibration-20261115/fresh-05/packet.json",
+      "role": "packet",
+      "sha256": "9a456958680990e4d6742b2bc012579d6e48d5d2adefdfcd24c6f0b6ab56b34b"
+    },
+    {
+      "evidence_ids": [],
+      "path": ".temp/edge-calibration-20261115/fresh-05/occurrence.json",
+      "role": "private_input",
+      "sha256": "7b537e0809c90529f7663866359bace6b7d9bd5c7547c74cf4faf88268430426"
+    },
+    {
+      "evidence_ids": [],
+      "path": ".temp/edge-calibration-20261115/fresh-05/source.json",
+      "role": "private_input",
+      "sha256": "9ff02c936f66ec58ad26b25f6176cf96d1f2f92bb556b6c4e7c971995a42f8e7"
+    },
+    {
+      "evidence_ids": [],
+      "path": ".temp/edge-calibration-20261115/fresh-05/receipt.json",
+      "role": "private_input",
+      "sha256": "7817a80678c2f2b335d280ae6a5d93f051d3e76a28a621ef38eda79b905b6a79"
+    },
+    {
+      "evidence_ids": [],
+      "path": ".temp/m5-worker-run-20261116/package/cases-v2/fresh-05/view.json",
+      "role": "reviewer_view",
+      "sha256": "cffabf2b9d0b94e962864b8bd23aa741943bcec49f93e237de93a710f2b7ba50"
+    },
+    {
+      "evidence_ids": [],
+      "path": ".temp/m5-worker-run-20261116/package/cases-v2/fresh-05/receipt.json",
+      "role": "receipt",
+      "sha256": "08e45e0576e48ddf28dd2c47aa778ab9e3a7a18a7dc7b33717de8e595e9183e3"
+    },
+    {
+      "evidence_ids": [
+        "packet-fresh-14"
+      ],
+      "path": ".temp/edge-calibration-20261115/fresh-14/packet.json",
+      "role": "packet",
+      "sha256": "c1c4a61470174802cfdbc08f31fd0e83b273270906111f5a4ef587ae973bd012"
+    },
+    {
+      "evidence_ids": [],
+      "path": ".temp/edge-calibration-20261115/fresh-14/occurrence.json",
+      "role": "private_input",
+      "sha256": "85f749adc4796dc82250f071109ed50fd00065c213dfeb65d412ef17f930a55c"
+    },
+    {
+      "evidence_ids": [],
+      "path": ".temp/edge-calibration-20261115/fresh-14/source.json",
+      "role": "private_input",
+      "sha256": "71e4b06bdf0f854037fc988999121e4494fddafdedae701031efb607c391f49d"
+    },
+    {
+      "evidence_ids": [],
+      "path": ".temp/edge-calibration-20261115/fresh-14/receipt.json",
+      "role": "private_input",
+      "sha256": "df6b07e406fd5f15a7e8fb02bf5cd9a783ce63fe98fc071cffa12d42395fb51f"
+    },
+    {
+      "evidence_ids": [],
+      "path": ".temp/m5-worker-run-20261116/package/cases-v2/fresh-14/view.json",
+      "role": "reviewer_view",
+      "sha256": "f5d510350ba23df7b949a268d669e0e0213c6b49768d606e7455eb7625eece7c"
+    },
+    {
+      "evidence_ids": [],
+      "path": ".temp/m5-worker-run-20261116/package/cases-v2/fresh-14/receipt.json",
+      "role": "receipt",
+      "sha256": "9da14efcdacea3eb0794f5105c5785d7f1feab9ea3894e1c498bd3aaf28ff56e"
+    },
+    {
+      "evidence_ids": [
+        "packet-fresh-32"
+      ],
+      "path": ".temp/edge-calibration-20261115/fresh-32/packet.json",
+      "role": "packet",
+      "sha256": "14b21623a1726591121ea2882d9168e081f832e22143a58cad438163551326f7"
+    },
+    {
+      "evidence_ids": [],
+      "path": ".temp/edge-calibration-20261115/fresh-32/occurrence.json",
+      "role": "private_input",
+      "sha256": "38786c29b4202b33a86636bd022da077781d76434f804f857d6053c86e701318"
+    },
+    {
+      "evidence_ids": [],
+      "path": ".temp/edge-calibration-20261115/fresh-32/source.json",
+      "role": "private_input",
+      "sha256": "4ceef453caf4117fb12b6c4e113917552e228d08ae0284c4e2b2114b4f0c690a"
+    },
+    {
+      "evidence_ids": [],
+      "path": ".temp/edge-calibration-20261115/fresh-32/receipt.json",
+      "role": "private_input",
+      "sha256": "e6baf30e46f0f95f837d77439929b0a76740427ad9391bdb847b34ebeb3f533e"
+    },
+    {
+      "evidence_ids": [],
+      "path": ".temp/m5-worker-run-20261116/package/cases-v2/fresh-32/view.json",
+      "role": "reviewer_view",
+      "sha256": "81fdfae52a6ccc56417b607d5c581bc02fc886944395743cb8f7980b22f462b0"
+    },
+    {
+      "evidence_ids": [],
+      "path": ".temp/m5-worker-run-20261116/package/cases-v2/fresh-32/receipt.json",
+      "role": "receipt",
+      "sha256": "b7611594f8d56018abe5a8f003d308491c575d457d6530e748457c6d26db191c"
+    },
+    {
+      "evidence_ids": [
+        "packet-fresh-47"
+      ],
+      "path": ".temp/edge-calibration-20261115/fresh-47/packet.json",
+      "role": "packet",
+      "sha256": "c64b42e5bf6dd8c081ab49b4faa935ae769af8dedcbd40c23c196dae083accf9"
+    },
+    {
+      "evidence_ids": [],
+      "path": ".temp/edge-calibration-20261115/fresh-47/occurrence.json",
+      "role": "private_input",
+      "sha256": "f0a9f952ad624e4914ebfe5c06861d61dbb6a31a42135433787bff743a1bb24b"
+    },
+    {
+      "evidence_ids": [],
+      "path": ".temp/edge-calibration-20261115/fresh-47/source.json",
+      "role": "private_input",
+      "sha256": "7b104074d7faec74374f1180652bcbde0c180a4e25d4bcf2026e9d73fd4692c5"
+    },
+    {
+      "evidence_ids": [],
+      "path": ".temp/edge-calibration-20261115/fresh-47/receipt.json",
+      "role": "private_input",
+      "sha256": "b8f115ea76f76025778713a6f35b4d70740221062676e2081511847ace861caa"
+    },
+    {
+      "evidence_ids": [],
+      "path": ".temp/m5-worker-run-20261116/package/cases-v2/fresh-47/view.json",
+      "role": "reviewer_view",
+      "sha256": "e92c027e4a4e2bd56b50ddcf28a4577bee9564a606f7161beca9362eaabd749c"
+    },
+    {
+      "evidence_ids": [],
+      "path": ".temp/m5-worker-run-20261116/package/cases-v2/fresh-47/receipt.json",
+      "role": "receipt",
+      "sha256": "8ec409249ac5363c6f10acd59079c5c781f25af59de8f78a4586819b4a89ccf8"
+    },
+    {
+      "evidence_ids": [
+        "biolink440"
+      ],
+      "path": ".temp/m5-worker-run-20261116/evidence/fresh14/biolink-model-4.4.0.yaml",
+      "role": "authority",
+      "sha256": "4955709e1cac1d26fd657f7a0c29d6c8390f42e41f9ebfab859c82b102f2bebb",
+      "version": "4.4.0"
+    },
+    {
+      "evidence_ids": [
+        "biolink442",
+        "fresh14-authority-1",
+        "fresh14-authority-2"
+      ],
+      "path": ".temp/m5-worker-run-20261116/evidence/fresh14/biolink-model-4.4.2.yaml",
+      "role": "authority",
+      "sha256": "b6a1320772a92d69e84b8c700cd6386dffe45ed635c8197d61e22b6a6fa3b35e",
+      "version": "4.4.2"
+    },
+    {
+      "evidence_ids": [
+        "metpo20260612"
+      ],
+      "path": ".temp/m5-worker-run-20261116/evidence/fresh14/metpo.owl",
+      "role": "authority",
+      "sha256": "8b6f8fe0510a698579e532658c8ace05da2550093365df9ca83feb0741778415",
+      "version": "2026-06-12"
+    },
+    {
+      "evidence_ids": [
+        "skos2009",
+        "fresh14-authority-3"
+      ],
+      "path": ".temp/m5-worker-run-20261116/evidence/fresh14/skos.txt",
+      "role": "authority",
+      "sha256": "f96269e4f1135f5181c58fe6ca488cf8c655420eaae54485f657559d93080d4c",
+      "version": "W3C Recommendation 2009-08-18"
+    },
+    {
+      "evidence_ids": [
+        "lpsn-glossary",
+        "fresh14-authority-4"
+      ],
+      "path": ".temp/m5-worker-run-20261116/evidence/fresh14/glossary.txt",
+      "role": "authority",
+      "sha256": "e90e80cb98e1d60db6886a2a8bf674b4d08c9e10dcb5511b164e6f675f796765",
+      "version": "retrieved 2026-11-16; no release version declared"
+    },
+    {
+      "evidence_ids": [],
+      "path": ".temp/m5-worker-run-20261116/evidence/fresh14/new-authority-copy-receipts.json",
+      "role": "receipt",
+      "sha256": "436f9fa3ce72a80990f2a1b715292d646fc26136c5c4cf8adad81697510695bc"
+    },
+    {
+      "evidence_ids": [],
+      "path": ".temp/m5-worker-run-20261116/evidence/fresh14/local-schema-replay.json",
+      "role": "receipt",
+      "sha256": "d9df5689274936ecbd6d0a4557a0a4edc183ed6031dfd91fb61ee6a67f1c07c2"
+    },
+    {
+      "evidence_ids": [
+        "fresh14-authority-5",
+        "fresh14-authority-6",
+        "fresh14-authority-7"
+      ],
+      "path": ".temp/m5-worker-run-20261116/evidence/fresh14/lpsn-current.txt",
+      "role": "authority",
+      "sha256": "1e282dca347e4f7f17f53428cf53ea05797ff666a710cd73e8aae65cf0bd7820",
+      "version": "retrieved 2026-11-16; no release version declared"
+    },
+    {
+      "evidence_ids": [
+        "maintained-maintained-biolink-revalidation"
+      ],
+      "path": ".temp/m5-worker-run-20261116/evidence/fresh14/maintained-biolink-revalidation.md",
+      "role": "authority",
+      "sha256": "a1daf4344aa77bbc3024bb8208eb68cef29e93dec40a0b0ed9829f8b258ffad2",
+      "version": "KG-Microbe2d94ed094167d94402f21400a9ad7dc4f7f20438"
+    },
+    {
+      "evidence_ids": [
+        "maintained-maintained-lpsn"
+      ],
+      "path": ".temp/m5-worker-run-20261116/evidence/fresh14/maintained-lpsn.py",
+      "role": "authority",
+      "sha256": "026dc075d4f924d92ee6f7816599c0a1fb5e2b3ef7e07593e6da5dd3f5b16fac",
+      "version": "KG-Microbe2d94ed094167d94402f21400a9ad7dc4f7f20438"
+    },
+    {
+      "evidence_ids": [
+        "maintained-maintained-download"
+      ],
+      "path": ".temp/m5-worker-run-20261116/evidence/fresh14/maintained-download.yaml",
+      "role": "authority",
+      "sha256": "209669d1de7e2dfea17712a755217fd201241d2e32f763366ff0570270610153",
+      "version": "KG-Microbe2d94ed094167d94402f21400a9ad7dc4f7f20438"
+    },
+    {
+      "evidence_ids": [
+        "fresh04-original-description"
+      ],
+      "path": ".temp/m5-worker-run-20261116/evidence/literature/raw/0936f6d23e71af74055f902eee841e2f1249c58c622bb98fac1731ccfecc0257.response",
+      "role": "evidence",
+      "sha256": "0936f6d23e71af74055f902eee841e2f1249c58c622bb98fac1731ccfecc0257"
+    },
+    {
+      "evidence_ids": [],
+      "path": ".temp/m5-worker-run-20261116/evidence/literature/fresh04-original-description-text.txt",
+      "role": "derivative",
+      "sha256": "f7a71bcc1fabf09251a2caaec44aa99f51bcba1c0aef98018e1d820110e37fa0"
+    },
+    {
+      "evidence_ids": [
+        "fresh04-primary-growth-context"
+      ],
+      "path": ".temp/m5-worker-run-20261116/evidence/literature/raw/9f9ced0667978d0c8b9d6f90cfbebdde5513d42a9ced9fe4853d18070c7625a4.response",
+      "role": "evidence",
+      "sha256": "9f9ced0667978d0c8b9d6f90cfbebdde5513d42a9ced9fe4853d18070c7625a4"
+    },
+    {
+      "evidence_ids": [],
+      "path": ".temp/m5-worker-run-20261116/evidence/literature/fresh04-primary-growth-context-text.txt",
+      "role": "derivative",
+      "sha256": "8943f1042d8d5d1376742e6c8f64da5873ae0837a5682e31f6a684d7a78201c1"
+    },
+    {
+      "evidence_ids": [
+        "fresh05-original-description"
+      ],
+      "path": ".temp/m5-worker-run-20261116/evidence/literature/raw/82d96c9481a6d11eefc5976e65b2863e10bed3cedf8b02f9b09cdb92802cf807.response",
+      "role": "evidence",
+      "sha256": "82d96c9481a6d11eefc5976e65b2863e10bed3cedf8b02f9b09cdb92802cf807"
+    },
+    {
+      "evidence_ids": [],
+      "path": ".temp/m5-worker-run-20261116/evidence/literature/fresh05-original-description-text.txt",
+      "role": "derivative",
+      "sha256": "28ae92fb2c8f9d7319bd5ea1effc5587e84e9fb4ea78d6aa6e7a0499eb896f89"
+    },
+    {
+      "evidence_ids": [
+        "fresh32-comparative-table"
+      ],
+      "path": ".temp/m5-worker-run-20261116/evidence/literature/raw/4e8b045ec2a2393ebe3716c9a335d5c6b21c96e239388c43a5ec45f3226e30c9.response",
+      "role": "evidence",
+      "sha256": "4e8b045ec2a2393ebe3716c9a335d5c6b21c96e239388c43a5ec45f3226e30c9"
+    },
+    {
+      "evidence_ids": [],
+      "path": ".temp/m5-worker-run-20261116/evidence/literature/fresh32-comparative-table-text.txt",
+      "role": "derivative",
+      "sha256": "22ed587fad15b4dcccee5f428f9cefda4e37e0668262105bf58bffaa428f8cf1"
+    },
+    {
+      "evidence_ids": [
+        "fresh47-other-isolate"
+      ],
+      "path": ".temp/m5-worker-run-20261116/evidence/literature/raw/fresh47-primary2024.xml",
+      "role": "evidence",
+      "sha256": "df87ed3eabcefee07f32f61c7b909e616dd072b1cd7ee7dafff42f5872345838"
+    },
+    {
+      "evidence_ids": [],
+      "path": ".temp/m5-worker-run-20261116/evidence/literature/fresh47-other-isolate-text.txt",
+      "role": "derivative",
+      "sha256": "c362647d98982d919cf5f5734733affeae31d84bc77a32f62541cf07e07044d4"
+    },
+    {
+      "evidence_ids": [
+        "ncbi-113559"
+      ],
+      "path": ".temp/m5-worker-run-20261116/evidence/literature/new-first28-ncbi113559/response.xml",
+      "role": "authority",
+      "sha256": "7735a7ec8eb55c0c9a4ab0cf2d7df799e7948066b79d5c73d571d696bbcde62a",
+      "version": "NCBI record UpdateDate=2025/04/11 17:22:02; retrieved=2026-11-16T20:38:57.884586+00:00"
+    },
+    {
+      "evidence_ids": [],
+      "path": ".temp/m5-worker-run-20261116/evidence/literature/new-first28-ncbi113559/authority-text.txt",
+      "role": "derivative",
+      "sha256": "da834eac9f8eda71425d0106b571ac4849593d89f9e726c9dfac789a1f717f71"
+    },
+    {
+      "evidence_ids": [],
+      "path": ".temp/m5-worker-run-20261116/evidence/literature/new-first28-ncbi113559/receipt.json",
+      "role": "receipt",
+      "sha256": "4e883980f50b6ac2f817e1ac66c431d2f68a14c8fd96e597be20d0cd9b803058"
+    },
+    {
+      "evidence_ids": [
+        "ncbi-1281099"
+      ],
+      "path": ".temp/m5-worker-run-20261116/evidence/literature/new-first32-ncbi1281099/response.xml",
+      "role": "authority",
+      "sha256": "37433381f5915338ee3e342a85ea15e8417fcf7b9bb7f08871cac084f958490d",
+      "version": "NCBI record UpdateDate=2013/01/11 12:14:10; retrieved=2026-11-16T20:38:28.005741+00:00"
+    },
+    {
+      "evidence_ids": [],
+      "path": ".temp/m5-worker-run-20261116/evidence/literature/new-first32-ncbi1281099/authority-text.txt",
+      "role": "derivative",
+      "sha256": "9530fb44f4044809105f4d6da654d2edee1c592f3472cb83170363b73dc620ad"
+    },
+    {
+      "evidence_ids": [],
+      "path": ".temp/m5-worker-run-20261116/evidence/literature/new-first32-ncbi1281099/receipt.json",
+      "role": "receipt",
+      "sha256": "566e5bd0d80d01206980a15fc4da449536f23d6a0686443121758125bd2d4654"
+    },
+    {
+      "evidence_ids": [
+        "ncbi-1123071"
+      ],
+      "path": ".temp/m5-worker-run-20261116/evidence/literature/new-fresh05-ncbi1123071/response.xml",
+      "role": "authority",
+      "sha256": "e3c3c74d3106e779e9f4864c782c58b5a2f91cd7f5260817776c38059e630772",
+      "version": "NCBI record UpdateDate=2014/05/01 13:16:02; retrieved=2026-11-16T20:39:02.936683+00:00"
+    },
+    {
+      "evidence_ids": [],
+      "path": ".temp/m5-worker-run-20261116/evidence/literature/new-fresh05-ncbi1123071/authority-text.txt",
+      "role": "derivative",
+      "sha256": "d61e41d5fcb2262ba80cfbf1ce5aaf73d08f98097586136700e61e78c1ad81ac"
+    },
+    {
+      "evidence_ids": [],
+      "path": ".temp/m5-worker-run-20261116/evidence/literature/new-fresh05-ncbi1123071/receipt.json",
+      "role": "receipt",
+      "sha256": "e874baedf21cdb3856f54de597a29c69c493c8a24a662500a992682dcb16b7ed"
+    },
+    {
+      "evidence_ids": [
+        "ncbi-1642702"
+      ],
+      "path": ".temp/m5-worker-run-20261116/evidence/literature/new-fresh04-ncbi1642702/response.xml",
+      "role": "authority",
+      "sha256": "0aa142b0b0c7d908246323c7b2c03efdd8e0d5bf6e079defa801aea0bf127cb8",
+      "version": "NCBI record UpdateDate=2018/11/23 13:57:52; retrieved=2026-11-16T20:38:47.832457+00:00"
+    },
+    {
+      "evidence_ids": [],
+      "path": ".temp/m5-worker-run-20261116/evidence/literature/new-fresh04-ncbi1642702/authority-text.txt",
+      "role": "derivative",
+      "sha256": "39a1f847b61f36de34b7eee5b3d45f766f2b73134c618df1d2140298196217b8"
+    },
+    {
+      "evidence_ids": [],
+      "path": ".temp/m5-worker-run-20261116/evidence/literature/new-fresh04-ncbi1642702/receipt.json",
+      "role": "receipt",
+      "sha256": "7fd236916f74cec2cefd3c2a0499291d53e1e2b6f51635d43476ea6c99b5df02"
+    },
+    {
+      "evidence_ids": [
+        "ncbi-1540872"
+      ],
+      "path": ".temp/m5-worker-run-20261116/evidence/literature/new-first43-ncbi1540872/response.xml",
+      "role": "authority",
+      "sha256": "859322125da66ed892711942cba9129cb50896d1cd5dd2ba5de3d714db49e6d2",
+      "version": "NCBI record UpdateDate=2016/10/19 16:56:42; retrieved=2026-11-16T20:39:00.430672+00:00"
+    },
+    {
+      "evidence_ids": [],
+      "path": ".temp/m5-worker-run-20261116/evidence/literature/new-first43-ncbi1540872/authority-text.txt",
+      "role": "derivative",
+      "sha256": "741c9fff79fe3afe0eda2f271f72ca3e2f395f1e2ad78dcba0fa0efcae1037d7"
+    },
+    {
+      "evidence_ids": [],
+      "path": ".temp/m5-worker-run-20261116/evidence/literature/new-first43-ncbi1540872/receipt.json",
+      "role": "receipt",
+      "sha256": "f605313bcf3db93a501ade512cfaa6139509eabaa356fa09b5c89e3ed71967e4"
+    },
+    {
+      "evidence_ids": [
+        "fresh05-dsm19353"
+      ],
+      "path": ".temp/m5-worker-run-20261116/evidence/literature/fresh05-authorities/dsm19353.txt",
+      "role": "authority",
+      "sha256": "8fa3d180a19442d947a7bbdd86cf1efd78f6ca891fe2acbc42f2c6a9d15c6d82",
+      "version": "retained primary catalog snapshot2026-11-15"
+    },
+    {
+      "evidence_ids": [
+        "fresh05-dsm18772"
+      ],
+      "path": ".temp/m5-worker-run-20261116/evidence/literature/fresh05-authorities/dsm18772.txt",
+      "role": "authority",
+      "sha256": "99c07d7d2dfeb73ed1fbb69e8213c8034146e51140b2a80f160bd59faead79c8",
+      "version": "retained primary catalog snapshot2026-11-15"
+    },
+    {
+      "evidence_ids": [
+        "fresh05-jcm14586"
+      ],
+      "path": ".temp/m5-worker-run-20261116/evidence/literature/fresh05-authorities/jcm14586.txt",
+      "role": "authority",
+      "sha256": "93d5aec6c739d6bd48c4c4aa66416c7dfe4220ff9ca5c572a1010ad02be0440f",
+      "version": "retained primary catalog snapshot2026-11-15"
+    },
+    {
+      "evidence_ids": [
+        "fresh05-bacdive17851"
+      ],
+      "path": ".temp/m5-worker-run-20261116/evidence/literature/fresh05-authorities/bacdive17851.txt",
+      "role": "authority",
+      "sha256": "29f41098eb41eb4a6ca0d46abe5ecd746e8cc5dbb4edac5cb6b8233bd6cdd7bc",
+      "version": "retained primary catalog snapshot2026-11-15"
+    },
+    {
+      "evidence_ids": [],
+      "path": ".temp/m5-worker-run-20261116/evidence/literature/fresh05-authority-receipts.json",
+      "role": "receipt",
+      "sha256": "dcaa1ed222af2121eb3ead503137955e016de738e222aee08dbb160ef8a6fe1d"
+    },
+    {
+      "evidence_ids": [
+        "first-32-catalog"
+      ],
+      "path": ".temp/m5-worker-run-20261116/package/structural-v2/first-32-authority.txt",
+      "role": "authority",
+      "sha256": "b0d4c227cf90f01256edd978d913821d8ad38dc1d15b6850b0ca9d2abb445875",
+      "version": "provider snapshot2026-11-16"
+    },
+    {
+      "evidence_ids": [
+        "first-01-catalog"
+      ],
+      "path": ".temp/m5-worker-run-20261116/package/structural-v2/first-01-authority.txt",
+      "role": "authority",
+      "sha256": "1c8609f746ee7d637d31b9ed2ac5ecb29297d259e61d63eaf3ece59d1d4e2813",
+      "version": "provider snapshot2026-11-16"
+    },
+    {
+      "evidence_ids": [],
+      "path": ".temp/m5-worker-run-20261116/evidence/structural/tavily-extract.json",
+      "role": "receipt",
+      "sha256": "03cee8ded21f6f900380202db8c63a97c91f8d5633db89b196f1cb1aff378041"
+    },
+    {
+      "evidence_ids": [
+        "fresh04-dsm102218"
+      ],
+      "path": ".temp/m5-worker-run-20261116/evidence/literature/fresh04-dsm102218-extract.json",
+      "role": "authority",
+      "sha256": "c49f4248dd790f2c2abe52d3a224f1b99d022a9fa53dc8362e5a13d740d9ed30",
+      "version": "DSMZ provider snapshot2026-11-16"
+    },
+    {
+      "evidence_ids": [
+        "fresh04-identity-context"
+      ],
+      "path": ".temp/m5-worker-run-20261116/evidence/literature/fresh04-identity-conflict.json",
+      "role": "evidence",
+      "sha256": "e2cfc7758b0c9735e9bb078ae46fcaf9d7517c151196c5db591a18a8a2a14140"
+    },
+    {
+      "evidence_ids": [],
+      "path": ".temp/m5-worker-run-20261116/package/evidence-guide-v2.json",
+      "role": "instructions",
+      "sha256": "c6c2173fa7279439fe4768bf7c43765a8414d8386b7d2ad7da3c048b308e5fd8"
+    }
+  ],
+  "round_id": "m5-calibration-20261116-round01",
+  "schema": "edgemech-calibration-round/v1",
+  "scientific_status": "unassessed",
+  "scope": "input_freeze_not_evidence_entailment_or_calibration_pass",
+  "thresholds_changed": false
+}

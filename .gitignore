@@ -12,3 +12,26 @@ dist/
 .env
 .temp/
 
+# M5 round01 immutable private proof-bearing outputs (#157).
+# Combined public quotations exceed the per-authority budget; publish hashes instead.
+/scripts/adhoc/m5_reviewer_a_20261116.py
+/scripts/adhoc/reviewer_b_calibration_20261116.py
+/reviews/structured/20261116T205550Z-reviewer-a-fresh-47/
+/reviews/structured/20261116T205613Z-reviewer-a-first-01/
+/reviews/structured/20261116T205616Z-reviewer-a-first-28/
+/reviews/structured/20261116T205618Z-reviewer-a-first-30/
+/reviews/structured/20261116T205621Z-reviewer-a-first-32/
+/reviews/structured/20261116T205623Z-reviewer-a-first-43/
+/reviews/structured/20261116T205625Z-reviewer-a-fresh-04/
+/reviews/structured/20261116T205630Z-reviewer-a-fresh-14/
+/reviews/structured/20261116T205632Z-reviewer-a-fresh-32/
+/reviews/structured/20261116T205718Z-m5-reviewer-b-fresh-47/
+/reviews/structured/20261116T205745Z-m5-reviewer-b-first-01/
+/reviews/structured/20261116T205749Z-m5-reviewer-b-first-28/
+/reviews/structured/20261116T205753Z-m5-reviewer-b-first-30/
+/reviews/structured/20261116T205757Z-m5-reviewer-b-first-32/
+/reviews/structured/20261116T205801Z-m5-reviewer-b-first-43/
+/reviews/structured/20261116T205805Z-m5-reviewer-b-fresh-04/
+/reviews/structured/20261116T205812Z-m5-reviewer-b-fresh-14/
+/reviews/structured/20261116T205817Z-m5-reviewer-b-fresh-32/
+

@@ -1,0 +1,411 @@
+{
+  "critical_errors": {
+    "unsupported CONFLICTING_EVIDENCE": {
+      "emitted_labels": 0,
+      "status": "untested_label_class",
+      "unsupported_labels": null
+    },
+    "unsupported CONTRADICTED_AS_STATED": {
+      "emitted_labels": 4,
+      "status": "pending_independent_audit",
+      "unsupported_labels": null
+    },
+    "unsupported CORRECT model judgment": {
+      "emitted_labels": 33,
+      "status": "pending_independent_audit",
+      "unsupported_labels": null
+    },
+    "unsupported INCORRECT model judgment": {
+      "emitted_labels": 14,
+      "status": "pending_independent_audit",
+      "unsupported_labels": null
+    },
+    "unsupported SUPPORTED_AS_STATED": {
+      "emitted_labels": 2,
+      "status": "pending_independent_audit",
+      "unsupported_labels": null
+    }
+  },
+  "disagreement_gate": {
+    "status": "pending_adjudication"
+  },
+  "disagreements": [
+    {
+      "axis": "claim",
+      "case_id": "first-01",
+      "disposition": "pending_adjudication",
+      "reviewer_a": "INSUFFICIENT_EVIDENCE",
+      "reviewer_b": "NOT_ASSESSABLE"
+    },
+    {
+      "axis": "object_node",
+      "case_id": "fresh-04",
+      "disposition": "pending_adjudication",
+      "reviewer_a": "CORRECT",
+      "reviewer_b": "UNRESOLVED"
+    },
+    {
+      "axis": "object_node",
+      "case_id": "fresh-05",
+      "disposition": "pending_adjudication",
+      "reviewer_a": "CORRECT",
+      "reviewer_b": "UNRESOLVED"
+    },
+    {
+      "axis": "object_node",
+      "case_id": "fresh-47",
+      "disposition": "pending_adjudication",
+      "reviewer_a": "CORRECT",
+      "reviewer_b": "UNRESOLVED"
+    }
+  ],
+  "expansion_authorized": false,
+  "initial_confusion_tables": {
+    "claim": [
+      {
+        "count": 2,
+        "reviewer_a": "CONTRADICTED_AS_STATED",
+        "reviewer_b": "CONTRADICTED_AS_STATED"
+      },
+      {
+        "count": 6,
+        "reviewer_a": "INSUFFICIENT_EVIDENCE",
+        "reviewer_b": "INSUFFICIENT_EVIDENCE"
+      },
+      {
+        "count": 1,
+        "reviewer_a": "INSUFFICIENT_EVIDENCE",
+        "reviewer_b": "NOT_ASSESSABLE"
+      },
+      {
+        "count": 1,
+        "reviewer_a": "SUPPORTED_AS_STATED",
+        "reviewer_b": "SUPPORTED_AS_STATED"
+      }
+    ],
+    "literature": [
+      {
+        "count": 3,
+        "reviewer_a": "NOT_APPLICABLE",
+        "reviewer_b": "NOT_APPLICABLE"
+      },
+      {
+        "count": 3,
+        "reviewer_a": "NO_MATCH",
+        "reviewer_b": "NO_MATCH"
+      },
+      {
+        "count": 3,
+        "reviewer_a": "PARTIAL",
+        "reviewer_b": "PARTIAL"
+      },
+      {
+        "count": 1,
+        "reviewer_a": "SUPPORTS",
+        "reviewer_b": "SUPPORTS"
+      }
+    ],
+    "object_node": [
+      {
+        "count": 5,
+        "reviewer_a": "CORRECT",
+        "reviewer_b": "CORRECT"
+      },
+      {
+        "count": 3,
+        "reviewer_a": "CORRECT",
+        "reviewer_b": "UNRESOLVED"
+      },
+      {
+        "count": 2,
+        "reviewer_a": "UNRESOLVED",
+        "reviewer_b": "UNRESOLVED"
+      }
+    ],
+    "relation": [
+      {
+        "count": 3,
+        "reviewer_a": "CORRECT",
+        "reviewer_b": "CORRECT"
+      },
+      {
+        "count": 7,
+        "reviewer_a": "INCORRECT",
+        "reviewer_b": "INCORRECT"
+      }
+    ],
+    "source_fidelity": [
+      {
+        "count": 2,
+        "reviewer_a": "CONTRADICTED",
+        "reviewer_b": "CONTRADICTED"
+      },
+      {
+        "count": 2,
+        "reviewer_a": "NOT_ASSESSABLE",
+        "reviewer_b": "NOT_ASSESSABLE"
+      },
+      {
+        "count": 6,
+        "reviewer_a": "SUPPORTED",
+        "reviewer_b": "SUPPORTED"
+      }
+    ],
+    "subject_node": [
+      {
+        "count": 7,
+        "reviewer_a": "CORRECT",
+        "reviewer_b": "CORRECT"
+      },
+      {
+        "count": 3,
+        "reviewer_a": "UNRESOLVED",
+        "reviewer_b": "UNRESOLVED"
+      }
+    ]
+  },
+  "initial_gates": {
+    "endpoint_roles_retained": {
+      "denominator": 20,
+      "minimum": 20,
+      "numerator": 20,
+      "passed": true
+    },
+    "initial_claim_agreement": {
+      "denominator": 10,
+      "minimum": 9,
+      "numerator": 9,
+      "passed": true
+    },
+    "initial_exact_category_agreement": {
+      "denominator": 60,
+      "minimum": 54,
+      "numerator": 56,
+      "passed": true
+    },
+    "initial_per_axis_agreement": {
+      "claim": {
+        "denominator": 10,
+        "minimum": 8,
+        "numerator": 9,
+        "passed": true
+      },
+      "literature": {
+        "denominator": 10,
+        "minimum": 8,
+        "numerator": 10,
+        "passed": true
+      },
+      "object_node": {
+        "denominator": 10,
+        "minimum": 8,
+        "numerator": 7,
+        "passed": false
+      },
+      "relation": {
+        "denominator": 10,
+        "minimum": 8,
+        "numerator": 10,
+        "passed": true
+      },
+      "source_fidelity": {
+        "denominator": 10,
+        "minimum": 8,
+        "numerator": 10,
+        "passed": true
+      },
+      "subject_node": {
+        "denominator": 10,
+        "minimum": 8,
+        "numerator": 10,
+        "passed": true
+      }
+    },
+    "packets_replayed": {
+      "denominator": 10,
+      "minimum": 10,
+      "numerator": 10,
+      "passed": true
+    }
+  },
+  "initial_resolution_counts_not_final_gates": {
+    "reviewer-a": {
+      "claim": {
+        "denominator": 10,
+        "numerator": 3
+      },
+      "object_node": {
+        "denominator": 10,
+        "numerator": 8
+      },
+      "relation": {
+        "denominator": 10,
+        "numerator": 10
+      },
+      "source_fidelity": {
+        "denominator": 10,
+        "numerator": 8
+      },
+      "subject_node": {
+        "denominator": 10,
+        "numerator": 7
+      }
+    },
+    "reviewer-b": {
+      "claim": {
+        "denominator": 10,
+        "numerator": 3
+      },
+      "object_node": {
+        "denominator": 10,
+        "numerator": 5
+      },
+      "relation": {
+        "denominator": 10,
+        "numerator": 10
+      },
+      "source_fidelity": {
+        "denominator": 10,
+        "numerator": 8
+      },
+      "subject_node": {
+        "denominator": 10,
+        "numerator": 7
+      }
+    }
+  },
+  "interpretation": "Operational agreement only; no independent expert validation inferred.",
+  "literature_counts": {
+    "reviewer-a": {
+      "all_ten": {
+        "first-01": "NOT_APPLICABLE",
+        "first-28": "NO_MATCH",
+        "first-30": "NO_MATCH",
+        "first-32": "NOT_APPLICABLE",
+        "first-43": "NO_MATCH",
+        "fresh-04": "PARTIAL",
+        "fresh-05": "SUPPORTS",
+        "fresh-14": "NOT_APPLICABLE",
+        "fresh-32": "PARTIAL",
+        "fresh-47": "PARTIAL"
+      },
+      "exact_directional": 1,
+      "experimental_denominator": 7
+    },
+    "reviewer-b": {
+      "all_ten": {
+        "first-01": "NOT_APPLICABLE",
+        "first-28": "NO_MATCH",
+        "first-30": "NO_MATCH",
+        "first-32": "NOT_APPLICABLE",
+        "first-43": "NO_MATCH",
+        "fresh-04": "PARTIAL",
+        "fresh-05": "SUPPORTS",
+        "fresh-14": "NOT_APPLICABLE",
+        "fresh-32": "PARTIAL",
+        "fresh-47": "PARTIAL"
+      },
+      "exact_directional": 1,
+      "experimental_denominator": 7
+    }
+  },
+  "matrices": [
+    {
+      "path": ".temp/m5-worker-run-20261116/reviewer-a/initial-matrix.json",
+      "sha256": "db495e98d185eb8bbe256e208afc37c9361954e0b19cf9eecd0a485e6c540be9"
+    },
+    {
+      "path": ".temp/m5-worker-run-20261116/reviewer-b/initial-matrix.json",
+      "sha256": "a3121b21640ca28f175700fbec01bc08aaa7232bb5c81f304c83affa926357e5"
+    }
+  ],
+  "package_sha256": "14175634b794a90124bb66a458af3c30f23ca40e10731c4ba89226134a89f4ab",
+  "remaining_90_authorized_by_result": false,
+  "remaining_gates": {
+    "evidence_replay": {
+      "preregistered_requirement": {
+        "required_fraction": 1.0,
+        "scope": "Every cited input, quote, DOI or alternate publication identity, authority version, packet and saved canonical review pair; no unverifiable item omitted from denominator."
+      },
+      "status": "pending_independent_adjudication_and_canonical_replay"
+    },
+    "exact_authority_backed_incorrect_model_judgments": {
+      "preregistered_requirement": {
+        "minimum": 1
+      },
+      "status": "pending_independent_adjudication_and_canonical_replay"
+    },
+    "exact_paper_backed_directional_claims": {
+      "preregistered_requirement": {
+        "minimum": 1
+      },
+      "status": "pending_independent_adjudication_and_canonical_replay"
+    },
+    "final_authored_axes": {
+      "preregistered_requirement": {
+        "denominator": 60,
+        "minimum": 60,
+        "unassessed_allowed": 0
+      },
+      "status": "pending_independent_adjudication_and_canonical_replay"
+    },
+    "resolved_claims": {
+      "preregistered_requirement": {
+        "categories": [
+          "SUPPORTED_AS_STATED",
+          "CONTRADICTED_AS_STATED",
+          "CONFLICTING_EVIDENCE"
+        ],
+        "denominator": 10,
+        "minimum": 2
+      },
+      "status": "pending_independent_adjudication_and_canonical_replay"
+    },
+    "resolved_modeling_per_axis": {
+      "preregistered_requirement": {
+        "axes": [
+          "relation",
+          "subject_node",
+          "object_node"
+        ],
+        "categories": [
+          "CORRECT",
+          "INCORRECT"
+        ],
+        "denominator": 10,
+        "minimum": 5
+      },
+      "status": "pending_independent_adjudication_and_canonical_replay"
+    },
+    "resolved_source_fidelity": {
+      "preregistered_requirement": {
+        "categories": [
+          "SUPPORTED",
+          "CONTRADICTED"
+        ],
+        "denominator": 10,
+        "minimum": 8
+      },
+      "status": "pending_independent_adjudication_and_canonical_replay"
+    }
+  },
+  "reviewers": [
+    {
+      "historical_exposure": "Required docs/record-review-profile.md mentions partial fresh-05 canary and identity conflict; required evidence-guide-v2.json mentions coordinator issue145 and quarantine; allowlisted fresh-32 endpoint description contains inherited reviewed vocabulary prose. These are excluded as judgment evidence. No other reviewer outputs, historical rating matrices, raw original_occurrence, curated records or dispositions inspected.",
+      "id": "reviewer-a",
+      "model": "gpt-6-astra",
+      "session_id": "01a1e61f-534d-7db3-a921-683a6eeffa64"
+    },
+    {
+      "historical_exposure": "Fresh invocation; no other reviewer outputs, matrices, historical authored rating files, coordinator conversation, cohort selection rationales, or GitHub discussions read. Unavoidable exposure in required docs/record-review-profile.md: its fresh-05 abstract-canary paragraph describes a prior partial self-review and accession conflict. Required fresh-32 reviewer view contains an endpoint description beginning Reviewed source-local process meaning and a prior vocabulary interpretation; treated as the frozen endpoint definition, not independent proof. The required common guide includes scope/gap interpretations and an issue145 mention; no issue was opened or used. Listed maintained-biolink-revalidation.md includes a historical-review reference and current project convention; no historical review was opened. Raw packet historical fields were never printed or inspected; packet machinery uses them only for mechanical replay. Runtime identity was read from this session's session_meta.id and turn_context.model only.",
+      "id": "reviewer-b",
+      "model": "gpt-6-astra",
+      "session_id": "01a1e61f-633d-7d90-8cd4-57a14a0c9210"
+    }
+  ],
+  "round_id": "m5-calibration-20261116-round01",
+  "same_model": true,
+  "schema": "edgemech-calibration-round/v1",
+  "scientific_calibration_passed": false,
+  "status": "failed_initial_gate"
+}

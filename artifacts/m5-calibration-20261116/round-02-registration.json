@@ -1,0 +1,52 @@
+{
+  "axes_per_case": 6,
+  "case_count": 10,
+  "case_replacements": [],
+  "cohort": {
+    "path": "artifacts/edge-calibration-20261115/cohort.json",
+    "sha256": "1dc756b0ba628756baf544cacf36f0a1ab2e4c68eed6724ee281205f22d606ee"
+  },
+  "expansion_authorized": false,
+  "experimental_literature_denominator": 7,
+  "finding_issues": [
+    "https://github.com/CultureBotAI/EdgeMech/issues/144",
+    "https://github.com/CultureBotAI/EdgeMech/issues/145",
+    "https://github.com/CultureBotAI/EdgeMech/issues/148",
+    "https://github.com/CultureBotAI/EdgeMech/issues/149",
+    "https://github.com/CultureBotAI/EdgeMech/issues/152",
+    "https://github.com/CultureBotAI/EdgeMech/issues/153",
+    "https://github.com/CultureBotAI/EdgeMech/issues/154",
+    "https://github.com/CultureBotAI/EdgeMech/issues/155",
+    "https://github.com/CultureBotAI/EdgeMech/issues/156",
+    "https://github.com/CultureBotAI/EdgeMech/issues/157",
+    "https://github.com/CultureBotAI/EdgeMech/issues/158",
+    "https://github.com/CultureBotAI/EdgeMech/issues/159"
+  ],
+  "launched": false,
+  "package_sha256": null,
+  "prerequisites": [
+    "Resolve or explicitly bound sampled source/producer/ontology version binding",
+    "Pin predicate meanings, inherited node constraints and exact local vocabulary definitions",
+    "Resolve shared claim/model canonical acceptance policy (#152) prospectively",
+    "Remove separable inherited judgment prose; disclose inseparable exposure (#156)",
+    "Verify aggregate publication quote budget across both sessions (#157)",
+    "Fresh empty round staging and single-unit production preparation/save/check canaries",
+    "New immutable package followed by two fresh sessions and separate adjudication"
+  ],
+  "prior_round_package_sha256": "14175634b794a90124bb66a458af3c30f23ca40e10731c4ba89226134a89f4ab",
+  "protocol": {
+    "path": "artifacts/edge-calibration-20261115/protocol.json",
+    "sha256": "d24b9e1e9833d70407bf06a04ae6c0ff92f5564149a3b51e6402e5416e866517"
+  },
+  "remaining_90_authorized_by_result": false,
+  "reviewers": [],
+  "round_id": "m5-calibration-20261116-round02",
+  "rubric_repair": {
+    "path": "docs/plans/m5-calibration-round02-20261116.md",
+    "sha256": "85a2adc21aabcc7a88aa077fe3500861124cdb74871789b82e7e8d2a1571804d"
+  },
+  "schema": "edgemech-calibration-round-registration/v1",
+  "status": "registered_preparation_only_no_package_or_reviewers",
+  "superseded_round_preserved": "m5-calibration-20261116-round01",
+  "threshold_changes": []
+}
