@@ -143,6 +143,8 @@ or 32-worker sweep. Release publication remains a separate task and permission.
 
 Work on review/m5-calibration-round02-20261116. The parent opens a stacked draft
 PR against review/m5-calibration-20261116; update that PR as the results develop.
+The existing draft is https://github.com/CultureBotAI/EdgeMech/pull/167. Read
+docs/validation/m5-round02-bootstrap-20261116.md for the parent verification.
 Keep branch ownership with this worker once launched; the parent observes.
 Use branch/PR/read-only adversarial review/issues for every repository. Every
 new review finding becomes an issue in the user's repository; fix appropriate
