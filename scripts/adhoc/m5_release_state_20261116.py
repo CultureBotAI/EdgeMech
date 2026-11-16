@@ -65,6 +65,40 @@ def save_command(path, entry):
     temporary.replace(path)
 
 
+def import_check_record(path, label):
+    """Validate the launcher's terminal evidence before publishing imported progress (#162)."""
+    raw = path.read_bytes()
+    receipt = json.loads(raw)
+    status = receipt.get("status")
+    if status not in {"running", "complete", "failed"}:
+        raise ValueError("Unsupported imported check status")
+    terminal_fields = {"exit_code", "completed_at", "seconds", "log_sha256"}
+    logfile = path.parent / "command.log"
+    if not logfile.is_file():
+        raise ValueError("Imported check log is missing")
+    if status == "running":
+        if terminal_fields & receipt.keys():
+            raise ValueError("Running check receipt contains terminal fields")
+    else:
+        code = receipt.get("exit_code")
+        if type(code) is not int or (status == "complete") != (code == 0):
+            raise ValueError("Imported terminal status contradicts exit code")
+        if not isinstance(receipt.get("completed_at"), str) or not receipt["completed_at"]:
+            raise ValueError("Imported terminal check lacks completion time")
+        expected = receipt.get("log_sha256")
+        digest = hashlib.sha256()
+        with logfile.open("rb") as stream:
+            for block in iter(lambda: stream.read(1024 * 1024), b""):
+                digest.update(block)
+        if expected != digest.hexdigest():
+            raise ValueError("Imported completed check log hash differs or is missing")
+    return {"label": label, "argv": receipt["command"], "cwd": receipt["cwd"], "log": str(logfile),
+            "status": "passed" if status == "complete" else status,
+            "child_pid": receipt["pid"], "started_at": receipt["started_at"],
+            "exit_code": receipt.get("exit_code"), "source_receipt": str(path),
+            "source_receipt_sha256": hashlib.sha256(raw).hexdigest()}
+
+
 def main():
     """Run a bounded task command, preserving its argv, PID, output and status."""
     parser = argparse.ArgumentParser(description=__doc__)
@@ -75,11 +109,22 @@ def main():
     parser.add_argument("--results", type=Path)
     parser.add_argument("--observe-process", type=Path)
     parser.add_argument("--process-status")
+    parser.add_argument("--import-check", type=Path)
     parser.add_argument("command", nargs=argparse.REMAINDER)
     args = parser.parse_args()
     os.umask(0o077)
     OUTPUT.mkdir(parents=True, exist_ok=True)
     state = {"phase": args.phase, "pid": os.getpid()}
+    if args.import_check:
+        if not args.label:
+            parser.error("--label required for --import-check")
+        try:
+            entry = import_check_record(args.import_check, args.label)
+        except (ValueError, OSError, KeyError, TypeError) as error:
+            parser.error(str(error))
+        logs = OUTPUT / "commands"
+        logs.mkdir(exist_ok=True)
+        save_command(logs / (args.label + ".json"), entry)
     if args.blocker:
         state["blockers"] = args.blocker
     if args.results:

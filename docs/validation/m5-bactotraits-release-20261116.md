@@ -118,6 +118,35 @@ This is not absence evidence across arbitrary copies or uninspected graphs.
 No neighboring row was quarantined, no replacement organism was inferred, and
 the correction does not establish trait falsity or graph-wide validity.
 
+## Actual canonical dependency chain
+
+The ordinary CLI whole-ontology unit completed on committed KG candidate
+`b631cacf5bca2f5f993e85bacb96578919cc7d92`, whose production implementation is
+unchanged from the corrected merged code. It wrote 1,355,041 nodes and 1,729,253
+edges across 14 graph pairs. Independent review counted those rows and verified
+97 persisted artifacts and 526 named input, implementation and authority paths.
+The actual whole-source finalization and producer fingerprint both completed;
+the earlier scoped RO canary was not substituted for whole-source completion.
+The complete chain receipt SHA256 is
+`c5defa64ee549fbc4ef6978ca4cc1fbe441ee319d465eb1188a836cc6534119e`.
+
+The next BacDive unit uses the same canonical output placement, launcher,
+Python environment and single-worker/thread limits. Its plan pins six original
+inputs totaling 14.875 GB, including the actual 14.074 GB NCBITaxon DB, with
+188.416 GB free before staging. BacDive and full BactoTraits completion, followed
+by the ordinary strict BactoTraits-only merge, remain pending in this checkpoint.
+No completion marker is synthesized and no freshness check is disabled.
+
+The strict merge helper preserves canonical semantics and records explicit
+path-only configuration changes: absolute source paths and exclusive output
+paths, including statistics. This prevents the canonical cwd-relative stats
+filename from overwriting a task-checkout artifact
+([#160](https://github.com/CultureBotAI/EdgeMech/issues/160)). It requires all three
+complete source receipts and verifies the complete quarantined row, retained
+intermediate joins and streamed merged outputs. Its 24 focused tests also pass
+independently. A BactoTraits-only candidate cannot establish full-snapshot
+publication.
+
 ## Independent review and checks
 
 Read-only adversarial review independently recomputed all new stage artifact
@@ -128,7 +157,29 @@ findings were filed and fixed: [#146](https://github.com/CultureBotAI/EdgeMech/i
 for concurrent progress updates and [#147](https://github.com/CultureBotAI/EdgeMech/issues/147)
 for stat precision. A second read-only review verified both fixes.
 
-The finalization helper's six focused tests passed. The progress regression
-passes and checks both command retention and metadata when launchers finish
-out of order. Final repository check results and the production dependency
-canary will be appended after execution; this document does not imply they passed.
+The finalization helper's six focused tests and production-launcher four focused
+tests passed. EdgeMech's final full suite passed 777 tests after the progress
+boundary fixes. Required EdgeMech lint and offline wheel/source package builds
+also passed. Independent review reran the 23 helper-boundary checks and verified
+the actual retained five-case retry receipt against its persisted log bytes.
+
+The first KG standard gate passed its cheap stages and 9,999 tests but failed
+four scratch-context assertions and one output-root teardown guard. A versioned
+environment moves scratch outside Git into durable `~/agent-work`; all five
+affected checks pass without changing assertions or guards
+([#161](https://github.com/CultureBotAI/EdgeMech/issues/161)). A second gate exposed
+pre-existing fixture dependence on newly produced canonical taxonomy data
+([KG #1873](https://github.com/Knowledge-Graph-Hub/kg-microbe/issues/1873)). A
+pristine verification checkout at exactly the same committed candidate passes
+that real test canary; the unchanged standard full gate there remains pending.
+The populated-checkout failure and every earlier log remain preserved.
+
+Read-only review found two new helper boundary cases: exact temporary-root paths
+were accepted, and imported terminal receipts did not require consistent exit
+status and log hashes. Both are fixed with 23 focused tests
+([#162](https://github.com/CultureBotAI/EdgeMech/issues/162)); actual prior test
+receipts remain valid. The earlier executed helper bytes are retained by hash.
+The existing Java toolchain recorder can mistake `_JAVA_OPTIONS` text for the
+version ([KG #1872](https://github.com/Knowledge-Graph-Hub/kg-microbe/issues/1872));
+actual Java version and binary/library hashes were captured separately without
+rewriting the old record or claiming this provenance-only field gates admission.
