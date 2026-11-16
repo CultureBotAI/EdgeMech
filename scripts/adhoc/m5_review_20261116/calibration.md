@@ -23,9 +23,13 @@ inputs under .temp/edge-calibration-20261115,
 .temp/identity130-review-v2-20261115 and .temp/identity130/authorities.
 These are read-only reference bytes. Do not copy old profile receipt hashes into
 new results; new code requires a new round. Source preparation can use the
-existing helper in your fresh worktree: --plan, one --prepare fresh-47 and
---check fresh-47, then individual remaining-case preparation only after checking
-persisted artifacts. No bulk raw KG download is required for those packets.
+existing helper in your fresh worktree. The parent seeds the freshly verified
+operational fresh-47 case into your worktree for the launcher to replay before
+starting you: run --plan and --check fresh-47, preserving that current-runtime
+receipt. If preparing a separately identified fresh round, use an empty private
+location/worktree, one --prepare fresh-47 and --check fresh-47 before the rest.
+Prepare remaining cases only after checking persisted artifacts. No bulk raw KG
+download is required for those packets.
 Authority staging receipts reference old TraitMech paths; pin retained raw bytes
 into the new round instead of mutating another repository to satisfy them.
 

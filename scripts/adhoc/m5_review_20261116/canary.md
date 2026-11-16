@@ -37,10 +37,15 @@ canary-result.json there with this shape:
 "artifacts":[{"path":"ABSOLUTE_NONEMPTY_FILE_INSIDE_OUTPUT_DIRECTORY",
 "sha256":"EXACT_SHA256"}],"limitations":[]}
 
-Copy the new packet and receipt into that output directory and include their
-actual hashes in artifacts. Add a short canary report recording actual commands,
+Copy the new packet and receipt as output-root/packet.json and
+output-root/receipt.json and include their actual hashes in artifacts. Add a
+short canary report recording actual commands,
 exit codes, source/occurrence identity, seven-day-old receipts being historical,
 and actual service result. No computed hash may be invented. The launcher
 independently rereads these files. If any mandatory check fails, emit failed
 status, preserve diagnostics, and do not launch other jobs. Do not change the
 launcher or weaken its checks to get a pass. Do not commit private outputs.
+This canary requires no new helper code: use existing CLI commands, file copies,
+hash commands and directly authored result JSON. Keep tracked runtime files and
+HEAD unchanged. If an implementation fix is necessary, report that failure and
+leave a new runtime/re-canary to the parent.

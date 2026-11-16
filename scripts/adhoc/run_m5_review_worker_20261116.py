@@ -4,12 +4,14 @@
 Outputs: private events, stderr, final response, metadata and verified canary receipt.
 Serves the user-authorized M5 calibration/release work of 2026-11-16. Never fans out,
 selects a model, sends messages, copies credentials, or changes review thresholds.
+Issues #137/#138: parent-process input replay and exact host/Python/runtime binding.
 """
 
 from __future__ import annotations
 
 import argparse
 import hashlib
+import importlib.metadata
 import json
 import os
 import shlex
@@ -24,7 +26,12 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 HELPER = Path(__file__).resolve()
 CHECKS = {"runtime_contracts", "fresh47_packet_replay", "credential_available"}
-SCHEMA = "edgemech-m5-worker/v1"
+SCHEMA = "edgemech-m5-worker/v2"
+SCOPE = "operational_bootstrap_only_not_scientific_calibration"
+RUNTIME_KEYS = ("git_head", "helper_sha256", "codex_path", "codex_sha256", "host",
+                "python_executable", "python_prefix", "python_version", "python_sha256",
+                "lock_sha256", "distributions_sha256", "environment_sha256")
+FRESH47 = Path(".temp/edge-calibration-20261115/fresh-47")
 
 
 def require(value, message):
@@ -33,7 +40,15 @@ def require(value, message):
 
 
 def digest(path):
-    return hashlib.sha256(Path(path).read_bytes()).hexdigest()
+    result = hashlib.sha256()
+    with open(path, "rb") as stream:
+        for block in iter(lambda: stream.read(1024 * 1024), b""):
+            result.update(block)
+    return result.hexdigest()
+
+
+def json_digest(value):
+    return hashlib.sha256(json.dumps(value, sort_keys=True).encode()).hexdigest()
 
 
 def now():
@@ -51,13 +66,40 @@ def atomic_json(path, value):
     os.replace(temporary, path)
 
 
-def child_environment():
+def child_environment(root):
     environment = os.environ.copy()
-    prefixes = [Path.home() / ".local/bin",
+    prefixes = [Path(sys.prefix) / "bin", Path.home() / ".local/bin",
                 Path.home() / ".nvm/versions/node/v22.16.0/bin", Path("/opt/homebrew/bin")]
     environment["PATH"] = os.pathsep.join(map(str, prefixes)) + os.pathsep + environment.get(
         "PATH", os.defpath)
+    environment["PYTHONPATH"] = str(root / "src")
+    environment["VIRTUAL_ENV"] = sys.prefix
+    environment.pop("PYTHONHOME", None)
     return environment
+
+
+def runtime_bindings(root, environment):
+    distributions = []
+    for package in importlib.metadata.distributions():
+        distributions.append({
+            "name": package.metadata.get("Name", "").lower(), "version": package.version,
+            "metadata": {name: hashlib.sha256((package.read_text(name) or "").encode()).hexdigest()
+                         for name in ("RECORD", "direct_url.json")},
+        })
+    distributions.sort(key=lambda item: json.dumps(item, sort_keys=True))
+    # Source imports follow each same-HEAD worktree. The selected venv and PATH
+    # remain literal, including when that shared venv lives beneath the canary root.
+    safe_environment = {
+        key: environment.get(key, "")
+        for key in ("PATH", "PYTHONPATH", "VIRTUAL_ENV")
+    }
+    if safe_environment["PYTHONPATH"] == str(root / "src"):
+        safe_environment["PYTHONPATH"] = "<WORKDIR>/src"
+    return {"host": socket.gethostname(), "python_executable": str(Path(sys.executable).absolute()),
+            "python_prefix": str(Path(sys.prefix).resolve()), "python_version": sys.version,
+            "python_sha256": digest(sys.executable), "lock_sha256": digest(root / "uv.lock"),
+            "distributions_sha256": json_digest(distributions),
+            "environment_sha256": json_digest(safe_environment)}
 
 
 def load_cborg(environment):
@@ -118,21 +160,60 @@ def validate_canary_result(output):
     return result
 
 
-def verify_receipt(path, bindings):
+def replay_bootstrap(output, root, environment, persist=False):
+    """Independently validate exact persisted inputs; agent booleans cannot pass this gate."""
+    cohort = json.loads((root / "artifacts/edge-calibration-20261115/cohort.json").read_text())
+    cases = [case for case in cohort["cases"] if case.get("case_id") == "fresh-47"]
+    require(len(cases) == 1, "Expected exactly one frozen fresh-47 case")
+    originals = {}
+    for name in ("packet.json", "receipt.json"):
+        original = checked_file(root / FRESH47 / name, root)
+        copied = checked_file(output / name, output)
+        require(digest(original) == digest(copied), f"Canary {name} differs from actual fresh-47")
+        document = json.loads(copied.read_text())
+        require(document.get("occurrence_id") == cases[0]["occurrence_id"],
+                f"Canary {name} is not the frozen fresh-47 occurrence")
+        if name == "receipt.json":
+            require(document.get("case_id") == "fresh-47", "Canary receipt has the wrong case")
+        originals[name] = digest(original)
+    commands = [
+        ("runtime_contracts", [sys.executable, "-B", "-m", "edgemech", "check-contracts"]),
+        ("fresh47_packet_replay", [sys.executable, "-B", str(root / "scripts/adhoc/"
+           "prepare_calibration_20261115.py"), "--check", "fresh-47"]),
+    ]
+    validations = []
+    for name, command in commands:
+        completed = subprocess.run(command, cwd=root, env=environment, capture_output=True)
+        validation = {"name": name, "command": command, "exit_code": completed.returncode,
+                      "stdout_sha256": hashlib.sha256(completed.stdout).hexdigest(),
+                      "stderr_sha256": hashlib.sha256(completed.stderr).hexdigest()}
+        validations.append(validation)
+        if persist:
+            for stream in ("stdout", "stderr"):
+                path = output / f"validator-{name}.{stream}"
+                descriptor = os.open(path, os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o600)
+                with os.fdopen(descriptor, "wb") as target:
+                    target.write(getattr(completed, stream))
+            atomic_json(output / "validator-results.json", validations)
+        require(completed.returncode == 0, f"Independent validator failed: {name}")
+    return {"artifacts": originals, "validators": validations}
+
+
+def verify_receipt(path, bindings, root, environment):
     path = Path(path).absolute()
     checked_file(path, path.parent)
     receipt = json.loads(path.read_text())
     require(isinstance(receipt, dict), "Invalid canary receipt")
     require(receipt.get("schema") == SCHEMA and receipt.get("status") == "passed",
             "Canary receipt is not a passing worker receipt")
-    for key in ("git_head", "helper_sha256", "codex_path", "codex_sha256"):
+    require(receipt.get("scope") == SCOPE, "Canary receipt has the wrong capability scope")
+    for key in RUNTIME_KEYS:
         require(receipt.get(key) == bindings[key], f"Canary runtime changed: {key}")
     metadata = checked_file(path.parent / "metadata.json", path.parent)
     require(digest(metadata) == receipt.get("metadata_sha256"), "Canary metadata changed")
     state = json.loads(metadata.read_text())
     require(isinstance(state, dict), "Invalid canary metadata")
-    require(all(state.get(key) == bindings[key] for key in
-                ("git_head", "helper_sha256", "codex_path", "codex_sha256")),
+    require(all(state.get(key) == bindings[key] for key in RUNTIME_KEYS),
             "Canary metadata runtime differs from receipt")
     require(state.get("role") == "canary" and state.get("status") == "passed"
             and state.get("exit_code") == 0, "Canary process did not complete successfully")
@@ -144,15 +225,22 @@ def verify_receipt(path, bindings):
     require(state.get("executed_prompt_sha256") == receipt.get("executed_prompt_sha256"),
             "Canary executed prompt binding changed")
     require(result == receipt.get("result"), "Canary receipt/result differ")
-    return {"path": str(path), "sha256": digest(path)}
+    replay = replay_bootstrap(path.parent, root, environment)
+    require(replay["artifacts"] == receipt.get("independent_replay", {}).get("artifacts"),
+            "Canary independently replayed artifacts changed")
+    return {"path": str(path), "sha256": digest(path), "current_replay": replay}
 
 
 def launch(args):
-    environment = child_environment()
+    root = Path(args.workdir).resolve()
+    environment = child_environment(root)
     codex = Path(args.codex or shutil.which("codex", path=environment["PATH"]) or "")
     require(codex.is_file() and os.access(codex, os.X_OK), "Codex executable unavailable")
     codex = codex.resolve()
-    root = Path(args.workdir).resolve()
+    with codex.open("rb") as stream:
+        require(stream.read(4) in (b"\x7fELF", b"\xcf\xfa\xed\xfe", b"\xfe\xed\xfa\xcf",
+                                  b"\xca\xfe\xba\xbe", b"\xbe\xba\xfe\xca"),
+                "Use the native Codex executable, not a shell or JavaScript wrapper")
     head = subprocess.check_output(["git", "-C", str(root), "rev-parse", "HEAD"],
                                    text=True).strip()
     require(not subprocess.check_output(
@@ -165,11 +253,12 @@ def launch(args):
     require(not output.exists() and not output.is_symlink(), "Output root already exists")
     require(output.parent.resolve() == output.parent, "Output parent must be canonical")
     bindings = {"git_head": head, "helper_sha256": digest(HELPER),
-                "codex_path": str(codex), "codex_sha256": digest(codex)}
+                "codex_path": str(codex), "codex_sha256": digest(codex),
+                **runtime_bindings(root, environment)}
     canary = None
     if args.role != "canary":
         require(args.canary_receipt, "A passing canary receipt is required")
-        canary = verify_receipt(args.canary_receipt, bindings)
+        canary = verify_receipt(args.canary_receipt, bindings, root, environment)
     command = [str(codex), "exec", "--approve-for-me", "--sandbox", "workspace-write",
                "--json", "--color", "never", "-C", str(root), "-o", str(output / "final.md")]
     for directory in args.add_dir:
@@ -225,10 +314,19 @@ def launch(args):
                 ["git", "-C", str(root), "status", "--porcelain", "--untracked-files=no"],
                 text=True).strip(), "Canary changed tracked runtime files")
         result = validate_canary_result(output) if args.role == "canary" else None
+        independent = None
+        if result is not None:
+            independent = replay_bootstrap(output, root, environment, persist=True)
+            ending_runtime = runtime_bindings(root, environment)
+            require(ending_runtime == {key: bindings[key] for key in ending_runtime},
+                "Canary host or Python runtime changed during execution")
+            state["independent_replay"] = independent
         state.update(status="passed" if result is not None else "completed", finished_at=now())
         atomic_json(output / "metadata.json", state)
         if result is not None:
             receipt = {"schema": SCHEMA, **bindings, "status": "passed", "result": result,
+                       "scope": SCOPE,
+                       "independent_replay": independent,
                        "prompt_sha256": state["prompt_sha256"],
                        "executed_prompt_sha256": state["executed_prompt_sha256"],
                        "result_sha256": digest(output / "canary-result.json"),

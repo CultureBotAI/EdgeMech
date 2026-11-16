@@ -38,6 +38,15 @@ final output and canary validation in exclusive private directories. A launcher
 receipt proves operational execution only; it does not pass scientific gates.
 Use the actual PID/session and persisted output when reporting progress.
 
+The initial transfer canary used a different destination directory. Independent
+review caught that mismatch after the checksum-verified copy. Preserve that
+initial archive under the launch worktree's private
+`.temp/pre-corrected-transfer-20261116/` and repeat a real one-file canary at the
+final archive path before copying the rest. Follow-up findings require a newly
+created canary destination and private permissions during transfer, including
+interruption. The final corrected transfer uses separate v3 logs and preserves
+every prior copy/receipt; no source bytes are changed.
+
 ## Evidence and authority constraints
 
 The retained 100-case archive is at

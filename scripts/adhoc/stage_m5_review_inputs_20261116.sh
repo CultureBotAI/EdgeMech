@@ -2,7 +2,7 @@
 # Purpose: stage retained EdgeMech inputs on M5 without replacing existing evidence.
 # Inputs: canonical private staging, retained-100 archive and KG v3 evidence.
 # Outputs: same-path M5 copies and private transfer/checksum logs in this worktree.
-# Serves: user-authorized M5 calibration/reassessment/release work, 2026-11-16.
+# Serves: user-authorized M5 work and review findings #139-141, 2026-11-16.
 set -euo pipefail
 
 mode=${1:?Use --plan, --canary, --copy or --verify}
@@ -12,8 +12,8 @@ host=marcins-MacBook-Pro-3.local
 edge=/Users/marcin/Documents/VIMSS/ontology/Mechs/EdgeMech
 archive=/Users/marcin/agent-work/EdgeMech/edge-sample-review-20261112-data
 retained=/Users/marcin/agent-work/EdgeMech/retained-pr135-pr1867-20261116
-logroot="$root/.temp/m5-input-transfer-20261116"
-canary_dir="$edge/.temp/m5-input-transfer-20261116"
+logroot="$root/.temp/m5-input-transfer-20261116-v3"
+canary_dir="$archive/sample/private-provenance"
 canary_src="$archive/sample/private-provenance/canary.jsonl"
 canary_sha=757e9c7f48ba621369c5065167b5fcb2892dcdd5f0a57fe3950d7edacb896ba9
 paths=(
@@ -49,8 +49,9 @@ fi
 umask 077
 mkdir -p "$logroot"
 if [ "$mode" = --canary ]; then
-  ssh "${ssh_args[@]}" "$host" "umask 077; mkdir -p '$canary_dir'"
-  rsync -a --ignore-existing -e 'ssh -o BatchMode=yes -o ConnectTimeout=15' \
+  ssh "${ssh_args[@]}" "$host" "test ! -e '$canary_dir/canary.jsonl' && test ! -L '$canary_dir/canary.jsonl' && umask 077 && mkdir -p '$canary_dir'"
+  rsync -a --chmod=Du=rwx,Dgo=,Fu=rw,Fgo= --ignore-existing \
+    -e 'ssh -o BatchMode=yes -o ConnectTimeout=15' \
     "$canary_src" "$host:$canary_dir/" > "$logroot/canary-transfer.log"
   verify_canary
   printf '%s  %s\n' "$canary_sha" "$canary_dir/canary.jsonl" > "$logroot/canary.sha256"
@@ -62,8 +63,9 @@ test -s "$logroot/canary.sha256"
 verify_canary
 if [ "$mode" = --copy ]; then
   for input in "${paths[@]}"; do
-    ssh "${ssh_args[@]}" "$host" "umask 077; mkdir -p '$input'"
-    rsync -a --ignore-existing -e 'ssh -o BatchMode=yes -o ConnectTimeout=15' \
+    ssh "${ssh_args[@]}" "$host" "umask 077; mkdir -p '$input' && chmod 700 '$input'"
+    rsync -a --chmod=Du=rwx,Dgo=,Fu=rw,Fgo= --ignore-existing \
+      -e 'ssh -o BatchMode=yes -o ConnectTimeout=15' \
       "$input/" "$host:$input/" >> "$logroot/transfer.log"
   done
 fi
