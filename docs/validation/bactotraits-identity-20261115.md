@@ -1,5 +1,9 @@
 # BactoTraits mixed-strain source investigation
 
+Later execution status is recorded in the
+[M5 release verification follow-up](m5-bactotraits-release-20261116.md).
+The investigation below preserves its original pre-merge, pre-finalization scope.
+
 This investigation follows [#130](https://github.com/CultureBotAI/EdgeMech/issues/130)
 for the exact fresh-05 occurrence
 `urn:kg-microbe:occurrence:v1:1e9dec218a07f7e480add8ff273e3a9285f79d57746ca74041702839207a8136`:

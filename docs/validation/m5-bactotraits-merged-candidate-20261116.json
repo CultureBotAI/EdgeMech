@@ -1,0 +1,93 @@
+{
+  "profile": "m5-bactotraits-merged-candidate-summary/v1",
+  "scope": "Actual strict BactoTraits-only merged candidate; other canonical sources were not selected.",
+  "candidate_merged_graph_verified": true,
+  "full_snapshot_release_verified": false,
+  "published_release_verified": false,
+  "scientific_trait_truth_resolved": false,
+  "graph_wide_validation_claimed": false,
+  "producer_commit": "b631cacf5bca2f5f993e85bacb96578919cc7d92",
+  "corrected_merged_code": "2d94ed094167d94402f21400a9ad7dc4f7f20438",
+  "python": "3.10.11",
+  "source_selection": ["bactotraits"],
+  "processes": 1,
+  "started_at": "2026-11-16T21:52:35.127010+00:00",
+  "completed_at": "2026-11-16T22:01:06.333825+00:00",
+  "returncode": 0,
+  "source_finalization": {"required": true, "diagnostic_opt_out": false},
+  "inputs_and_upstreams_unchanged": true,
+  "production_summary": {
+    "path": "m5-bactotraits-production-20261116.json",
+    "bytes": 19889,
+    "sha256": "d1cf3d011bc1d5153d8e13e5422f861f8e5e3cf210f28b27dcc16be9d04b80ac"
+  },
+  "private_plan": {
+    "path": ".temp/m5-worker-run-20261116/strict-merge-plan-r2.json",
+    "bytes": 196433,
+    "sha256": "570e72b056f4b0f604d78035b6ec944bc9c95c63719ccf9e3fed3ff9fc792a16",
+    "input_pins": 457,
+    "path_only_configuration_deltas": 26,
+    "installed_distributions": 346
+  },
+  "private_receipt": {
+    "path": ".temp/m5-worker-run-20261116/merged-candidate-r1/receipt.json",
+    "bytes": 15817,
+    "sha256": "111a1d66ae90ae0136212c06f379f15fee447ebdc9db3f70e4fd4e1d806b03be"
+  },
+  "archive": {
+    "path": ".temp/m5-worker-run-20261116/merged-candidate-r1/merged-kg.tar.gz",
+    "bytes": 447980,
+    "sha256": "d217563f5d29ca2bc7ac729253acf5f83d23519d02a22ed91a5cc974ccf49976"
+  },
+  "archive_members": {
+    "merged-kg_edges.tsv": {
+      "bytes": 9864659,
+      "rows": 87788,
+      "sha256": "e99d3bba38cd366a0b84d4c8a7058581e7293b9004a9474fa20e02a658c0d6b2",
+      "target_spo_occurrences": 0,
+      "bactotraits_target_occurrences": 0
+    },
+    "merged-kg_nodes.tsv": {
+      "bytes": 894226,
+      "rows": 9757,
+      "sha256": "64898938613a6b242d20e513d57e351fecf72a77d14ca3e301d63a1962367b64"
+    },
+    "merged-kg_reference_resolution.tsv": {
+      "bytes": 140,
+      "rows": 1,
+      "sha256": "c6f0f8652fb373cf058fe3ffd2dd4a3a0a8b06016c8f23d17c18ae451b804685"
+    }
+  },
+  "merge_configuration": {
+    "sha256": "c4c3bb66b6d84ea60441d2727fdda644d8c64bfceb9c760e14f9c5e20e1bee87",
+    "canonical_sha256": "926c238e577931db06f6674ec96bdf0d85d185a7bcc5028ed6f5bde293d5d1d2",
+    "change_scope": "Absolute source paths and exclusive output paths, including statistics; canonical graph semantics preserved."
+  },
+  "repository_schema": {
+    "version": "4.4.2",
+    "digest": "2d1649c4b3ee554abaab3a24fd74d23b0a34637ec3e3d4de58afc6c530c59f3f"
+  },
+  "quarantine": {
+    "source_data_row": 8521,
+    "bacdive_id": 17851,
+    "audit_rows": 1,
+    "complete_raw_fields": 105,
+    "audit_sha256": "ca287b5941761b5ba857a142d2896cefb285039a0fa5638d23075e5e26297160",
+    "complete_row_sha256": "345fd2d00ee93334d975085716692dd4d4c530d5529f04c5b07af0766d5a512a",
+    "full_source_sha256": "18316d7a0b6c2bef6fcb96a7659c2e3f3734c14786f383c2a93fefe2ae226a4b",
+    "lookup_identity_occurrences": 1,
+    "mapping_identity_occurrences": 1,
+    "pruned_row_occurrences": 0
+  },
+  "target_spo": ["NCBITaxon:1123071", "biolink:has_phenotype", "METPO:1000703"],
+  "historical_independent_madin_occurrences": 1,
+  "historical_madin_was_not_newly_scientifically_reassessed": true,
+  "independent_archive_review": {
+    "status": "passed",
+    "path": ".temp/m5-worker-run-20261116/adversarial-review/review-r16.json",
+    "sha256": "bf397abd283fc5103731be4642662a8c729916cf484a66d8067e2c8fd4c9b14b",
+    "verified_output_artifacts": 13,
+    "verified_input_pins": 457,
+    "all_edges_primary_knowledge_source": "infores:bactotraits"
+  }
+}
