@@ -1,0 +1,674 @@
+# Fresh-05 primary-abstract replay canary with unresolved strain binding
+
+- Review: 20261116T052355Z-fresh05-abstract-adapter
+- Repository: CultureBotAI/EdgeMech
+- Started UTC: 2026-11-16T05:23:55Z
+- Finished UTC: 2026-11-16T05:23:55Z
+- Reviewer: Codex agent (self_review)
+- Completion: partial
+- Verdict: needs_curation
+- Scientific review: true
+
+## Summary
+
+One retained occurrence has two DOI/PMID-bound abstract quote proofs and six explicitly limited assessments. The source strain-accession inconsistency is recorded separately from biological truth. Required identity/modeling work remains unavailable; calibration matrices, graph status and population coverage are unchanged.
+
+## Scope And Provenance
+
+One partial source/literature adapter canary for fresh-05.
+
+Selection: Fixed retained case from the prepared cohort; no new sampling and no independent calibration rating.
+Coverage: partial; 1 reviewed / 1 in the declared population.
+Source: working_tree at Git base abf0002ab1dea4dc7702f28be1fe49983e42ab8f.
+Working-tree hashes do not imply those bytes were committed.
+
+| Target | Path / selector | Kind | Label |
+| --- | --- | --- | --- |
+| urn:kg-microbe:occurrence:v1:1e9dec218a07f7e480add8ff273e3a9285f79d57746ca74041702839207a8136 | .temp/abstract-canary-fresh05-127-20261115/packet.json # occurrence_id=urn:kg-microbe:occurrence:v1:1e9dec218a07f7e480add8ff273e3a9285f79d57746ca74041702839207a8136 | snapshot_row | Fresh-05 nonmotility abstract canary |
+
+## Validation
+
+| Check | Status | Required | Targets | Result |
+| --- | --- | --- | --- | --- |
+| Ignored private staging preflight | passed | True | urn:kg-microbe:occurrence:v1:1e9dec218a07f7e480add8ff273e3a9285f79d57746ca74041702839207a8136 | Git ignore check passed; no tracked destination files; fresh private directory and exclusive 0600 files enforce no overwrite. |
+| Exact retained source and endpoint replay | passed | True | urn:kg-microbe:occurrence:v1:1e9dec218a07f7e480add8ff273e3a9285f79d57746ca74041702839207a8136 | Fixed input hashes and cohort identity checked; build_packet and validate_packet replayed the newly persisted occurrence/source bytes. |
+| Primary abstract identity and quotes | passed | True | urn:kg-microbe:occurrence:v1:1e9dec218a07f7e480add8ff273e3a9285f79d57746ca74041702839207a8136 | The abstract adapter selected the exact MED/PMID primary result, verified DOI/title identity, extracted the complete abstract, and verify_quote matched both literal excerpts with hashes/offsets within one 25-word budget. No full text was inspected or claimed. |
+| Pinned CLAW contract byte verification | passed | True | urn:kg-microbe:occurrence:v1:1e9dec218a07f7e480add8ff273e3a9285f79d57746ca74041702839207a8136 | check_contracts returned successfully before review construction. |
+| Independent strain-binding resolution | unavailable | True | urn:kg-microbe:occurrence:v1:1e9dec218a07f7e480add8ff273e3a9285f79d57746ca74041702839207a8136 | The observed collection-code conflict has not been reconciled by the maintained owner or independent identity authorities. |
+| Predicate and both endpoint authorities | unavailable | True | urn:kg-microbe:occurrence:v1:1e9dec218a07f7e480add8ff273e3a9285f79d57746ca74041702839207a8136 | Scoped versioned NCBI/METPO/Biolink/RO proofs were not authored in this canary; all modeling axes remain unresolved and review completion partial. |
+
+## Scientific And Domain Assessments
+
+### Fresh-05 claim
+
+grounding: unknown. Targets: urn:kg-microbe:occurrence:v1:1e9dec218a07f7e480add8ff273e3a9285f79d57746ca74041702839207a8136.
+
+The abstract directly reports nonmotility for HOact23 and identifies it as DSM 18772. The original identifier-bound assertion is not settled in this canary: the source row has conflicting culture accessions and versioned NCBI/METPO/relation checks are incomplete. This is not a biological refutation.
+
+### Fresh-05 literature
+
+evidence: unknown. Targets: urn:kg-microbe:occurrence:v1:1e9dec218a07f7e480add8ff273e3a9285f79d57746ca74041702839207a8136.
+
+Two literal abstract snippets identify the nominal DSM 18772 strain and its nonmotility. They partially address the original graph assertion; the source accession conflict and graph-identifier/model correspondence are unresolved. No full paper was inspected or claimed.
+
+### Fresh-05 relation
+
+representation: unknown. Targets: urn:kg-microbe:occurrence:v1:1e9dec218a07f7e480add8ff273e3a9285f79d57746ca74041702839207a8136.
+
+The retained has_phenotype predicate and RO:0002200 relation require versioned authority assessment; this abstract adapter does not certify them.
+
+### Fresh-05 subject node
+
+identity: unknown. Targets: urn:kg-microbe:occurrence:v1:1e9dec218a07f7e480add8ff273e3a9285f79d57746ca74041702839207a8136.
+
+The original strain label and BacDive/LPSN context align with DSM 18772, but the BactoTraits row also lists DSM 19353 and JCM 14586. No equivalence for those conflicting accessions or independent NCBI authority was established.
+
+### Fresh-05 object node
+
+representation: unknown. Targets: urn:kg-microbe:occurrence:v1:1e9dec218a07f7e480add8ff273e3a9285f79d57746ca74041702839207a8136.
+
+The original object label is non motile. The paper supports that descriptive trait for its isolate, but versioned METPO identity, definition and category fitness were not adjudicated in this abstract-adapter canary.
+
+### Fresh-05 source fidelity
+
+provenance: unknown. Targets: urn:kg-microbe:occurrence:v1:1e9dec218a07f7e480add8ff273e3a9285f79d57746ca74041702839207a8136.
+
+BactoTraits row 8521 records non-motile=1 and motile=0 and points to BacDive 17851, but its collection-code field conflicts with that strain's DSM 18772 identity. Exact copying is replayable; fidelity of the complete strain-bound assertion remains not assessable pending reconciliation.
+
+## Findings
+
+### source-accession-conflict: Source row carries conflicting strain accessions
+
+major / open / confirmed; issue key: bactotraits-row8521-conflicting-strain-accessions.
+
+BactoTraits CSV row 8521 associates BacDive 17851 and the Rubritalea squalenifaciens name with collection codes DSM 19353/JCM 14586. The linked BacDive 17851 record and retained LPSN/primary abstract instead bind DSM 18772/HOact23. The inconsistency is confirmed; which source field or join needs correction is unresolved. No equivalence is invented.
+
+## Recommended Actions And Acceptance Checks
+
+### reconcile-source-accessions
+
+Trace the exact BactoTraits row 8521 join, independently resolve the competing collection identifiers and preserve source/model uncertainty until a maintained correction or justified no-change decision is verified.
+
+- Retain the row 8521 text hash and exact occurrence binding.
+- No alias inferred from shared species name alone.
+- A proposed correction has independent identity provenance and is verified against regenerated candidate bytes.
+
+## Category Boundaries
+
+
+## Evidence
+
+| Evidence | Reference / locator | Support | Observation |
+| --- | --- | --- | --- |
+| packet-source | .temp/abstract-canary-fresh05-127-20261115/packet.json; original_assertion; endpoints; source_records: BactoTraits CSV row 8521, BacDive 17851, LPSN 785725 | context_only | Exact retained source/endpoint context includes incompatible collection-code fields; this is not independent biological proof. |
+| abstract-nonmotility | https://doi.org/10.1099/ijs.0.65010-0; abstract; PMID 17625207; chars 162:265; text_sha256=28ae92fb2c8f9d7319bd5ea1effc5587e84e9fb4ea78d6aa6e7a0499eb896f89 | partial | Literal primary abstract excerpt inspected in full abstract context; nominal DSM 18772 strain match does not settle disputed source accessions or the entire identifier-bound graph assertion. |
+| abstract-strain | https://doi.org/10.1099/ijs.0.65010-0; abstract; PMID 17625207; chars 1157:1208; text_sha256=28ae92fb2c8f9d7319bd5ea1effc5587e84e9fb4ea78d6aa6e7a0499eb896f89 | partial | Literal primary abstract excerpt inspected in full abstract context; nominal DSM 18772 strain match does not settle disputed source accessions or the entire identifier-bound graph assertion. |
+
+## Limits And Additional Notes
+
+- Partial self-review adapter canary, excluded from both independent calibration matrices.
+- Only the retained primary abstract was inspected; no full paper or Methods assay review.
+- The nominal strain's nonmotility is not silently promoted to a resolved graph claim while source binding and versioned modeling remain unresolved.
+- The source discrepancy does not establish a biological contradiction or prove which upstream field is wrong.
+- Zero provider calls and no graph correction/admission; all historical bytes remain intact.
+- Private source and response bodies stay in ignored staging; canonical output contains bounded quotes, identifiers, locators and hashes.
+
+## Complete Structured Record
+
+The sibling review.yaml is authoritative.
+
+```yaml
+schema_version: 1.0.0
+review_id: 20261116T052355Z-fresh05-abstract-adapter
+kind: record
+repository: CultureBotAI/EdgeMech
+title: Fresh-05 primary-abstract replay canary with unresolved strain binding
+started_at: '2026-11-16T05:23:55Z'
+finished_at: '2026-11-16T05:23:55Z'
+reviewer:
+  identity: Codex agent
+  kind: agent
+  independence: self_review
+  independence_basis: New judgments authored from the retained abstract and complete
+    source packet for an adapter canary. Historical labels were visible; this is not
+    an independent calibration rating or agreement result.
+skill: edgemech-occurrence-review/v1
+completion: partial
+verdict: needs_curation
+scientific_review: true
+summary: One retained occurrence has two DOI/PMID-bound abstract quote proofs and
+  six explicitly limited assessments. The source strain-accession inconsistency is
+  recorded separately from biological truth. Required identity/modeling work remains
+  unavailable; calibration matrices, graph status and population coverage are unchanged.
+source:
+  git_revision: abf0002ab1dea4dc7702f28be1fe49983e42ab8f
+  state: working_tree
+  inputs:
+  - path: .temp/abstract-canary-fresh05-127-20261115/abstract.json
+    sha256: 82d96c9481a6d11eefc5976e65b2863e10bed3cedf8b02f9b09cdb92802cf807
+    role: context
+  - path: .temp/abstract-canary-fresh05-127-20261115/occurrence.json
+    sha256: 7b537e0809c90529f7663866359bace6b7d9bd5c7547c74cf4faf88268430426
+    role: context
+  - path: .temp/abstract-canary-fresh05-127-20261115/packet.json
+    sha256: 69dffa67fbaf586b84b326688925f6a65ad8382f1d478439f1abdb461c3c0849
+    role: target
+  - path: .temp/abstract-canary-fresh05-127-20261115/prepared-packet.json
+    sha256: 9a456958680990e4d6742b2bc012579d6e48d5d2adefdfcd24c6f0b6ab56b34b
+    role: context
+  - path: .temp/abstract-canary-fresh05-127-20261115/proofs.json
+    sha256: 13f849583e76ac1595200029a7bf92768de468686d91e255b219f84000e006bf
+    role: context
+  - path: .temp/abstract-canary-fresh05-127-20261115/source.json
+    sha256: 9ff02c936f66ec58ad26b25f6176cf96d1f2f92bb556b6c4e7c971995a42f8e7
+    role: context
+  - path: artifacts/edge-calibration-20261115/cohort.json
+    sha256: 1dc756b0ba628756baf544cacf36f0a1ab2e4c68eed6724ee281205f22d606ee
+    role: context
+  - path: artifacts/edge-calibration-20261115/protocol.json
+    sha256: d24b9e1e9833d70407bf06a04ae6c0ff92f5564149a3b51e6402e5416e866517
+    role: context
+  - path: docs/record-review-profile.md
+    sha256: 45e4a564d4926ad491e6a8c2ec4426f8249dfc18318d8c7e2e4d4422dd8143f6
+    role: context
+  - path: schema/record_review.yaml
+    sha256: 229baf9b69118a1fe318e4c31085c0820e4e3d1365e7b04d6ace451b7c35f9bb
+    role: context
+  - path: scripts/adhoc/run_abstract_canary_20261115.py
+    sha256: 467f3dbdc899bbcc23f3097a87f51cd4b1f712abbafefd13ed02591c28d03e68
+    role: context
+  - path: src/edgemech/contract-pins.json
+    sha256: 788ecc876a432feebeb89627fbe5a40dba1c1001598683c19834e4626667842c
+    role: context
+  - path: src/edgemech/literature_cache.py
+    sha256: 12e3d920e2a9978c25b5d7626aae087ccd089609c367339a240eb8f37b7a3fef
+    role: context
+  - path: src/edgemech/occurrence_packet.py
+    sha256: 7526fcb6f4467a342abc644c8f607b9b8c6fb395eac159c61f4654594cc490d7
+    role: context
+  - path: src/edgemech/occurrence_review.py
+    sha256: 8821065a01a03752f1952accd0ae7fb53c5d31e85a8f5be621c2d8a7f43d43e3
+    role: context
+targets:
+- target_id: urn:kg-microbe:occurrence:v1:1e9dec218a07f7e480add8ff273e3a9285f79d57746ca74041702839207a8136
+  path: .temp/abstract-canary-fresh05-127-20261115/packet.json
+  selector: occurrence_id=urn:kg-microbe:occurrence:v1:1e9dec218a07f7e480add8ff273e3a9285f79d57746ca74041702839207a8136
+  kind: snapshot_row
+  record_class: ReleaseOccurrence
+  label: Fresh-05 nonmotility abstract canary
+  ownership_note: Frozen graph/source bytes remain immutable; maintained source join
+    ownership must be resolved before any correction.
+scope:
+  description: One partial source/literature adapter canary for fresh-05.
+  selection: Fixed retained case from the prepared cohort; no new sampling and no
+    independent calibration rating.
+  coverage: partial
+  population_size: 1
+  reviewed_target_ids:
+  - urn:kg-microbe:occurrence:v1:1e9dec218a07f7e480add8ff273e3a9285f79d57746ca74041702839207a8136
+  exclusions:
+  - target: Independent ten-case calibration scoring
+    reason: Evidence freeze and two independent reviewers are pending.
+  - target: Other 99 retained occurrences and deferred 9900
+    reason: Single adapter canary only; no review expansion.
+checks:
+- check_id: private-staging
+  name: Ignored private staging preflight
+  status: passed
+  required: true
+  target_ids:
+  - urn:kg-microbe:occurrence:v1:1e9dec218a07f7e480add8ff273e3a9285f79d57746ca74041702839207a8136
+  command: git check-ignore --no-index --quiet .temp/abstract-canary-fresh05-127-20261115/abstract.json
+  exit_code: 0
+  expected_exit_code: 0
+  summary: Git ignore check passed; no tracked destination files; fresh private directory
+    and exclusive 0600 files enforce no overwrite.
+- check_id: source-packet
+  name: Exact retained source and endpoint replay
+  status: passed
+  required: true
+  target_ids:
+  - urn:kg-microbe:occurrence:v1:1e9dec218a07f7e480add8ff273e3a9285f79d57746ca74041702839207a8136
+  evidence_ids:
+  - packet-source
+  summary: Fixed input hashes and cohort identity checked; build_packet and validate_packet
+    replayed the newly persisted occurrence/source bytes.
+- check_id: abstract-identity-quotes
+  name: Primary abstract identity and quotes
+  status: passed
+  required: true
+  target_ids:
+  - urn:kg-microbe:occurrence:v1:1e9dec218a07f7e480add8ff273e3a9285f79d57746ca74041702839207a8136
+  evidence_ids:
+  - abstract-nonmotility
+  - abstract-strain
+  summary: The abstract adapter selected the exact MED/PMID primary result, verified
+    DOI/title identity, extracted the complete abstract, and verify_quote matched
+    both literal excerpts with hashes/offsets within one 25-word budget. No full text
+    was inspected or claimed.
+- check_id: pinned-contracts
+  name: Pinned CLAW contract byte verification
+  status: passed
+  required: true
+  target_ids:
+  - urn:kg-microbe:occurrence:v1:1e9dec218a07f7e480add8ff273e3a9285f79d57746ca74041702839207a8136
+  summary: check_contracts returned successfully before review construction.
+- check_id: source-identity-resolution
+  name: Independent strain-binding resolution
+  status: unavailable
+  required: true
+  target_ids:
+  - urn:kg-microbe:occurrence:v1:1e9dec218a07f7e480add8ff273e3a9285f79d57746ca74041702839207a8136
+  evidence_ids:
+  - packet-source
+  summary: The observed collection-code conflict has not been reconciled by the maintained
+    owner or independent identity authorities.
+- check_id: versioned-modeling
+  name: Predicate and both endpoint authorities
+  status: unavailable
+  required: true
+  target_ids:
+  - urn:kg-microbe:occurrence:v1:1e9dec218a07f7e480add8ff273e3a9285f79d57746ca74041702839207a8136
+  summary: Scoped versioned NCBI/METPO/Biolink/RO proofs were not authored in this
+    canary; all modeling axes remain unresolved and review completion partial.
+evidence:
+- evidence_id: packet-source
+  kind: record_content
+  reference: .temp/abstract-canary-fresh05-127-20261115/packet.json
+  locator: 'original_assertion; endpoints; source_records: BactoTraits CSV row 8521,
+    BacDive 17851, LPSN 785725'
+  accessed_at: '2026-11-16T05:23:55Z'
+  support: context_only
+  snapshot_sha256: 69dffa67fbaf586b84b326688925f6a65ad8382f1d478439f1abdb461c3c0849
+  summary: Exact retained source/endpoint context includes incompatible collection-code
+    fields; this is not independent biological proof.
+- evidence_id: abstract-nonmotility
+  kind: primary_source
+  reference: https://doi.org/10.1099/ijs.0.65010-0
+  locator: abstract; PMID 17625207; chars 162:265; text_sha256=28ae92fb2c8f9d7319bd5ea1effc5587e84e9fb4ea78d6aa6e7a0499eb896f89
+  accessed_at: '2026-11-16T05:23:55Z'
+  support: partial
+  quote: The strain, designated HOact23(T), was a non-motile, rod-shaped (0.44-0.53x0.65-0.79
+    microm) bacterium.
+  snapshot_sha256: 82d96c9481a6d11eefc5976e65b2863e10bed3cedf8b02f9b09cdb92802cf807
+  summary: Literal primary abstract excerpt inspected in full abstract context; nominal
+    DSM 18772 strain match does not settle disputed source accessions or the entire
+    identifier-bound graph assertion.
+- evidence_id: abstract-strain
+  kind: primary_source
+  reference: https://doi.org/10.1099/ijs.0.65010-0
+  locator: abstract; PMID 17625207; chars 1157:1208; text_sha256=28ae92fb2c8f9d7319bd5ea1effc5587e84e9fb4ea78d6aa6e7a0499eb896f89
+  accessed_at: '2026-11-16T05:23:55Z'
+  support: partial
+  quote: type strain HOact23(T) (=MBIC08254(T)=DSM 18772(T))
+  snapshot_sha256: 82d96c9481a6d11eefc5976e65b2863e10bed3cedf8b02f9b09cdb92802cf807
+  summary: Literal primary abstract excerpt inspected in full abstract context; nominal
+    DSM 18772 strain match does not settle disputed source accessions or the entire
+    identifier-bound graph assertion.
+assessments:
+- assessment_id: claim
+  area: grounding
+  topic: Fresh-05 claim
+  outcome: unknown
+  summary: 'The abstract directly reports nonmotility for HOact23 and identifies it
+    as DSM 18772. The original identifier-bound assertion is not settled in this canary:
+    the source row has conflicting culture accessions and versioned NCBI/METPO/relation
+    checks are incomplete. This is not a biological refutation.'
+  target_ids:
+  - urn:kg-microbe:occurrence:v1:1e9dec218a07f7e480add8ff273e3a9285f79d57746ca74041702839207a8136
+  evidence_ids:
+  - abstract-nonmotility
+  - abstract-strain
+  dimensions:
+  - name: axis
+    value: claim
+    definition: 'Authored bounded canary judgment: axis'
+    evidence_ids:
+    - abstract-nonmotility
+    - abstract-strain
+  - name: category
+    value: NOT_ASSESSABLE
+    definition: 'Authored bounded canary judgment: category'
+    evidence_ids:
+    - abstract-nonmotility
+    - abstract-strain
+  - name: scope
+    value: Original fresh-05 occurrence; partial adapter canary, not calibration rating
+    definition: 'Authored bounded canary judgment: scope'
+    evidence_ids:
+    - abstract-nonmotility
+    - abstract-strain
+  - name: assertion_scope
+    value: NCBITaxon:1123071 biolink:has_phenotype METPO:1000703, with original labels
+      Rubritalea squalenifaciens DSM 18772 and non motile. Do not replace the graph
+      assertion with an accession-only claim.
+    definition: 'Authored bounded canary judgment: assertion_scope'
+    evidence_ids:
+    - abstract-nonmotility
+    - abstract-strain
+- assessment_id: literature
+  area: evidence
+  topic: Fresh-05 literature
+  outcome: unknown
+  summary: Two literal abstract snippets identify the nominal DSM 18772 strain and
+    its nonmotility. They partially address the original graph assertion; the source
+    accession conflict and graph-identifier/model correspondence are unresolved. No
+    full paper was inspected or claimed.
+  target_ids:
+  - urn:kg-microbe:occurrence:v1:1e9dec218a07f7e480add8ff273e3a9285f79d57746ca74041702839207a8136
+  evidence_ids:
+  - abstract-nonmotility
+  - abstract-strain
+  dimensions:
+  - name: axis
+    value: literature
+    definition: 'Authored bounded canary judgment: axis'
+    evidence_ids:
+    - abstract-nonmotility
+    - abstract-strain
+  - name: category
+    value: PARTIAL
+    definition: 'Authored bounded canary judgment: category'
+    evidence_ids:
+    - abstract-nonmotility
+    - abstract-strain
+  - name: scope
+    value: Original fresh-05 occurrence; partial adapter canary, not calibration rating
+    definition: 'Authored bounded canary judgment: scope'
+    evidence_ids:
+    - abstract-nonmotility
+    - abstract-strain
+  - name: search_scope
+    value: Only the retained Europe PMC core response for DOI 10.1099/ijs.0.65010-0;
+      its sole primary MED result, PMID, title, complete abstract and two exact snippets
+      were inspected. No new search, retrieval, citation-array inference or exhaustive
+      absence claim.
+    definition: 'Authored bounded canary judgment: search_scope'
+    evidence_ids:
+    - abstract-nonmotility
+    - abstract-strain
+  - name: literature_channel
+    value: europepmc_abstract_retained; zero provider calls
+    definition: 'Authored bounded canary judgment: literature_channel'
+    evidence_ids:
+    - abstract-nonmotility
+    - abstract-strain
+  - name: inspected_extent
+    value: Complete retained abstract and primary metadata only; no full text inspected.
+    definition: 'Authored bounded canary judgment: inspected_extent'
+    evidence_ids:
+    - abstract-nonmotility
+    - abstract-strain
+  - name: primary_identity
+    value: Exact primary title, DOI 10.1099/ijs.0.65010-0 and PMID 17625207 verified
+      together in the sole retained MED result.
+    definition: 'Authored bounded canary judgment: primary_identity'
+    evidence_ids:
+    - abstract-nonmotility
+    - abstract-strain
+- assessment_id: relation
+  area: representation
+  topic: Fresh-05 relation
+  outcome: unknown
+  summary: The retained has_phenotype predicate and RO:0002200 relation require versioned
+    authority assessment; this abstract adapter does not certify them.
+  target_ids:
+  - urn:kg-microbe:occurrence:v1:1e9dec218a07f7e480add8ff273e3a9285f79d57746ca74041702839207a8136
+  evidence_ids:
+  - packet-source
+  dimensions:
+  - name: axis
+    value: relation
+    definition: 'Authored bounded canary judgment: axis'
+    evidence_ids:
+    - packet-source
+  - name: category
+    value: UNRESOLVED
+    definition: 'Authored bounded canary judgment: category'
+    evidence_ids:
+    - packet-source
+  - name: scope
+    value: Original fresh-05 occurrence; partial adapter canary, not calibration rating
+    definition: 'Authored bounded canary judgment: scope'
+    evidence_ids:
+    - packet-source
+  - name: direction
+    value: Original taxon-to-phenotype direction retained; formal fit unresolved.
+    definition: 'Authored bounded canary judgment: direction'
+    evidence_ids:
+    - packet-source
+  - name: domain_range
+    value: No independently pinned relation/domain/range proof authored here.
+    definition: 'Authored bounded canary judgment: domain_range'
+    evidence_ids:
+    - packet-source
+  - name: specificity
+    value: Nonmotility is the nominal phenotype; graph predicate fitness is not established
+      by an abstract match.
+    definition: 'Authored bounded canary judgment: specificity'
+    evidence_ids:
+    - packet-source
+  - name: qualifiers
+    value: The abstract describes the named strain; assay details and any universal-condition
+      interpretation remain outside inspected text.
+    definition: 'Authored bounded canary judgment: qualifiers'
+    evidence_ids:
+    - packet-source
+- assessment_id: subject-node
+  area: identity
+  topic: Fresh-05 subject node
+  outcome: unknown
+  summary: The original strain label and BacDive/LPSN context align with DSM 18772,
+    but the BactoTraits row also lists DSM 19353 and JCM 14586. No equivalence for
+    those conflicting accessions or independent NCBI authority was established.
+  target_ids:
+  - urn:kg-microbe:occurrence:v1:1e9dec218a07f7e480add8ff273e3a9285f79d57746ca74041702839207a8136
+  evidence_ids:
+  - packet-source
+  dimensions:
+  - name: axis
+    value: subject_node
+    definition: 'Authored bounded canary judgment: axis'
+    evidence_ids:
+    - packet-source
+  - name: category
+    value: UNRESOLVED
+    definition: 'Authored bounded canary judgment: category'
+    evidence_ids:
+    - packet-source
+  - name: scope
+    value: Original fresh-05 occurrence; partial adapter canary, not calibration rating
+    definition: 'Authored bounded canary judgment: scope'
+    evidence_ids:
+    - packet-source
+  - name: identity
+    value: NCBITaxon:1123071 retained; BacDive 17851 names that strain ID, while BactoTraits
+      row 8521 carries conflicting collection codes.
+    definition: 'Authored bounded canary judgment: identity'
+    evidence_ids:
+    - packet-source
+  - name: label
+    value: Original label Rubritalea squalenifaciens DSM 18772 preserved.
+    definition: 'Authored bounded canary judgment: label'
+    evidence_ids:
+    - packet-source
+  - name: category_fit
+    value: biolink:OrganismTaxon retained, not independently certified.
+    definition: 'Authored bounded canary judgment: category_fit'
+    evidence_ids:
+    - packet-source
+  - name: rank_or_type
+    value: Retained BacDive record marks 1123071 at strain level; independent versioned
+      NCBI rank/status verification remains unavailable.
+    definition: 'Authored bounded canary judgment: rank_or_type'
+    evidence_ids:
+    - packet-source
+  - name: definition
+    value: Paper and source identity context do not resolve all source crosswalk fields
+      or establish a formal node-definition proof.
+    definition: 'Authored bounded canary judgment: definition'
+    evidence_ids:
+    - packet-source
+  - name: authority_version
+    value: Retained LPSN 785725 declares version 1; no new canonical NCBI/Biolink
+      authority evidence was authored in this canary.
+    definition: 'Authored bounded canary judgment: authority_version'
+    evidence_ids:
+    - packet-source
+- assessment_id: object-node
+  area: representation
+  topic: Fresh-05 object node
+  outcome: unknown
+  summary: The original object label is non motile. The paper supports that descriptive
+    trait for its isolate, but versioned METPO identity, definition and category fitness
+    were not adjudicated in this abstract-adapter canary.
+  target_ids:
+  - urn:kg-microbe:occurrence:v1:1e9dec218a07f7e480add8ff273e3a9285f79d57746ca74041702839207a8136
+  evidence_ids:
+  - packet-source
+  dimensions:
+  - name: axis
+    value: object_node
+    definition: 'Authored bounded canary judgment: axis'
+    evidence_ids:
+    - packet-source
+  - name: category
+    value: UNRESOLVED
+    definition: 'Authored bounded canary judgment: category'
+    evidence_ids:
+    - packet-source
+  - name: scope
+    value: Original fresh-05 occurrence; partial adapter canary, not calibration rating
+    definition: 'Authored bounded canary judgment: scope'
+    evidence_ids:
+    - packet-source
+  - name: identity
+    value: Original METPO:1000703 preserved without a replacement mapping.
+    definition: 'Authored bounded canary judgment: identity'
+    evidence_ids:
+    - packet-source
+  - name: label
+    value: Retained original label non motile.
+    definition: 'Authored bounded canary judgment: label'
+    evidence_ids:
+    - packet-source
+  - name: category_fit
+    value: biolink:PhenotypicQuality retained; nonempty category is not semantic validation.
+    definition: 'Authored bounded canary judgment: category_fit'
+    evidence_ids:
+    - packet-source
+  - name: rank_or_type
+    value: Phenotype class, not organism, measurement or assay procedure; formal typing
+      still requires authority review.
+    definition: 'Authored bounded canary judgment: rank_or_type'
+    evidence_ids:
+    - packet-source
+  - name: definition
+    value: No versioned METPO definition proof was authored here.
+    definition: 'Authored bounded canary judgment: definition'
+    evidence_ids:
+    - packet-source
+  - name: authority_version
+    value: Authority snapshot availability in the preparation cohort does not substitute
+      for an inspected, scoped proof.
+    definition: 'Authored bounded canary judgment: authority_version'
+    evidence_ids:
+    - packet-source
+- assessment_id: source-fidelity
+  area: provenance
+  topic: Fresh-05 source fidelity
+  outcome: unknown
+  summary: BactoTraits row 8521 records non-motile=1 and motile=0 and points to BacDive
+    17851, but its collection-code field conflicts with that strain's DSM 18772 identity.
+    Exact copying is replayable; fidelity of the complete strain-bound assertion remains
+    not assessable pending reconciliation.
+  target_ids:
+  - urn:kg-microbe:occurrence:v1:1e9dec218a07f7e480add8ff273e3a9285f79d57746ca74041702839207a8136
+  evidence_ids:
+  - packet-source
+  dimensions:
+  - name: axis
+    value: source_fidelity
+    definition: 'Authored bounded canary judgment: axis'
+    evidence_ids:
+    - packet-source
+  - name: category
+    value: NOT_ASSESSABLE
+    definition: 'Authored bounded canary judgment: category'
+    evidence_ids:
+    - packet-source
+  - name: scope
+    value: Original fresh-05 occurrence; partial adapter canary, not calibration rating
+    definition: 'Authored bounded canary judgment: scope'
+    evidence_ids:
+    - packet-source
+  - name: source_binding
+    value: Pinned BactoTraits CSV row 8521, BacDive 17851, LPSN GSS row 27332 and
+      LPSN API 785725 are retained unchanged. The CSV collection codes DSM 19353/JCM
+      14586 are not silently joined as equivalents of DSM 18772.
+    definition: 'Authored bounded canary judgment: source_binding'
+    evidence_ids:
+    - packet-source
+findings:
+- finding_id: source-accession-conflict
+  issue_key: bactotraits-row8521-conflicting-strain-accessions
+  category: identity
+  severity: major
+  status: open
+  certainty: confirmed
+  title: Source row carries conflicting strain accessions
+  description: BactoTraits CSV row 8521 associates BacDive 17851 and the Rubritalea
+    squalenifaciens name with collection codes DSM 19353/JCM 14586. The linked BacDive
+    17851 record and retained LPSN/primary abstract instead bind DSM 18772/HOact23.
+    The inconsistency is confirmed; which source field or join needs correction is
+    unresolved. No equivalence is invented.
+  target_ids:
+  - urn:kg-microbe:occurrence:v1:1e9dec218a07f7e480add8ff273e3a9285f79d57746ca74041702839207a8136
+  field_paths:
+  - 'source_records[0].text: culture collection codes'
+  - 'source_records[0].text: Bacdive_ID'
+  evidence_ids:
+  - packet-source
+  - abstract-nonmotility
+  - abstract-strain
+  ownership_note: BactoTraits source table and KG-Microbe BactoTraits join owners
+    require triage before a proposed correction; maintained owner paths remain unknown.
+  external_issues:
+  - https://github.com/CultureBotAI/EdgeMech/issues/130
+actions:
+- action_id: reconcile-source-accessions
+  finding_ids:
+  - source-accession-conflict
+  target_ids:
+  - urn:kg-microbe:occurrence:v1:1e9dec218a07f7e480add8ff273e3a9285f79d57746ca74041702839207a8136
+  description: Trace the exact BactoTraits row 8521 join, independently resolve the
+    competing collection identifiers and preserve source/model uncertainty until a
+    maintained correction or justified no-change decision is verified.
+  ownership_note: Maintained source/transform owner investigation is tracked in issue
+    130; exact owner paths remain unresolved.
+  acceptance_checks:
+  - Retain the row 8521 text hash and exact occurrence binding.
+  - No alias inferred from shared species name alone.
+  - A proposed correction has independent identity provenance and is verified against
+    regenerated candidate bytes.
+limitations:
+- Partial self-review adapter canary, excluded from both independent calibration matrices.
+- Only the retained primary abstract was inspected; no full paper or Methods assay
+  review.
+- The nominal strain's nonmotility is not silently promoted to a resolved graph claim
+  while source binding and versioned modeling remain unresolved.
+- The source discrepancy does not establish a biological contradiction or prove which
+  upstream field is wrong.
+- Zero provider calls and no graph correction/admission; all historical bytes remain
+  intact.
+- Private source and response bodies stay in ignored staging; canonical output contains
+  bounded quotes, identifiers, locators and hashes.
+links:
+- https://github.com/CultureBotAI/EdgeMech/issues/127
+- https://github.com/CultureBotAI/EdgeMech/issues/130
+- https://doi.org/10.1099/ijs.0.65010-0
+tags:
+- bounded-canary
+- abstract-evidence
+- excluded-from-calibration-scoring
+```

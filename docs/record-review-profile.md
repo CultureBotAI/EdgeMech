@@ -81,6 +81,14 @@ Supported representations in this initial implementation:
   `full_text` extractor and `verify_quote` replay the text and exact short quote,
   offsets, raw/text hashes and extractor. Missing DOI requires an explicit reason
   and bound PMCID URL. Canonical evidence carries DOI URL, quote and locator.
+- Europe PMC core-JSON abstracts (`europepmc_abstract`). Select one MED result
+  with an exact primary PMID and verify its identifier, DOI, title and available
+  PMCID before extracting `abstractText`. The existing abstract text extractor
+  supplies the literal derivative and quote offsets. Proof `inspected_extent`
+  must be `abstract`, and the canonical evidence locator starts `abstract;`.
+  The canonical evidence remains `primary_source`; abstract replay cannot be
+  represented as full-text inspection or as an ontology authority. A missing DOI
+  requires an explicit reason and the verified PMID's PubMed URL.
 - Versioned authority text, with a literal quote and retained hash. The reviewer
   must establish relevance to the exact relation/node; replay does not infer it.
 - The validated packet, for source fidelity and original modeling context. This
@@ -94,8 +102,10 @@ gates. Resolved modeling requires corresponding versioned authority evidence.
 Every axis consumes all proofs declaring its applicability; paper evidence used
 for claim or literature binds both axes (#121). Opposing exact modeling
 authorities require `UNRESOLVED`, and opposing source proofs require
-`NOT_ASSESSABLE` (#122). The 25-word quotation budget groups verified DOI/PMCID
-aliases across raw representations of the same publication (#124).
+`NOT_ASSESSABLE` (#122). The 25-word quotation budget groups verified
+DOI/PMID/PMCID aliases across raw representations of the same publication,
+including an abstract and JATS body (#124, #127). Alias identities come from
+validated primary metadata, not unverified proof labels.
 Resolved source fidelity itself requires an exact-scope packet proof of the
 corresponding role; partial/context proofs cannot resolve it (#125).
 
@@ -129,3 +139,20 @@ calibration batch. Focused regression tests are `tests/test_occurrence_packet.py
 and `tests/test_occurrence_review.py`. Run the complete suite on the final PR
 candidate. Ten-case calibration, all-100 coverage and demonstrated correction
 verification remain separate gates in the [implementation plan](plans/edge-correctness-review-20261115.md).
+
+The abstract-adapter launcher is
+`scripts/adhoc/run_abstract_canary_20261115.py`. It replays one retained fresh-05
+case using newly authored, explicitly limited assessments. Its partial
+self-review is a technical acceptance canary, excluded from the two independent
+calibration matrices; it neither supplies a gold label nor passes calibration.
+The inspected source contains conflicting strain accessions tracked in #130.
+Required unavailable identity/modeling checks remain visible, and successful
+abstract extraction cannot resolve that source join.
+
+Preparation receipts from PR #128 pin their original implementation and profile
+documentation. They remain historical artifacts after an adapter/profile change;
+their configuration guard must fail under changed code. Replay them under their
+pinned revision, or prepare a new evidence round with a new receipt. Do not
+rewrite old hashes merely to make the old preparation appear current. Raw source
+packets remain unchanged and can be independently validated and rebound as inputs
+to a new review, as the abstract canary does.
