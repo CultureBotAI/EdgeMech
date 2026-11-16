@@ -188,6 +188,94 @@ def abstract_case(case):
     return case
 
 
+@pytest.fixture
+def supported_partial_case(abstract_case):
+    """Synthetic #152 transport case; the source statement is explicitly scoped."""
+    case = abstract_case
+    review = case[1]
+    review.update(completion="partial", verdict="needs_curation")
+    review["checks"][0].update(status="unavailable", summary="Required historical authority unavailable")
+    category(review, "claim", "SUPPORTED_AS_STATED")
+    category(review, "literature", "SUPPORTS")
+    review["evidence"][0]["support"] = "supports"
+    case[2]["proofs"][0].update(scope="exact", support="supports",
+                                scope_rationale="Exact synthetic scoped statement")
+    repin_sidecar(case)
+    return case
+
+
+@pytest.mark.parametrize("axis", ["relation", "subject_node", "object_node"])
+@pytest.mark.parametrize("model_category", ["INCORRECT", "UNRESOLVED", "UNASSESSED"])
+def test_152_supported_claim_saves_without_rewriting_model_judgments(
+    supported_partial_case, axis, model_category,
+):
+    case = supported_partial_case
+    root, review, _ = case
+    for model_axis in ("relation", "subject_node", "object_node"):
+        value = model_category if model_axis == axis else "CORRECT"
+        category(review, model_axis, value)
+        if value in {"CORRECT", "INCORRECT"}:
+            add_authority(case, model_axis, "supports" if value == "CORRECT" else "refutes", model_axis)
+
+    def git(*args):
+        return subprocess.check_output(["git", "-C", str(root), *args], stderr=subprocess.PIPE).decode().strip()
+
+    git("init", "-q")
+    git("remote", "add", "origin", "https://github.com/CultureBotAI/EdgeMech.git")
+    git("-c", "user.name=Fixture", "-c", "user.email=fixture@example.invalid",
+        "commit", "--allow-empty", "-qm", "Fixture base")
+    review["source"]["git_revision"] = git("rev-parse", "HEAD")
+    result = module.save_occurrence_review(root, review, "packet.json", "proofs.json")
+    persisted = read_review(root, result["review"])
+    replay = module.validate_occurrence_review(root, persisted, "packet.json", "proofs.json")
+    assert persisted["assessments"] == review["assessments"]
+    assert persisted["completion"] == "partial"
+    assert persisted["verdict"] == "needs_curation"
+    assert replay["assessments"]["claim"] == "SUPPORTED_AS_STATED"
+    assert replay["assessments"][axis] == model_category
+    assert replay["kg_admissions"] == 0
+    assert (root / result["review"]).stat().st_size > 0
+    assert (root / result["review"]).with_suffix(".md").stat().st_size > 0
+
+    # Even after required checks become available, this unresolved/defective
+    # axis alone prevents an unqualified pass; all other axes are supported.
+    persisted.update(completion="completed", verdict="pass")
+    persisted["checks"][0].update(status="passed")
+    with pytest.raises(ReviewError, match="unknown or concerning"):
+        module.validate_occurrence_review(root, persisted, "packet.json", "proofs.json")
+
+
+def test_152_supported_claim_does_not_waive_exact_evidence(supported_partial_case):
+    case = supported_partial_case
+    case[2]["proofs"][0]["scope"] = "partial"
+    repin_sidecar(case)
+    with pytest.raises(ReviewError, match="exact-scope"):
+        validate(case)
+
+
+def test_152_supported_claim_does_not_prove_incorrect_model(supported_partial_case):
+    case = supported_partial_case
+    category(case[1], "relation", "INCORRECT")
+    with pytest.raises(ReviewError, match="Resolved modeling judgment requires versioned authority"):
+        validate(case)
+
+
+def test_152_supported_claim_does_not_complete_unavailable_checks(supported_partial_case):
+    case = supported_partial_case
+    case[1]["completion"] = "completed"
+    with pytest.raises(ReviewError, match="unavailable required checks cannot be a completed review"):
+        validate(case)
+
+
+def test_152_supported_claim_does_not_complete_unassessed_model(supported_partial_case):
+    case = supported_partial_case
+    case[1]["completion"] = "completed"
+    case[1]["checks"][0]["status"] = "passed"
+    category(case[1], "relation", "UNASSESSED")
+    with pytest.raises(ReviewError, match="Completed reviews cannot contain unassessed axes"):
+        validate(case)
+
+
 def test_127_abstract_replays_literal_markup_derivative_without_promoting_scope(case):
     quote = "The exact strain was non-motile."
     install_abstract(case, markup="<p>The exact strain was <i>non-motile</i>.</p>", quote=quote)

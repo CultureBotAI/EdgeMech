@@ -364,10 +364,9 @@ def validate_occurrence_review(root: Path, review: dict, packet_path: str, proof
                      "Source judgment requires exact-scope packet evidence with a matching support role")
         axes[axis] = category
     _require(axes.keys() == CATEGORIES.keys(), "Every occurrence requires all six assessment axes")
-    if axes["claim"] == "SUPPORTED_AS_STATED":
-        _require(not any(axes[a] in {"INCORRECT", "UNASSESSED"}
-                         for a in ("relation", "subject_node", "object_node")),
-                 "Supported-as-stated cannot conceal incorrect/unassessed original modeling")
+    # A supported scoped statement can have a defective or unresolved encoding.
+    # Preserve both authored judgments; shared verdict/completion checks and the
+    # aggregate pass gate below prevent transport validity becoming approval.
     if review["verdict"] == "pass":
         _require(axes["claim"] == "SUPPORTED_AS_STATED"
                  and all(axes[a] == "CORRECT" for a in ("relation", "subject_node", "object_node")),

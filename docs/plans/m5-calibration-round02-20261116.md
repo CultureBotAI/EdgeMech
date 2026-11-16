@@ -1,6 +1,11 @@
 # M5 calibration round 02 registration and rubric repair
 
 Round `m5-calibration-20261116-round02` is registered as **preparation only**.
+The follow-up is now active on branch `review/m5-calibration-round02-20261116`.
+Its [coordinator prompt](../../scripts/adhoc/m5_review_20261116/round02.md)
+specifies repairs, evidence preparation, live canaries and fresh scoring; it is
+not evidence that a worker or either reviewer has started. Actual process and
+phase receipts are maintained in the new private worker output directory.
 Round01's frozen inputs, initial matrices, failed gates and adjudication remain
 unchanged. This registration does not authorize scoring against an incomplete
 package, the retained 90, or the remaining 9,900.
