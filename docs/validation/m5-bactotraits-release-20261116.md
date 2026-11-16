@@ -1,17 +1,21 @@
 # M5 BactoTraits graph-release verification — 2026-11-16
 
-The new M5 pair verifies the exact-row correction through the actual producer,
-and a separate fresh candidate verifies that its complete quarantine audit and
-zero graph rows survive production source finalization. Strict merge refuses
-the incomplete upstream chain. No corrected merged graph or published release
-is established by this evidence.
+The exact-row correction is verified through a new M5 baseline/candidate pair,
+the complete current ontologies → BacDive → BactoTraits producer chain, and an
+actual strict BactoTraits-only merged candidate. The persisted candidate has
+9,757 nodes and 87,788 edges, with zero occurrences of the quarantined target
+SPO. Its complete original-row audit remains intact. This verifies a bounded
+candidate; a complete canonical snapshot and corrected published release remain
+unverified.
 
 | Check | Actual result |
 | --- | --- |
 | Fresh baseline, `ef27b97a0b450767da54235c6105b5250c178adc` | 21 edges, 22 nodes |
 | Fresh corrected candidate, `2d94ed094167d94402f21400a9ad7dc4f7f20438` | 0 edges, 0 nodes, 1 complete quarantine audit |
 | Separate fresh candidate through `finalize(fresh_run=True)` | 0 edges, 0 nodes, identical quarantine audit |
-| Strict `load_and_merge(processes=1)` | Refused missing current BacDive whole-source finalization; no merged output |
+| Earlier bounded `load_and_merge(processes=1)` attempt | Correctly refused its missing upstream completion; old receipt unchanged |
+| Full current BactoTraits source | 87,788 edges, 9,757 nodes, 1 complete 105-field quarantine audit |
+| Ordinary strict BactoTraits-only merge | 87,788 edges, 9,757 nodes; target SPO count 0; persisted archive verified |
 | Current raw reviewed-input preflight | Passed against original M5 raw root |
 | Current published corrected release | Unavailable; dependency tracked in [#143](https://github.com/CultureBotAI/EdgeMech/issues/143) |
 
@@ -39,10 +43,12 @@ historical HTTP404. Publication requires a fresh complete dependency chain,
 canonical merge and lineage verification, a working artifact publication source,
 separate human approval, and verification of the published asset bytes.
 
-The second GitHub inspection at `2026-11-16T21:20:12Z` again found 14 releases,
-with newest asset modification on August 26. The canonical configuration has
-24 source keys from 15 producers. After the planned ontologies/BacDive/BactoTraits
-chain, 12 additional whole-source completions remain: gold, gtdb, lpsn, lpsn_api,
+The complete GitHub inspection at `2026-11-16T21:20:12Z` again found 14 releases,
+with newest asset modification on August 26. The final latest-release/issue
+refresh at `2026-11-16T22:01:40Z` still showed latest `2025-03-07` and #887 open.
+The canonical configuration has 24 source keys from 15 producers. After the
+completed ontologies/BacDive/BactoTraits chain, 12 additional whole-source
+completions remain: gold, gtdb, lpsn, lpsn_api,
 madin_etal, mediadive, metatraits, metatraits_gtdb, microbedecoder,
 ontologies_stubs, prego (habitat only), and rhea_mappings. Independent review
 confirmed their completion records were absent using exact paths including
@@ -172,8 +178,9 @@ The [compact production record](m5-bactotraits-production-20261116.json) binds
 all three completed sources, full authority bytes, runtime, configurations,
 implementation and output hashes without embedding native histories. Its
 source-only scope does not assert merged-graph or publication success. The
-strict merged candidate is currently running in this checkpoint. No completion
-marker was synthesized and no freshness check was disabled.
+separate [merged-candidate record](m5-bactotraits-merged-candidate-20261116.json)
+binds the actual merge result. No completion marker was synthesized and no
+freshness check was disabled.
 
 The strict merge helper preserves canonical semantics and records explicit
 path-only configuration changes: absolute source paths and exclusive output
@@ -193,6 +200,23 @@ and matched all 346 pinned distributions. No package or runtime guard changed
 then verified 457 input pins and all 26 path-only configuration deltas before
 the ordinary single-process CLI was started.
 
+The strict CLI and persisted verification completed successfully at
+`2026-11-16T22:01:06Z`. Archive SHA256 is
+`d217563f5d29ca2bc7ac729253acf5f83d23519d02a22ed91a5cc974ccf49976`
+(447,980 bytes); the complete merge receipt SHA256 is
+`111a1d66ae90ae0136212c06f379f15fee447ebdc9db3f70e4fd4e1d806b03be`.
+Streaming readback verified 9,757 node rows, 87,788 edge rows, all member hashes,
+the reference-resolution member and embedded producer/configuration/schema
+provenance. The manifest records Python 3.10.11, producer `b631cacf5`, required
+source finalization and no diagnostic opt-out. Input/source trees, original
+statistics and the complete quarantine audit stayed unchanged. The candidate
+contains zero target SPO rows and zero BactoTraits-provenance target rows.
+Independent final review verified all 13 output artifacts, all three source
+trees, all 457 input pins after execution, protected original statistics,
+the actual interpreter and all 346 distributions. Every merged edge has
+`infores:bactotraits` as its primary knowledge source. Its review receipt SHA256
+is `bf397abd283fc5103731be4642662a8c729916cf484a66d8067e2c8fd4c9b14b`.
+
 ## Independent review and checks
 
 Read-only adversarial review independently recomputed all new stage artifact
@@ -202,6 +226,23 @@ the bounded producer/finalizer/admission evidence. Two evidence bookkeeping
 findings were filed and fixed: [#146](https://github.com/CultureBotAI/EdgeMech/issues/146)
 for concurrent progress updates and [#147](https://github.com/CultureBotAI/EdgeMech/issues/147)
 for stat precision. A second read-only review verified both fixes.
+
+Production-launcher gaps in shared configuration pins
+([KG #1869](https://github.com/Knowledge-Graph-Hub/kg-microbe/issues/1869)) and
+canonical raw side-effect recording
+([KG #1870](https://github.com/Knowledge-Graph-Hub/kg-microbe/issues/1870)) were
+filed and fixed before actual source units ran. The original canonical archive,
+all 37 retained v3 files (including nested hidden caches), and the clean `ef27b97`
+baseline passed final independent preservation review. The original archive's
+exact Python stat fields also remain unchanged. All failed attempts and older
+receipts remain preserved.
+
+After merge completion, the retained 37-file inventory and original archive
+were checked again: byte hashes and exact archive stat fields still match the
+initial observations. The complete result is ready for review in
+[EdgeMech PR #151](https://github.com/CultureBotAI/EdgeMech/pull/151) and companion
+[KG-Microbe PR #1871](https://github.com/Knowledge-Graph-Hub/kg-microbe/pull/1871).
+No new PR was merged and no release was published.
 
 The finalization helper's six focused tests and production-launcher four focused
 tests passed. EdgeMech's final full suite passed 777 tests after the progress
