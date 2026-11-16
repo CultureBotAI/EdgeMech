@@ -1,0 +1,653 @@
+# Edge47 categorical occurrence profile canary using retained evidence
+
+- Review: 20261116T025553Z-edge47-occurrence-profile
+- Repository: CultureBotAI/EdgeMech
+- Started UTC: 2026-11-16T02:55:53Z
+- Finished UTC: 2026-11-16T02:55:53Z
+- Reviewer: Codex agent (self_review)
+- Completion: completed
+- Verdict: needs_curation
+- Scientific review: true
+
+## Summary
+
+One retained occurrence has six explicit categorical assessments, complete source measurement context and one replayed DOI-bound partial literature quote. Claim meaning and relation/node modeling remain unresolved. No graph correction or admission.
+
+## Scope And Provenance
+
+One retained edge47 occurrence and both original endpoint records.
+
+Selection: Previously selected context/partial-evidence canary; no new sampling.
+Coverage: full; 1 reviewed / 1 in the declared population.
+Source: working_tree at Git base 88fbc6a9c9655e2ae2012a84e9194e71a915b601.
+Working-tree hashes do not imply those bytes were committed.
+
+| Target | Path / selector | Kind | Label |
+| --- | --- | --- | --- |
+| urn:kg-microbe:occurrence:v1:358f925d6342994dbe5598a3d3d2cdfafe3ad30028b7305c3cf21242cf3a9b57 | .temp/occurrence-canary-edge47-120-fixed-20261115/packet.json # occurrence_id=urn:kg-microbe:occurrence:v1:358f925d6342994dbe5598a3d3d2cdfafe3ad30028b7305c3cf21242cf3a9b57 | snapshot_row | Edge47 reported salt source value with categorical assessment axes |
+
+## Validation
+
+| Check | Status | Required | Targets | Result |
+| --- | --- | --- | --- | --- |
+| Pinned source and endpoint packet replay | passed | True | urn:kg-microbe:occurrence:v1:358f925d6342994dbe5598a3d3d2cdfafe3ad30028b7305c3cf21242cf3a9b57 | Fixed input SHA-256 checks and build_packet/validate_packet succeeded; newly persisted packet bytes were read back and matched. |
+| Primary JATS identity and literal quote replay | passed | True | urn:kg-microbe:occurrence:v1:358f925d6342994dbe5598a3d3d2cdfafe3ad30028b7305c3cf21242cf3a9b57 | Raw JATS hash, DOI/PMCID/PMID/title and exact quote offsets verified with the retained full-text extractor; this does not establish entailment. |
+| Installed CLAW contract byte verification | passed | True | urn:kg-microbe:occurrence:v1:358f925d6342994dbe5598a3d3d2cdfafe3ad30028b7305c3cf21242cf3a9b57 | check_contracts completed before review construction. |
+| Versioned relation and node authority assessment | unavailable | False | urn:kg-microbe:occurrence:v1:358f925d6342994dbe5598a3d3d2cdfafe3ad30028b7305c3cf21242cf3a9b57 | No pinned Biolink/SIO authority proof in this canary; all three modeling axes explicitly remain unresolved. This check is required for their resolution. |
+
+## Scientific And Domain Assessments
+
+### Occurrence claim
+
+grounding: unknown. Targets: urn:kg-microbe:occurrence:v1:358f925d6342994dbe5598a3d3d2cdfafe3ad30028b7305c3cf21242cf3a9b57.
+
+The original edge connects a species to an explicitly reported source-value attribute. Its description excludes a decoded phenotype or an assertion about every taxon member. A biological truth judgment is blocked by unresolved modeled meaning and assay scope; this review does not replace it with a species-wide 0-10% growth assertion. Exact copying is assessed under source fidelity.
+
+### Occurrence literature
+
+evidence: unknown. Targets: urn:kg-microbe:occurrence:v1:358f925d6342994dbe5598a3d3d2cdfafe3ad30028b7305c3cf21242cf3a9b57.
+
+The inspected 2024 primary article describes an assay at 3.0% and 6.5% NaCl and identifies GI38 as W. halotolerans. The quoted Methods text is partial organism-matched context, not verification of DSM 20190/CIP 103005's full range.
+
+### Occurrence relation
+
+representation: unknown. Targets: urn:kg-microbe:occurrence:v1:358f925d6342994dbe5598a3d3d2cdfafe3ad30028b7305c3cf21242cf3a9b57.
+
+The frozen predicate and relation are retained. A versioned authority check of their formal and semantic fitness has not been completed.
+
+### Occurrence subject node
+
+identity: unknown. Targets: urn:kg-microbe:occurrence:v1:358f925d6342994dbe5598a3d3d2cdfafe3ad30028b7305c3cf21242cf3a9b57.
+
+The frozen LPSN endpoint and source-strain evidence are retained. Node identity and category evidence must be assessed under versioned authorities before a categorical correctness verdict; discordant NCBI fields remain excluded.
+
+### Occurrence object node
+
+representation: unknown. Targets: urn:kg-microbe:occurrence:v1:358f925d6342994dbe5598a3d3d2cdfafe3ad30028b7305c3cf21242cf3a9b57.
+
+The original hash attribute denotes a source-field value. A categorical modeling judgment awaits a versioned category and observation-model review.
+
+### Occurrence source fidelity
+
+provenance: supported. Targets: urn:kg-microbe:occurrence:v1:358f925d6342994dbe5598a3d3d2cdfafe3ad30028b7305c3cf21242cf3a9b57.
+
+The exact frozen CSV row reports 0-10 and percent, and the matching BacDive observation reports NaCl, positive growth and reference 119830. This supports the reported-value interpretation, without independently establishing biology.
+
+## Findings
+
+### quantity-context: Complete source context needs verified integration
+
+minor / open / confirmed; issue key: edge47-joint-measurement-context.
+
+This candidate packet assembles the previously omitted measurement context. Independent acceptance and integration review remain pending; the historical graph and review bytes are unchanged.
+
+### discordant-crosswalk: Excluded NCBI crosswalk still needs maintained-owner reconciliation
+
+major / deferred / confirmed; issue key: microbedecoder-record20904-ncbi-crosswalk.
+
+The retained source row includes the unrelated NCBI identity Brachybacterium muris/219301. The packet binds the measurement by LPSN/BacDive identifiers and does not adopt that crosswalk.
+
+Disposition: This canary preserves the exclusion and existing issue; it does not establish an upstream correction.
+
+## Recommended Actions And Acceptance Checks
+
+### verify-context-integration
+
+Independently review and integrate the candidate context presentation before resolving issue 105.
+
+- NaCl, 0-10, %, growth, positive, strain and reference appear together from exact source bindings.
+- Reject mismatched source, strain, unit and reference records.
+- Unknown percent basis and assay conditions remain unknown.
+
+### retain-crosswalk-exclusion
+
+Retain the NCBI exclusion pending independent upstream reconciliation of exact row 20904.
+
+- Any proposed replacement has exact source provenance and independent identity verification; regenerated candidate bytes are checked before graph correction is claimed.
+
+## Category Boundaries
+
+
+## Evidence
+
+| Evidence | Reference / locator | Support | Observation |
+| --- | --- | --- | --- |
+| packet-source | .temp/occurrence-canary-edge47-120-fixed-20261115/packet.json; original_assertion; endpoints; measurement_context; source_records with exact retained selectors and hashes | supports | Exact source-value binding and original node records; source-report support is not independent claim or category correctness. |
+| paper-methods | https://doi.org/10.3390/ani14101394; PMC11117391; Methods 2.3 sec2dot3-animals-14-01394; chars 10422:10499; text_sha256=c362647d98982d919cf5f5734733affeae31d84bc77a32f62541cf07e07044d4 | partial | Methods describe two tested concentrations. The article's GI38 isolate is not shown equivalent to the source strain; no complete 0-10% range is established. |
+
+## Limits And Additional Notes
+
+- Self-review canary; no independent scientific agreement or reviewer calibration.
+- The exact original statement is a reported attribute, not an independently verified biological range. No fabricated species-wide interpretation replaces it.
+- Partial GI38 paper evidence does not establish the original source strain's entire 0-10% range, percentage basis or assay conditions.
+- Relation, subject-node and object-node judgments remain unresolved pending versioned authority assessment; no graph correction or native admission occurred.
+- Retained evidence only, with zero provider calls. Figure conclusions from the previous review are not represented as newly replayed figure proofs.
+- Private source and full-text bytes remain under ignored .temp; public outputs contain one bounded quotation and identifiers, hashes and locators.
+
+## Complete Structured Record
+
+The sibling review.yaml is authoritative.
+
+```yaml
+schema_version: 1.0.0
+review_id: 20261116T025553Z-edge47-occurrence-profile
+kind: record
+repository: CultureBotAI/EdgeMech
+title: Edge47 categorical occurrence profile canary using retained evidence
+started_at: '2026-11-16T02:55:53Z'
+finished_at: '2026-11-16T02:55:53Z'
+reviewer:
+  identity: Codex agent
+  kind: agent
+  independence: self_review
+  independence_basis: The agent authored this bounded launcher and its declared judgments.
+    Replay validates provenance, not independent scientific agreement.
+skill: edgemech-occurrence-review/v1
+completion: completed
+verdict: needs_curation
+scientific_review: true
+summary: One retained occurrence has six explicit categorical assessments, complete
+  source measurement context and one replayed DOI-bound partial literature quote.
+  Claim meaning and relation/node modeling remain unresolved. No graph correction
+  or admission.
+source:
+  git_revision: 88fbc6a9c9655e2ae2012a84e9194e71a915b601
+  state: working_tree
+  inputs:
+  - path: .temp/occurrence-canary-edge47-120-fixed-20261115/packet.json
+    sha256: aa91093636858819bf7188bb5ff8f12c5556fbd27c00a338dbf854ccf816e740
+    role: target
+  - path: .temp/occurrence-canary-edge47-120-fixed-20261115/primary2024.xml
+    sha256: df87ed3eabcefee07f32f61c7b909e616dd072b1cd7ee7dafff42f5872345838
+    role: context
+  - path: .temp/occurrence-canary-edge47-120-fixed-20261115/proofs.json
+    sha256: ab950db5ad80221d4a5008c427a3b52a4cf86e1a3ca694cb1c55a07310fdfd48
+    role: context
+  - path: .temp/occurrence-canary-edge47-120-fixed-20261115/source47.json
+    sha256: 0b5f705f26bbec14781575580bf10b508af15bf2358c0912c5d820966c175e5e
+    role: context
+  - path: reviews/structured/20261115T081452Z-edge47-salt-source-and-paper/review.yaml
+    sha256: d7f5f6f3b8e1cb26505b47b879659f5ade7fe562f642e276e3deeb03dca640d9
+    role: context
+  - path: schema/record_review.yaml
+    sha256: 229baf9b69118a1fe318e4c31085c0820e4e3d1365e7b04d6ace451b7c35f9bb
+    role: context
+  - path: scripts/adhoc/run_occurrence_canary_20261115.py
+    sha256: c6d3f2476fb027e2e039cda6ae3d2bb1eccbe8f8c8dbcfa923572cc02581d379
+    role: context
+  - path: src/edgemech/contract-pins.json
+    sha256: 788ecc876a432feebeb89627fbe5a40dba1c1001598683c19834e4626667842c
+    role: context
+  - path: src/edgemech/literature_cache.py
+    sha256: 12e3d920e2a9978c25b5d7626aae087ccd089609c367339a240eb8f37b7a3fef
+    role: context
+  - path: src/edgemech/occurrence_packet.py
+    sha256: 7526fcb6f4467a342abc644c8f607b9b8c6fb395eac159c61f4654594cc490d7
+    role: context
+  - path: src/edgemech/occurrence_review.py
+    sha256: 42297245ac5674583a0572899a8bd61e55a29cbe35ee440385bd5f7334d48430
+    role: context
+scope:
+  description: One retained edge47 occurrence and both original endpoint records.
+  selection: Previously selected context/partial-evidence canary; no new sampling.
+  coverage: full
+  population_size: 1
+  reviewed_target_ids:
+  - urn:kg-microbe:occurrence:v1:358f925d6342994dbe5598a3d3d2cdfafe3ad30028b7305c3cf21242cf3a9b57
+  exclusions:
+  - target: Other 99 retained canaries and remaining 9,900 occurrences
+    reason: No calibration or batch expansion in this execution.
+targets:
+- target_id: urn:kg-microbe:occurrence:v1:358f925d6342994dbe5598a3d3d2cdfafe3ad30028b7305c3cf21242cf3a9b57
+  path: .temp/occurrence-canary-edge47-120-fixed-20261115/packet.json
+  selector: occurrence_id=urn:kg-microbe:occurrence:v1:358f925d6342994dbe5598a3d3d2cdfafe3ad30028b7305c3cf21242cf3a9b57
+  label: Edge47 reported salt source value with categorical assessment axes
+  record_class: ReleaseOccurrence
+  kind: snapshot_row
+  ownership_note: Frozen occurrence and evidence remain immutable. Presentation belongs
+    to EdgeMech; any scientific correction requires the maintained upstream owner.
+checks:
+- check_id: input-packet-replay
+  name: Pinned source and endpoint packet replay
+  status: passed
+  required: true
+  target_ids:
+  - urn:kg-microbe:occurrence:v1:358f925d6342994dbe5598a3d3d2cdfafe3ad30028b7305c3cf21242cf3a9b57
+  summary: Fixed input SHA-256 checks and build_packet/validate_packet succeeded;
+    newly persisted packet bytes were read back and matched.
+  evidence_ids:
+  - packet-source
+- check_id: paper-quote-replay
+  name: Primary JATS identity and literal quote replay
+  status: passed
+  required: true
+  target_ids:
+  - urn:kg-microbe:occurrence:v1:358f925d6342994dbe5598a3d3d2cdfafe3ad30028b7305c3cf21242cf3a9b57
+  summary: Raw JATS hash, DOI/PMCID/PMID/title and exact quote offsets verified with
+    the retained full-text extractor; this does not establish entailment.
+  evidence_ids:
+  - paper-methods
+- check_id: pinned-contracts
+  name: Installed CLAW contract byte verification
+  status: passed
+  required: true
+  target_ids:
+  - urn:kg-microbe:occurrence:v1:358f925d6342994dbe5598a3d3d2cdfafe3ad30028b7305c3cf21242cf3a9b57
+  summary: check_contracts completed before review construction.
+- check_id: modeling-authorities
+  name: Versioned relation and node authority assessment
+  status: unavailable
+  required: false
+  target_ids:
+  - urn:kg-microbe:occurrence:v1:358f925d6342994dbe5598a3d3d2cdfafe3ad30028b7305c3cf21242cf3a9b57
+  summary: No pinned Biolink/SIO authority proof in this canary; all three modeling
+    axes explicitly remain unresolved. This check is required for their resolution.
+evidence:
+- evidence_id: packet-source
+  kind: record_content
+  reference: .temp/occurrence-canary-edge47-120-fixed-20261115/packet.json
+  locator: original_assertion; endpoints; measurement_context; source_records with
+    exact retained selectors and hashes
+  accessed_at: '2026-11-16T02:55:53Z'
+  support: supports
+  snapshot_sha256: aa91093636858819bf7188bb5ff8f12c5556fbd27c00a338dbf854ccf816e740
+  summary: Exact source-value binding and original node records; source-report support
+    is not independent claim or category correctness.
+- evidence_id: paper-methods
+  kind: primary_source
+  reference: https://doi.org/10.3390/ani14101394
+  locator: PMC11117391; Methods 2.3 sec2dot3-animals-14-01394; chars 10422:10499;
+    text_sha256=c362647d98982d919cf5f5734733affeae31d84bc77a32f62541cf07e07044d4
+  accessed_at: '2026-11-16T02:55:53Z'
+  support: partial
+  quote: Salt tolerance was observed in the MRS broth containing 3.0% and 6.5% of
+    NaCl
+  snapshot_sha256: df87ed3eabcefee07f32f61c7b909e616dd072b1cd7ee7dafff42f5872345838
+  summary: Methods describe two tested concentrations. The article's GI38 isolate
+    is not shown equivalent to the source strain; no complete 0-10% range is established.
+assessments:
+- assessment_id: claim
+  area: grounding
+  topic: Occurrence claim
+  outcome: unknown
+  summary: The original edge connects a species to an explicitly reported source-value
+    attribute. Its description excludes a decoded phenotype or an assertion about
+    every taxon member. A biological truth judgment is blocked by unresolved modeled
+    meaning and assay scope; this review does not replace it with a species-wide 0-10%
+    growth assertion. Exact copying is assessed under source fidelity.
+  target_ids:
+  - urn:kg-microbe:occurrence:v1:358f925d6342994dbe5598a3d3d2cdfafe3ad30028b7305c3cf21242cf3a9b57
+  evidence_ids:
+  - paper-methods
+  dimensions:
+  - name: axis
+    value: claim
+    definition: 'Explicit edge47 reviewer judgment: axis'
+    evidence_ids:
+    - paper-methods
+  - name: category
+    value: NOT_ASSESSABLE
+    definition: 'Explicit edge47 reviewer judgment: category'
+    evidence_ids:
+    - paper-methods
+  - name: scope
+    value: Exact original edge47 occurrence; no replacement assertion
+    definition: 'Explicit edge47 reviewer judgment: scope'
+    evidence_ids:
+    - paper-methods
+  - name: assertion_scope
+    value: Original lpsn:783091 --biolink:has_attribute--> retained source attribute
+      for literal 0-10. The recovered BacDive observation is strain-specific NaCl
+      positive growth, percent basis and assay conditions unspecified; GI38 is not
+      the original strain.
+    definition: 'Explicit edge47 reviewer judgment: assertion_scope'
+    evidence_ids:
+    - paper-methods
+- assessment_id: literature
+  area: evidence
+  topic: Occurrence literature
+  outcome: unknown
+  summary: The inspected 2024 primary article describes an assay at 3.0% and 6.5%
+    NaCl and identifies GI38 as W. halotolerans. The quoted Methods text is partial
+    organism-matched context, not verification of DSM 20190/CIP 103005's full range.
+  target_ids:
+  - urn:kg-microbe:occurrence:v1:358f925d6342994dbe5598a3d3d2cdfafe3ad30028b7305c3cf21242cf3a9b57
+  evidence_ids:
+  - paper-methods
+  dimensions:
+  - name: axis
+    value: literature
+    definition: 'Explicit edge47 reviewer judgment: axis'
+    evidence_ids:
+    - paper-methods
+  - name: category
+    value: PARTIAL
+    definition: 'Explicit edge47 reviewer judgment: category'
+    evidence_ids:
+    - paper-methods
+  - name: scope
+    value: Exact original edge47 occurrence; no replacement assertion
+    definition: 'Explicit edge47 reviewer judgment: scope'
+    evidence_ids:
+    - paper-methods
+  - name: search_scope
+    value: Replay only of the retained complete JATS article, including primary identifiers,
+      Methods 2.3 and Results 3.3; no new search or retrieval. Original 1983/1993
+      article bodies are not inspected in this run. The figure interpretation in the
+      prior review is not represented as a new quote proof.
+    definition: 'Explicit edge47 reviewer judgment: search_scope'
+    evidence_ids:
+    - paper-methods
+- assessment_id: relation
+  area: representation
+  topic: Occurrence relation
+  outcome: unknown
+  summary: The frozen predicate and relation are retained. A versioned authority check
+    of their formal and semantic fitness has not been completed.
+  target_ids:
+  - urn:kg-microbe:occurrence:v1:358f925d6342994dbe5598a3d3d2cdfafe3ad30028b7305c3cf21242cf3a9b57
+  evidence_ids:
+  - packet-source
+  dimensions:
+  - name: axis
+    value: relation
+    definition: 'Explicit edge47 reviewer judgment: axis'
+    evidence_ids:
+    - packet-source
+  - name: category
+    value: UNRESOLVED
+    definition: 'Explicit edge47 reviewer judgment: category'
+    evidence_ids:
+    - packet-source
+  - name: scope
+    value: Exact original edge47 occurrence; no replacement assertion
+    definition: 'Explicit edge47 reviewer judgment: scope'
+    evidence_ids:
+    - packet-source
+  - name: direction
+    value: Retained subject-to-source-attribute direction; semantic fit unresolved.
+    definition: 'Explicit edge47 reviewer judgment: direction'
+    evidence_ids:
+    - packet-source
+  - name: domain_range
+    value: No pinned Biolink or SIO definition was inspected in this run.
+    definition: 'Explicit edge47 reviewer judgment: domain_range'
+    evidence_ids:
+    - packet-source
+  - name: specificity
+    value: has_attribute describes the reported value; appropriateness for a strain
+      observation remains unresolved.
+    definition: 'Explicit edge47 reviewer judgment: specificity'
+    evidence_ids:
+    - packet-source
+  - name: qualifiers
+    value: The recovered strain, unit, substance, polarity and unknown assay scope
+      are presentation context, not new graph qualifiers.
+    definition: 'Explicit edge47 reviewer judgment: qualifiers'
+    evidence_ids:
+    - packet-source
+- assessment_id: subject-node
+  area: identity
+  topic: Occurrence subject node
+  outcome: unknown
+  summary: The frozen LPSN endpoint and source-strain evidence are retained. Node
+    identity and category evidence must be assessed under versioned authorities before
+    a categorical correctness verdict; discordant NCBI fields remain excluded.
+  target_ids:
+  - urn:kg-microbe:occurrence:v1:358f925d6342994dbe5598a3d3d2cdfafe3ad30028b7305c3cf21242cf3a9b57
+  evidence_ids:
+  - packet-source
+  dimensions:
+  - name: axis
+    value: subject_node
+    definition: 'Explicit edge47 reviewer judgment: axis'
+    evidence_ids:
+    - packet-source
+  - name: category
+    value: UNRESOLVED
+    definition: 'Explicit edge47 reviewer judgment: category'
+    evidence_ids:
+    - packet-source
+  - name: scope
+    value: Exact original edge47 occurrence; no replacement assertion
+    definition: 'Explicit edge47 reviewer judgment: scope'
+    evidence_ids:
+    - packet-source
+  - name: identity
+    value: lpsn:783091 names Weissella halotolerans; source record uses BacDive 6845.
+      Do not substitute discordant CSV NCBI 219301.
+    definition: 'Explicit edge47 reviewer judgment: identity'
+    evidence_ids:
+    - packet-source
+  - name: label
+    value: Retained original label Weissella halotolerans.
+    definition: 'Explicit edge47 reviewer judgment: label'
+    evidence_ids:
+    - packet-source
+  - name: category_fit
+    value: biolink:OrganismTaxon is retained, not independently certified.
+    definition: 'Explicit edge47 reviewer judgment: category_fit'
+    evidence_ids:
+    - packet-source
+  - name: rank_or_type
+    value: LPSN record describes species; BacDive measurement concerns a type strain.
+      Their scopes remain distinct.
+    definition: 'Explicit edge47 reviewer judgment: rank_or_type'
+    evidence_ids:
+    - packet-source
+  - name: definition
+    value: Original node description and complete LPSN record are preserved in the
+      packet; no new species-wide phenotype is asserted.
+    definition: 'Explicit edge47 reviewer judgment: definition'
+    evidence_ids:
+    - packet-source
+  - name: authority_version
+    value: Retained LPSN record declares version 1; formal Biolink category validation
+      is unavailable in this run.
+    definition: 'Explicit edge47 reviewer judgment: authority_version'
+    evidence_ids:
+    - packet-source
+- assessment_id: object-node
+  area: representation
+  topic: Occurrence object node
+  outcome: unknown
+  summary: The original hash attribute denotes a source-field value. A categorical
+    modeling judgment awaits a versioned category and observation-model review.
+  target_ids:
+  - urn:kg-microbe:occurrence:v1:358f925d6342994dbe5598a3d3d2cdfafe3ad30028b7305c3cf21242cf3a9b57
+  evidence_ids:
+  - packet-source
+  dimensions:
+  - name: axis
+    value: object_node
+    definition: 'Explicit edge47 reviewer judgment: axis'
+    evidence_ids:
+    - packet-source
+  - name: category
+    value: UNRESOLVED
+    definition: 'Explicit edge47 reviewer judgment: category'
+    evidence_ids:
+    - packet-source
+  - name: scope
+    value: Exact original edge47 occurrence; no replacement assertion
+    definition: 'Explicit edge47 reviewer judgment: scope'
+    evidence_ids:
+    - packet-source
+  - name: identity
+    value: Exact original source-attribute identifier is preserved in the packet.
+    definition: 'Explicit edge47 reviewer judgment: identity'
+    evidence_ids:
+    - packet-source
+  - name: label
+    value: 'Retained label: reported Salt concentration: 0-10 (source value).'
+    definition: 'Explicit edge47 reviewer judgment: label'
+    evidence_ids:
+    - packet-source
+  - name: category_fit
+    value: biolink:Attribute is retained; a populated category is not proof of appropriate
+      modeling.
+    definition: 'Explicit edge47 reviewer judgment: category_fit'
+    evidence_ids:
+    - packet-source
+  - name: rank_or_type
+    value: Reported source attribute, not a decoded phenotype or chemical entity.
+    definition: 'Explicit edge47 reviewer judgment: rank_or_type'
+    evidence_ids:
+    - packet-source
+  - name: definition
+    value: Original description explicitly excludes a claim that every taxon member
+      has the trait; concentration, percent basis and assay remain separate.
+    definition: 'Explicit edge47 reviewer judgment: definition'
+    evidence_ids:
+    - packet-source
+  - name: authority_version
+    value: No pinned Biolink Attribute definition was inspected; the frozen source-node
+      description is contextual evidence only.
+    definition: 'Explicit edge47 reviewer judgment: authority_version'
+    evidence_ids:
+    - packet-source
+- assessment_id: source-fidelity
+  area: provenance
+  topic: Occurrence source fidelity
+  outcome: supported
+  summary: The exact frozen CSV row reports 0-10 and percent, and the matching BacDive
+    observation reports NaCl, positive growth and reference 119830. This supports
+    the reported-value interpretation, without independently establishing biology.
+  target_ids:
+  - urn:kg-microbe:occurrence:v1:358f925d6342994dbe5598a3d3d2cdfafe3ad30028b7305c3cf21242cf3a9b57
+  evidence_ids:
+  - packet-source
+  dimensions:
+  - name: axis
+    value: source_fidelity
+    definition: 'Explicit edge47 reviewer judgment: axis'
+    evidence_ids:
+    - packet-source
+  - name: category
+    value: SUPPORTED
+    definition: 'Explicit edge47 reviewer judgment: category'
+    evidence_ids:
+    - packet-source
+  - name: scope
+    value: Exact original edge47 occurrence; no replacement assertion
+    definition: 'Explicit edge47 reviewer judgment: scope'
+    evidence_ids:
+    - packet-source
+  - name: source_binding
+    value: Exact occurrence and original endpoints; CSV record 20904 LPSN 783091 to
+      BacDive 6845, literal concentration/unit to halophily @ref 119830. CIP catalogue
+      reference retained; percent basis and assay conditions stay unknown. No join
+      by species name alone.
+    definition: 'Explicit edge47 reviewer judgment: source_binding'
+    evidence_ids:
+    - packet-source
+findings:
+- finding_id: quantity-context
+  issue_key: edge47-joint-measurement-context
+  category: representation
+  severity: minor
+  status: open
+  certainty: confirmed
+  title: Complete source context needs verified integration
+  description: This candidate packet assembles the previously omitted measurement
+    context. Independent acceptance and integration review remain pending; the historical
+    graph and review bytes are unchanged.
+  target_ids:
+  - urn:kg-microbe:occurrence:v1:358f925d6342994dbe5598a3d3d2cdfafe3ad30028b7305c3cf21242cf3a9b57
+  field_paths:
+  - measurement_context
+  evidence_ids:
+  - packet-source
+  owner_paths:
+  - repository: CultureBotAI/EdgeMech
+    path: src/edgemech/occurrence_packet.py
+    role: Source-aware review packet assembly
+  previous_occurrences:
+  - repository: CultureBotAI/EdgeMech
+    review_id: 20261115T081452Z-edge47-salt-source-and-paper
+    finding_id: quantity-context
+  external_issues:
+  - https://github.com/CultureBotAI/EdgeMech/issues/105
+- finding_id: discordant-crosswalk
+  issue_key: microbedecoder-record20904-ncbi-crosswalk
+  category: identity
+  severity: major
+  status: deferred
+  certainty: confirmed
+  title: Excluded NCBI crosswalk still needs maintained-owner reconciliation
+  description: The retained source row includes the unrelated NCBI identity Brachybacterium
+    muris/219301. The packet binds the measurement by LPSN/BacDive identifiers and
+    does not adopt that crosswalk.
+  target_ids:
+  - urn:kg-microbe:occurrence:v1:358f925d6342994dbe5598a3d3d2cdfafe3ad30028b7305c3cf21242cf3a9b57
+  field_paths:
+  - NCBI_Genus
+  - NCBI_Species
+  - NCBI_Taxonomy_ID
+  evidence_ids:
+  - packet-source
+  ownership_note: Upstream MicrobeDecoder/KG-Microbe join owner; exact owner and current
+    remediation require separate investigation.
+  disposition_reason: This canary preserves the exclusion and existing issue; it does
+    not establish an upstream correction.
+  previous_occurrences:
+  - repository: CultureBotAI/EdgeMech
+    review_id: 20261115T081452Z-edge47-salt-source-and-paper
+    finding_id: discordant-crosswalk
+  external_issues:
+  - https://github.com/CultureBotAI/EdgeMech/issues/106
+actions:
+- action_id: verify-context-integration
+  finding_ids:
+  - quantity-context
+  target_ids:
+  - urn:kg-microbe:occurrence:v1:358f925d6342994dbe5598a3d3d2cdfafe3ad30028b7305c3cf21242cf3a9b57
+  description: Independently review and integrate the candidate context presentation
+    before resolving issue 105.
+  owner_paths:
+  - repository: CultureBotAI/EdgeMech
+    path: src/edgemech/occurrence_packet.py
+    role: Maintained packet adapter
+  acceptance_checks:
+  - NaCl, 0-10, %, growth, positive, strain and reference appear together from exact
+    source bindings.
+  - Reject mismatched source, strain, unit and reference records.
+  - Unknown percent basis and assay conditions remain unknown.
+- action_id: retain-crosswalk-exclusion
+  finding_ids:
+  - discordant-crosswalk
+  target_ids:
+  - urn:kg-microbe:occurrence:v1:358f925d6342994dbe5598a3d3d2cdfafe3ad30028b7305c3cf21242cf3a9b57
+  description: Retain the NCBI exclusion pending independent upstream reconciliation
+    of exact row 20904.
+  ownership_note: Upstream join-owner triage is tracked in issue 106.
+  acceptance_checks:
+  - Any proposed replacement has exact source provenance and independent identity
+    verification; regenerated candidate bytes are checked before graph correction
+    is claimed.
+limitations:
+- Self-review canary; no independent scientific agreement or reviewer calibration.
+- The exact original statement is a reported attribute, not an independently verified
+  biological range. No fabricated species-wide interpretation replaces it.
+- Partial GI38 paper evidence does not establish the original source strain's entire
+  0-10% range, percentage basis or assay conditions.
+- Relation, subject-node and object-node judgments remain unresolved pending versioned
+  authority assessment; no graph correction or native admission occurred.
+- Retained evidence only, with zero provider calls. Figure conclusions from the previous
+  review are not represented as newly replayed figure proofs.
+- Private source and full-text bytes remain under ignored .temp; public outputs contain
+  one bounded quotation and identifiers, hashes and locators.
+related_reviews:
+- repository: CultureBotAI/EdgeMech
+  review_id: 20261115T081452Z-edge47-salt-source-and-paper
+  relationship: Adds categorical axes while preserving the prior source and partial-literature
+    scope and unresolved findings.
+links:
+- https://github.com/CultureBotAI/EdgeMech/issues/105
+- https://github.com/CultureBotAI/EdgeMech/issues/106
+- https://doi.org/10.3390/ani14101394
+tags:
+- bounded-canary
+- categorical-assessment
+- source-provenance
+```
