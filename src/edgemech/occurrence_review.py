@@ -8,6 +8,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import re
 import xml.etree.ElementTree as ET
 from pathlib import Path
 
@@ -20,11 +21,12 @@ from kg_microbe_reviews import (
     validate_review,
 )
 
-from .literature_cache import LiteratureCache, full_text, verify_quote
+from .literature_cache import MAX_BYTES, LiteratureCache, abstract_text, full_text, verify_quote
 from .occurrence_packet import validate_packet
 from .pins import check_contracts
 
 PROFILE = "edgemech-occurrence-review/v1"
+PAPER_KINDS = {"jats", "europepmc_abstract"}
 CLAIM = {
     "SUPPORTED_AS_STATED": "supported", "CONTRADICTED_AS_STATED": "concern",
     "CONFLICTING_EVIDENCE": "concern", "INSUFFICIENT_EVIDENCE": "unknown",
@@ -75,6 +77,95 @@ def _pinned(root, pin, inputs):
     return raw
 
 
+def _identifier(value, name, pattern):
+    _require(isinstance(value, str) and re.fullmatch(pattern, value) is not None,
+             f"Invalid primary {name}")
+    return value
+
+
+def _optional_identifier(value, name, pattern):
+    if value is None or value == "":
+        return None
+    return _identifier(value, name, pattern)
+
+
+def _unique_object(pairs):
+    result = {}
+    for key, value in pairs:
+        _require(key not in result, "Duplicate JSON metadata key")
+        result[key] = value
+    return result
+
+
+def _europepmc_abstract(raw, proof):
+    """Bind a MED core result to its primary identifiers before extracting text."""
+    _require(len(raw) <= MAX_BYTES, "Abstract response exceeds bounded input size")
+    _require(proof.get("inspected_extent") == "abstract",
+             "Abstract evidence inspected_extent must be exactly abstract")
+    pmid = _identifier(proof.get("pmid"), "PMID", r"[1-9][0-9]*")
+    try:
+        response = json.loads(raw, object_pairs_hook=_unique_object)
+    except (ValueError, UnicodeDecodeError) as error:
+        raise ReviewError("Malformed Europe PMC core JSON") from error
+    _require(isinstance(response, dict) and isinstance(response.get("resultList"), dict),
+             "Europe PMC core response requires resultList")
+    results = response["resultList"].get("result")
+    _require(isinstance(results, list) and 0 < len(results) <= 1000
+             and all(isinstance(item, dict) for item in results),
+             "Europe PMC core response requires a bounded result list")
+    _require(type(response.get("hitCount")) is int and response["hitCount"] == len(results),
+             "Abstract replay requires a complete, untruncated result list")
+    med_records = []
+    for item in results:
+        _require(isinstance(item.get("source"), str), "Primary result source is malformed")
+        if item["source"] != "MED":
+            continue
+        item_id = _identifier(item.get("id"), "MED identifier", r"[1-9][0-9]*")
+        item_pmid = _identifier(item.get("pmid"), "PMID", r"[1-9][0-9]*")
+        _require(item_id == item_pmid, "Primary MED identifier and PMID disagree")
+        med_records.append(item)
+    matches = [item for item in med_records if item["pmid"] == pmid]
+    _require(len(matches) == 1, "Abstract requires one exact primary MED PMID result")
+    record = matches[0]
+    title = _text(record.get("title"), "primary article title")
+    _require(_text(proof.get("title"), "article title") == title,
+             "Primary article title mismatch")
+    doi_pattern = r"10\.[0-9]{4,9}/[^\s]+"
+    doi = _optional_identifier(record.get("doi"), "DOI", doi_pattern)
+    declared_doi = _optional_identifier(proof.get("doi"), "DOI", doi_pattern)
+    doi = doi.lower() if doi else None
+    declared_doi = declared_doi.lower() if declared_doi else None
+    _require(declared_doi == doi, "Primary article DOI mismatch")
+    pmcid = _optional_identifier(record.get("pmcid"), "PMCID", r"PMC[1-9][0-9]*")
+    if "pmcid" in proof:
+        declared_pmcid = _optional_identifier(proof["pmcid"], "PMCID", r"PMC[1-9][0-9]*")
+        _require(declared_pmcid == pmcid, "Primary PMCID mismatch")
+    identities = {"pmid:" + pmid}
+    if doi:
+        identities.add("doi:" + doi)
+        _require(proof.get("reference") == "https://doi.org/" + doi, "DOI URL mismatch")
+    else:
+        _text(proof.get("missing_doi_reason"), "missing DOI reason")
+        _require(proof.get("reference") == "https://pubmed.ncbi.nlm.nih.gov/" + pmid + "/",
+                 "Missing DOI requires bound PMID URL")
+    if pmcid:
+        identities.add("pmcid:" + pmcid)
+    # Do not choose one conflicting MED record by title after matching a DOI.
+    # Other provider indexes (e.g. PMC) are not selected as MED primary records.
+    for other in med_records:
+        if other is record:
+            continue
+        other_doi = other.get("doi")
+        other_pmcid = other.get("pmcid")
+        _require(not (doi and isinstance(other_doi, str) and other_doi.lower() == doi)
+                 and not (pmcid and other_pmcid == pmcid),
+                 "Ambiguous primary publication aliases in MED results")
+    markup = _text(record.get("abstractText"), "primary abstractText")
+    text = abstract_text(markup)
+    _require(bool(text.strip()), "Primary abstract has no readable text")
+    return text, identities
+
+
 def _jats(raw, proof):
     article = ET.fromstring(raw)
     meta = article.find("./front/article-meta")
@@ -94,17 +185,26 @@ def _jats(raw, proof):
     _require(proof.get("doi", "").lower() == doi, "Primary article DOI mismatch")
     pmc = ids.get("pmc", ids.get("pmcid", "")).removeprefix("PMC")
     _require(pmc.isdigit() and proof["pmcid"] == "PMC" + pmc, "Primary PMCID mismatch")
+    if "pmc" in ids and "pmcid" in ids:
+        _require(ids["pmcid"].removeprefix("PMC") == pmc, "Conflicting primary PMCID aliases")
+    identities = {"pmcid:PMC" + pmc}
+    if ids.get("pmid"):
+        pmid = _identifier(ids["pmid"], "PMID", r"[1-9][0-9]*")
+        identities.add("pmid:" + pmid)
+    if "pmid" in proof:
+        _require(proof["pmid"] == ids.get("pmid"), "Primary PMID mismatch")
     if doi:
+        identities.add("doi:" + doi)
         _require(proof["reference"] == "https://doi.org/" + doi, "DOI URL mismatch")
     else:
         _text(proof.get("missing_doi_reason"), "missing DOI reason")
         _require(proof["reference"] == "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC" + pmc + "/",
                  "Missing DOI requires bound PMCID URL")
-    return full_text(raw, "PMC" + pmc)
+    return full_text(raw, "PMC" + pmc), identities
 
 
 def _budget_quote(groups, identities, quote):
-    """Unite DOI/PMCID aliases across byte-distinct representations (#124)."""
+    """Unite verified DOI/PMID/PMCID aliases across retained representations."""
     related = [group for group in groups if identities & group["identities"]]
     quotes = {quote}
     for group in related:
@@ -144,17 +244,20 @@ def _replay_evidence(root, review, packet_path, packet, sidecar, inputs):
             _require(set(axes) <= {"source_fidelity", "subject_node", "object_node", "relation"},
                      "Copied source content cannot establish independent claim/literature support")
             _require(not item.get("quote"), "Packet evidence is a locator, not a paper quote")
-        elif proof["kind"] in {"jats", "authority"}:
-            if proof["kind"] == "jats":
+        elif proof["kind"] in PAPER_KINDS | {"authority"}:
+            if proof["kind"] in PAPER_KINDS:
                 _require(item["kind"] == "primary_source", "Paper must be primary-source evidence")
                 if {"claim", "literature"} & set(axes):
                     _require({"claim", "literature"} <= set(axes),
                              "Paper claim/literature evidence must bind both axes")
-                text = _jats(raw, proof)
-                kind = "oa_fulltext"
-                identities = {"pmcid:" + proof["pmcid"]}
-                if proof.get("doi"):
-                    identities.add("doi:" + proof["doi"].lower())
+                if proof["kind"] == "europepmc_abstract":
+                    _require(item["locator"].startswith("abstract;"),
+                             "Abstract evidence locator must start with abstract;")
+                    text, identities = _europepmc_abstract(raw, proof)
+                    kind = "abstract"
+                else:
+                    text, identities = _jats(raw, proof)
+                    kind = "oa_fulltext"
             else:
                 _require(item["kind"] == "authority", "Authority proof must identify authority evidence")
                 _text(proof.get("version"), "authority version")
@@ -222,7 +325,7 @@ def validate_occurrence_review(root: Path, review: dict, packet_path: str, proof
         }, "Assessment omits applicable evidence declared for its axis")
         roles = {proof["support"] for proof in linked if proof["scope"] == "exact"}
         if axis == "claim":
-            _require(all(p["kind"] in {"jats", "authority"} for p in linked),
+            _require(all(p["kind"] in PAPER_KINDS | {"authority"} for p in linked),
                      "Claim judgment requires independent literature or authority evidence")
             required = {"SUPPORTED_AS_STATED": {"supports"}, "CONTRADICTED_AS_STATED": {"refutes"},
                         "CONFLICTING_EVIDENCE": {"supports", "refutes"}}.get(category, set())
@@ -230,7 +333,8 @@ def validate_occurrence_review(root: Path, review: dict, packet_path: str, proof
             if category in {"SUPPORTED_AS_STATED", "CONTRADICTED_AS_STATED"}:
                 _require(not {"supports", "refutes"} <= roles, "Opposing exact evidence requires conflict")
         elif axis == "literature":
-            _require(all(p["kind"] == "jats" for p in linked), "Literature requires replayable paper text")
+            _require(all(p["kind"] in PAPER_KINDS for p in linked),
+                     "Literature requires replayable paper text")
             required = {"SUPPORTS": {"supports"}, "REFUTES": {"refutes"},
                         "CONFLICTING": {"supports", "refutes"}}.get(category, set())
             _require(required <= roles, "Literature category lacks exact-scope evidence")

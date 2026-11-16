@@ -11,7 +11,7 @@ from kg_microbe_curation.identity import CurationError
 from kg_microbe_reviews import ReviewError, read_review
 
 from edgemech import occurrence_review as module
-from edgemech.literature_cache import LiteratureCache, full_text, verify_quote
+from edgemech.literature_cache import LiteratureCache, abstract_text, full_text, verify_quote
 from edgemech.occurrence_packet import build_packet
 
 
@@ -151,6 +151,254 @@ def add_authority(case, axis, role, eid):
                 "support": role, "summary": "Synthetic authority", "quote": text,
                 "snapshot_sha256": authority_pin["sha256"]}
     link_proof(case, proof, evidence)
+
+
+def install_abstract(case, *, pmid="456", doi="10.1234/fixture", pmcid=None,
+                     quote="The exact strain was non-motile.", markup=None):
+    """Replace the fixture paper proof with primary-metadata-bound abstract text."""
+    root, review, sidecar = case
+    record = {"id": pmid, "source": "MED", "pmid": pmid, "pmcid": pmcid,
+              "doi": doi, "title": "Fixture study", "abstractText": markup or quote}
+    response = {"version": "fixture", "hitCount": 1, "resultList": {"result": [record]}}
+    abstract_pin = write(root, "abstract.json", response)
+    review["source"]["inputs"].append({**abstract_pin, "role": "Synthetic primary abstract"})
+    document = LiteratureCache._document({"response_sha256": abstract_pin["sha256"]}, "abstract",
+                                         abstract_text(record["abstractText"]))
+    span = verify_quote(document, quote)
+    proof = sidecar["proofs"][0]
+    proof.pop("pmcid", None)
+    reference = "https://doi.org/" + doi if doi else "https://pubmed.ncbi.nlm.nih.gov/" + pmid + "/"
+    proof.update(kind="europepmc_abstract", input=abstract_pin, pmid=pmid, doi=doi,
+                 inspected_extent="abstract", reference=reference,
+                 **{k: span[k] for k in ("text_sha256", "start", "end", "extractor")})
+    if pmcid:
+        proof["pmcid"] = pmcid
+    if not doi:
+        proof["missing_doi_reason"] = "Selected primary record has no DOI"
+    review["evidence"][0].update(reference=reference, quote=quote,
+                               locator=f"abstract; chars {span['start']}:{span['end']}",
+                               snapshot_sha256=abstract_pin["sha256"])
+    repin_sidecar(case)
+    return response
+
+
+@pytest.fixture
+def abstract_case(case):
+    install_abstract(case)
+    return case
+
+
+def test_127_abstract_replays_literal_markup_derivative_without_promoting_scope(case):
+    quote = "The exact strain was non-motile."
+    install_abstract(case, markup="<p>The exact strain was <i>non-motile</i>.</p>", quote=quote)
+    result = validate(case)
+    assert result["verified_quotes"] == 1
+    assert result["assessments"]["claim"] == "INSUFFICIENT_EVIDENCE"
+    assert result["assessments"]["literature"] == "PARTIAL"
+    assert result["kg_admissions"] == 0
+    assert result["native_capability_enabled"] is False
+
+
+@pytest.mark.parametrize(("claim", "literature", "role"), [
+    ("SUPPORTED_AS_STATED", "SUPPORTS", "supports"),
+    ("CONTRADICTED_AS_STATED", "REFUTES", "refutes"),
+])
+def test_127_exact_abstract_role_is_required_for_directional_judgment(abstract_case, claim, literature, role):
+    case = abstract_case
+    category(case[1], "claim", claim)
+    category(case[1], "literature", literature)
+    with pytest.raises(ReviewError, match="exact-scope"):
+        validate(case)
+    case[2]["proofs"][0].update(scope="exact", support=role)
+    case[1]["evidence"][0]["support"] = role
+    repin_sidecar(case)
+    assert validate(case)["assessments"]["claim"] == claim
+
+
+@pytest.mark.parametrize("damage", [
+    "wrong_pmid", "leading_zero_pmid", "numeric_pmid", "wrong_doi", "numeric_doi",
+    "wrong_title", "numeric_title", "wrong_pmcid", "fabricated_pmcid", "wrong_url",
+    "full_text_extent", "full_text_locator", "quote", "span", "extractor", "raw_hash",
+    "claim_axis_only", "literature_axis_only", "authority_kind",
+])
+def test_127_abstract_proof_and_evidence_cannot_misrepresent_primary_text(abstract_case, damage):
+    case = abstract_case
+    proof, evidence = case[2]["proofs"][0], case[1]["evidence"][0]
+    if damage == "wrong_pmid":
+        proof["pmid"] = "789"
+    elif damage == "leading_zero_pmid":
+        proof["pmid"] = "0456"
+    elif damage == "numeric_pmid":
+        proof["pmid"] = 456
+    elif damage == "wrong_doi":
+        proof["doi"] = "10.1234/other"
+    elif damage == "numeric_doi":
+        proof["doi"] = 123
+    elif damage == "wrong_title":
+        proof["title"] = "A different study"
+    elif damage == "numeric_title":
+        proof["title"] = 123
+    elif damage == "wrong_pmcid":
+        proof["pmcid"] = 123
+    elif damage == "fabricated_pmcid":
+        proof["pmcid"] = "PMC123"
+    elif damage == "wrong_url":
+        proof["reference"] = evidence["reference"] = "https://doi.org/10.1234/other"
+    elif damage == "full_text_extent":
+        proof["inspected_extent"] = "full_text"
+    elif damage == "full_text_locator":
+        evidence["locator"] = evidence["locator"].replace("abstract;", "full text;")
+    elif damage == "quote":
+        evidence["quote"] = "An invented observation."
+    elif damage == "span":
+        proof["end"] += 1
+    elif damage == "extractor":
+        proof["extractor"] = "edgemech-literal-text/v1"
+    elif damage == "raw_hash":
+        evidence["snapshot_sha256"] = "0" * 64
+    elif damage == "claim_axis_only":
+        proof["axes"] = ["claim"]
+    elif damage == "literature_axis_only":
+        proof["axes"] = ["literature"]
+    else:
+        evidence["kind"] = "authority"
+    repin_sidecar(case)
+    with pytest.raises((ReviewError, CurationError)):
+        validate(case)
+
+
+@pytest.mark.parametrize("damage", [
+    "wrong_id", "wrong_source", "numeric_pmid", "empty_title", "duplicate_pmid",
+    "duplicate_doi", "duplicate_pmcid", "absent_abstract", "empty_abstract", "markup_only",
+    "abstract_list", "numeric_doi", "numeric_pmcid", "malformed_results", "boolean_hits",
+    "truncated_results", "missing_hits", "oversized_results",
+])
+def test_127_malformed_or_ambiguous_primary_records_fail_even_with_repinned_input(abstract_case, damage):
+    root, review, sidecar = case = abstract_case
+    response = json.loads((root / "abstract.json").read_text())
+    record = response["resultList"]["result"][0]
+    if damage == "wrong_id":
+        record["id"] = "789"
+    elif damage == "wrong_source":
+        record["source"] = "PMC"
+    elif damage == "numeric_pmid":
+        record["pmid"] = 456
+    elif damage == "empty_title":
+        record["title"] = " "
+    elif damage in {"duplicate_pmid", "duplicate_doi", "duplicate_pmcid"}:
+        other = deepcopy(record)
+        other["title"] = "Conflicting duplicate; do not select by title"
+        if damage != "duplicate_pmid":
+            other["id"] = other["pmid"] = "789"
+        if damage == "duplicate_pmcid":
+            record["pmcid"] = other["pmcid"] = "PMC123"
+            other["doi"] = "10.1234/other"
+        response["resultList"]["result"].append(other)
+        response["hitCount"] = 2
+    elif damage == "absent_abstract":
+        del record["abstractText"]
+    elif damage == "empty_abstract":
+        record["abstractText"] = " "
+    elif damage == "markup_only":
+        record["abstractText"] = "<p></p>"
+    elif damage == "abstract_list":
+        record["abstractText"] = ["Not literal primary text"]
+    elif damage == "numeric_doi":
+        record["doi"] = 123
+    elif damage == "numeric_pmcid":
+        record["pmcid"] = 123
+    elif damage == "malformed_results":
+        response["resultList"]["result"] = {"result": record}
+    elif damage == "boolean_hits":
+        response["hitCount"] = True
+    elif damage == "truncated_results":
+        response["hitCount"] = 2
+    elif damage == "missing_hits":
+        del response["hitCount"]
+    else:
+        response["resultList"]["result"] *= 1001
+        response["hitCount"] = 1001
+    updated = write(root, "abstract.json", response)
+    next(i for i in review["source"]["inputs"] if i["path"] == "abstract.json").update(updated)
+    sidecar["proofs"][0]["input"] = updated
+    review["evidence"][0]["snapshot_sha256"] = updated["sha256"]
+    repin_sidecar(case)
+    with pytest.raises(ReviewError):
+        validate(case)
+
+
+def test_127_duplicate_json_keys_and_oversized_raw_response_are_rejected(abstract_case):
+    root, _, sidecar = abstract_case
+    raw = (root / "abstract.json").read_bytes()
+    duplicate = raw.replace(b'"pmid": "456"', b'"pmid": "789", "pmid": "456"')
+    with pytest.raises(ReviewError):
+        module._europepmc_abstract(duplicate, sidecar["proofs"][0])
+    with pytest.raises(ReviewError, match="bounded input size"):
+        module._europepmc_abstract(b" " * (module.MAX_BYTES + 1), sidecar["proofs"][0])
+
+
+def test_127_missing_doi_uses_verified_pmid_and_explicit_reason(case):
+    install_abstract(case, doi="")
+    assert validate(case)["verified_quotes"] == 1
+    del case[2]["proofs"][0]["missing_doi_reason"]
+    repin_sidecar(case)
+    with pytest.raises(ReviewError, match="missing DOI reason"):
+        validate(case)
+    case[2]["proofs"][0]["missing_doi_reason"] = "Absent in retained primary record"
+    case[2]["proofs"][0]["reference"] = "https://pubmed.ncbi.nlm.nih.gov/789/"
+    case[1]["evidence"][0]["reference"] = "https://pubmed.ncbi.nlm.nih.gov/789/"
+    repin_sidecar(case)
+    with pytest.raises(ReviewError, match="bound PMID URL"):
+        validate(case)
+
+
+@pytest.mark.parametrize("alias", ["doi", "pmid", "pmcid", "pmcid_omitted", "distinct"])
+def test_127_abstract_and_jats_share_publication_quote_budget_through_verified_aliases(case, alias):
+    root, review, sidecar = case
+    jats_proof, jats_evidence = deepcopy(sidecar["proofs"][0]), deepcopy(review["evidence"][0])
+    # The JATS's verified PMID is included even when old proofs did not declare it.
+    raw = (root / "paper.xml").read_text().replace(
+        "<title-group>", '<article-id pub-id-type="pmid">456</article-id><title-group>')
+    (root / "paper.xml").write_text(raw)
+    new_pin = pin(root, "paper.xml")
+    next(i for i in review["source"]["inputs"] if i["path"] == "paper.xml").update(new_pin)
+    jats_proof["input"] = new_pin
+    jats_evidence["snapshot_sha256"] = new_pin["sha256"]
+    quote = " ".join("word" + str(i) for i in range(20))
+    install_abstract(case, pmid="456" if alias == "pmid" else "789",
+                     doi="10.1234/fixture" if alias == "doi" else "",
+                     pmcid="PMC123" if alias.startswith("pmcid") else None, quote=quote)
+    if alias == "pmcid_omitted":
+        # Omitting the declared alias cannot hide the verified raw metadata.
+        del sidecar["proofs"][0]["pmcid"]
+    jats_proof["evidence_id"] = jats_evidence["evidence_id"] = "full-paper"
+    link_proof(case, jats_proof, jats_evidence)
+    if alias == "distinct":
+        assert validate(case)["verified_quotes"] == 2
+    else:
+        with pytest.raises(ReviewError, match="25-word excerpt per source"):
+            validate(case)
+
+
+def test_127_abstract_save_readback_replays_retained_input(abstract_case):
+    root, review, _ = abstract_case
+    def git(*args):
+        return subprocess.check_output(["git", "-C", str(root), *args], stderr=subprocess.PIPE).decode().strip()
+    git("init", "-q")
+    git("remote", "add", "origin", "https://github.com/CultureBotAI/EdgeMech.git")
+    git("-c", "user.name=Fixture", "-c", "user.email=fixture@example.invalid",
+        "commit", "--allow-empty", "-qm", "Fixture base")
+    review["source"]["git_revision"] = git("rev-parse", "HEAD")
+    result = module.save_occurrence_review(root, review, "packet.json", "proofs.json")
+    persisted = read_review(root, result["review"])
+    assert result["verified_quotes"] == 1
+    assert persisted["evidence"][0]["locator"].startswith("abstract;")
+    assert (root / result["review"]).stat().st_size > 0
+    with pytest.raises(ReviewError, match="immutable"):
+        module.save_occurrence_review(root, review, "packet.json", "proofs.json")
+    (root / "abstract.json").write_text("changed retained response")
+    with pytest.raises(ReviewError, match="changed"):
+        module.validate_occurrence_review(root, persisted, "packet.json", "proofs.json")
 
 
 def test_partial_evidence_keeps_claim_and_modeling_unresolved(case):
