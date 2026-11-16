@@ -32,7 +32,7 @@ def _write(path, value, *, exclusive=False):
         os.fsync(handle.fileno())
 
 
-def begin_review(root, axis, edge_id, packet_path):
+def begin_review(root, axis, edge_id, packet_path, *, bound_inputs=None):
     """Persist start BEFORE reading the packet; return packet and timer receipt."""
     edge_id = _identity(axis, edge_id)
     root, packet_path = Path(root), Path(packet_path).resolve()
@@ -51,6 +51,12 @@ def begin_review(root, axis, edge_id, packet_path):
     _write(timer, receipt, exclusive=True)
     raw = packet_path.read_bytes()
     receipt["packet_sha256"] = hashlib.sha256(raw).hexdigest()
+    if bound_inputs is not None:
+        receipt["bound_inputs"] = [
+            {"path": str(Path(path).resolve()),
+             "sha256": hashlib.sha256(Path(path).read_bytes()).hexdigest()}
+            for path in bound_inputs
+        ]
     _write(timer, receipt)
     return {"timer": receipt, "packet": json.loads(raw)}
 
@@ -66,6 +72,10 @@ def finish_review(root, axis, edge_id, decision):
     raw = Path(receipt["packet_path"]).read_bytes()
     if hashlib.sha256(raw).hexdigest() != receipt["packet_sha256"]:
         raise ValueError("Review packet changed after reading began")
+    for item in receipt.get("bound_inputs", []):
+        path = Path(item["path"])
+        if not path.is_file() or hashlib.sha256(path.read_bytes()).hexdigest() != item["sha256"]:
+            raise ValueError("Bound review input changed after reading began")
     destination = root / "decisions" / axis / f"{edge_id}.json"
     _write(destination, decision, exclusive=True)
     stopped = time.monotonic_ns()
