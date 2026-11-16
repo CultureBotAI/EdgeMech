@@ -33,10 +33,21 @@ a corrected graph, behavior under concurrent workers, or coverage beyond this
 already retained occurrence. The ten-case calibration selection/thresholds and
 the real correction-verification demonstration remain pending.
 
-To replay while the retained private inputs are present, from the worktree:
+The first PR review filed #121–#124 before fixing missing evidence accounting,
+one-sided modeling judgments under opposing evidence, frozen-assertion binding,
+and per-publication quotation budgeting. The original bundle remains unchanged.
+A **fresh canary at 2026-11-16T02:55:53Z** passed the corrected implementation
+through the same launcher, with `--staging
+.temp/occurrence-canary-edge47-120-fixed-20261115` for both plan and live modes.
+Its [immutable review](../../reviews/structured/20261116T025553Z-edge47-occurrence-profile/review.md)
+retains the same six judgments, two evidence items, one quotation, and zero
+provider calls/admissions. This is a repeated review of the same occurrence,
+not an increase in population coverage.
+
+To replay the corrected canary while its retained private inputs are present:
 
 ```sh
-python -m edgemech.occurrence_review check --review reviews/structured/20261116T025024Z-edge47-occurrence-profile/review.yaml --packet .temp/occurrence-canary-edge47-20261115/packet.json --proofs .temp/occurrence-canary-edge47-20261115/proofs.json
+PYTHONPATH=src python -m edgemech.occurrence_review check --review reviews/structured/20261116T025553Z-edge47-occurrence-profile/review.yaml --packet .temp/occurrence-canary-edge47-120-fixed-20261115/packet.json --proofs .temp/occurrence-canary-edge47-120-fixed-20261115/proofs.json
 ```
 
 The review pins its implementation inputs as observed at execution. If those

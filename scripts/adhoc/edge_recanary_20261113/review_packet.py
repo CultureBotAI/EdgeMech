@@ -12,6 +12,7 @@ import re
 import sys
 from pathlib import Path
 
+from organism_targeting import claim_identity
 from review_clock import begin_review, finish_review
 
 ROOT = Path(__file__).resolve().parents[3]
@@ -86,6 +87,9 @@ def main():
         validate_packet(context, root=ROOT)
         if context['occurrence_id'] != row['occurrence_id']:
             parser.error('complete occurrence packet belongs to another selected edge')
+        if claim_identity(context['original_occurrence']) != claim_identity(row):
+            parser.error('complete occurrence packet differs from the selected frozen assertion '
+                         'or endpoint records')
     if args.action == 'begin':
         path = args.retrieval / 'packets' / (hashlib.sha256(row['occurrence_id'].encode()).hexdigest() + '.json')
         raw = path.read_bytes()

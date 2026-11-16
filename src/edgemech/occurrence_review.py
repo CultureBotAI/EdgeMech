@@ -103,12 +103,25 @@ def _jats(raw, proof):
     return full_text(raw, "PMC" + pmc)
 
 
+def _budget_quote(groups, identities, quote):
+    """Unite DOI/PMCID aliases across byte-distinct representations (#124)."""
+    related = [group for group in groups if identities & group["identities"]]
+    quotes = {quote}
+    for group in related:
+        identities |= group["identities"]
+        quotes |= group["quotes"]
+        groups.remove(group)
+    _require(sum(len(value.split()) for value in quotes) <= 25,
+             "Quotes exceed bounded 25-word excerpt per source")
+    groups.append({"identities": identities, "quotes": quotes})
+
+
 def _replay_evidence(root, review, packet_path, packet, sidecar, inputs):
     _require(sidecar.get("profile") == PROFILE, "Evidence profile mismatch")
     _require(sidecar.get("occurrence_id") == packet["occurrence_id"],
              "Evidence belongs to another occurrence")
     proofs = {}
-    quotes_by_source = {}
+    quotation_groups = []
     evidence = {item["evidence_id"]: item for item in review["evidence"]}
     for proof in sidecar["proofs"]:
         eid = proof["evidence_id"]
@@ -134,20 +147,24 @@ def _replay_evidence(root, review, packet_path, packet, sidecar, inputs):
         elif proof["kind"] in {"jats", "authority"}:
             if proof["kind"] == "jats":
                 _require(item["kind"] == "primary_source", "Paper must be primary-source evidence")
+                if {"claim", "literature"} & set(axes):
+                    _require({"claim", "literature"} <= set(axes),
+                             "Paper claim/literature evidence must bind both axes")
                 text = _jats(raw, proof)
                 kind = "oa_fulltext"
+                identities = {"pmcid:" + proof["pmcid"]}
+                if proof.get("doi"):
+                    identities.add("doi:" + proof["doi"].lower())
             else:
                 _require(item["kind"] == "authority", "Authority proof must identify authority evidence")
                 _text(proof.get("version"), "authority version")
                 _require("literature" not in axes, "Authority evidence is not experimental literature")
                 text, kind = raw.decode("utf-8"), "authority_text"
+                identities = {"authority:" + proof["reference"] + "#" + proof["version"]}
             document = LiteratureCache._document(
                 {"response_sha256": _digest(raw)}, kind, text)
             quote = verify_quote(document, item.get("quote"))
-            source_quotes = quotes_by_source.setdefault(_digest(raw), set())
-            source_quotes.add(quote["quote"])
-            _require(sum(len(value.split()) for value in source_quotes) <= 25,
-                     "Quotes exceed bounded 25-word excerpt per source")
+            _budget_quote(quotation_groups, identities, quote["quote"])
             for field in ("text_sha256", "start", "end", "extractor"):
                 _require(proof.get(field) == quote[field], f"Quote proof mismatch: {field}")
             _require(f"chars {quote['start']}:{quote['end']}" in item["locator"],
@@ -200,6 +217,9 @@ def validate_occurrence_review(root: Path, review: dict, packet_path: str, proof
             _require(review["completion"] != "completed", "Completed reviews cannot contain unassessed axes")
         linked = [proofs[eid] for eid in assessment["evidence_ids"]]
         _require(all(axis in proof["axes"] for proof in linked), "Evidence is bound to another axis")
+        _require(set(assessment["evidence_ids"]) == {
+            eid for eid, proof in proofs.items() if axis in proof["axes"]
+        }, "Assessment omits applicable evidence declared for its axis")
         roles = {proof["support"] for proof in linked if proof["scope"] == "exact"}
         if axis == "claim":
             _require(all(p["kind"] in {"jats", "authority"} for p in linked),
@@ -222,11 +242,19 @@ def validate_occurrence_review(root: Path, review: dict, packet_path: str, proof
                 _require(not linked, "Evidence absence/inapplicability cannot conceal linked paper text")
         elif category in {"CORRECT", "INCORRECT"}:
             role = "supports" if category == "CORRECT" else "refutes"
+            authority_roles = {p["support"] for p in linked
+                               if p["kind"] == "authority" and p["scope"] == "exact"}
+            _require(not {"supports", "refutes"} <= authority_roles,
+                     "Opposing exact modeling authorities require UNRESOLVED")
             _require(any(p["kind"] == "authority" and p["scope"] == "exact"
                          and p["support"] == role for p in linked),
                      "Resolved modeling judgment requires versioned authority evidence")
         elif axis == "source_fidelity" and category in {"SUPPORTED", "CONTRADICTED"}:
             role = "supports" if category == "SUPPORTED" else "refutes"
+            source_roles = {p["support"] for p in linked
+                            if p["kind"] == "packet" and p["scope"] == "exact"}
+            _require(not {"supports", "refutes"} <= source_roles,
+                     "Opposing exact source evidence requires NOT_ASSESSABLE")
             _require(any(p["kind"] == "packet" and p["support"] == role for p in linked),
                      "Source judgment requires packet evidence with a matching support role")
         axes[axis] = category

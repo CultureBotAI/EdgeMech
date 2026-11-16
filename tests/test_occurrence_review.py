@@ -120,6 +120,39 @@ def repin_sidecar(case):
     next(i for i in review["source"]["inputs"] if i["path"] == p["path"]).update(p)
 
 
+def link_proof(case, proof, evidence):
+    case[2]["proofs"].append(proof)
+    case[1]["evidence"].append(evidence)
+    for assessment in case[1]["assessments"]:
+        axis = next(d["value"] for d in assessment["dimensions"] if d["name"] == "axis")
+        if axis in proof["axes"]:
+            assessment["evidence_ids"] = [*assessment["evidence_ids"], proof["evidence_id"]]
+            for dim in assessment["dimensions"]:
+                dim["evidence_ids"] = list(assessment["evidence_ids"])
+    repin_sidecar(case)
+
+
+def add_authority(case, axis, role, eid):
+    root, review, _ = case
+    text = "Synthetic authority assertion about the exact model."
+    path = eid + ".txt"
+    (root / path).write_text(text)
+    authority_pin = pin(root, path)
+    review["source"]["inputs"].append({**authority_pin, "role": "Synthetic authority"})
+    span = verify_quote(LiteratureCache._document(
+        {"response_sha256": authority_pin["sha256"]}, "authority_text", text), text)
+    proof = {"evidence_id": eid, "kind": "authority", "input": authority_pin,
+             "scope": "exact", "scope_rationale": "Exact synthetic model", "support": role,
+             "inspected_extent": "Whole fixture", "axes": [axis], "version": "v1",
+             "reference": "https://example.invalid/" + eid,
+             **{k: span[k] for k in ("text_sha256", "start", "end", "extractor")}}
+    evidence = {"evidence_id": eid, "kind": "authority", "reference": proof["reference"],
+                "locator": f"chars {span['start']}:{span['end']}", "accessed_at": "2000-01-01T00:00:00Z",
+                "support": role, "summary": "Synthetic authority", "quote": text,
+                "snapshot_sha256": authority_pin["sha256"]}
+    link_proof(case, proof, evidence)
+
+
 def test_partial_evidence_keeps_claim_and_modeling_unresolved(case):
     receipt = validate(case)
     assert receipt["assessments"]["claim"] == "INSUFFICIENT_EVIDENCE"
@@ -146,6 +179,102 @@ def test_exact_authored_scope_requires_corresponding_replayed_role(case, claim, 
     case[2]["proofs"][0].update(scope="exact", support=role)
     repin_sidecar(case)
     assert validate(case)["assessments"]["claim"] == claim
+
+
+def test_121_paper_applicability_cannot_be_removed_to_hide_opposition(case):
+    case[2]["proofs"][0]["axes"] = ["literature"]
+    repin_sidecar(case)
+    with pytest.raises(ReviewError, match="both axes"):
+        validate(case)
+
+
+def test_121_evidence_absence_cannot_drop_an_applicable_paper(case):
+    assessment = category(case[1], "literature", "NO_MATCH")
+    assessment["evidence_ids"] = []
+    for dimension in assessment["dimensions"]:
+        dimension["evidence_ids"] = []
+    with pytest.raises(ReviewError, match="omits applicable evidence"):
+        validate(case)
+
+
+def test_121_exact_refuting_paper_cannot_be_omitted_from_supported_claim(case):
+    category(case[1], "claim", "SUPPORTED_AS_STATED")
+    category(case[1], "literature", "CONFLICTING")
+    case[1]["evidence"][0]["support"] = "supports"
+    case[2]["proofs"][0].update(scope="exact", support="supports")
+    proof, evidence = deepcopy(case[2]["proofs"][0]), deepcopy(case[1]["evidence"][0])
+    proof.update(evidence_id="opposition", support="refutes")
+    evidence.update(evidence_id="opposition", support="refutes")
+    link_proof(case, proof, evidence)
+    claim = category(case[1], "claim", "SUPPORTED_AS_STATED")
+    claim["evidence_ids"] = ["paper"]
+    for dim in claim["dimensions"]:
+        dim["evidence_ids"] = ["paper"]
+    with pytest.raises(ReviewError, match="omits applicable evidence"):
+        validate(case)
+    claim["evidence_ids"] = ["paper", "opposition"]
+    with pytest.raises(ReviewError, match="requires conflict"):
+        validate(case)
+    category(case[1], "claim", "CONFLICTING_EVIDENCE")
+    assert validate(case)["assessments"]["claim"] == "CONFLICTING_EVIDENCE"
+
+
+@pytest.mark.parametrize("axis", ["relation", "subject_node", "object_node"])
+@pytest.mark.parametrize("verdict", ["CORRECT", "INCORRECT"])
+def test_122_opposing_model_authorities_require_unresolved(case, axis, verdict):
+    add_authority(case, axis, "supports", "authority-support")
+    add_authority(case, axis, "refutes", "authority-opposition")
+    category(case[1], axis, verdict)
+    with pytest.raises(ReviewError, match="require UNRESOLVED"):
+        validate(case)
+    category(case[1], axis, "UNRESOLVED")
+    assert validate(case)["assessments"][axis] == "UNRESOLVED"
+
+
+def test_122_opposing_source_proofs_cannot_resolve_one_way(case):
+    proof, evidence = deepcopy(case[2]["proofs"][1]), deepcopy(case[1]["evidence"][1])
+    proof.update(evidence_id="source-opposition", support="refutes")
+    evidence.update(evidence_id="source-opposition", support="refutes")
+    link_proof(case, proof, evidence)
+    with pytest.raises(ReviewError, match="requires NOT_ASSESSABLE"):
+        validate(case)
+    category(case[1], "source_fidelity", "NOT_ASSESSABLE")
+    assert validate(case)["assessments"]["source_fidelity"] == "NOT_ASSESSABLE"
+
+
+@pytest.mark.parametrize("identity", ["same", "doi_only", "pmcid_only", "distinct"])
+def test_124_quotation_budget_joins_publication_aliases_across_raw_bytes(case, identity):
+    root, review, sidecar = case
+    extra_quote = " ".join("word" + str(i) for i in range(20))
+    raw = (root / "paper.xml").read_text().replace("</sec>", f"<p>{extra_quote}</p></sec>")
+    doi, pmcid = "10.1234/fixture", "PMC123"
+    if identity in {"doi_only", "distinct"}:
+        raw = raw.replace('pub-id-type="pmc">123', 'pub-id-type="pmc">124')
+        pmcid = "PMC124"
+    if identity == "distinct":
+        raw = raw.replace("10.1234/fixture", "10.1234/other")
+        doi = "10.1234/other"
+    elif identity == "pmcid_only":
+        raw = raw.replace('<article-id pub-id-type="doi">10.1234/fixture</article-id>', '')
+        doi = ""
+    (root / "paper2.xml").write_text(raw)
+    new_pin = pin(root, "paper2.xml")
+    review["source"]["inputs"].append({**new_pin, "role": "Second retained representation"})
+    span = verify_quote(LiteratureCache._document({"response_sha256": new_pin["sha256"]},
+                                                 "oa_fulltext", full_text(raw.encode(), pmcid)), extra_quote)
+    proof, evidence = deepcopy(sidecar["proofs"][0]), deepcopy(review["evidence"][0])
+    url = ("https://doi.org/" + doi if doi else "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC123/")
+    proof.update(evidence_id="paper2", input=new_pin, doi=doi, pmcid=pmcid, reference=url,
+                 missing_doi_reason="No DOI in this retained representation",
+                 **{k: span[k] for k in ("text_sha256", "start", "end", "extractor")})
+    evidence.update(evidence_id="paper2", reference=url, quote=extra_quote,
+                    locator=f"chars {span['start']}:{span['end']}", snapshot_sha256=new_pin["sha256"])
+    link_proof(case, proof, evidence)
+    if identity == "distinct":
+        assert validate(case)["verified_quotes"] == 2
+    else:
+        with pytest.raises(ReviewError, match="25-word excerpt per source"):
+            validate(case)
 
 
 def test_missing_doi_requires_explicit_reason_and_verified_alternate(case):

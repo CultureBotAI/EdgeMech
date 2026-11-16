@@ -64,6 +64,8 @@ For new legacy timed reviews, `review_packet.py begin` requires
 `--occurrence-packet`. The displayed context is snapshotted and bound to the
 timer; excerpts and finish replay it. Historical snapshots remain unchanged and
 explicitly report unavailable context when they lack that companion.
+The companion's complete public occurrence/node projection must also match the
+selected frozen row; matching only its occurrence ID is insufficient (#123).
 
 ## Evidence replay and limits
 
@@ -89,6 +91,11 @@ this implementation makes no new full-text requests. Positive or refuting claim
 judgments require exact-scope independent evidence of the corresponding role;
 conflict requires both. Partial or another-strain evidence cannot satisfy these
 gates. Resolved modeling requires corresponding versioned authority evidence.
+Every axis consumes all proofs declaring its applicability; paper evidence used
+for claim or literature binds both axes (#121). Opposing exact modeling
+authorities require `UNRESOLVED`, and opposing source proofs require
+`NOT_ASSESSABLE` (#122). The 25-word quotation budget groups verified DOI/PMCID
+aliases across raw representations of the same publication (#124).
 
 Full paper bodies and raw source packets are private. Public canonical reviews
 contain bounded quotations, references, hashes, locators, assessments, findings
@@ -102,10 +109,10 @@ replay cannot be reported as passed.
 From the repository root with the pinned Python environment:
 
 ```sh
-python -m edgemech check-contracts
-python -m edgemech.occurrence_review validate --review .temp/review.json --packet .temp/packet.json --proofs .temp/proofs.json
-python -m edgemech.occurrence_review save --review .temp/review.json --packet .temp/packet.json --proofs .temp/proofs.json
-python -m edgemech.occurrence_review check --review reviews/structured/REVIEW_ID/review.yaml --packet .temp/packet.json --proofs .temp/proofs.json
+PYTHONPATH=src python -m edgemech check-contracts
+PYTHONPATH=src python -m edgemech.occurrence_review validate --review .temp/review.json --packet .temp/packet.json --proofs .temp/proofs.json
+PYTHONPATH=src python -m edgemech.occurrence_review save --review .temp/review.json --packet .temp/packet.json --proofs .temp/proofs.json
+PYTHONPATH=src python -m edgemech.occurrence_review check --review reviews/structured/REVIEW_ID/review.yaml --packet .temp/packet.json --proofs .temp/proofs.json
 ```
 
 Save uses CLAW's immutable YAML/Markdown publication, reads the saved pair, then

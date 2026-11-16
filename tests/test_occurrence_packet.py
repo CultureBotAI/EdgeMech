@@ -223,3 +223,85 @@ def test_timed_review_refuses_context_changed_after_begin(tmp_path, damage):
     with pytest.raises(ValueError, match="Bound review input changed"):
         clock.finish_review(tmp_path / "reviews", "scientific", "47", {"decision": "unknown"})
     assert not (tmp_path / "reviews/decisions/scientific/47.json").exists()
+
+
+@pytest.fixture
+def packet_cli(inputs, monkeypatch):
+    """Invoke the real parser, frozen-row selector and timer with private fixture files."""
+    root, source = inputs
+    # Unknown adapter avoids coupling these CLI identity cases to salt extraction.
+    source["edge"]["origin_transform"] = "fixture/edges.tsv"
+    source["edge"]["canary_ordinal"] = 47
+    directory = Path(__file__).resolve().parents[1] / "scripts/adhoc/edge_recanary_20261113"
+    monkeypatch.syspath_prepend(str(directory))
+    spec = importlib.util.spec_from_file_location("frozen_bound_review_packet", directory / "review_packet.py")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    monkeypatch.setattr(module, "ROOT", root)
+    artifacts = root / "artifacts/edge-recanary-20261113"
+    artifacts.mkdir(parents=True)
+    frozen = module.claim_identity(source["edge"])
+    (artifacts / "canary.jsonl").write_text(json.dumps(frozen) + "\n")
+    retrieval = root / "retrieval/packets"
+    retrieval.mkdir(parents=True)
+    name = hashlib.sha256(source["edge"]["occurrence_id"].encode()).hexdigest() + ".json"
+    (retrieval / name).write_text('{"primary": [], "fallback": []}')
+
+    def run(action):
+        argv = ["review_packet.py", action, "--root", str(root / "reviews"),
+                "--retrieval", str(retrieval.parent), "--edge", "47"]
+        if action == "begin":
+            argv += ["--occurrence-packet", str(root / "complete-packet.json")]
+        if action == "finish":
+            argv += ["--decision-json", '{"verdict": "NOT_ASSESSABLE"}']
+        monkeypatch.setattr(sys, "argv", argv)
+        module.main()
+
+    return root, source, run
+
+
+@pytest.mark.parametrize("action", ["begin", "excerpts", "finish"])
+@pytest.mark.parametrize("damage", ["subject", "predicate", "object", "subject_category",
+                                    "object_category", "subject_node", "object_node"])
+def test_legacy_cli_rejects_coherently_repinned_context_with_same_occurrence_id(
+        packet_cli, action, damage):
+    root, source, run = packet_cli
+    original = persist(root, source)
+    (root / "complete-packet.json").write_text(json.dumps(original))
+    if action != "begin":
+        run("begin")
+    if damage in {"subject", "object"}:
+        source["edge"][damage] = "other:identifier"
+        source["edge"]["original_" + damage + "_node"]["id"] = "other:identifier"
+    elif damage.endswith("_node"):
+        # Change a public node field, leaving its endpoint ID and all pins consistent.
+        source["edge"]["original_" + damage]["name"] = "Coherently altered node label"
+    else:
+        source["edge"][damage] = "other:semantic_value"
+    changed = persist(root, source)
+    assert changed["occurrence_id"] == original["occurrence_id"]
+    validate_packet(changed, root=root)  # Internal replay alone deliberately succeeds.
+    target = (root / "complete-packet.json" if action == "begin"
+              else root / "reviews/snapshots/context/47.json")
+    target.write_text(json.dumps(changed))
+    before = {str(path.relative_to(root)): path.read_bytes()
+              for path in (root / "reviews").rglob("*") if path.is_file()}
+    with pytest.raises(SystemExit, match="2"):
+        run(action)
+    after = {str(path.relative_to(root)): path.read_bytes()
+             for path in (root / "reviews").rglob("*") if path.is_file()}
+    assert after == before
+    assert not (root / "reviews/decisions/scientific/47.json").exists()
+
+
+def test_legacy_cli_accepts_complete_private_nodes_matching_frozen_public_projection(packet_cli):
+    root, source, run = packet_cli
+    packet = persist(root, source)
+    (root / "complete-packet.json").write_text(json.dumps(packet))
+    run("begin")
+    run("excerpts")
+    run("finish")
+    decision = json.loads((root / "reviews/decisions/scientific/47.json").read_text())
+    assert decision["occurrence_id"] == source["edge"]["occurrence_id"]
+    assert decision["occurrence_packet_sha256"] == hashlib.sha256(
+        (root / "reviews/snapshots/context/47.json").read_bytes()).hexdigest()
