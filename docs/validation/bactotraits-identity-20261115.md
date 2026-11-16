@@ -86,7 +86,7 @@ over unreviewed rows.
 
 The real single-row transform replay reproduced 21 assertions and 22 nodes on
 baseline `ef27b97a`, including the exact reviewed nonmotility assertion. Candidate
-`e24d58bf2` emitted zero assertions and nodes, and one mandatory quarantine audit
+`9c1fb3633` emitted zero assertions and nodes, and one mandatory quarantine audit
 containing the complete original row, original mapped identity, actual slice
 ordinal 1, reviewed ordinal 8521 and policy/source hashes. This demonstrates a
 bounded producer correction before source finalization. There were no unaffected
@@ -94,30 +94,43 @@ real rows in the slice; a separate synthetic-control regression tests their
 retention. No replacement taxon or phenotype values were inferred.
 
 The same launcher and input bytes were used for both runs, including the actual
-BacDive lookup and METPO templates. NCBITaxon labels came from existing read-only
+BacDive lookup, METPO templates and URI prefix registry. NCBITaxon labels came from existing read-only
 database statements; the DB and OWL release agreed at `2026-07-12`. The launcher
 pins the queried statements and database metadata, not a whole-database hash.
 Neither run made provider calls. The first baseline attempt was stopped by the
 stage-only guard on an import-time cache write; [KG-Microbe #1866](https://github.com/Knowledge-Graph-Hub/kg-microbe/issues/1866)
-records the fix and fresh-process regression before the successful v2 replays.
+records the fix and fresh-process regression before the successful replays.
 The original failed stage remains preserved.
 
+Separate launcher review found that the v2 receipts omitted the consumed prefix
+registry, filed as [KG-Microbe #1868](https://github.com/Knowledge-Graph-Hub/kg-microbe/issues/1868).
+The corrected launcher stages and pins that registry, binds input equality,
+routes actual URI conversion through it before producer construction, and checks
+original and staged inputs before and after execution. Five focused launcher
+regressions passed, followed by fresh v3 baseline and candidate runs. Both
+registry copies have SHA256
+`a11f11fc43db2d3d0ffd74aca08fbc1da08033074b355ef2e0a1d6d547c29762`.
+The v2 receipts remain unchanged as superseded evidence; they are not relabeled
+as complete input-equivalence proof. The obsolete owner's final gate was
+interrupted after the finding and retained with exit 2, not counted as passing.
+
 Private stages in the owner worktree are
-`data/validation-bactotraits-130/baseline-v2-20261116/` and
-`candidate-v2-20261116/`. Their receipt SHA256 values are
-`588f3e50352232036ce517616add423e0a7c08b760894f8edb05ac854f697633` and
-`d96f5b004961df31b91a82971122b15a6d969b8c2570edb1faabde4fde885dac`.
+`data/validation-bactotraits-130/baseline-v3-20261116/` and
+`candidate-v3-20261116/`. Their receipt SHA256 values are
+`0000d1fd631d4bbfddf1d4d378824485911435c7a0fa162c939cbfb55ce2556d` and
+`f33f8387be6518514ebcde34b56687947d64897484db8abc3c72f889745c6599`.
 The launcher SHA256 is
-`d058e94408498c047a4d086c8f363b8c5bdbc7b98ce083a7bd5712f333c69c86`.
-See the [owner replay report](https://github.com/Knowledge-Graph-Hub/kg-microbe/blob/df6bc8d581ac88b2924cc6e81b4fc77b39d7dbe1/docs/BACTOTRAITS_IDENTITY_QUARANTINE.md)
+`060d7e4dbb6189051f989a4a9efbf55336408e4224ecba5a4975e710538ea90e`.
+See the [owner replay report](https://github.com/Knowledge-Graph-Hub/kg-microbe/blob/a86c63e778ebf8a646abb9d4d9e0718dfd49f5a0/docs/BACTOTRAITS_IDENTITY_QUARANTINE.md)
 for the implementation boundary and retained evidence.
 
 A separate reviewer who authored neither the transform nor launcher inspected
 the saved TSVs and audit directly, recomputed receipt/output/policy/original
-source/lookup hashes, compared input slices byte-for-byte with each other and the
-original records, and independently confirmed data-row ordinal 8521. The review
-passed at owner head `df6bc8d581ac88b2924cc6e81b4fc77b39d7dbe1` with no findings;
-its code is unchanged from replay candidate `e24d58bf2` (the intervening change
+source/lookup/registry hashes, compared input slices byte-for-byte with each other and the
+original records, and independently confirmed data-row ordinal 8521. The v3 byte
+inspection passed with no findings. Owner head
+`a86c63e778ebf8a646abb9d4d9e0718dfd49f5a0`
+has unchanged code from replay candidate `9c1fb3633` (the intervening change
 adds the replay report). The reviewer also checked private-stage permissions and
 left all evidence unchanged. This supplies the bounded candidate-byte correction
 demonstration required by [#119](https://github.com/CultureBotAI/EdgeMech/issues/119).
