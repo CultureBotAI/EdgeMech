@@ -285,7 +285,7 @@ def test_fetch_to_staging_writes_pdf_to_temp(tmp_path, monkeypatch):
         def __exit__(self, *args):
             return False
 
-    monkeypatch.setattr(fa.urllib.request, "urlopen", lambda req, timeout=30: FakeResp())
+    monkeypatch.setattr(fa, "_open_http", lambda req, timeout=30: FakeResp())
     dest = tmp_path / ".temp" / "fulltext" / "10.1038_test.pdf"
     ok, msg = fa.fetch_to_staging("https://example.org/paper.pdf", dest)
     assert ok is True
