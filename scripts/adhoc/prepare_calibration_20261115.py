@@ -284,6 +284,11 @@ def check_case(root, archive, case_id):
     require(read(directory / "source.json") == encoded(source),
             "Prepared source differs from retained derivation")
     packet = json.loads(read(directory / "packet.json"))
+    expected_packet = build_packet(
+        occurrence, source,
+        occurrence_input=pin(root, PRIVATE / case_id / "occurrence.json"),
+        source_input=pin(root, PRIVATE / case_id / "source.json"), root=root)
+    require(packet == expected_packet, "Packet differs from frozen case-local inputs")
     result = validate_packet(packet, root=root)
     require(receipt["validation"] == result, "Receipt validation differs")
     require(receipt.get("scientific_status") == "unassessed"

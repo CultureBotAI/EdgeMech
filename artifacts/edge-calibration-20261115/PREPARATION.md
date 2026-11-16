@@ -13,14 +13,14 @@ Public input pins:
 
 - Cohort: `1dc756b0ba628756baf544cacf36f0a1ab2e4c68eed6724ee281205f22d606ee`.
 - Protocol: `d24b9e1e9833d70407bf06a04ae6c0ff92f5564149a3b51e6402e5416e866517`.
-- Packet helper: `4f2feb0fdb57c341901ae84fab12f5b34a709f36e0d444e6db3c3a4042b91c55`.
+- Packet helper: `0a62014d3fae61bbd6506197bf44be807633c11b53f45f5b2d44661fcb21195a`.
 
 `--freeze` wrote the public cohort; `--plan` checked all ten retained bindings
 without writes. The real `--prepare fresh-47` canary persisted occurrence,
 source, complete packet and receipt files, then `--check fresh-47` independently
 reread them. The nonempty files had mode 0600 beneath a 0700 directory.
 Canary receipt SHA-256:
-`76508edecc17344ef09818f00338eb3c8583c98959511b8384d896757ce0751b`.
+`496716051460bbe69913d9bd4dc046de5dac02067f6c7e5d9b78d2be2a079556`.
 
 Only after that replay did nine separate `--prepare CASE` invocations prepare
 the remaining cases. Every invocation replayed the unchanged canary and its own
@@ -29,6 +29,24 @@ persisted packet before returning. All freeze/plan/prepare/check commands exited
 used throughout. This proves the local source-preparation path; it does not
 exercise a scientific-review worker, external services, concurrent writes or
 provider behavior.
+
+This is the corrected run after adversarial finding
+[#129](https://github.com/CultureBotAI/EdgeMech/issues/129). Both reviewers found
+that a valid packet from another case could pass the old checker if its receipt
+hash and validation result were also replaced. No such corruption was observed
+in the retained run. The corrected checker reconstructs and compares the entire
+packet against the selected case's exact input pins. Two substitution regressions
+failed on the old code and passed after the fix.
+
+The original 40 preparation files were moved intact to
+`.temp/edge-calibration-20261115-before-129/`; all 40 hashes passed verification
+against its `SHA256SUMS`. Their historical canary receipt hash is
+`76508edecc17344ef09818f00338eb3c8583c98959511b8384d896757ce0751b`, and their helper
+version is retained in commit `b307f482c7f6a196be089f7e209e22f0f6c152de`.
+Restore that historical code and original relative staging location to replay
+the old run. A new plan, one corrected live canary and its separate replay
+preceded all nine subsequent corrected preparations. The protocol, cohort and
+all ten packet hashes remained unchanged; the helper and receipts changed.
 
 Private paths are `.temp/edge-calibration-20261115/CASE/`. Each contains
 `occurrence.json`, `source.json`, `packet.json` and `receipt.json`. Receipts bind

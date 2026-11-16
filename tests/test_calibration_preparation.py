@@ -159,6 +159,29 @@ def test_recomputed_artifact_hash_cannot_hide_changed_source(preparation):
         module.check_case(root, archive, module.CANARY)
 
 
+@pytest.mark.parametrize("recipient,donor", [
+    ("first-01", "fresh-47"),
+    ("fresh-47", "first-01"),
+])
+def test_other_case_valid_packet_cannot_replace_selected_packet(preparation, recipient, donor):
+    """Issue #129: a valid foreign packet is not evidence for this receipt's case."""
+    module, root, archive = preparation
+    module.prepare(root, archive, module.CANARY)
+    module.prepare(root, archive, "first-01")
+    directory = root / module.PRIVATE / recipient
+    foreign_raw = (root / module.PRIVATE / donor / "packet.json").read_bytes()
+    foreign_packet = json.loads(foreign_raw)
+    foreign_validation = module.validate_packet(foreign_packet, root=root)
+    (directory / "packet.json").write_bytes(foreign_raw)
+    receipt = json.loads((directory / "receipt.json").read_bytes())
+    assert receipt["occurrence_id"] != foreign_validation["occurrence_id"]
+    receipt["artifacts"]["packet.json"] = module.pin(root, module.PRIVATE / recipient / "packet.json")
+    receipt["validation"] = foreign_validation
+    (directory / "receipt.json").write_bytes(module.encoded(receipt))
+    with pytest.raises(ValueError, match="Packet differs from frozen case-local inputs"):
+        module.check_case(root, archive, recipient)
+
+
 def test_nonignored_staging_and_symlink_ancestors_are_refused(preparation, tmp_path):
     module, root, archive = preparation
     (root / ".gitignore").write_text("")
