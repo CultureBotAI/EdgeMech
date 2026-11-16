@@ -7,7 +7,7 @@ for the exact fresh-05 occurrence
 
 The source row contains identifiers for two different organisms. A replacement
 subject or culture-code edit would assume which parts of the row are trustworthy.
-The bounded correction being prepared therefore withholds that row's BactoTraits
+The bounded candidate correction therefore withholds that row's BactoTraits
 contribution and preserves the reason and original identity in an audit. It does
 not declare the biological nonmotility claim false or remove another source's
 independent evidence for that claim.
@@ -76,18 +76,56 @@ not proof that no correction exists anywhere outside the examined surfaces.
 
 ## Correction boundary
 
-The proposed owner change is a finite, reviewed-row quarantine with an input
+The owner change in [KG-Microbe PR #1867](https://github.com/Knowledge-Graph-Hub/kg-microbe/pull/1867)
+is a finite, reviewed-row quarantine with an input
 policy and mandatory audit. It matches the complete original row before source
 cell normalization, fails on changed/missing/duplicated reviewed identities, and
 records actual consumed input hashes. It does not infer corrected accessions,
 taxon IDs or phenotype cells, and does not introduce a general mismatch filter
 over unreviewed rows.
 
-Candidate validation and independent before/after inspection are still being
-prepared. Neither the maintained source nor a released graph is declared fixed
-by this evidence report. The frozen occurrence remains immutable; independent
-calibration and expansion beyond the existing 100 reviewed occurrences remain
-separate gates.
+The real single-row transform replay reproduced 21 assertions and 22 nodes on
+baseline `ef27b97a`, including the exact reviewed nonmotility assertion. Candidate
+`e24d58bf2` emitted zero assertions and nodes, and one mandatory quarantine audit
+containing the complete original row, original mapped identity, actual slice
+ordinal 1, reviewed ordinal 8521 and policy/source hashes. This demonstrates a
+bounded producer correction before source finalization. There were no unaffected
+real rows in the slice; a separate synthetic-control regression tests their
+retention. No replacement taxon or phenotype values were inferred.
+
+The same launcher and input bytes were used for both runs, including the actual
+BacDive lookup and METPO templates. NCBITaxon labels came from existing read-only
+database statements; the DB and OWL release agreed at `2026-07-12`. The launcher
+pins the queried statements and database metadata, not a whole-database hash.
+Neither run made provider calls. The first baseline attempt was stopped by the
+stage-only guard on an import-time cache write; [KG-Microbe #1866](https://github.com/Knowledge-Graph-Hub/kg-microbe/issues/1866)
+records the fix and fresh-process regression before the successful v2 replays.
+The original failed stage remains preserved.
+
+Private stages in the owner worktree are
+`data/validation-bactotraits-130/baseline-v2-20261116/` and
+`candidate-v2-20261116/`. Their receipt SHA256 values are
+`588f3e50352232036ce517616add423e0a7c08b760894f8edb05ac854f697633` and
+`d96f5b004961df31b91a82971122b15a6d969b8c2570edb1faabde4fde885dac`.
+The launcher SHA256 is
+`d058e94408498c047a4d086c8f363b8c5bdbc7b98ce083a7bd5712f333c69c86`.
+See the [owner replay report](https://github.com/Knowledge-Graph-Hub/kg-microbe/blob/df6bc8d581ac88b2924cc6e81b4fc77b39d7dbe1/docs/BACTOTRAITS_IDENTITY_QUARANTINE.md)
+for the implementation boundary and retained evidence.
+
+A separate reviewer who authored neither the transform nor launcher inspected
+the saved TSVs and audit directly, recomputed receipt/output/policy/original
+source/lookup hashes, compared input slices byte-for-byte with each other and the
+original records, and independently confirmed data-row ordinal 8521. The review
+passed at owner head `df6bc8d581ac88b2924cc6e81b4fc77b39d7dbe1` with no findings;
+its code is unchanged from replay candidate `e24d58bf2` (the intervening change
+adds the replay report). The reviewer also checked private-stage permissions and
+left all evidence unchanged. This supplies the bounded candidate-byte correction
+demonstration required by [#119](https://github.com/CultureBotAI/EdgeMech/issues/119).
+
+The source-owner PR is not merged and no graph release has been regenerated.
+The frozen occurrence remains immutable. Biological claim/model judgments and
+independent reviewer calibration remain separate from this source quarantine;
+expansion beyond the existing 100 reviewed occurrences is still gated.
 
 ## Saved review and validation
 
