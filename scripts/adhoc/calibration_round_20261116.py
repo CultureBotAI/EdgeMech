@@ -231,6 +231,31 @@ def verify(root, manifest_path, case_id=None):
             "scope": "input_and_packet_replay_only_not_proof_replay_or_entailment"}
 
 
+def validate_assertion_basis(assessment):
+    """Keep original report scope and every witness role explicit before sealing."""
+    axis, category = assessment["axis"], assessment["category"]
+    basis = assessment.get("assertion_basis", "independent")
+    require(basis in {"independent", "source_report"}, "Invalid assertion basis")
+    require(axis == "claim" or not {"assertion_basis", "report_witnesses"} & assessment.keys(),
+            "Assertion fields belong only to the claim axis")
+    witnesses = assessment.get("report_witnesses")
+    if basis == "source_report":
+        require(isinstance(witnesses, dict)
+                and witnesses.get("scope") == assessment["dimensions"]["assertion_scope"],
+                "Source-report scope must bind the original authored assertion")
+        for group in ("source_instance_evidence_ids", "identity_evidence_ids", "definition_evidence_ids"):
+            group_ids = witnesses.get(group)
+            require(isinstance(group_ids, list)
+                    and all(isinstance(eid, str) for eid in group_ids)
+                    and len(group_ids) == len(set(group_ids))
+                    and set(group_ids) <= set(assessment["evidence_ids"]),
+                    "Report witnesses must belong to their axis evidence set")
+            if category in RESOLVED["claim"]:
+                require(group_ids, "Resolved report lacks required witness group")
+    else:
+        require(witnesses is None, "Report witnesses require source_report assertion basis")
+
+
 def validate_matrix(root, manifest_path, matrix):
     manifest = read(root, manifest_path)
     require(matrix["round_id"] == manifest["round_id"], "Wrong matrix round")
@@ -262,6 +287,7 @@ def validate_matrix(root, manifest_path, matrix):
             ids = assessment["evidence_ids"]
             require(isinstance(ids, list) and len(ids) == len(set(ids))
                     and set(ids) <= set(cases[cid]["evidence_ids"]), "Unbound evidence ID")
+            validate_assertion_basis(assessment)
             if category in RESOLVED.get(axis, set()) or category in {"SUPPORTS", "REFUTES", "CONFLICTING", "PARTIAL"}:
                 require(ids, "Resolved/partial assessment lacks evidence")
             axes[axis] = category

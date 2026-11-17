@@ -81,6 +81,31 @@ def test_matrix_to_canonical_meaning_changes_are_preserved_as_failures(field):
     assert any(e.startswith("matrix_claim_") for e in errors)
 
 
+def test_report_basis_cannot_be_added_after_initial_seal():
+    matrix, canonical = assessments()
+    canonical["assessments"][0]["assertion_basis"] = "source_report"
+    errors = m.assessment_parity(canonical, canonical, matrix, {"proofs": []})
+    assert "matrix_claim_assertion_basis" in errors
+
+
+def test_report_witness_roles_cannot_change_after_initial_seal():
+    matrix, canonical = assessments()
+    report = {"scope": "exact source report", "source_instance_evidence_ids": ["instance"],
+              "identity_evidence_ids": ["identity"], "definition_evidence_ids": ["definition"]}
+    matrix["assessments"][0].update(assertion_basis="source_report", report_witnesses=copy.deepcopy(report),
+                                   evidence_ids=["instance", "identity", "definition"])
+    canonical["assessments"][0].update(assertion_basis="source_report", report_witnesses=copy.deepcopy(report),
+                                      evidence_ids=["instance", "identity", "definition"])
+    manifest = {"files": [{"path": eid, "sha256": eid, "evidence_ids": [eid]}
+                          for eid in ("instance", "identity", "definition")]}
+    sidecar = {"proofs": [{"evidence_id": eid, "input": {"path": eid, "sha256": eid}}
+                          for eid in ("instance", "identity", "definition")]}
+    assert not m.assessment_parity(canonical, canonical, matrix, sidecar, manifest)
+    canonical["assessments"][0]["report_witnesses"]["identity_evidence_ids"] = ["definition"]
+    errors = m.assessment_parity(canonical, canonical, matrix, sidecar, manifest)
+    assert "matrix_claim_report_identity_evidence_ids" in errors
+
+
 def test_missing_proofs_do_not_disappear_when_sidecar_is_unavailable(tmp_path):
     review = {"evidence": [{"evidence_id": "cited-a"}, {"evidence_id": "cited-b"}]}
     rows, pins, unknown = m.proof_inventory(tmp_path, review, None, None, False)

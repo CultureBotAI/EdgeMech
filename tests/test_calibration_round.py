@@ -191,6 +191,32 @@ def test_unresolved_agreement_never_satisfies_resolution_or_critical_audit(round
     assert result["scientific_calibration_passed"] is False
 
 
+@pytest.mark.parametrize("damage", ["missing_group", "unbound_group", "changed_scope", "implicit_basis", "other_axis"])
+def test_initial_report_witnesses_are_complete_and_bound_before_seal(round_inputs, damage):
+    m, root, _, cohort, *_ = round_inputs
+    matrix = matrix_fixture(m, root, cohort, resolved=True)
+    claim = matrix["cases"][0]["assessments"][0]
+    # Matrix sealing validates binding only; canonical replay separately enforces kinds/roles.
+    claim.update(assertion_basis="source_report", report_witnesses={
+        "scope": claim["dimensions"]["assertion_scope"],
+        "source_instance_evidence_ids": ["paper"],
+        "identity_evidence_ids": ["paper"], "definition_evidence_ids": ["paper"],
+    })
+    m.validate_matrix(root, "manifest.json", matrix)
+    if damage == "missing_group":
+        claim["report_witnesses"]["identity_evidence_ids"] = []
+    elif damage == "unbound_group":
+        claim["report_witnesses"]["identity_evidence_ids"] = ["authority"]
+    elif damage == "changed_scope":
+        claim["report_witnesses"]["scope"] = "different proposition"
+    elif damage == "implicit_basis":
+        claim.pop("assertion_basis")
+    else:
+        matrix["cases"][0]["assessments"][1]["report_witnesses"] = claim["report_witnesses"]
+    with pytest.raises(ValueError):
+        m.validate_matrix(root, "manifest.json", matrix)
+
+
 def test_resolved_agreement_never_turns_unsupported_claims_into_pass(round_inputs):
     result = seal_pair(round_inputs, resolved=True)
     claim = result["critical_errors"]["unsupported SUPPORTED_AS_STATED"]

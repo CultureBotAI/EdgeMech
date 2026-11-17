@@ -78,6 +78,24 @@ def test_unresolved_agreement_cannot_meet_resolution_floor(round_inputs, monkeyp
     assert result["scientific_calibration_passed"] is False
 
 
+def test_report_scope_cannot_satisfy_independent_paper_directional_gate(round_inputs, monkeypatch):
+    _, audit, evaluate, _ = setup_audit(round_inputs, monkeypatch, resolved=True)
+    claim = next(a for a in audit["final_cases"][0]["assessments"] if a["axis"] == "claim")
+    claim["assertion_basis"] = "source_report"
+    claim["report_witnesses"] = {
+        "scope": claim["dimensions"]["assertion_scope"],
+        "source_instance_evidence_ids": ["paper"],
+        "identity_evidence_ids": ["paper"], "definition_evidence_ids": ["paper"],
+    }
+    with pytest.raises(ValueError, match="Invalid nontrivial exercise cases"):
+        evaluate()
+    audit["nontrivial"]["exact_paper_claim_cases"] = []
+    result = evaluate()
+    assert not result["final_gates"]["exact_paper_backed_directional_claims"]["passed"]
+    assert result["literature"]["experimental_denominator"] == 7
+    assert result["final_gates"]["resolved_source_fidelity"]["minimum"] == 8
+
+
 @pytest.mark.parametrize("field", ["critical_label_audit", "final_critical_label_audit"])
 def test_omitted_critical_audit_rejected_even_when_reviewers_agree(round_inputs, monkeypatch, field):
     _, audit, evaluate, _ = setup_audit(round_inputs, monkeypatch, resolved=True)

@@ -218,6 +218,19 @@ def assessment_parity(authored, saved, matrix_case, sidecar, manifest=None):
         errors.extend("matrix_" + axis + "_evidence_" + error for error in mapping_errors)
         if mapped != set(initial["evidence_ids"]):
             errors.append("matrix_" + axis + "_evidence_bindings")
+        if assessment.get("assertion_basis", "independent") != initial.get("assertion_basis", "independent"):
+            errors.append("matrix_" + axis + "_assertion_basis")
+        current_report, initial_report = assessment.get("report_witnesses"), initial.get("report_witnesses")
+        if (current_report is None) != (initial_report is None):
+            errors.append("matrix_" + axis + "_report_witnesses")
+        elif current_report is not None and initial_report is not None:
+            if current_report.get("scope") != initial_report.get("scope"):
+                errors.append("matrix_" + axis + "_report_scope")
+            for group in ("source_instance_evidence_ids", "identity_evidence_ids", "definition_evidence_ids"):
+                group_mapped, group_errors = evidence_mapping(current_report.get(group, []), sidecar,
+                                                               manifest or {}, initial_report.get(group, []))
+                if group_errors or group_mapped != set(initial_report.get(group, [])):
+                    errors.append("matrix_" + axis + "_report_" + group)
     if seen != set(rounds.CATEGORIES):
         errors.append("canonical_six_axes_incomplete")
     return errors

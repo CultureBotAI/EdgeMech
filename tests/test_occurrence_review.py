@@ -204,6 +204,175 @@ def supported_partial_case(abstract_case):
     return case
 
 
+@pytest.fixture
+def report_case(case):
+    """Synthetic original report; identity/meaning authority is separate from the instance."""
+    root, review, sidecar = case
+    claim = category(review, "claim", "SUPPORTED_AS_STATED")
+    scope = "The identified fixture source reports the original capable_of assertion."
+    next(d for d in claim["dimensions"] if d["name"] == "assertion_scope")["value"] = scope
+    claim.update(assertion_basis="source_report", report_witnesses={
+        "scope": scope, "source_instance_evidence_ids": ["source"],
+        "identity_evidence_ids": ["meaning"], "definition_evidence_ids": ["meaning"],
+    })
+    sidecar["proofs"][1]["axes"].append("claim")
+    claim["evidence_ids"].append("source")
+    add_authority(case, "claim", "supports", "meaning")
+    original = json.loads((root / "packet.json").read_text())["original_assertion"]
+    sidecar["proofs"][-1]["original_entities"] = {
+        name: original[name] for name in ("subject", "predicate", "object")
+    }
+    repin_sidecar(case)
+    return case
+
+
+def test_report_save_readback_preserves_scope_witnesses_and_partial_model(report_case):
+    root, review, _ = report_case
+    review.update(completion="partial", verdict="needs_curation")
+    review["checks"][0]["status"] = "unavailable"
+    category(review, "relation", "INCORRECT")
+    add_authority(report_case, "relation", "refutes", "model")
+    subprocess.run(["git", "init", "-q", str(root)], check=True)
+    subprocess.run(["git", "-C", str(root), "remote", "add", "origin",
+                    "https://github.com/CultureBotAI/EdgeMech.git"], check=True)
+    subprocess.run(["git", "-C", str(root), "-c", "user.name=Fixture", "-c",
+                    "user.email=fixture@example.invalid", "commit", "--allow-empty", "-qm", "Fixture"], check=True)
+    review["source"]["git_revision"] = subprocess.check_output(
+        ["git", "-C", str(root), "rev-parse", "HEAD"], text=True).strip()
+    result = module.save_occurrence_review(root, review, "packet.json", "proofs.json")
+    saved = read_review(root, result["review"])
+    assert saved["assessments"] == review["assessments"]
+    assert saved["completion"] == "partial" and saved["verdict"] == "needs_curation"
+    assert result["claim_assertion_basis"] == "source_report"
+    assert result["assessments"]["relation"] == "INCORRECT"
+    assert result["assessments"]["literature"] == "PARTIAL"
+    assert result["kg_admissions"] == 0
+    rendered = (root / result["review"]).with_suffix(".md").read_text()
+    assert "does not establish independent biological truth" in rendered
+    assert result["claim_assertion_scope"] in rendered
+    assert "Original source instance" in rendered and "meaning" in rendered
+    saved.update(completion="completed")
+    with pytest.raises(ReviewError, match="unavailable required"):
+        module.validate_occurrence_review(root, saved, "packet.json", "proofs.json")
+    saved["checks"][0]["status"] = "passed"
+    saved["verdict"] = "pass"
+    with pytest.raises(ReviewError, match="unknown or concerning"):
+        module.validate_occurrence_review(root, saved, "packet.json", "proofs.json")
+
+
+@pytest.mark.parametrize("damage, message", [
+    ("missing_entities", "exact original entity"),
+    ("wrong_identifier", "exact original entity"),
+    ("incomplete_identity", "omit original"),
+    ("incomplete_definition", "omit original"),
+    ("partial_authority", "exact supporting identity"),
+    ("partial_instance", "exact source-instance"),
+    ("scope_change", "scope must equal"),
+    ("missing_version", "authority version"),
+])
+def test_report_requires_exact_original_identity_and_meaning(report_case, damage, message):
+    _, review, sidecar = report_case
+    authority = sidecar["proofs"][-1]
+    claim = category(review, "claim", "SUPPORTED_AS_STATED")
+    if damage == "missing_entities":
+        authority.pop("original_entities")
+    elif damage == "wrong_identifier":
+        authority["original_entities"]["subject"] = "NCBITaxon:999"
+    elif damage == "incomplete_identity":
+        authority["original_entities"].pop("object")
+    elif damage == "incomplete_definition":
+        authority["original_entities"].pop("predicate")
+    elif damage == "partial_authority":
+        authority["scope"] = "partial"
+    elif damage == "partial_instance":
+        sidecar["proofs"][1]["scope"] = "partial"
+    elif damage == "scope_change":
+        claim["report_witnesses"]["scope"] = "An independent biological statement"
+    else:
+        authority.pop("version")
+    repin_sidecar(report_case)
+    with pytest.raises(ReviewError, match=message):
+        validate(report_case)
+
+
+def test_raw_source_copy_under_another_path_cannot_supply_report_authority(report_case):
+    root, review, sidecar = report_case
+    authority, evidence = sidecar["proofs"][-1], review["evidence"][-1]
+    raw = (root / "source.json").read_bytes()
+    (root / "meaning.txt").write_bytes(raw)
+    source_pin = pin(root, "meaning.txt")
+    next(p for p in review["source"]["inputs"] if p["path"] == "meaning.txt").update(source_pin)
+    quote = "NCBITaxon:2"
+    span = verify_quote(LiteratureCache._document(
+        {"response_sha256": source_pin["sha256"]}, "authority_text", raw.decode()), quote)
+    authority.update(input=source_pin, **{k: span[k] for k in ("text_sha256", "start", "end", "extractor")})
+    evidence.update(snapshot_sha256=source_pin["sha256"], quote=quote,
+                    locator=f"chars {span['start']}:{span['end']}")
+    repin_sidecar(report_case)
+    with pytest.raises(ReviewError, match="independent authority, not copied source bytes"):
+        validate(report_case)
+
+
+@pytest.mark.parametrize("declared_entities", [True, False])
+def test_report_cannot_omit_linked_counterauthority_from_witness_roles(report_case, declared_entities):
+    """#189: every applicable authority must enter the identity/definition evaluation."""
+    add_authority(report_case, "claim", "refutes", "counter-meaning")
+    if declared_entities:
+        report_case[2]["proofs"][-1]["original_entities"] = dict(
+            report_case[2]["proofs"][-2]["original_entities"])
+    repin_sidecar(report_case)
+    with pytest.raises(ReviewError, match="Every claim authority must have an explicit report witness role"):
+        validate(report_case)
+
+
+def test_report_counterauthority_cannot_resolve_by_adding_its_witness_role(report_case):
+    add_authority(report_case, "claim", "refutes", "counter-meaning")
+    report_case[2]["proofs"][-1]["original_entities"] = dict(
+        report_case[2]["proofs"][-2]["original_entities"])
+    claim = category(report_case[1], "claim", "SUPPORTED_AS_STATED")
+    claim["report_witnesses"]["definition_evidence_ids"].append("counter-meaning")
+    repin_sidecar(report_case)
+    with pytest.raises(ReviewError, match="supporting identity and definition authorities"):
+        validate(report_case)
+
+
+def test_report_truth_stays_separate_from_refuting_biological_paper(report_case):
+    review, sidecar = report_case[1:]
+    sidecar["proofs"][0].update(scope="exact", support="refutes")
+    review["evidence"][0]["support"] = "refutes"
+    category(review, "literature", "REFUTES")
+    repin_sidecar(report_case)
+    result = validate(report_case)
+    assert result["claim_assertion_basis"] == "source_report"
+    assert result["assessments"]["claim"] == "SUPPORTED_AS_STATED"
+    assert result["assessments"]["literature"] == "REFUTES"
+    assert result["kg_admissions"] == 0
+
+
+@pytest.mark.parametrize("axis", ["literature", "relation", "subject_node", "object_node", "source_fidelity"])
+def test_report_fields_cannot_leak_to_other_axes(report_case, axis):
+    review = report_case[1]
+    assessment = next(a for a in review["assessments"] if a["assessment_id"] == axis)
+    assessment["assertion_basis"] = "independent"
+    with pytest.raises(ReviewError, match="only to the claim axis"):
+        validate(report_case)
+
+
+def test_report_packet_cannot_be_bound_to_literature(report_case):
+    report_case[2]["proofs"][1]["axes"].append("literature")
+    repin_sidecar(report_case)
+    with pytest.raises(ReviewError, match="Copied source content"):
+        validate(report_case)
+
+
+def test_report_packet_cannot_silently_become_independent_evidence(report_case):
+    claim = category(report_case[1], "claim", "SUPPORTED_AS_STATED")
+    claim.pop("assertion_basis")
+    claim.pop("report_witnesses")
+    with pytest.raises(ReviewError, match="Copied source content"):
+        validate(report_case)
+
+
 @pytest.mark.parametrize("axis", ["relation", "subject_node", "object_node"])
 @pytest.mark.parametrize("model_category", ["INCORRECT", "UNRESOLVED", "UNASSESSED"])
 def test_152_supported_claim_saves_without_rewriting_model_judgments(
