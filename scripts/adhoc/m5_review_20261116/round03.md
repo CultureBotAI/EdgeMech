@@ -140,8 +140,10 @@ mail helpers, or general authenticated full-text helper while PR102 is unmerged.
 
 Save every helper under scripts/adhoc/ BEFORE execution, with purpose, inputs,
 outputs, date and issue; keep quote-bearing data private and helper code free of
-embedded source bodies. Commit helpers with results. No inline Python or private
-one-off drivers producing reported numbers (#183). Canary one unit on every
+embedded source bodies. Commit helpers with results. No inline Python, jq
+analysis filters or private one-off drivers producing reported numbers (#183,
+#192). Operational canaries use the maintained CLI/parent validators directly;
+extra analysis requires a tracked reviewed helper before freezing. Canary one unit on every
 new batch/provider/execution path, then inspect the actual persisted artifact.
 Before public staging, verify the aggregate quote budget across ALL public files,
 both reviewers and every case, deduplicating by source. Canary one bounded

@@ -17,6 +17,10 @@ Use the supplied invocation output root for all results. Copy the existing
 as packet.json and receipt.json, preserving their exact bytes. Save actual
 commands/exit statuses and hashes in that output root. Existing CLI, cp and
 shasum suffice; do not create a new execution helper or alter tracked files.
+Use the maintained CLI and parent validators for identity/hash replay (#192).
+Do not add supplemental inline Python, jq analysis filters or shell drivers.
+Read the existing validation outputs directly; record any unmet requirement as
+a limitation for a new reviewed runtime, rather than inventing analysis code.
 
 Write canary-result.json with:
 {"status":"passed","checks":[{"name":"runtime_contracts","passed":true},

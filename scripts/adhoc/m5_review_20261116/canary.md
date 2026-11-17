@@ -49,3 +49,11 @@ This canary requires no new helper code: use existing CLI commands, file copies,
 hash commands and directly authored result JSON. Keep tracked runtime files and
 HEAD unchanged. If an implementation fix is necessary, report that failure and
 leave a new runtime/re-canary to the parent.
+
+Provenance guard (#192): use the maintained prepare/check commands and the
+parent's independent validators for identity and hash replay. Do not create
+supplemental analysis with inline Python, jq filters, shell drivers or new
+helpers after the runtime freeze. Read their existing JSON outputs directly;
+cp, cmp, shasum, test and Git inspection commands suffice. If those maintained
+checks cannot establish a required fact, record the limitation for the parent
+instead of generating an untracked analysis program.
