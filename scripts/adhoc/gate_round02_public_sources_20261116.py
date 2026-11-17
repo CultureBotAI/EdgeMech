@@ -12,6 +12,7 @@ from __future__ import annotations
 import argparse
 import ast
 import json
+import os
 import subprocess
 import sys
 from pathlib import Path
@@ -26,10 +27,11 @@ sys.dont_write_bytecode = True
 def proposed_sources(root, baseline):
     """Include ignored-independent tracked diff plus all nonignored proposed files."""
     changed = subprocess.check_output(
-        ["git", "diff", "--name-only", baseline, "--"], cwd=root).decode().splitlines()
+        ["git", "diff", "--name-only", "-z", baseline, "--"], cwd=root).split(b"\0")
     untracked = subprocess.check_output(
-        ["git", "ls-files", "--others", "--exclude-standard"], cwd=root).decode().splitlines()
-    return {p for p in changed + untracked if (root / p).is_file()}
+        ["git", "ls-files", "--others", "--exclude-standard", "-z"], cwd=root).split(b"\0")
+    paths = {os.fsdecode(path) for path in changed + untracked if path}
+    return {path for path in paths if (root / path).is_file()}
 
 
 def literals(path, raw):

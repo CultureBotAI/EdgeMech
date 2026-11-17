@@ -55,3 +55,79 @@ def test_partial_round_cannot_claim_two_reviewer_all_ten_coverage():
 def test_canary_cannot_impersonate_scientific_reviewer():
     with pytest.raises(ValueError, match="one operational unit"):
         MODULE.coverage({"mode": "canary", "reviews": [{"reviewer": "reviewer-a", "case_id": "fresh-05"}]})
+
+
+def test_twenty_labels_cannot_reuse_ten_canonical_pairs(tmp_path):
+    import json
+    cohort = json.loads((MODULE.ROOT / "artifacts/edge-calibration-20261115/cohort.json").read_text())
+    specs = [{"root": str(tmp_path), "review": case["case_id"] + ".yaml",
+              "reviewer": reviewer, "case_id": case["case_id"]}
+             for reviewer in ("reviewer-a", "reviewer-b") for case in cohort["cases"]]
+    with pytest.raises(ValueError, match="Repeated canonical root/review"):
+        MODULE.coverage({"mode": "round", "reviews": specs})
+
+
+@pytest.mark.parametrize("corruption", ["review_id", "identity", "model", "session", "categories"])
+def test_canonical_reviews_are_bound_to_distinct_sealed_reviewer_outputs(tmp_path, corruption):
+    reviewer = {"id": "reviewer-a", "model": "actual-model", "session_id": "actual-session"}
+    axes = {axis: next(iter(values)) for axis, values in MODULE.CATEGORIES.items()}
+    initial = {"occurrence_id": "original", "assessments": [
+        {"axis": axis, "category": category} for axis, category in axes.items()]}
+    bindings = {"reviewer-a": {"root": str(tmp_path), "reviewer": reviewer,
+        "canonical_identity": "Actual reviewer A", "cases": {"fresh-05": initial}}}
+    spec = {"root": str(tmp_path), "reviewer": "reviewer-a", "case_id": "fresh-05"}
+    review = {"review_id": "unique", "reviewer": {"identity": "Actual reviewer A", "model": "actual-model"}}
+    proofs = {"identity": dict(reviewer)}
+    replay = {"occurrence_id": "original", "assessments": dict(axes)}
+    seen = set()
+    if corruption == "review_id":
+        seen.add("unique")
+    elif corruption in {"identity", "model"}:
+        review["reviewer"][corruption] = "different"
+    elif corruption == "session":
+        proofs["identity"]["session_id"] = "other-session"
+    else:
+        replay["assessments"]["claim"] = "UNASSESSED"
+    with pytest.raises(ValueError):
+        MODULE.bind_review(spec, review, proofs, replay, bindings, seen)
+
+
+def test_valid_bound_review_preserves_initial_categories_and_session(tmp_path):
+    reviewer = {"id": "reviewer-a", "model": "actual-model", "session_id": "actual-session"}
+    axes = {axis: next(iter(values)) for axis, values in MODULE.CATEGORIES.items()}
+    case = {"occurrence_id": "original", "assessments": [
+        {"axis": axis, "category": category} for axis, category in axes.items()]}
+    bindings = {"reviewer-a": {"root": str(tmp_path), "reviewer": reviewer,
+        "canonical_identity": "Actual reviewer A", "cases": {"fresh-05": case}}}
+    seen = set()
+    MODULE.bind_review({"root": str(tmp_path), "reviewer": "reviewer-a", "case_id": "fresh-05"},
+                       {"review_id": "unique", "reviewer": {"identity": "Actual reviewer A", "model": "actual-model"}},
+                       {"identity": reviewer}, {"occurrence_id": "original", "assessments": axes},
+                       bindings, seen)
+    assert seen == {"unique"}
+
+
+@pytest.mark.parametrize("failure", ["changed_matrix", "repeated_session", "wrong_reviewer"])
+def test_sealed_reviewer_binding_rejects_receipt_or_identity_mismatch(tmp_path, failure):
+    import json
+    config = {"mode": "round", "package_sha256": "package", "reviewers": {}}
+    for rid in ("reviewer-a", "reviewer-b"):
+        reviewer = {"id": rid, "model": "actual-model", "session_id": rid + "-session"}
+        if rid == "reviewer-b" and failure == "repeated_session":
+            reviewer["session_id"] = "reviewer-a-session"
+        if rid == "reviewer-b" and failure == "wrong_reviewer":
+            reviewer["id"] = "reviewer-a"
+        matrix = {"round_id": "m5-calibration-20261116-round02", "package_sha256": "package",
+                  "reviewer": reviewer, "cases": []}
+        raw = MODULE.encoded(matrix)
+        filename = rid + ".json"
+        (tmp_path / filename).write_bytes(raw)
+        (tmp_path / (filename + ".receipt.json")).write_text(json.dumps({
+            "matrix_path": filename, "matrix_sha256": MODULE.digest(raw),
+            "reviewer": reviewer, "package_sha256": "package"}))
+        config["reviewers"][rid] = {"root": str(tmp_path), "matrix": filename,
+                                    "canonical_identity": rid + " identity"}
+    if failure == "changed_matrix":
+        (tmp_path / "reviewer-b.json").write_bytes(raw + b"\n")
+    with pytest.raises(ValueError):
+        MODULE.reviewer_bindings(config)

@@ -58,3 +58,24 @@ def test_identical_excerpt_keeps_each_publication_budget(tmp_path, monkeypatch, 
                for source in result["sources"]}
     assert budgets == {("doi:10.1234/a",): 10 + extra_words, ("doi:10.1234/b",): 10}
     assert result["passed"] is passed
+
+
+def test_git_quoted_tracked_and_untracked_paths_cannot_escape_inventory(tmp_path):
+    import subprocess
+
+    def git(*args):
+        subprocess.run(["git", *args], cwd=tmp_path, check=True, capture_output=True)
+
+    git("init", "-q")
+    git("-c", "user.name=Fixture", "-c", "user.email=fixture@example.invalid",
+        "commit", "--allow-empty", "-qm", "Fixture")
+    tracked = ["tracked-café.md", "tracked\nline.md"]
+    untracked = ["untracked-café.md", "untracked\tcolumn.md", "untracked\nline.md"]
+    for path in tracked + untracked:
+        (tmp_path / path).write_text("unaccounted content")
+    git("add", "--", *tracked)
+    assert m.proposed_sources(tmp_path, "HEAD") == set(tracked + untracked)
+    with pytest.raises(ValueError, match="inventory differs"):
+        m.gate({"root": str(tmp_path), "baseline": "HEAD", "files": [],
+                "review_attestation": {"reviewer": "fixture", "all_files_inspected": True,
+                                       "no_unaccounted_external_quotations": True}})

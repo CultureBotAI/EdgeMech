@@ -6,6 +6,10 @@ across every reviewer/case, deduplicates whitespace-equivalent excerpts, preserv
 private originals, and only accepts exact regenerated public projection bytes.
 Unknown files, symlinks, post-gate prose changes, incomplete batch coverage and
 unreplayable metadata fail closed. Preparation itself does not publish or approve.
+
+Round config also requires package_sha256 and reviewers keyed reviewer-a/b, each
+with root, sealed matrix path and exact canonical_identity. Matrix receipts bind
+the expected actual model/session and initial per-case categories.
 """
 from __future__ import annotations
 
@@ -13,6 +17,7 @@ import argparse
 import hashlib
 import json
 import os
+import re
 import sys
 from pathlib import Path
 
@@ -118,13 +123,77 @@ def coverage(config):
     else:
         require(len(specs) == 1 and keys[0][0] == "operational-canary",
                 "Canary must contain one operational unit, excluded from scoring")
+    canonical_pairs = [(str(Path(spec["root"]).resolve()),
+                        str((Path(spec["root"]) / spec["review"]).resolve())) for spec in specs]
+    require(len(canonical_pairs) == len(set(canonical_pairs)),
+            "Repeated canonical root/review pair across reviewer/case labels")
     return cohort
+
+
+def reviewer_bindings(config):
+    if config["mode"] == "canary":
+        return {}
+    declared = config.get("reviewers", {})
+    require(set(declared) == {"reviewer-a", "reviewer-b"},
+            "Round requires expected reviewer bindings from sealed matrices")
+    bindings = {}
+    for rid, item in declared.items():
+        root = safe_path(Path(item["root"]).absolute())
+        raw, pin = read_pin(root, item["matrix"])
+        receipt_raw, receipt_pin = read_pin(root, item["matrix"] + ".receipt.json")
+        matrix, receipt = json.loads(raw), json.loads(receipt_raw)
+        reviewer = matrix["reviewer"]
+        require(receipt["matrix_path"] == item["matrix"] and
+                receipt["matrix_sha256"] == pin["sha256"] and
+                receipt["reviewer"] == reviewer and
+                receipt["package_sha256"] == matrix["package_sha256"] == config["package_sha256"],
+                "Sealed reviewer matrix/receipt/package binding differs")
+        require(matrix["round_id"] == "m5-calibration-20261116-round02" and
+                reviewer["id"] == rid and reviewer.get("session_id") and
+                reviewer.get("model") not in {None, "", "unknown", "configured_default"},
+                "Expected actual reviewer identity/model/session unavailable")
+        require(all(isinstance(reviewer[key], str) and
+                    re.fullmatch(r"[A-Za-z0-9_.:-]+", reviewer[key])
+                    for key in ("model", "session_id")), "Actual reviewer metadata must be identifiers")
+        require(item.get("canonical_identity"), "Expected canonical reviewer identity missing")
+        cases = {case["case_id"]: case for case in matrix["cases"]}
+        require(len(cases) == len(matrix["cases"]), "Repeated sealed matrix case")
+        bindings[rid] = {"root": str(root.resolve()), "reviewer": reviewer,
+                         "canonical_identity": item["canonical_identity"], "cases": cases,
+                         "matrix": pin, "matrix_receipt": receipt_pin}
+    require(len({b["reviewer"]["session_id"] for b in bindings.values()}) == 2 and
+            len({b["canonical_identity"] for b in bindings.values()}) == 2,
+            "The two reviewer labels must bind distinct sessions and canonical identities")
+    return bindings
+
+
+def bind_review(spec, review, proofs, replay, bindings, seen_ids):
+    require(review["review_id"] not in seen_ids, "Repeated canonical review_id")
+    seen_ids.add(review["review_id"])
+    if not bindings:
+        return
+    bound = bindings[spec["reviewer"]]
+    require(str(Path(spec["root"]).resolve()) == bound["root"], "Review root differs from reviewer binding")
+    require(review["reviewer"]["identity"] == bound["canonical_identity"] and
+            review["reviewer"].get("model") == bound["reviewer"]["model"],
+            "Canonical reviewer identity/model differs from sealed reviewer binding")
+    if "identity" in proofs:
+        require(all(proofs["identity"].get(key) == bound["reviewer"][key]
+                    for key in ("id", "model", "session_id")),
+                "Proof session identity differs from sealed reviewer binding")
+    initial = bound["cases"][spec["case_id"]]
+    initial_axes = {a["axis"]: a["category"] for a in initial["assessments"]}
+    require(initial["occurrence_id"] == replay["occurrence_id"] and
+            len(initial["assessments"]) == 6 and set(initial_axes) == set(CATEGORIES) and
+            initial_axes == replay["assessments"],
+            "Canonical case/categories differ from the sealed initial matrix")
 
 
 def derive(config):
     cohort = coverage(config)
     originals = {case["case_id"]: case["occurrence_id"] for case in cohort["cases"]}
     groups, files, sources = [], {}, []
+    bindings, seen_ids = reviewer_bindings(config), set()
     for spec in sorted(config["reviews"], key=lambda s: (s["reviewer"], s["case_id"])):
         root = safe_path(Path(spec["root"]).absolute())
         review_raw, review_pin = read_pin(root, spec["review"])
@@ -133,6 +202,7 @@ def derive(config):
         review, proofs, packet = load_document(review_raw), json.loads(proof_raw), json.loads(packet_raw)
         replay = validate_occurrence_review(root, review, spec["packet"], spec["proofs"])
         require(replay["occurrence_id"] == originals[spec["case_id"]], "Wrong original occurrence")
+        bind_review(spec, review, proofs, replay, bindings, seen_ids)
         evidence = {item["evidence_id"]: item for item in review["evidence"]}
         evidence_index = []
         for proof in proofs["proofs"]:
@@ -195,6 +265,10 @@ def derive(config):
             "all_proposed_public_files": [{"path": name, "sha256": digest(raw)}
                                           for name, raw in sorted(files.items())],
             "source_coverage": sources, "private_originals_published": False,
+            "sealed_reviewer_bindings": {rid: {
+                "reviewer": {key: bound["reviewer"][key] for key in ("id", "model", "session_id")},
+                "matrix": bound["matrix"], "matrix_receipt": bound["matrix_receipt"]}
+                for rid, bound in bindings.items()},
             "private_originals_within_budget": inventory_document["private_originals_within_budget"],
             "private_over_budget_source_count": sum(not g["within_budget"] for g in inventory),
             "scope": "Publication quotation gate only; no scientific or calibration approval."}

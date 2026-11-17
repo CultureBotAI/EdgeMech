@@ -1,11 +1,14 @@
 # M5 calibration round 02 registration and rubric repair
 
-Round `m5-calibration-20261116-round02` is registered as **preparation only**.
-The follow-up is now active on branch `review/m5-calibration-round02-20261116`.
-Its [coordinator prompt](../../scripts/adhoc/m5_review_20261116/round02.md)
-specifies repairs, evidence preparation, live canaries and fresh scoring; it is
-not evidence that a worker or either reviewer has started. Actual process and
-phase receipts are maintained in the new private worker output directory.
+Round `m5-calibration-20261116-round02` is **executing fresh assessments** on
+branch `review/m5-calibration-round02-20261116`. Two isolated `gpt-6-astra`
+sessions started at 2026-11-17 00:20 UTC, using runtime `9d99002` and frozen
+package `09fa2916bc298cd4a76c9baec27470cb0b7b47f44f9570775609b438ebe81445`.
+The clean-checkout launcher canary, 154 input hashes, ten packets and twenty
+endpoint roles were verified first. [Preparation validation](../validation/m5-round02-preparation-20261116.md)
+records the acceptance repair, authorities, blinding and explicit limits.
+Actual process and phase receipts are maintained in the private worker output
+directory. The common reviewer instructions contain no expected case labels.
 Round01's frozen inputs, initial matrices, failed gates and adjudication remain
 unchanged. This registration does not authorize scoring against an incomplete
 package, the retained 90, or the remaining 9,900.
@@ -84,6 +87,8 @@ Canary the actual launcher and canonical-save path before two new reviewer
 sessions. Seal both new matrices before comparison and perform a separate
 evidence-grounded audit of every resolved claim/model label.
 
-This is a concrete failed-round follow-up milestone, not a running review job.
-The next round's package hash, actual reviewer identities and launch time remain
-unset until those prerequisites have been satisfied.
+The package and launch prerequisites are satisfied with explicitly bounded
+missing authority and literature. Both new initial matrices must be sealed
+before comparison. Every resolved claim/model label, all expected canonical
+pairs and all original gates still require separate adjudication. No scientific
+calibration result, retained90 authorization or expansion is established yet.
