@@ -6,6 +6,8 @@ import sys
 from pathlib import Path
 
 import pytest
+from test_calibration_round import round_inputs  # noqa: F401
+from test_round03_initial_seal import SEAL, authored_round, run_seal  # noqa: F401
 
 ROOT = Path(__file__).parents[1]
 sys.path.insert(0, str(ROOT / "scripts/adhoc"))
@@ -191,6 +193,31 @@ def test_changed_clone_validator_is_rejected_before_any_clone_code_executes(tmp_
     with pytest.raises(ValueError, match="before execution"):
         m.context(settings, "reviewer-a", tmp_path / "out")
     assert not executed
+
+
+@pytest.mark.parametrize("configured", ["m5-calibration-20261116-round03", "wrong-round", None])
+def test_round03_context_requires_explicit_matching_frozen_round(authored_round, monkeypatch, configured):  # noqa: F811
+    root, _, _ = authored_round
+    run_seal(authored_round)
+    monkeypatch.setattr(m, "rounds", SEAL.rounds)
+    monkeypatch.setattr(m, "ROOT", root)
+    monkeypatch.setattr(m.subprocess, "check_output", lambda *args, **kwargs: b"same-git-head\n")
+    monkeypatch.setattr(m, "command", lambda *args: ({"exit_code": 0}, b"{}"))
+    settings = {"reviewers": {"reviewer-a": {"root": str(root),
+                "matrix": ".temp/initial/matrix.json", "canonical_identity": "reviewer-a"}},
+                "manifest": "manifest-2.json", "package_sha256": m.sha((root / "manifest-2.json").read_bytes()),
+                "runtime_git_revision": "same-git-head"}
+    if configured is not None:
+        settings["round_id"] = configured
+    if configured == "m5-calibration-20261116-round03":
+        ctx = m.context(settings, "reviewer-a", root / ".temp/context")
+        assert ctx["meta"]["round_id"] == configured
+        assert len(ctx["matrix"]["cases"]) == 10
+        receipt = json.loads((root / ".temp/context/context.json").read_text())
+        assert receipt["round_id"] == configured
+    else:
+        with pytest.raises(ValueError, match="Wrong scientific round"):
+            m.context(settings, "reviewer-a", root / ".temp/context")
 
 
 def test_rationale_paraphrase_is_visible_without_inventing_semantic_failure():

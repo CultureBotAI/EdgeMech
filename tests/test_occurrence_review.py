@@ -206,10 +206,35 @@ def supported_partial_case(abstract_case):
 
 @pytest.fixture
 def report_case(case):
-    """Synthetic original report; identity/meaning authority is separate from the instance."""
+    """Original fixture is a source report before any assessment is authored.
+
+    This fixture exercises transport, not a semantic eligibility oracle: real
+    original propositions still require independent scope inspection.
+    """
     root, review, sidecar = case
+    source = json.loads((root / "source.json").read_text())
+    edge = source["edge"]
+    edge.update(predicate="biolink:has_attribute", relation="biolink:has_attribute",
+                object="fixture:reported-status", object_label="Fixture reported status",
+                object_category="biolink:Attribute",
+                original_object_node={
+                    "id": "fixture:reported-status", "name": "Fixture reported status",
+                    "description": "The fixture source reports status as observed; this node denotes "
+                                   "the reported field value, not a biological property.",
+                })
+    record = json.dumps({"source_id": "fixture-source-v1", "subject": edge["subject"],
+                         "field": "status", "value": "observed"})
+    source["records"] = [{"source_relative_path": "fixture-source.json", "locator": "record 1",
+                          "text": record, "text_sha256": hashlib.sha256(record.encode()).hexdigest()}]
+    source_pin = write(root, "source.json", source)
+    packet = build_packet(edge, source, occurrence_input=source_pin, source_input=source_pin, root=root)
+    packet_pin = write(root, "packet.json", packet)
+    for updated in (source_pin, packet_pin):
+        next(p for p in review["source"]["inputs"] if p["path"] == updated["path"]).update(updated)
+    sidecar["proofs"][1]["input"] = packet_pin
+    review["evidence"][1]["snapshot_sha256"] = packet_pin["sha256"]
     claim = category(review, "claim", "SUPPORTED_AS_STATED")
-    scope = "The identified fixture source reports the original capable_of assertion."
+    scope = "The identified fixture source reports status as observed for the original subject."
     next(d for d in claim["dimensions"] if d["name"] == "assertion_scope")["value"] = scope
     claim.update(assertion_basis="source_report", report_witnesses={
         "scope": scope, "source_instance_evidence_ids": ["source"],
@@ -224,6 +249,26 @@ def report_case(case):
     }
     repin_sidecar(case)
     return case
+
+
+def test_report_fixture_original_proposition_is_already_a_source_report(report_case):
+    root, review, sidecar = report_case
+    packet = json.loads((root / "packet.json").read_text())
+    original = packet["original_assertion"]
+    assert original["predicate"] == original["relation"] == "biolink:has_attribute"
+    assert original["object"] == "fixture:reported-status"
+    assert "reported field value, not a biological property" in packet["endpoints"]["object"]["record"]["description"]
+    assert json.loads(packet["source_records"][0]["text"]) == {
+        "source_id": "fixture-source-v1", "subject": original["subject"],
+        "field": "status", "value": "observed",
+    }
+    assert sidecar["proofs"][-1]["original_entities"] == {
+        name: original[name] for name in ("subject", "predicate", "object")
+    }
+    before = (root / "packet.json").read_bytes()
+    assert validate(report_case)["claim_assertion_basis"] == "source_report"
+    assert (root / "packet.json").read_bytes() == before
+    assert review["evidence"][1]["snapshot_sha256"] == pin(root, "packet.json")["sha256"]
 
 
 def test_report_save_readback_preserves_scope_witnesses_and_partial_model(report_case):
