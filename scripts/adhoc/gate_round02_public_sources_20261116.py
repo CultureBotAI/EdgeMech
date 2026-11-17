@@ -95,16 +95,20 @@ def gate(config):
         source = publication.safe_path(Path(path) if Path(path).is_absolute() else root / path)
         raw = source.read_bytes()
         publication.require(publication.digest(raw) == item["sha256"], "Reviewed public file changed: " + path)
-        matched = {q["sha256"]: q for q in quotes
-                   if any(q["quote"] in value for value in literals(source, raw))}
+        literal_values = literals(source, raw)
+        # Equal wording can occur in independent publications. Preserve every
+        # verified source identity; only file classification deduplicates hashes.
+        matched = [q for q in quotes
+                   if any(q["quote"] in value for value in literal_values)]
+        matched_hashes = {q["sha256"] for q in matched}
         classification = "catalog_literals" if matched else "no_external_quotation"
         publication.require(item["classification"] == classification and
-                            set(item["quote_sha256s"]) == set(matched),
+                            set(item["quote_sha256s"]) == matched_hashes,
                             "Quoted literal classification changed: " + path)
-        for quote in matched.values():
+        for quote in matched:
             publication.add_quote(groups, quote["aliases"], quote["quote"], {"public_path": path})
         files.append({"path": path, "sha256": publication.digest(raw),
-                      "classification": classification, "quote_sha256s": sorted(matched)})
+                      "classification": classification, "quote_sha256s": sorted(matched_hashes)})
     inventory = publication.quote_inventory(groups)
     return {"schema": "edgemech-round02-public-source-quote-gate/v1",
             "passed": all(g["within_budget"] for g in inventory), "files": files,
