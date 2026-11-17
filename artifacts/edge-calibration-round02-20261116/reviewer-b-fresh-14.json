@@ -1,0 +1,99 @@
+{
+  "assessments": [
+    {
+      "authored_assessment_sha256": "de904ed15dc43bf395c5cde03ea54ac8eaf3fd766d9101efad2b6f8d2a68c7a9",
+      "axis": "claim",
+      "category": "CONTRADICTED_AS_STATED",
+      "scope_sha256": "4b0f158b295052f3dcb50e0d835274ac2c9cd0c08b72466bf1b7867bc90dd577"
+    },
+    {
+      "authored_assessment_sha256": "741d27c1860bf2c59f4fc68b4fabd919c50b9176898b9d8d3af2c619784435ca",
+      "axis": "literature",
+      "category": "NOT_APPLICABLE",
+      "scope_sha256": "0b039dc25dec0ea985676e22f89bcccab6e9448cdce0efc8fda1ba024b510d5a"
+    },
+    {
+      "authored_assessment_sha256": "6da23896a238552ffafc1dd1130c22c7b80860646acdd37185d41192e219be86",
+      "axis": "object_node",
+      "category": "CORRECT",
+      "scope_sha256": "65359eef91231d46a4a33b7f8600ffcf6ce44c9faae1eb0cd041e37c1da3b0cf"
+    },
+    {
+      "authored_assessment_sha256": "3d196d3af63d3d9358ae759a444e890c3a81b8d5672b6b6d7918d77df488afc0",
+      "axis": "relation",
+      "category": "INCORRECT",
+      "scope_sha256": "d21eb8c796c3250542fc088aa2be09565aa316ca36373dbcf260eb185ef1186d"
+    },
+    {
+      "authored_assessment_sha256": "8763f8636855605e2ce1cca5eda800322aefec2c7fab691e6ddf2bfd81ffd39b",
+      "axis": "source_fidelity",
+      "category": "CONTRADICTED",
+      "scope_sha256": "b3e77aa191aa48ee2dbb8730f319a20c4bd60872360bf21e525fedf26fc2ebf3"
+    },
+    {
+      "authored_assessment_sha256": "a9153ddae97df6a1109c2da11b1dfcb46914b7ee6fb6889c41147278b16e9b34",
+      "axis": "subject_node",
+      "category": "CORRECT",
+      "scope_sha256": "bbb78a686c51723fdb3bf1652607c6a5d2512b361b2337ca4333fd6fee37b3fc"
+    }
+  ],
+  "calibration_rating": true,
+  "canonical_persistence_asserted": false,
+  "canonical_review": false,
+  "case_id": "fresh-14",
+  "completion": "partial",
+  "kg_admissions": 0,
+  "mode": "round",
+  "occurrence_id": "urn:kg-microbe:occurrence:v1:78725eeeea961ce059a55092aebc34b522b1b4ffc2ea844207ce7049a039cc80",
+  "private_inputs": {
+    "case_id": "fresh-14",
+    "packet": {
+      "path": ".temp/edge-calibration-20261115/fresh-14/packet.json",
+      "sha256": "c1c4a61470174802cfdbc08f31fd0e83b273270906111f5a4ef587ae973bd012"
+    },
+    "proofs": {
+      "path": ".temp/round02-reviewer/fresh-14-proofs.json",
+      "sha256": "acdd6a0f2123f70751b471d2066acb22e5dd5da3afe8e74ac38482263539c151"
+    },
+    "review": {
+      "path": ".temp/round02-reviewer/fresh-14-review.json",
+      "sha256": "6cda46e2d198972620979e16ec475ed72012d91e516ab6c76191ec3f499c0773"
+    },
+    "reviewer": "reviewer-b"
+  },
+  "production_input_validation": {
+    "scope": "Production input validation; not persistence",
+    "status": "passed"
+  },
+  "quotation_words": 0,
+  "reviewer": "reviewer-b",
+  "schema": "edgemech-round02-publication-gate/v1",
+  "source_evidence": [
+    {
+      "quote_sha256": "1e955438a030a513358dbf24c1da1c10871bed6f0d517f8c6f330bf4f72bcccc",
+      "raw_sha256": "b6a1320772a92d69e84b8c700cd6386dffe45ed635c8197d61e22b6a6fa3b35e",
+      "source_identities": [
+        "authority-raw-sha256:b6a1320772a92d69e84b8c700cd6386dffe45ed635c8197d61e22b6a6fa3b35e",
+        "authority-sha256:d22154e2b03cb222eed52297d369a03ac4d61cda2aa298dcc1dd796a1ab275d3"
+      ]
+    },
+    {
+      "quote_sha256": "7384e359ed4bd1490a49cae39fcb03a620881d9bfc936c6e1abb69963b7d42ee",
+      "raw_sha256": "1e282dca347e4f7f17f53428cf53ea05797ff666a710cd73e8aae65cf0bd7820",
+      "source_identities": [
+        "authority-raw-sha256:1e282dca347e4f7f17f53428cf53ea05797ff666a710cd73e8aae65cf0bd7820",
+        "authority-sha256:23e357f18d7e71766958877f4aef90143281ea4edff430cdba81a9f0e4209242"
+      ]
+    },
+    {
+      "quote_sha256": "08cb53f765fb373f42d3397c8d1e7b157a531473ffdebe829d8649d02289baf5",
+      "raw_sha256": "026dc075d4f924d92ee6f7816599c0a1fb5e2b3ef7e07593e6da5dd3f5b16fac",
+      "source_identities": [
+        "authority-raw-sha256:026dc075d4f924d92ee6f7816599c0a1fb5e2b3ef7e07593e6da5dd3f5b16fac",
+        "authority-sha256:a1149810ad83aa8d29be486c709411a6561afbea877c651183c777fa160c267c"
+      ]
+    }
+  ],
+  "source_mode": "authored_input",
+  "verdict": "blocked"
+}

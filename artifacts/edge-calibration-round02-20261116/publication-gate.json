@@ -1,0 +1,453 @@
+{
+  "all_proposed_public_files": [
+    {
+      "path": "quote-inventory.json",
+      "sha256": "428e8ec13ce7231eab2d937797128459ef7cf5571559021a2427cf0ba80ab6e4"
+    },
+    {
+      "path": "reviewer-a-first-01.json",
+      "sha256": "68790df6c3057fdd71008574910aa132dac04151e7151d8996b8c9e00136361f"
+    },
+    {
+      "path": "reviewer-a-first-28.json",
+      "sha256": "fb355a945ecc0aaf0464e975aef26373cf6b640e0e7aa1d1c02dff919eaac520"
+    },
+    {
+      "path": "reviewer-a-first-30.json",
+      "sha256": "bfd40cf045b29c4b5e2ec804a9f3aa23715006c14f29342631ec7a2de94ff777"
+    },
+    {
+      "path": "reviewer-a-first-32.json",
+      "sha256": "115db56f291e0efa3fbedbb61a73791036e5d5efea97ed4737e7dccf4f8f748c"
+    },
+    {
+      "path": "reviewer-a-first-43.json",
+      "sha256": "fc7f57c4a419eae66d42cc8fa4a96ed51fe60ad9b5f6097f9a06fbd93152e36e"
+    },
+    {
+      "path": "reviewer-a-fresh-04.json",
+      "sha256": "ac05e6e3b69cab923a6d3b50c50bbd1686e4f4212d43606bb5aadfbf2859c584"
+    },
+    {
+      "path": "reviewer-a-fresh-05.json",
+      "sha256": "70104be54a4b61077c8c0660495dd0f163f6e012074767cbfaefde6fe2beef07"
+    },
+    {
+      "path": "reviewer-a-fresh-14.json",
+      "sha256": "eefad7bdb019787024c4026ecff61c4427afa2eaad5db8b23818aefe3957f517"
+    },
+    {
+      "path": "reviewer-a-fresh-32.json",
+      "sha256": "a9cf87429e30b9ab4060753e4c0432318668b3b7ff5e064dad6a08a1745333bf"
+    },
+    {
+      "path": "reviewer-a-fresh-47.json",
+      "sha256": "0b4706e0c73b65fa356bc4b60c5f153b5c1c2fcbb85e0f1215163b4d16f0c9c4"
+    },
+    {
+      "path": "reviewer-b-first-01.json",
+      "sha256": "891de9b8ea8120210cb0126d65a50bb36a27e2d5f7bca3ce022bb627762b9bc6"
+    },
+    {
+      "path": "reviewer-b-first-28.json",
+      "sha256": "3e1c6002405147ca97fc0ab53da8c358902dd544a623d4d739fdd4b2157012dd"
+    },
+    {
+      "path": "reviewer-b-first-30.json",
+      "sha256": "5d535316027955a3419d1cdc86a75260adcd7de554ffa82442eec646627bd2b1"
+    },
+    {
+      "path": "reviewer-b-first-32.json",
+      "sha256": "3360bd397a378f8a4d1ac03eab3ecedc2df4825336e8baa761ba8b3af990d582"
+    },
+    {
+      "path": "reviewer-b-first-43.json",
+      "sha256": "fc07abbd9442dc47ce32d30162cb433d47e8e0ee1f372c9690674f2f5cb3ac4d"
+    },
+    {
+      "path": "reviewer-b-fresh-04.json",
+      "sha256": "0dd5fdae1a35a719a0f174642ac2fa843e97b0cfa3915a167d3db18e8ba61f7b"
+    },
+    {
+      "path": "reviewer-b-fresh-05.json",
+      "sha256": "113f202f57923a2c668414cbe0182682d0676a4f62ce01016f92acd4cdfe99a2"
+    },
+    {
+      "path": "reviewer-b-fresh-14.json",
+      "sha256": "35ab7630942f7e819abf2a596a81ee75b84c6a86fe75304959997a3c6d119e64"
+    },
+    {
+      "path": "reviewer-b-fresh-32.json",
+      "sha256": "25fff0a6b350804857a7645a4b01165b7f12ba84fe7764e0392eda5871df1d02"
+    },
+    {
+      "path": "reviewer-b-fresh-47.json",
+      "sha256": "dffd45e14e907e8a2754bdae250f71534ef3e530ac9005e9d09492e19b2850e9"
+    }
+  ],
+  "mode": "round",
+  "passed": true,
+  "private_originals_published": false,
+  "private_originals_within_budget": false,
+  "private_over_budget_source_count": 1,
+  "public_quotes": "zero_by_exact_schema_projection",
+  "schema": "edgemech-round02-publication-gate/v1",
+  "scope": "Publication quotation gate only; no scientific or calibration approval.",
+  "sealed_reviewer_bindings": {
+    "reviewer-a": {
+      "matrix": {
+        "path": ".temp/round02-reviewer/initial-matrix.json",
+        "sha256": "d36fa751fb07c0c35193e95c277bf1e6e8ee3f34c9b88c3f05eda6bdf37ac764"
+      },
+      "matrix_receipt": {
+        "path": ".temp/round02-reviewer/initial-matrix.json.receipt.json",
+        "sha256": "97dff47f929b0ecf798f3986dc69fc2f064a6f7fe721f429d54e793f159c79d6"
+      },
+      "reviewer": {
+        "id": "reviewer-a",
+        "model": "gpt-6-astra",
+        "session_id": "01a1e6e0-1a0a-73c0-8877-d5338f533607"
+      }
+    },
+    "reviewer-b": {
+      "matrix": {
+        "path": ".temp/round02-reviewer/initial-matrix.json",
+        "sha256": "44958734234b27c3c1713e308e2554ff6826da21e732de80d2f47fada8a6c2b1"
+      },
+      "matrix_receipt": {
+        "path": ".temp/round02-reviewer/initial-matrix.json.receipt.json",
+        "sha256": "8860a59fbdef33dea4503b0722abf82621d8838d8333753938678e5ad695b71b"
+      },
+      "reviewer": {
+        "id": "reviewer-b",
+        "model": "gpt-6-astra",
+        "session_id": "01a1e6e0-1be5-70a3-baa0-81eea8b30289"
+      }
+    }
+  },
+  "self_file": "publication-gate.json",
+  "self_hash_location": "private receipt.json public_file_pins",
+  "source_coverage": [
+    {
+      "case_id": "first-01",
+      "packet": {
+        "path": ".temp/edge-calibration-20261115/first-01/packet.json",
+        "sha256": "b516c976dbdb13900c8e6e83f740c7fa962afa23af6f5aa293f846cdfa768926"
+      },
+      "proofs": {
+        "path": ".temp/round02-reviewer/first-01-proofs.json",
+        "sha256": "5658fbd80b3ed32523f444dbfea43d1be2bf76097073db7710684244752ae09d"
+      },
+      "review": {
+        "path": ".temp/round02-reviewer/first-01-review.json",
+        "sha256": "69935fbc5423b9eebb56d1aa794a8d1a0e6731b19a3d1fb69c9d70b0b867887f"
+      },
+      "reviewer": "reviewer-a"
+    },
+    {
+      "case_id": "first-28",
+      "packet": {
+        "path": ".temp/edge-calibration-20261115/first-28/packet.json",
+        "sha256": "eb5e38bf636fed915f15ee9bd2ce9f1d4d010eb8c1e8d815a17e1de265bcd527"
+      },
+      "proofs": {
+        "path": ".temp/round02-reviewer/first-28-proofs.json",
+        "sha256": "5e16a6666e3c1090b3382fc428518a5375d8ff6259a3f0fe0bec21a5e806d49f"
+      },
+      "review": {
+        "path": ".temp/round02-reviewer/first-28-review.json",
+        "sha256": "b88f1435537f117d30b0faf18b875916088ba69149d8244acde59738bc13f5a9"
+      },
+      "reviewer": "reviewer-a"
+    },
+    {
+      "case_id": "first-30",
+      "packet": {
+        "path": ".temp/edge-calibration-20261115/first-30/packet.json",
+        "sha256": "68ae9cbdb5c02a160c3497977ce191924e9aed8c89321f3da7924770df3ffc82"
+      },
+      "proofs": {
+        "path": ".temp/round02-reviewer/first-30-proofs.json",
+        "sha256": "357f7906b6019e630373b089fee2796b3d0dd2e5ff4f9e097d367a8bec98c3c5"
+      },
+      "review": {
+        "path": ".temp/round02-reviewer/first-30-review.json",
+        "sha256": "15e6ed0dd260c44b681dc4dd54846d9a716b444ef2450f9f20b42e6103ab3685"
+      },
+      "reviewer": "reviewer-a"
+    },
+    {
+      "case_id": "first-32",
+      "packet": {
+        "path": ".temp/edge-calibration-20261115/first-32/packet.json",
+        "sha256": "32cb804b4f6e0f678f01faf3ecf351146101d1beb0abe6e77ecbffedd470ded2"
+      },
+      "proofs": {
+        "path": ".temp/round02-reviewer/first-32-proofs.json",
+        "sha256": "d129c33c49f9c14e09a8e7d62ba08a49ebf79bdafcc3220565cdfd6bf504e468"
+      },
+      "review": {
+        "path": ".temp/round02-reviewer/first-32-review.json",
+        "sha256": "cfbed73b19319dd25bdbb1358ebcafaf446a8b422503da2feef9dfd5892ae11f"
+      },
+      "reviewer": "reviewer-a"
+    },
+    {
+      "case_id": "first-43",
+      "packet": {
+        "path": ".temp/edge-calibration-20261115/first-43/packet.json",
+        "sha256": "70decffa3ed755ad913171964494b4edfcf84b2341a34a76a925837f1565befc"
+      },
+      "proofs": {
+        "path": ".temp/round02-reviewer/first-43-proofs.json",
+        "sha256": "79f9c91e69afa68e5cb641f0e7db15c7f271ac575b0c00e1caca8435d938392f"
+      },
+      "review": {
+        "path": ".temp/round02-reviewer/first-43-review.json",
+        "sha256": "048f873f89690ac9e5e92b73e158079d831b5d442fac23594c78c36953b06f0c"
+      },
+      "reviewer": "reviewer-a"
+    },
+    {
+      "case_id": "fresh-04",
+      "packet": {
+        "path": ".temp/edge-calibration-20261115/fresh-04/packet.json",
+        "sha256": "5249d3331588e1973f5c19414cb5aff171b13d510499567a29954b3059fa716e"
+      },
+      "proofs": {
+        "path": ".temp/round02-reviewer/fresh-04-proofs.json",
+        "sha256": "e8243bd7576fd250a28c6c895cf6d156a6567485ae542a6de475ebf235855afa"
+      },
+      "review": {
+        "path": ".temp/round02-reviewer/fresh-04-review.json",
+        "sha256": "8b17dce79fc07c527a96e8085ef8f7ec0c5d70d60040083b513b624ad3995498"
+      },
+      "reviewer": "reviewer-a"
+    },
+    {
+      "case_id": "fresh-05",
+      "packet": {
+        "path": ".temp/edge-calibration-20261115/fresh-05/packet.json",
+        "sha256": "9a456958680990e4d6742b2bc012579d6e48d5d2adefdfcd24c6f0b6ab56b34b"
+      },
+      "proofs": {
+        "path": ".temp/round02-reviewer/fresh-05-proofs.json",
+        "sha256": "0506676f2842c34f8f4d66900492ff3546fbd9d17a375eb0bc048591690d0f97"
+      },
+      "review": {
+        "path": ".temp/round02-reviewer/fresh-05-review.json",
+        "sha256": "d95e7b7cf42cdb0933508af96a49ed23cb44e1f97dfeb14fca063fed403f4007"
+      },
+      "reviewer": "reviewer-a"
+    },
+    {
+      "case_id": "fresh-14",
+      "packet": {
+        "path": ".temp/edge-calibration-20261115/fresh-14/packet.json",
+        "sha256": "c1c4a61470174802cfdbc08f31fd0e83b273270906111f5a4ef587ae973bd012"
+      },
+      "proofs": {
+        "path": ".temp/round02-reviewer/fresh-14-proofs.json",
+        "sha256": "33e1b5260c1a9c10a18105156874a5291af35698238084b39423ef38c761b00f"
+      },
+      "review": {
+        "path": ".temp/round02-reviewer/fresh-14-review.json",
+        "sha256": "b9a9585105c000f5c8f0f8dcec3a24ed217c62df0510551a819e46a2a5e65326"
+      },
+      "reviewer": "reviewer-a"
+    },
+    {
+      "case_id": "fresh-32",
+      "packet": {
+        "path": ".temp/edge-calibration-20261115/fresh-32/packet.json",
+        "sha256": "14b21623a1726591121ea2882d9168e081f832e22143a58cad438163551326f7"
+      },
+      "proofs": {
+        "path": ".temp/round02-reviewer/fresh-32-proofs.json",
+        "sha256": "c2b147f43910899e0b53c35b1b7b7629fd267d2550d8a0d1c209de4999de2840"
+      },
+      "review": {
+        "path": ".temp/round02-reviewer/fresh-32-review.json",
+        "sha256": "41631e1bdf62893e638c7499dc446896b3ce55fc10026a33e2916e63eb3623ad"
+      },
+      "reviewer": "reviewer-a"
+    },
+    {
+      "case_id": "fresh-47",
+      "packet": {
+        "path": ".temp/edge-calibration-20261115/fresh-47/packet.json",
+        "sha256": "c64b42e5bf6dd8c081ab49b4faa935ae769af8dedcbd40c23c196dae083accf9"
+      },
+      "proofs": {
+        "path": ".temp/round02-reviewer/fresh-47-proofs.json",
+        "sha256": "8121c393ab2fd5cd4188e76d425e2276596a0e9269df1a4a6e5a09afdb8c95dc"
+      },
+      "review": {
+        "path": ".temp/round02-reviewer/fresh-47-review-v2.json",
+        "sha256": "24ea2418cd5f92cbd6a3286c159224943438f530d847ac04df4d71888460314f"
+      },
+      "reviewer": "reviewer-a"
+    },
+    {
+      "case_id": "first-01",
+      "packet": {
+        "path": ".temp/edge-calibration-20261115/first-01/packet.json",
+        "sha256": "b516c976dbdb13900c8e6e83f740c7fa962afa23af6f5aa293f846cdfa768926"
+      },
+      "proofs": {
+        "path": ".temp/round02-reviewer/first-01-proofs.json",
+        "sha256": "bff012e33abd7757445182a7ee5f61dd5dba0436f48e442edfcd4b1c2322cb24"
+      },
+      "review": {
+        "path": ".temp/round02-reviewer/first-01-review.json",
+        "sha256": "8cbdfe8597c0395ca3b91527668b2d048fb4fb498ddb2b0ab6e0da9a562321a5"
+      },
+      "reviewer": "reviewer-b"
+    },
+    {
+      "case_id": "first-28",
+      "packet": {
+        "path": ".temp/edge-calibration-20261115/first-28/packet.json",
+        "sha256": "eb5e38bf636fed915f15ee9bd2ce9f1d4d010eb8c1e8d815a17e1de265bcd527"
+      },
+      "proofs": {
+        "path": ".temp/round02-reviewer/first-28-proofs.json",
+        "sha256": "becd23097989fd87c0ba220b5720b26abfe21028eb1ad41820b5a9e10335fc99"
+      },
+      "review": {
+        "path": ".temp/round02-reviewer/first-28-review.json",
+        "sha256": "64393046e8352873d87bc7c7b5650dc0312692750492b10b4de4a5ef1b07aa5c"
+      },
+      "reviewer": "reviewer-b"
+    },
+    {
+      "case_id": "first-30",
+      "packet": {
+        "path": ".temp/edge-calibration-20261115/first-30/packet.json",
+        "sha256": "68ae9cbdb5c02a160c3497977ce191924e9aed8c89321f3da7924770df3ffc82"
+      },
+      "proofs": {
+        "path": ".temp/round02-reviewer/first-30-proofs.json",
+        "sha256": "8903bbb7c0234e30185d81dc9f420fec83d0c494b8b38185ba1ece51e1438aa7"
+      },
+      "review": {
+        "path": ".temp/round02-reviewer/first-30-review.json",
+        "sha256": "5a882615124a229d648ef1ce2fd4fd430dafa19c50fcb868e87948192069cb76"
+      },
+      "reviewer": "reviewer-b"
+    },
+    {
+      "case_id": "first-32",
+      "packet": {
+        "path": ".temp/edge-calibration-20261115/first-32/packet.json",
+        "sha256": "32cb804b4f6e0f678f01faf3ecf351146101d1beb0abe6e77ecbffedd470ded2"
+      },
+      "proofs": {
+        "path": ".temp/round02-reviewer/first-32-proofs.json",
+        "sha256": "1bba6c516650d6135b52e28201d209f3ef4146ed821bf9a72c5a3b4ffb3b1100"
+      },
+      "review": {
+        "path": ".temp/round02-reviewer/first-32-review.json",
+        "sha256": "b6b952e006cb3c9b06ce0107d5ffc580705b9e4070ef43188a58f847215ae553"
+      },
+      "reviewer": "reviewer-b"
+    },
+    {
+      "case_id": "first-43",
+      "packet": {
+        "path": ".temp/edge-calibration-20261115/first-43/packet.json",
+        "sha256": "70decffa3ed755ad913171964494b4edfcf84b2341a34a76a925837f1565befc"
+      },
+      "proofs": {
+        "path": ".temp/round02-reviewer/first-43-proofs.json",
+        "sha256": "a08d09f594cb3daf6e122d563998dacd862a87865fd58e7c737b7ad5ac4028f7"
+      },
+      "review": {
+        "path": ".temp/round02-reviewer/first-43-review.json",
+        "sha256": "19c5f23b7192450f358be6ade79b905a97b839b301a103fa5c5d16b78c4d91b3"
+      },
+      "reviewer": "reviewer-b"
+    },
+    {
+      "case_id": "fresh-04",
+      "packet": {
+        "path": ".temp/edge-calibration-20261115/fresh-04/packet.json",
+        "sha256": "5249d3331588e1973f5c19414cb5aff171b13d510499567a29954b3059fa716e"
+      },
+      "proofs": {
+        "path": ".temp/round02-reviewer/fresh-04-proofs.json",
+        "sha256": "4d696c876fc12cd4b044b67e5e26e3ca34c6aabddccd65a5e85c8f913465bdc1"
+      },
+      "review": {
+        "path": ".temp/round02-reviewer/fresh-04-review.json",
+        "sha256": "b7a611c8e77a28255839258df4ec46c36f1cf0aa0b7d80c35d504ac1ef0cd858"
+      },
+      "reviewer": "reviewer-b"
+    },
+    {
+      "case_id": "fresh-05",
+      "packet": {
+        "path": ".temp/edge-calibration-20261115/fresh-05/packet.json",
+        "sha256": "9a456958680990e4d6742b2bc012579d6e48d5d2adefdfcd24c6f0b6ab56b34b"
+      },
+      "proofs": {
+        "path": ".temp/round02-reviewer/fresh-05-proofs.json",
+        "sha256": "1f781785ba11e978c6889bcd54b3f1d3dec29716db6ec2b592c7b4fed262b5de"
+      },
+      "review": {
+        "path": ".temp/round02-reviewer/fresh-05-review.json",
+        "sha256": "28fb9aa0db7e16214ace2f60959481d187e73e9518dff07ef88f2e90b2cdd36a"
+      },
+      "reviewer": "reviewer-b"
+    },
+    {
+      "case_id": "fresh-14",
+      "packet": {
+        "path": ".temp/edge-calibration-20261115/fresh-14/packet.json",
+        "sha256": "c1c4a61470174802cfdbc08f31fd0e83b273270906111f5a4ef587ae973bd012"
+      },
+      "proofs": {
+        "path": ".temp/round02-reviewer/fresh-14-proofs.json",
+        "sha256": "acdd6a0f2123f70751b471d2066acb22e5dd5da3afe8e74ac38482263539c151"
+      },
+      "review": {
+        "path": ".temp/round02-reviewer/fresh-14-review.json",
+        "sha256": "6cda46e2d198972620979e16ec475ed72012d91e516ab6c76191ec3f499c0773"
+      },
+      "reviewer": "reviewer-b"
+    },
+    {
+      "case_id": "fresh-32",
+      "packet": {
+        "path": ".temp/edge-calibration-20261115/fresh-32/packet.json",
+        "sha256": "14b21623a1726591121ea2882d9168e081f832e22143a58cad438163551326f7"
+      },
+      "proofs": {
+        "path": ".temp/round02-reviewer/fresh-32-proofs.json",
+        "sha256": "07db7760574ee5f5842ac4496b3b36af456fa8057c1fa016476fffe0da0e16bb"
+      },
+      "review": {
+        "path": ".temp/round02-reviewer/fresh-32-review.json",
+        "sha256": "83f1f068b1d03544b1f539a5fda0b8be23ccd427839acffff16fd7946e7ae679"
+      },
+      "reviewer": "reviewer-b"
+    },
+    {
+      "case_id": "fresh-47",
+      "packet": {
+        "path": ".temp/edge-calibration-20261115/fresh-47/packet.json",
+        "sha256": "c64b42e5bf6dd8c081ab49b4faa935ae769af8dedcbd40c23c196dae083accf9"
+      },
+      "proofs": {
+        "path": ".temp/round02-reviewer/fresh-47-proofs.json",
+        "sha256": "9f5e14c83ef00f4075409b75a07965513a49c23d611c32577651a882a41fe99e"
+      },
+      "review": {
+        "path": ".temp/round02-reviewer/fresh-47-review.json",
+        "sha256": "15ffbfbd46c7d839792682a453463697fa5482104889dd48a2120f8061e84635"
+      },
+      "reviewer": "reviewer-b"
+    }
+  ],
+  "source_mode": "authored_input"
+}

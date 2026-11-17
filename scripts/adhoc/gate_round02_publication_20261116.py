@@ -27,6 +27,8 @@ sys.dont_write_bytecode = True
 
 from kg_microbe_reviews import load_document  # noqa: E402
 
+from edgemech.literature_cache import LiteratureCache, verify_quote  # noqa: E402
+from edgemech.occurrence_packet import validate_packet  # noqa: E402
 from edgemech.occurrence_review import (  # noqa: E402
     CATEGORIES,
     _europepmc_abstract,
@@ -189,8 +191,95 @@ def bind_review(spec, review, proofs, replay, bindings, seen_ids):
             "Canonical case/categories differ from the sealed initial matrix")
 
 
+
+def quotation_catalog(root, review, proofs):
+    """Replay quotation bytes/metadata even when a draft's semantic validation fails.
+
+    This only establishes literal source accounting. It neither changes support
+    roles nor treats a source report as independent scientific support.
+    """
+    evidence = {item["evidence_id"]: item for item in review["evidence"]}
+    require(len(evidence) == len(review["evidence"]), "Repeated evidence identity")
+    proof_ids = [p["evidence_id"] for p in proofs["proofs"]]
+    require(len(proof_ids) == len(set(proof_ids)) and set(proof_ids) == set(evidence),
+            "Quotation inventory requires every cited/provided proof exactly once")
+    inputs = {item["path"]: item["sha256"] for item in review["source"]["inputs"]}
+    result = []
+    for proof in proofs["proofs"]:
+        item = evidence[proof["evidence_id"]]
+        if proof["kind"] == "packet":
+            require(not item.get("quote"), "Packet proof cannot conceal a quotation")
+            continue
+        raw, pin = read_pin(root, proof["input"]["path"])
+        require(inputs.get(pin["path"]) == pin["sha256"] == proof["input"]["sha256"] ==
+                item["snapshot_sha256"], "Quoted source bytes are not exactly bound")
+        require(item["reference"] == proof["reference"], "Quotation reference differs")
+        if proof["kind"] == "europepmc_abstract":
+            text, aliases = _europepmc_abstract(raw, proof)
+            kind = "abstract"
+        elif proof["kind"] == "jats":
+            text, aliases = _jats(raw, proof)
+            kind = "oa_fulltext"
+        else:
+            require(proof["kind"] == "authority" and proof.get("version"), "Unknown quoted source")
+            text, kind = raw.decode("utf-8"), "authority_text"
+            aliases = {"authority:" + proof["reference"] + "#" + proof["version"],
+                       "authority-raw-sha256:" + digest(raw)}
+        document = LiteratureCache._document({"response_sha256": digest(raw)}, kind, text)
+        quotation = verify_quote(document, item.get("quote"))
+        require(all(proof.get(key) == quotation[key] for key in ("text_sha256", "start", "end", "extractor")),
+                "Quotation offsets or extractor differ")
+        require(f"chars {quotation['start']}:{quotation['end']}" in item["locator"],
+                "Quotation locator does not bind verified offsets")
+        quote = " ".join(quotation["quote"].split())
+        result.append({"quote": quote, "aliases": aliases, "sha256": text_hash(quote),
+                       "evidence_id": item["evidence_id"], "raw_sha256": digest(raw)})
+    return result
+
+
+
+def bind_original_inputs(root, review, proofs, packet, spec, original_occurrence):
+    """Bind original bytes and occurrence even if semantic input validation fails."""
+    inputs = {item["path"]: item["sha256"] for item in review["source"]["inputs"]}
+    require(len(inputs) == len(review["source"]["inputs"]), "Duplicate authored source input")
+    for path, expected in inputs.items():
+        _, actual = read_pin(root, path)
+        require(actual["sha256"] == expected, "Authored source input changed")
+    for path in (spec["packet"], spec["proofs"]):
+        _, actual = read_pin(root, path)
+        require(inputs.get(path) == actual["sha256"], "Packet/proof sidecar is not bound to authored input")
+    require(packet["occurrence_id"] == proofs["occurrence_id"] == original_occurrence,
+            "Packet/proof occurrence differs from original cohort")
+    require(len(review["targets"]) == 1, "Exactly one original occurrence target required")
+    target = review["targets"][0]
+    require(target["target_id"] == original_occurrence and target["path"] == spec["packet"] and
+            target.get("selector") == "occurrence_id=" + original_occurrence,
+            "Authored target path/selector differs from original packet occurrence")
+    validate_packet(packet, root=root)
+
+
+def review_replay(root, review, proofs, spec, source_mode):
+    require(source_mode in {"canonical_review", "authored_input"}, "Unknown publication source mode")
+    try:
+        result = validate_occurrence_review(root, review, spec["packet"], spec["proofs"])
+        return result, {"status": "passed", "scope": "Production input validation; not persistence"}
+    except Exception as error:
+        if source_mode != "authored_input":
+            raise
+        axes = {}
+        for assessment in review["assessments"]:
+            dims = {d["name"]: d["value"] for d in assessment["dimensions"]}
+            require(dims["axis"] not in axes, "Duplicate authored assessment axis")
+            axes[dims["axis"]] = dims["category"]
+        require(len(review["targets"]) == 1, "Draft requires one original occurrence target")
+        return {"occurrence_id": review["targets"][0]["target_id"], "assessments": axes}, {
+            "status": "failed", "scope": "Original authored input; failure preserved without correction",
+            "error_type": type(error).__name__, "error_sha256": text_hash(str(error))}
+
+
 def derive(config):
     cohort = coverage(config)
+    source_mode = config.get("source_mode", "canonical_review")
     originals = {case["case_id"]: case["occurrence_id"] for case in cohort["cases"]}
     groups, files, sources = [], {}, []
     bindings, seen_ids = reviewer_bindings(config), set()
@@ -200,30 +289,18 @@ def derive(config):
         proof_raw, proof_pin = read_pin(root, spec["proofs"])
         packet_raw, packet_pin = read_pin(root, spec["packet"])
         review, proofs, packet = load_document(review_raw), json.loads(proof_raw), json.loads(packet_raw)
-        replay = validate_occurrence_review(root, review, spec["packet"], spec["proofs"])
+        bind_original_inputs(root, review, proofs, packet, spec, originals[spec["case_id"]])
+        replay, validation = review_replay(root, review, proofs, spec, source_mode)
         require(replay["occurrence_id"] == originals[spec["case_id"]], "Wrong original occurrence")
         bind_review(spec, review, proofs, replay, bindings, seen_ids)
-        evidence = {item["evidence_id"]: item for item in review["evidence"]}
         evidence_index = []
-        for proof in proofs["proofs"]:
-            item = evidence[proof["evidence_id"]]
-            if proof["kind"] == "packet":
-                continue
-            raw, _ = read_pin(root, proof["input"]["path"])
-            if proof["kind"] == "europepmc_abstract":
-                _, aliases = _europepmc_abstract(raw, proof)
-            elif proof["kind"] == "jats":
-                _, aliases = _jats(raw, proof)
-            else:
-                require(proof["kind"] == "authority", "Unsupported quote source")
-                aliases = {"authority:" + proof["reference"] + "#" + proof["version"],
-                           "authority-raw-sha256:" + digest(raw)}
+        for quotation in quotation_catalog(root, review, proofs):
             origin = {"reviewer": spec["reviewer"], "case_id": spec["case_id"],
-                      "evidence_id_sha256": text_hash(item["evidence_id"])}
-            add_quote(groups, aliases, item["quote"], origin)
-            evidence_index.append({"source_identities": public_aliases(aliases),
-                                   "quote_sha256": text_hash(" ".join(item["quote"].split())),
-                                   "raw_sha256": proof["input"]["sha256"]})
+                      "evidence_id_sha256": text_hash(quotation["evidence_id"])}
+            add_quote(groups, quotation["aliases"], quotation["quote"], origin)
+            evidence_index.append({"source_identities": public_aliases(quotation["aliases"]),
+                                   "quote_sha256": quotation["sha256"],
+                                   "raw_sha256": quotation["raw_sha256"]})
         assessments = []
         for assessment in review["assessments"]:
             dims = {d["name"]: d["value"] for d in assessment["dimensions"]}
@@ -243,7 +320,9 @@ def derive(config):
                       "case_id": spec["case_id"], "occurrence_id": packet["occurrence_id"],
                       "assessments": sorted(assessments, key=lambda a: a["axis"]),
                       "completion": review["completion"], "verdict": review["verdict"],
-                      "private_inputs": source,
+                      "private_inputs": source, "source_mode": source_mode,
+                      "production_input_validation": validation,
+                      "canonical_persistence_asserted": False,
                       "source_evidence": evidence_index, "quotation_words": 0,
                       "canonical_review": False, "kg_admissions": 0,
                       "calibration_rating": config["mode"] == "round"}
@@ -251,7 +330,7 @@ def derive(config):
     inventory = quote_inventory(groups)
     inventory_document = {"schema": SCHEMA, "coverage": {"mode": config["mode"],
                           "reviews": len(sources), "expected": 20 if config["mode"] == "round" else 1},
-                          "scope": "All evidence excerpts in every specified private canonical review; "
+                          "scope": "All evidence excerpts in every specified private review or authored draft; "
                           "public derivative files contain hashes and categorical fields only.",
                           "private_source_inventory": inventory,
                           "private_originals_within_budget": all(g["within_budget"] for g in inventory),
@@ -264,7 +343,7 @@ def derive(config):
             "self_hash_location": "private receipt.json public_file_pins",
             "all_proposed_public_files": [{"path": name, "sha256": digest(raw)}
                                           for name, raw in sorted(files.items())],
-            "source_coverage": sources, "private_originals_published": False,
+            "source_coverage": sources, "private_originals_published": False, "source_mode": source_mode,
             "sealed_reviewer_bindings": {rid: {
                 "reviewer": {key: bound["reviewer"][key] for key in ("id", "model", "session_id")},
                 "matrix": bound["matrix"], "matrix_receipt": bound["matrix_receipt"]}

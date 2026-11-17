@@ -1,0 +1,99 @@
+{
+  "assessments": [
+    {
+      "authored_assessment_sha256": "0684a45598e026b0aa5090249f20c91dd2cee4d9c2cf228dcb0d148eac6c638b",
+      "axis": "claim",
+      "category": "INSUFFICIENT_EVIDENCE",
+      "scope_sha256": "32d4d07d621728cba0ef3d33fa82691f5d748d9b65782720f33db72015c0f479"
+    },
+    {
+      "authored_assessment_sha256": "e8aa48586390fa470e76bf3aca29eefe9631209098a7c913c808dd947489e6c6",
+      "axis": "literature",
+      "category": "NO_MATCH",
+      "scope_sha256": "6e18ec7e7816e38c922224d0657a57d477f1d39796d93498975532be011cc9a3"
+    },
+    {
+      "authored_assessment_sha256": "44b927cd2b3bb0f5634a27109bbcccc2f1dff1c0a5f838a899cc88daa62e5574",
+      "axis": "object_node",
+      "category": "CORRECT",
+      "scope_sha256": "89e831a414a937003fbc56ec505381c062a11e1213de56dc25f19521e16c266a"
+    },
+    {
+      "authored_assessment_sha256": "259bef31c59b2a02810ab6c6fa5c610c94cc2e0079e4a10443f3b8cd4471f602",
+      "axis": "relation",
+      "category": "INCORRECT",
+      "scope_sha256": "fe7052b787eb71abde788dda51d0ee100783341f5a2444d0d53b0ae9ea551c42"
+    },
+    {
+      "authored_assessment_sha256": "6eb757c96ad18ca8e6ffe0bd48335eed10e6fd85d694d4dfd9bf760aeac06786",
+      "axis": "source_fidelity",
+      "category": "NOT_ASSESSABLE",
+      "scope_sha256": "54890ab9e18fa3280483321b060ec4e216db2f63291b6e54798bb2efc99669df"
+    },
+    {
+      "authored_assessment_sha256": "61e7d4fc9083627f1ace43a7424b0962625fbe759f9791c239b9c7800852b506",
+      "axis": "subject_node",
+      "category": "CORRECT",
+      "scope_sha256": "e218452d9cc3096bd1ec3356109bdfda4caf20df7a3be85c770726cf405bc60b"
+    }
+  ],
+  "calibration_rating": true,
+  "canonical_persistence_asserted": false,
+  "canonical_review": false,
+  "case_id": "first-28",
+  "completion": "partial",
+  "kg_admissions": 0,
+  "mode": "round",
+  "occurrence_id": "urn:kg-microbe:occurrence:v1:177815c9e4c39684189e2004e17840e6f0c42a2824750aad5d7f95bd7c0e5f3e",
+  "private_inputs": {
+    "case_id": "first-28",
+    "packet": {
+      "path": ".temp/edge-calibration-20261115/first-28/packet.json",
+      "sha256": "eb5e38bf636fed915f15ee9bd2ce9f1d4d010eb8c1e8d815a17e1de265bcd527"
+    },
+    "proofs": {
+      "path": ".temp/round02-reviewer/first-28-proofs.json",
+      "sha256": "becd23097989fd87c0ba220b5720b26abfe21028eb1ad41820b5a9e10335fc99"
+    },
+    "review": {
+      "path": ".temp/round02-reviewer/first-28-review.json",
+      "sha256": "64393046e8352873d87bc7c7b5650dc0312692750492b10b4de4a5ef1b07aa5c"
+    },
+    "reviewer": "reviewer-b"
+  },
+  "production_input_validation": {
+    "scope": "Production input validation; not persistence",
+    "status": "passed"
+  },
+  "quotation_words": 0,
+  "reviewer": "reviewer-b",
+  "schema": "edgemech-round02-publication-gate/v1",
+  "source_evidence": [
+    {
+      "quote_sha256": "b9bb9a4e1ce16d1d5288b7a002f2d65fb40710f33c6154a6ad78a04c7f252631",
+      "raw_sha256": "7735a7ec8eb55c0c9a4ab0cf2d7df799e7948066b79d5c73d571d696bbcde62a",
+      "source_identities": [
+        "authority-raw-sha256:7735a7ec8eb55c0c9a4ab0cf2d7df799e7948066b79d5c73d571d696bbcde62a",
+        "authority-sha256:8971bf3af4542460dc9e02d12ff6d3aa6bbc8b18e4cede22f18c3480a923ff72"
+      ]
+    },
+    {
+      "quote_sha256": "da66a38c445c92019af33e4e0a2ccb59128e1726d018478dc4ecb1631d124c87",
+      "raw_sha256": "8b6f8fe0510a698579e532658c8ace05da2550093365df9ca83feb0741778415",
+      "source_identities": [
+        "authority-raw-sha256:8b6f8fe0510a698579e532658c8ace05da2550093365df9ca83feb0741778415",
+        "authority-sha256:6969c3fa53ca1e23875da2c881f08210794fdc824d4b19340a23f7080495ee78"
+      ]
+    },
+    {
+      "quote_sha256": "05d492aab9a3deecd78de0c5a5057011c7381fa1f79e0e35ad1b1a2667e442f1",
+      "raw_sha256": "b6a1320772a92d69e84b8c700cd6386dffe45ed635c8197d61e22b6a6fa3b35e",
+      "source_identities": [
+        "authority-raw-sha256:b6a1320772a92d69e84b8c700cd6386dffe45ed635c8197d61e22b6a6fa3b35e",
+        "authority-sha256:d22154e2b03cb222eed52297d369a03ac4d61cda2aa298dcc1dd796a1ab275d3"
+      ]
+    }
+  ],
+  "source_mode": "authored_input",
+  "verdict": "blocked"
+}

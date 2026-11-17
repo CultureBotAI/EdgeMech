@@ -49,22 +49,8 @@ def catalog(specs):
         review_raw, _ = publication.read_pin(root, spec["review"])
         proof_raw, _ = publication.read_pin(root, spec["proofs"])
         review, proofs = load_document(review_raw), json.loads(proof_raw)
-        publication.validate_occurrence_review(root, review, spec["packet"], spec["proofs"])
-        evidence = {e["evidence_id"]: e for e in review["evidence"]}
-        for proof in proofs["proofs"]:
-            if proof["kind"] == "packet":
-                continue
-            raw, _ = publication.read_pin(root, proof["input"]["path"])
-            if proof["kind"] == "europepmc_abstract":
-                _, aliases = publication._europepmc_abstract(raw, proof)
-            elif proof["kind"] == "jats":
-                _, aliases = publication._jats(raw, proof)
-            else:
-                aliases = {"authority:" + proof["reference"] + "#" + proof["version"],
-                           "authority-raw-sha256:" + publication.digest(raw)}
-            quote = " ".join(evidence[proof["evidence_id"]]["quote"].split())
-            result.append({"quote": quote, "aliases": aliases,
-                           "sha256": publication.text_hash(quote)})
+        publication.review_replay(root, review, proofs, spec, spec.get("source_mode", "canonical_review"))
+        result.extend(publication.quotation_catalog(root, review, proofs))
     return result
 
 

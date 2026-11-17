@@ -1,0 +1,237 @@
+#!/usr/bin/env python3
+"""Private read-only replay driver. Not a scientific execution-summary helper.
+
+Run from one original root with that root's pinned src on PYTHONPATH. Outputs
+exclusive per-case receipts only; never saves reviews or rewrites evidence.
+"""
+import argparse
+import datetime
+import hashlib
+import json
+import os
+from pathlib import Path
+import subprocess
+import sys
+
+from edgemech import occurrence_review as production
+from edgemech.occurrence_packet import validate_packet
+from edgemech.literature_cache import LiteratureCache, verify_quote
+
+MANIFEST = '.temp/m5-round02-worker-20261116/round02-final/round-02-manifest.json'
+EXPECTED_PACKAGE = '09fa2916bc298cd4a76c9baec27470cb0b7b47f44f9570775609b438ebe81445'
+EXPECTED_RUNTIME = '9d99002d24c3d41137437ae1101b715344b3d85d'
+
+def sha(raw):
+    return hashlib.sha256(raw).hexdigest()
+
+def read(path):
+    return json.loads(path.read_bytes())
+
+def write(path, value):
+    path.parent.mkdir(parents=True, exist_ok=True, mode=0o700)
+    with path.open('x') as out:
+        json.dump(value, out, indent=2)
+        out.write('\n')
+
+def artifact(path, expected=None):
+    row = {'path': str(path.absolute()), 'exists': path.is_file()}
+    if row['exists']:
+        raw = path.read_bytes()
+        row.update(sha256=sha(raw), bytes=len(raw))
+    if expected is not None:
+        row.update(expected_sha256=expected, hash_matches=row.get('sha256') == expected)
+    return row
+
+def run(root, out, label, command):
+    # This assertion is also a focused safety check: only read-only operations.
+    assert 'save' not in command
+    result = subprocess.run(command, cwd=root, env=dict(os.environ, PYTHONPATH='src',
+                            PYTHONDONTWRITEBYTECODE='1'), capture_output=True)
+    stdout, stderr = out / (label+'.stdout'), out / (label+'.stderr')
+    for path, raw in [(stdout,result.stdout),(stderr,result.stderr)]:
+        with path.open('xb') as f:
+            f.write(raw)
+    receipt = {'command':command,'cwd':str(root),'exit_status':result.returncode,
+               'environment':{'PYTHONPATH':'src','PYTHONDONTWRITEBYTECODE':'1'},
+               'stdout':artifact(stdout),'stderr':artifact(stderr),
+               'finished_at':datetime.datetime.now(datetime.timezone.utc).isoformat()}
+    write(out/(label+'.receipt.json'),receipt)
+    return receipt
+
+def attempt(call):
+    try:
+        result = call()
+        return {'status':'passed','result':result}
+    except Exception as exc:
+        return {'status':'failed','error_type':type(exc).__name__,'reason':str(exc)}
+
+def inspect_case(root, out, rid, case, original, indexed, file_pins, evidence_pins):
+    cid = case['case_id']
+    out.mkdir(parents=True,exist_ok=False,mode=0o700)
+    inp = indexed.get('input_path',indexed.get('canonical_input',{}).get('path'))
+    proofs = indexed.get('proof_path',indexed.get('proof_sidecar',{}).get('path'))
+    pair = indexed.get('pair_paths',{})
+    yaml_path = pair.get('yaml',indexed.get('canonical_pair',{}).get('yaml_path'))
+    md_path = pair.get('markdown',indexed.get('canonical_pair',{}).get('markdown_path'))
+    paths = {'input':inp,'proofs':proofs,'yaml':yaml_path,'markdown':md_path,
+             'packet':case['packet_path'],'reviewer_view':case['reviewer_view_path']}
+    artifacts = {key:artifact(root/path) for key,path in paths.items()}
+    raw_review, sidecar = read(root/inp), read(root/proofs)
+    packet = read(root/case['packet_path'])  # Mechanical only, never display historical fields.
+    source_inputs = {x['path']:x['sha256'] for x in raw_review['source']['inputs']}
+    pins = [artifact(root/path,digest) for path,digest in source_inputs.items()]
+    actual_oid = case['occurrence_id']
+    target = raw_review['targets'][0] if len(raw_review['targets']) == 1 else {}
+    packet_binding = {
+        'manifest_occurrence_id':actual_oid,
+        'matrix_occurrence_id_matches':original['occurrence_id']==actual_oid,
+        'index_occurrence_id_matches':indexed['occurrence_id']==actual_oid,
+        'packet_occurrence_id_matches':packet['occurrence_id']==actual_oid,
+        'packet_original_assertion_matches':packet['original_assertion']==case['original_assertion'],
+        'target_matches':target.get('target_id')==actual_oid and target.get('path')==case['packet_path']
+                         and target.get('selector')=='occurrence_id='+actual_oid,
+        'packet_hash_matches_manifest':artifacts['packet']['sha256']==file_pins[case['packet_path']]['sha256'],
+        'proof_occurrence_matches':sidecar.get('occurrence_id')==actual_oid,
+        'endpoint_hashes_match':{role:packet['endpoints'][role]['record_sha256']==case['endpoints'][role]['private_record_sha256'] for role in ['subject','object']},
+        'packet_replay':attempt(lambda:validate_packet(packet,root=root))}
+    assessments = {}
+    for item in raw_review['assessments']:
+        dims = {x['name']:x['value'] for x in item.get('dimensions',[])}
+        axis = dims.get('axis')
+        assessments.setdefault(axis,[]).append((item,dims))
+    proof_by_id = {p['evidence_id']:p for p in sidecar['proofs']}
+    evidence_by_id = {e['evidence_id']:e for e in raw_review['evidence']}
+    # The union preserves every missing/orphan evidence/proof item in the denominator.
+    expected_ids = sorted(set(proof_by_id)|set(evidence_by_id))
+    matrix_comparison = []
+    for a in original['assessments']:
+        axis = a['axis']; found = assessments.get(axis,[])
+        row={'axis':axis,'sealed_category':a['category'],'assessment_count':len(found)}
+        if len(found)==1:
+            item,dims=found[0]
+            bound_ids=[proof_by_id[eid].get('manifest_evidence_id',eid)
+                       for eid in item['evidence_ids'] if eid in proof_by_id]
+            row.update(canonical_category=dims.get('category'),category_equal=dims.get('category')==a['category'],
+                       scope_equal=dims.get('scope')==a['scope'], rationale_equal=item.get('summary')==a['rationale'],
+                       dimensions_equal={k:dims.get(k)==v for k,v in a['dimensions'].items()},
+                       required_dimensions_present=production.DETAILS[axis]<=dims.keys(),
+                       canonical_bound_manifest_ids=sorted(set(bound_ids)),sealed_evidence_ids=a['evidence_ids'],
+                       added_evidence_ids=sorted(set(bound_ids)-set(a['evidence_ids'])),
+                       removed_evidence_ids=sorted(set(a['evidence_ids'])-set(bound_ids)))
+            differences={}
+            for label,left,right in [('scope',a['scope'],dims.get('scope')),('rationale',a['rationale'],item.get('summary'))]:
+                if left!=right:differences[label]={'sealed':left,'canonical':right}
+            for dim,value in a['dimensions'].items():
+                if value!=dims.get(dim):differences[dim]={'sealed':value,'canonical':dims.get(dim)}
+            row['text_differences']=differences
+        matrix_comparison.append(row)
+
+    proof_rows=[]
+    for eid in expected_ids:
+        proof,item=proof_by_id.get(eid),evidence_by_id.get(eid)
+        row={'evidence_id':eid,'proof_present':proof is not None,'citation_present':item is not None}
+        if not proof or not item:
+            row.update(literal_identity_status='unavailable',production_binding_status='failed',reason='Missing proof or citation')
+            proof_rows.append(row);continue
+        mid=proof.get('manifest_evidence_id',eid)
+        pin=evidence_pins.get(mid)
+        row.update(manifest_evidence_id=mid,kind=proof['kind'],axes=proof['axes'],support=proof['support'],
+                   scope=proof['scope'],scope_rationale=proof['scope_rationale'],
+                   inspected_extent=proof['inspected_extent'],input=artifact(root/proof['input']['path'],proof['input']['sha256']),
+                   reference=proof['reference'],canonical_locator=item.get('locator'),literal_quote=item.get('quote'),
+                   declared_authority_version=proof.get('version'),manifest_authority_version=pin.get('version') if pin else None,
+                   manifest_id_allowed=mid in case['evidence_ids'],manifest_path_hash_bound=bool(pin and pin['path']==proof['input']['path'] and pin['sha256']==proof['input']['sha256']))
+        if proof['kind']=='authority':row['authority_version_equals_manifest']=bool(pin and pin.get('version')==proof.get('version'))
+        def literal_replay():
+            raw=(root/proof['input']['path']).read_bytes()
+            assert sha(raw)==proof['input']['sha256']==item['snapshot_sha256']
+            assert source_inputs.get(proof['input']['path'])==sha(raw)
+            assert row['manifest_id_allowed'] and row['manifest_path_hash_bound']
+            if proof['kind']=='packet':
+                assert proof['input']['path']==case['packet_path']
+                return {'packet_replay':validate_packet(packet,root=root),'identities':['packet:'+actual_oid]}
+            if proof['kind']=='jats':
+                text,identities=production._jats(raw,proof);kind='oa_fulltext'
+            elif proof['kind']=='europepmc_abstract':
+                text,identities=production._europepmc_abstract(raw,proof);kind='abstract'
+            elif proof['kind']=='authority':
+                assert row['authority_version_equals_manifest']
+                text,kind=raw.decode('utf-8'),'authority_text'
+                identities={'authority:'+proof['reference']+'#'+proof['version']}
+            else:raise ValueError('Unsupported proof kind')
+            document=LiteratureCache._document({'response_sha256':sha(raw)},kind,text)
+            quote=verify_quote(document,item.get('quote'))
+            assert all(proof.get(k)==quote[k] for k in ['text_sha256','start','end','extractor'])
+            assert f"chars {quote['start']}:{quote['end']}" in item['locator']
+            return {'verified_quote':quote,'verified_identities':sorted(identities),'text_characters':len(text),
+                    'declared_inspected_extent':proof['inspected_extent']}
+        literal=attempt(literal_replay)
+        row['literal_identity_replay']=literal
+        row['literal_identity_status']=literal['status']
+        # Use the actual production proof validator on a single unchanged item so
+        # one failure does not prevent all remaining expected proofs being checked.
+        result=attempt(lambda:production._replay_evidence(root,{'evidence':[item]},case['packet_path'],packet,
+                       {**sidecar,'proofs':[proof]},source_inputs))
+        if result['status']=='passed':result['result']={'verified_evidence_id':eid}
+        row['production_binding_replay']=result
+        row['production_binding_status']=result['status']
+        proof_rows.append(row)
+    cli_base=[sys.executable,'-B','-m','edgemech.occurrence_review']
+    validation=run(root,out,'validate',cli_base+['validate','--review',inp,'--packet',case['packet_path'],'--proofs',proofs])
+    checking=run(root,out,'check',cli_base+['check','--review',yaml_path,'--packet',case['packet_path'],'--proofs',proofs])
+    matrix_citations=[]
+    for eid in sorted({eid for a in original['assessments'] for eid in a['evidence_ids']}):
+        pin=evidence_pins[eid]
+        matched=[p['evidence_id'] for p in sidecar['proofs'] if p.get('manifest_evidence_id',p['evidence_id'])==eid]
+        matrix_citations.append({'evidence_id':eid,'artifact':artifact(root/pin['path'],pin['sha256']),
+                                 'manifest_version':pin.get('version'),'role':pin['role'],
+                                 'cited_axes':[a['axis'] for a in original['assessments'] if eid in a['evidence_ids']],
+                                 'canonical_proof_ids':matched,'proof_available':bool(matched)})
+        if not matched:
+            proof_rows.append({'evidence_id':'sealed-matrix:'+eid,'manifest_evidence_id':eid,
+                               'expected_from':'sealed_initial_matrix_citation',
+                               'axes':[a['axis'] for a in original['assessments'] if eid in a['evidence_ids']],
+                               'proof_present':False,'citation_present':True,
+                               'input':artifact(root/pin['path'],pin['sha256']),
+                               'literal_identity_status':'unavailable','production_binding_status':'unavailable',
+                               'reason':'Initial matrix cites this manifest evidence input, but no retained canonical proof binds it. Matching raw bytes do not replace missing proof.'})
+    result={'reviewer_id':rid,'case_id':cid,'root':str(root),'review_id':raw_review['review_id'],
+            'original_result_entry':indexed,'artifacts':artifacts,'source_input_pins':pins,
+            'matrix_cited_inputs':matrix_citations,'packet_binding':packet_binding,
+            'matrix_to_authored_canonical_comparison':matrix_comparison,
+            'authored_input_to_persisted_yaml':'unavailable_missing_pair' if not artifacts['yaml']['exists'] else 'pending',
+            'yaml_to_markdown_and_pair_hash_validation':'unavailable_missing_pair' if not artifacts['markdown']['exists'] else 'pending',
+            'aggregate':{'verdict':raw_review['verdict'],'completion':raw_review['completion'],
+                         'checks':raw_review['checks'],'unavailable_required_checks':[x for x in raw_review['checks'] if x.get('required') and x['status'] in ['unavailable','failed']],
+                         'shared_schema_validation':attempt(lambda:production.validate_review(raw_review))},
+            'proof_coverage':{'expected':len(proof_rows),'canonical_evidence_proof_union':len(expected_ids),
+                              'missing_initial_citation_proofs':sum(p.get('expected_from')=='sealed_initial_matrix_citation' for p in proof_rows),
+                              'rows':proof_rows},
+            'input_validation':validation,'canonical_check':checking,
+            'canonical_pair_status':'replay_passed' if checking['exit_status']==0 else 'failed_missing_pair' if not artifacts['yaml']['exists'] or not artifacts['markdown']['exists'] else 'failed_check',
+            'semantic_support':'not_determined_by_this_technical_replay'}
+    write(out/'inspection.json',result)
+    return {'reviewer_id':rid,'case_id':cid,'path':str(out/'inspection.json'),'sha256':sha((out/'inspection.json').read_bytes()),
+            'validation_exit':validation['exit_status'],'check_exit':checking['exit_status'],
+            'expected_proofs':len(proof_rows),'literal_failed':sum(x['literal_identity_status']!='passed' for x in proof_rows),
+            'binding_failed':sum(x['production_binding_status']!='passed' for x in proof_rows)}
+
+def main():
+    parser=argparse.ArgumentParser();parser.add_argument('--output',type=Path,required=True);parser.add_argument('--reviewer',required=True)
+    args=parser.parse_args();root=Path.cwd();out=args.output
+    manifest=read(root/MANIFEST)
+    assert sha((root/MANIFEST).read_bytes())==EXPECTED_PACKAGE
+    assert subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip()==EXPECTED_RUNTIME
+    matrix_path=root/'.temp/round02-reviewer/initial-matrix.json';receipt=read(Path(str(matrix_path)+'.receipt.json'))
+    assert receipt['matrix_sha256']==sha(matrix_path.read_bytes()) and receipt['package_sha256']==EXPECTED_PACKAGE
+    assert receipt['matrix_path']==str(matrix_path.relative_to(root))
+    matrix=read(matrix_path);assert matrix['reviewer']==receipt['reviewer']
+    index=read(root/'.temp/round02-reviewer/reviewer-result.json')
+    cases={x['case_id']:x for x in manifest['cases']};original={x['case_id']:x for x in matrix['cases']};indexed={x['case_id']:x for x in index['cases']}
+    assert len(cases)==10 and cases.keys()==original.keys()==indexed.keys()
+    file_pins={x['path']:x for x in manifest['files']}
+    evidence_pins={eid:p for p in manifest['files'] for eid in p.get('evidence_ids',[])}
+    for cid in ['fresh-47']+[c for c in cases if c!='fresh-47']:
+        print(json.dumps(inspect_case(root,out/args.reviewer/cid,args.reviewer,cases[cid],original[cid],indexed[cid],file_pins,evidence_pins)),flush=True)
+
+if __name__=='__main__':main()

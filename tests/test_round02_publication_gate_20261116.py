@@ -131,3 +131,85 @@ def test_sealed_reviewer_binding_rejects_receipt_or_identity_mismatch(tmp_path, 
         (tmp_path / "reviewer-b.json").write_bytes(raw + b"\n")
     with pytest.raises(ValueError):
         MODULE.reviewer_bindings(config)
+
+
+def test_failed_authored_input_is_preserved_only_in_explicit_draft_mode(tmp_path, monkeypatch):
+    axes = {axis: next(iter(values)) for axis, values in MODULE.CATEGORIES.items()}
+    review = {"targets": [{"target_id": "original"}], "assessments": [
+        {"dimensions": [{"name": "axis", "value": axis}, {"name": "category", "value": category}]}
+        for axis, category in axes.items()]}
+    def rejected(*args):
+        raise ValueError("Original evidence role is invalid")
+    monkeypatch.setattr(MODULE, "validate_occurrence_review", rejected)
+    spec = {"packet": "packet", "proofs": "proofs"}
+    with pytest.raises(ValueError, match="Original evidence"):
+        MODULE.review_replay(tmp_path, review, {}, spec, "canonical_review")
+    replay, validation = MODULE.review_replay(tmp_path, review, {}, spec, "authored_input")
+    assert replay["assessments"] == axes and replay["occurrence_id"] == "original"
+    assert validation["status"] == "failed" and "error_sha256" in validation
+    assert "Original evidence" not in str(validation)
+
+
+@pytest.mark.parametrize("corruption", [None, "raw_hash", "offset", "missing_proof", "duplicate_proof"])
+def test_quotation_accounting_replays_literal_bytes_without_semantic_approval(tmp_path, corruption):
+    raw = b"Synthetic authority text with a small literal excerpt."
+    (tmp_path / "authority.txt").write_bytes(raw)
+    document = MODULE.LiteratureCache._document({"response_sha256": MODULE.digest(raw)}, "authority_text", raw.decode())
+    quote = MODULE.verify_quote(document, "small literal excerpt")
+    proof = {"evidence_id": "e", "kind": "authority", "reference": "https://example.invalid/authority",
+             "version": "synthetic-v1", "input": {"path": "authority.txt", "sha256": MODULE.digest(raw)},
+             **{k: quote[k] for k in ("text_sha256", "start", "end", "extractor")}}
+    review = {"source": {"inputs": [proof["input"]]}, "evidence": [{
+        "evidence_id": "e", "reference": proof["reference"], "snapshot_sha256": MODULE.digest(raw),
+        "quote": "small literal excerpt", "locator": f"chars {quote['start']}:{quote['end']}"}]}
+    sidecar = {"proofs": [proof]}
+    if corruption == "raw_hash":
+        (tmp_path / "authority.txt").write_bytes(raw + b" changed")
+    elif corruption == "offset":
+        proof["start"] += 1
+    elif corruption == "missing_proof":
+        sidecar["proofs"] = []
+    elif corruption == "duplicate_proof":
+        sidecar["proofs"].append(dict(proof))
+    if corruption:
+        with pytest.raises(ValueError):
+            MODULE.quotation_catalog(tmp_path, review, sidecar)
+    else:
+        entries = MODULE.quotation_catalog(tmp_path, review, sidecar)
+        assert len(entries) == 1 and entries[0]["quote"] == "small literal excerpt"
+        assert entries[0]["raw_sha256"] == MODULE.digest(raw)
+
+
+@pytest.mark.parametrize("corruption", [None, "packet_occurrence", "proof_occurrence", "target_path", "selector", "unpinned_packet"])
+def test_failed_draft_still_binds_original_packet_and_proofs(tmp_path, monkeypatch, corruption):
+    import json
+    packet = {"occurrence_id": "original"}
+    proofs = {"occurrence_id": "original"}
+    target = {"target_id": "original", "path": "packet.json", "selector": "occurrence_id=original"}
+    if corruption == "packet_occurrence":
+        packet["occurrence_id"] = "different"
+    elif corruption == "proof_occurrence":
+        proofs["occurrence_id"] = "different"
+    elif corruption == "target_path":
+        target["path"] = "other.json"
+    elif corruption == "selector":
+        target["selector"] = "occurrence_id=different"
+    inputs = []
+    for name, value in (("packet.json", packet), ("proofs.json", proofs)):
+        raw = json.dumps(value).encode()
+        (tmp_path / name).write_bytes(raw)
+        inputs.append({"path": name, "sha256": MODULE.digest(raw)})
+    if corruption == "unpinned_packet":
+        inputs = inputs[1:]
+    review = {"targets": [target], "source": {"inputs": inputs}}
+    checked = []
+    monkeypatch.setattr(MODULE, "validate_packet", lambda *args, **kwargs: checked.append(args))
+    if corruption:
+        with pytest.raises(ValueError):
+            MODULE.bind_original_inputs(tmp_path, review, proofs, packet,
+                                        {"packet": "packet.json", "proofs": "proofs.json"}, "original")
+        assert not checked
+    else:
+        MODULE.bind_original_inputs(tmp_path, review, proofs, packet,
+                                    {"packet": "packet.json", "proofs": "proofs.json"}, "original")
+        assert len(checked) == 1
