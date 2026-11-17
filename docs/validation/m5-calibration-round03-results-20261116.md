@@ -132,10 +132,30 @@ immutable CLAW `4fad8df5b2367da68faca6379ce32eb9b8f4ba9b`, from open unmerged
 [PR #1289](https://github.com/CultureBotAI/culturebotai-claw/pull/1289), with all
 eight listed checks passed. No installed dependency was edited.
 
-At this candidate snapshot, new package freeze, live production/view/derivative
-canaries, exact pushed CI and final public derivative staging are still pending.
-No old receipt may authorize the changed runtime. These steps will be recorded
-separately; they cannot change the failed scientific result.
+The later engineering commit `ce2530e7407f698e23b60aaf6c1ee2a0bb2c6694`
+passed exact-head CI. Its new 360-pin engineering package has SHA256
+`1438edadb5db21e6d238e45a3eeb7c2abd804a333ec64756b2164e55942c3c4b`.
+Two actual bounded-view canaries and all 58 derivative replays passed. Independent
+inspection covered changed content and navigation, with prior content inspection
+reused only for identical large source files and the earlier missed-clause
+conclusion explicitly corrected. The new parent production receipt is
+`b61283a12fda5e072144a448abc107fe9e87bfa772a15e25417a1279b1972ee7`;
+actual save/check, both persisted files and unchanged authored values passed
+independent inspection. This is engineering readiness, not scientific approval.
+
+The first actual publication derivative then failed closed before any projection:
+the installed-distribution fingerprint differed from that parent receipt. The
+publisher duplicated source paths already supplied to Python, causing local
+distribution metadata to appear twice. Its failed stage and verifier diagnostics
+remain private and immutable. A minimal import-setup repair preserves the existing
+runtime guard and requires another identified runtime, package and parent canary.
+Final derivative publication remains pending at this repair snapshot.
+
+The engineering package is not a future scientific launch package: its included
+scientific prompt still names the original round03 manifest, and generic case-view
+exposure wording needs reconciliation with the revised content-based rule. These
+are explicit deferred prerequisites for any future scientific package. No new
+scientific run or reuse of an old receipt is authorized by this engineering work.
 
 ## Durable provenance
 

@@ -1,7 +1,9 @@
 """Publication keeps a newer runtime separate from immutable original science (#199)."""
+import importlib.metadata
 import importlib.util
 import json
 import subprocess
+import sys
 from copy import deepcopy
 from pathlib import Path
 from types import SimpleNamespace
@@ -18,6 +20,56 @@ SPEC = importlib.util.spec_from_file_location("round03_publication", PATH)
 MODULE = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(MODULE)
 ROUND = "m5-calibration-20261116-round03"
+
+
+def test_import_preserves_real_runtime_fingerprint_and_rejects_metadata_drift(tmp_path, monkeypatch):
+    """Importing the gate must not double-count metadata already on PYTHONPATH."""
+    import run_m5_review_worker_20261116 as worker
+
+    root = tmp_path / "publication"
+    source = root / "src"
+    scripts = root / "scripts" / "adhoc"
+    metadata = source / "m5_bootstrap_fixture-1.0.dist-info"
+    metadata.mkdir(parents=True)
+    scripts.mkdir(parents=True)
+    (root / "uv.lock").write_text("unchanged fixture dependency lock\n")
+    (metadata / "METADATA").write_text(
+        "Metadata-Version: 2.1\nName: m5-bootstrap-fixture\nVersion: 1.0\n")
+    record = metadata / "RECORD"
+    record.write_text("original fixture distribution record\n")
+    helper = scripts / PATH.name
+    helper.write_bytes(PATH.read_bytes())
+    monkeypatch.syspath_prepend(str(source))
+    monkeypatch.syspath_prepend(str(scripts))
+    monkeypatch.setenv("PYTHONPATH", str(source))
+    environment = worker.child_environment(root)
+    before_paths = list(sys.path)
+    before = worker.runtime_bindings(root, environment)
+    spec = importlib.util.spec_from_file_location("publication_bootstrap_fixture", helper)
+    imported = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(imported)
+    after = worker.runtime_bindings(root, environment)
+
+    # Real metadata discovery sees the fixture exactly once, and imports do not
+    # alter any same-process runtime binding or reorder the caller's import path.
+    assert after == before
+    assert sys.path == before_paths
+    visible = [item for item in importlib.metadata.distributions()
+               if item.metadata.get("Name") == "m5-bootstrap-fixture"]
+    assert len(visible) == 1
+
+    # This is not a fingerprint normalization: genuine bytes changing in the
+    # actual metadata remain visible and the unchanged receipt guard rejects it.
+    recorded = {key: before.get(key, "fixture-" + key) for key in worker.RUNTIME_KEYS}
+    receipt = root / "receipt.json"
+    receipt.write_text(json.dumps({**recorded, "schema": worker.SCHEMA,
+                                  "status": "passed", "scope": worker.PRODUCTION_SCOPE}))
+    record.write_text("changed fixture distribution record\n")
+    changed = {**recorded, **worker.runtime_bindings(root, environment)}
+    assert changed["distributions_sha256"] != recorded["distributions_sha256"]
+    with pytest.raises(ValueError, match="Canary runtime changed: distributions_sha256"):
+        worker.verify_receipt(receipt, changed, root, environment,
+                              reviewer_package="fixture-package.json")
 
 
 def pinned(root, relative, value):

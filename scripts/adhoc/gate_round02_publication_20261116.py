@@ -29,8 +29,11 @@ from contextlib import contextmanager
 from pathlib import Path
 
 ROOT = Path(__file__).absolute().parents[2]
-sys.path.insert(0, str(ROOT / "src"))
-sys.path.insert(0, str(ROOT / "scripts/adhoc"))
+for import_root in (ROOT / "src", ROOT / "scripts/adhoc"):
+    # PYTHONPATH/editable installation and direct invocation already add these.
+    # Repeating them duplicates local distributions in the launcher's fingerprint.
+    if str(import_root) not in sys.path:
+        sys.path.insert(0, str(import_root))
 sys.dont_write_bytecode = True
 
 from kg_microbe_governance.artifacts.scripts.record_review import (  # noqa: E402
