@@ -1,0 +1,139 @@
+{
+  "assessments": [
+    {
+      "authored_assessment_sha256": "87a118c6c8ea937bbfb6b40ed9fef76158eba5cb2b75dc5a428e5e0a18a9a9ee",
+      "axis": "claim",
+      "category": "CONTRADICTED_AS_STATED",
+      "scope_sha256": "9cc797a602976d0439d580c851fb96e53a80372f8f76275447c892e9755f2458"
+    },
+    {
+      "authored_assessment_sha256": "990c679ed0857ed3276250fec06957531a9bc425929ca87d64b7cb0a1db5b927",
+      "axis": "literature",
+      "category": "NOT_APPLICABLE",
+      "scope_sha256": "694ae7e76484c9da22751154bb7121e6a9117fb15f52c63e13bd107e661e0207"
+    },
+    {
+      "authored_assessment_sha256": "0c7091e4b40742016007bb3821d10f8606631aa38ea3d0343dbe7b630cef59c4",
+      "axis": "object_node",
+      "category": "CORRECT",
+      "scope_sha256": "c7ca0ee1e0476bd5203e672904e5449bfc34c005182b613157a76b860e6db413"
+    },
+    {
+      "authored_assessment_sha256": "beb43fa3916bf8e825bcba61c692bd549dd99a4b5b30bb539f26ee5847d8b33a",
+      "axis": "relation",
+      "category": "INCORRECT",
+      "scope_sha256": "300b3cb8fcda4aed3d66a59f56ab8fc2a3991d594442887ce87c8c8b837ac927"
+    },
+    {
+      "authored_assessment_sha256": "5cb92ad921a8ede424cdd169be5305b6a7323dee462a2703096611021a7bbd32",
+      "axis": "source_fidelity",
+      "category": "SUPPORTED",
+      "scope_sha256": "fedfebb19cf04bd51fd39aea3762eefe4a96bd72162a4caeb7518635b37b6a02"
+    },
+    {
+      "authored_assessment_sha256": "7a5e69574289444f7156b7b53e9fa29a41da9542058f19c9a07872a26bfd461d",
+      "axis": "subject_node",
+      "category": "CORRECT",
+      "scope_sha256": "45f059d73928c1aabab4fa1fb3add12469a7031b01083c11f4d9a3636c6e8029"
+    }
+  ],
+  "calibration_rating": true,
+  "canonical_persistence_asserted": false,
+  "canonical_review": false,
+  "case_id": "first-32",
+  "completion": "partial",
+  "kg_admissions": 0,
+  "mode": "round",
+  "occurrence_id": "urn:kg-microbe:occurrence:v1:192571d351f25940fa1d092f9943862376a9603e28391d518c131e3d0341669b",
+  "private_inputs": {
+    "case_id": "first-32",
+    "packet": {
+      "path": ".temp/edge-calibration-20261115/first-32/packet.json",
+      "sha256": "32cb804b4f6e0f678f01faf3ecf351146101d1beb0abe6e77ecbffedd470ded2"
+    },
+    "proofs": {
+      "path": ".temp/round02-reviewer/first-32-proofs.json",
+      "sha256": "d129c33c49f9c14e09a8e7d62ba08a49ebf79bdafcc3220565cdfd6bf504e468"
+    },
+    "review": {
+      "path": ".temp/round02-reviewer/first-32-review.json",
+      "sha256": "cfbed73b19319dd25bdbb1358ebcafaf446a8b422503da2feef9dfd5892ae11f"
+    },
+    "reviewer": "reviewer-a"
+  },
+  "production_input_validation": {
+    "scope": "Production input validation; not persistence",
+    "status": "passed"
+  },
+  "quotation_words": 0,
+  "reviewer": "reviewer-a",
+  "schema": "edgemech-round02-publication-gate/v1",
+  "source_evidence": [
+    {
+      "quote_sha256": "80b09e3ea6b5f8b34a715fe1feb123e538ad312469775cdd584aa3867264f1b9",
+      "raw_sha256": "b0d4c227cf90f01256edd978d913821d8ad38dc1d15b6850b0ca9d2abb445875",
+      "source_identities": [
+        "authority-raw-sha256:b0d4c227cf90f01256edd978d913821d8ad38dc1d15b6850b0ca9d2abb445875",
+        "authority-sha256:54c7e3e3f029760989d39fa6e76672615deacfa462cb27c97d170c01814766d1"
+      ]
+    },
+    {
+      "quote_sha256": "e1b681f79d0b1403b6611a26ea984a1aa8ac67309afe5c0f1d92f656c6c85cde",
+      "raw_sha256": "37433381f5915338ee3e342a85ea15e8417fcf7b9bb7f08871cac084f958490d",
+      "source_identities": [
+        "authority-raw-sha256:37433381f5915338ee3e342a85ea15e8417fcf7b9bb7f08871cac084f958490d",
+        "authority-sha256:d874a702accaac3114d703b29ca654434600788cd2d5daa0eb6af0b6918ec97d"
+      ]
+    },
+    {
+      "quote_sha256": "2a2319216524ecff96f3b401f2094b71c67936cb753351f71161660ef2a241da",
+      "raw_sha256": "4955709e1cac1d26fd657f7a0c29d6c8390f42e41f9ebfab859c82b102f2bebb",
+      "source_identities": [
+        "authority-raw-sha256:4955709e1cac1d26fd657f7a0c29d6c8390f42e41f9ebfab859c82b102f2bebb",
+        "authority-sha256:b7d1609b05515e59d5e6eded6001bfbdccdb97ca265c26317690d1d7932861f2"
+      ]
+    },
+    {
+      "quote_sha256": "2a2319216524ecff96f3b401f2094b71c67936cb753351f71161660ef2a241da",
+      "raw_sha256": "4955709e1cac1d26fd657f7a0c29d6c8390f42e41f9ebfab859c82b102f2bebb",
+      "source_identities": [
+        "authority-raw-sha256:4955709e1cac1d26fd657f7a0c29d6c8390f42e41f9ebfab859c82b102f2bebb",
+        "authority-sha256:b7d1609b05515e59d5e6eded6001bfbdccdb97ca265c26317690d1d7932861f2"
+      ]
+    },
+    {
+      "quote_sha256": "80b09e3ea6b5f8b34a715fe1feb123e538ad312469775cdd584aa3867264f1b9",
+      "raw_sha256": "b0d4c227cf90f01256edd978d913821d8ad38dc1d15b6850b0ca9d2abb445875",
+      "source_identities": [
+        "authority-raw-sha256:b0d4c227cf90f01256edd978d913821d8ad38dc1d15b6850b0ca9d2abb445875",
+        "authority-sha256:54c7e3e3f029760989d39fa6e76672615deacfa462cb27c97d170c01814766d1"
+      ]
+    },
+    {
+      "quote_sha256": "e1b681f79d0b1403b6611a26ea984a1aa8ac67309afe5c0f1d92f656c6c85cde",
+      "raw_sha256": "37433381f5915338ee3e342a85ea15e8417fcf7b9bb7f08871cac084f958490d",
+      "source_identities": [
+        "authority-raw-sha256:37433381f5915338ee3e342a85ea15e8417fcf7b9bb7f08871cac084f958490d",
+        "authority-sha256:d874a702accaac3114d703b29ca654434600788cd2d5daa0eb6af0b6918ec97d"
+      ]
+    },
+    {
+      "quote_sha256": "80b09e3ea6b5f8b34a715fe1feb123e538ad312469775cdd584aa3867264f1b9",
+      "raw_sha256": "b0d4c227cf90f01256edd978d913821d8ad38dc1d15b6850b0ca9d2abb445875",
+      "source_identities": [
+        "authority-raw-sha256:b0d4c227cf90f01256edd978d913821d8ad38dc1d15b6850b0ca9d2abb445875",
+        "authority-sha256:54c7e3e3f029760989d39fa6e76672615deacfa462cb27c97d170c01814766d1"
+      ]
+    },
+    {
+      "quote_sha256": "e1b681f79d0b1403b6611a26ea984a1aa8ac67309afe5c0f1d92f656c6c85cde",
+      "raw_sha256": "37433381f5915338ee3e342a85ea15e8417fcf7b9bb7f08871cac084f958490d",
+      "source_identities": [
+        "authority-raw-sha256:37433381f5915338ee3e342a85ea15e8417fcf7b9bb7f08871cac084f958490d",
+        "authority-sha256:d874a702accaac3114d703b29ca654434600788cd2d5daa0eb6af0b6918ec97d"
+      ]
+    }
+  ],
+  "source_mode": "authored_input",
+  "verdict": "blocked"
+}

@@ -118,6 +118,14 @@ def reviewer_view(root, case, packet, paths):
         return
     require(case["reviewer_view_path"] in paths, "Unpinned reviewer view")
     view = read(root, case["reviewer_view_path"])
+    if "blinding" in view:
+        from prepare_m5_round02_views_20261116 import HELPER, VERSION, projection
+        require(HELPER in paths and
+                "scripts/adhoc/prepare_m5_reviewer_views_20261116.py" in paths,
+                "Unpinned blinding adapters")
+        require(view["blinding"].get("version") == VERSION and view == projection(packet),
+                "Reviewer view differs from the versioned blinded projection")
+        return
     require(view == {key: packet[key] for key in VIEW_FIELDS},
             "Reviewer view must be the exact allowlisted packet projection")
 

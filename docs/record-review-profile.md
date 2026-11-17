@@ -43,8 +43,28 @@ Additional authored dimensions are mandatory:
 
 These explanations may state explicit unresolved limits. Valid identifiers,
 nonempty categories, replayed text and successful validation do not establish
-semantic correctness. An incorrect or unassessed model cannot be hidden by a
-supported-as-stated claim judgment.
+semantic correctness. The claim axis and the three modeling axes retain their
+own authored judgments. A supported scoped statement may coexist with an
+`INCORRECT` or `UNRESOLVED` representation, or with `UNASSESSED` modeling in an
+unfinished review. Save/check must preserve that combination rather than require
+a different claim category to make the review persist (#152).
+
+The claim's `assertion_scope` must explain exactly which proposition the evidence
+supports, while retaining the original occurrence, predicate and endpoint
+definitions. Support for a biological or reported-source statement does not
+validate its graph encoding. An alternative identity, corrected predicate or
+broader interpretation cannot silently replace the original claim. If a modeling
+uncertainty prevents the exact proposition from being established, the claim
+itself remains unresolved. This is an authored semantic judgment; successful
+quote replay does not establish entailment.
+
+The pinned CLAW contract already separates assessment outcomes from the overall
+verdict and completion status. Its guards remain in force: concerning or unknown
+assessments prevent plain `pass`, unresolved major/blocker findings prevent both
+passing verdicts, and required unavailable checks prevent `completed`. This
+profile additionally requires supported claim and all three modeling axes
+`CORRECT` for plain `pass`; completed reviews cannot contain `UNASSESSED` axes.
+Persisting a partial review creates no scientific approval or KG admission.
 
 ## Complete packet and provenance
 

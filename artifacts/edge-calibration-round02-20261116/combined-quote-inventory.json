@@ -1,0 +1,1656 @@
+{
+  "catalog_specs_sha256": "f76b6ab1b89db6dc291a1398f539bedad7b00be4a71b1352d5341cdf07676834",
+  "deduplication_rule": "Identical whitespace-normalized excerpts per metadata-verified source; overlapping or nested distinct excerpts counted separately as a conservative bound.",
+  "inventory": [
+    {
+      "deduplicated_quote_words": 6,
+      "excerpts": [
+        {
+          "occurrences": [
+            {
+              "case_id": "fresh-14",
+              "evidence_id_sha256": "6ceff396a4d3845fbf5a8989a5ba59addfe2edb46e424b76d1becb62e42f5f13",
+              "review": ".temp/round02-reviewer/fresh-14-review.json",
+              "reviewer": "reviewer-b",
+              "root": "/Users/marcin/agent-work/EdgeMech/m5-round02-reviewers-20261116/reviewer-b"
+            }
+          ],
+          "quote_sha256": "08cb53f765fb373f42d3397c8d1e7b157a531473ffdebe829d8649d02289baf5",
+          "words": 1
+        },
+        {
+          "occurrences": [
+            {
+              "case_id": "fresh-47",
+              "evidence_id_sha256": "4419f743123349baa0ed957753dc8cc55c6608af3feb308ca27055aa4dea70ef",
+              "review": ".temp/round02-reviewer/fresh-47-review-v2.json",
+              "reviewer": "reviewer-a",
+              "root": "/Users/marcin/agent-work/EdgeMech/m5-round02-reviewers-20261116/reviewer-a"
+            }
+          ],
+          "quote_sha256": "abbb5dff1714719255f4897eed186384bbc3c2e8843c087caff030a616a4c5d1",
+          "words": 3
+        },
+        {
+          "occurrences": [
+            {
+              "case_id": "fresh-47",
+              "evidence_id_sha256": "6ceff396a4d3845fbf5a8989a5ba59addfe2edb46e424b76d1becb62e42f5f13",
+              "review": ".temp/round02-reviewer/fresh-47-review.json",
+              "reviewer": "reviewer-b",
+              "root": "/Users/marcin/agent-work/EdgeMech/m5-round02-reviewers-20261116/reviewer-b"
+            }
+          ],
+          "quote_sha256": "e0d5b58ef724d327ed054484fb1c7619186a21c7df299c57234c10d876e56399",
+          "words": 1
+        },
+        {
+          "occurrences": [
+            {
+              "case_id": "fresh-14",
+              "evidence_id_sha256": "3f23775afa8b0808e49ad9579c6d950c13d310e485d52f8d8faa5c2c5c96001f",
+              "review": ".temp/round02-reviewer/fresh-14-review.json",
+              "reviewer": "reviewer-a",
+              "root": "/Users/marcin/agent-work/EdgeMech/m5-round02-reviewers-20261116/reviewer-a"
+            }
+          ],
+          "quote_sha256": "e69b8fe8ba0484b8aeadabb41485d397b8589a4fc1cfb9b8a53e6b99d02a6b92",
+          "words": 1
+        }
+      ],
+      "maximum_words": 25,
+      "source_identities": [
+        "authority-raw-sha256:026dc075d4f924d92ee6f7816599c0a1fb5e2b3ef7e07593e6da5dd3f5b16fac",
+        "authority-sha256:940d225f1637432c4c640387520d8fba8263a008015b42c4a4ed7684f35e0b4c",
+        "authority-sha256:a1149810ad83aa8d29be486c709411a6561afbea877c651183c777fa160c267c"
+      ],
+      "within_budget": true
+    },
+    {
+      "deduplicated_quote_words": 2,
+      "excerpts": [
+        {
+          "occurrences": [
+            {
+              "case_id": "fresh-04",
+              "evidence_id_sha256": "40fde296c251184008f0d0103ec04fb467d243264f9214080a2085bd91963534",
+              "review": ".temp/round02-reviewer/fresh-04-review.json",
+              "reviewer": "reviewer-b",
+              "root": "/Users/marcin/agent-work/EdgeMech/m5-round02-reviewers-20261116/reviewer-b"
+            },
+            {
+              "case_id": "fresh-04",
+              "evidence_id_sha256": "a98a5a37d50122f6d6e847d3a04b1158f858bb9d80559dce2e895d2f9795f6be",
+              "review": ".temp/round02-reviewer/fresh-04-review.json",
+              "reviewer": "reviewer-a",
+              "root": "/Users/marcin/agent-work/EdgeMech/m5-round02-reviewers-20261116/reviewer-a"
+            }
+          ],
+          "quote_sha256": "3604e06ba4761fd7166a1262d24d1db73564dfaed595a629d23570ae1ea8d738",
+          "words": 2
+        }
+      ],
+      "maximum_words": 25,
+      "source_identities": [
+        "authority-raw-sha256:0aa142b0b0c7d908246323c7b2c03efdd8e0d5bf6e079defa801aea0bf127cb8",
+        "authority-sha256:2541b288d813ee74c30363379128107ebe03bd638c525f764842b80d2d52d234",
+        "authority-sha256:4ee40569dedfa61eec8ebdc3c16e20d887e64227d7fa60d82a98611c2b2cbd0c"
+      ],
+      "within_budget": true
+    },
+    {
+      "deduplicated_quote_words": 2,
+      "excerpts": [
+        {
+          "occurrences": [
+            {
+              "case_id": "first-01",
+              "evidence_id_sha256": "4c71be281a623407933f9e66adb52687f527dd792faf40b8ee955b638767d3fc",
+              "review": ".temp/round02-reviewer/first-01-review.json",
+              "reviewer": "reviewer-b",
+              "root": "/Users/marcin/agent-work/EdgeMech/m5-round02-reviewers-20261116/reviewer-b"
+            },
+            {
+              "case_id": "first-01",
+              "evidence_id_sha256": "605d54ae0150cb29cc643cd440d01f9e6351a48fd001c9c9f684537f25ba7702",
+              "review": ".temp/round02-reviewer/first-01-review.json",
+              "reviewer": "reviewer-a",
+              "root": "/Users/marcin/agent-work/EdgeMech/m5-round02-reviewers-20261116/reviewer-a"
+            },
+            {
+              "case_id": "first-01",
+              "evidence_id_sha256": "bc05caf1614f4be4301b32d980fcb7e176c0718b874caa16d79c7a9000677a50",
+              "review": ".temp/round02-reviewer/first-01-review.json",
+              "reviewer": "reviewer-a",
+              "root": "/Users/marcin/agent-work/EdgeMech/m5-round02-reviewers-20261116/reviewer-a"
+            }
+          ],
+          "quote_sha256": "156b0be93196f19a66be6694eacccae3cc1119b2c31d171a2969ef7079a9fd61",
+          "words": 2
+        }
+      ],
+      "maximum_words": 25,
+      "source_identities": [
+        "authority-raw-sha256:17e728c5aac05483633b9decc1dca6a2fd31292bbf7bb2db6d40e1dea756e91a",
+        "authority-sha256:49f1a2e815669add14fc337ef2ff292067123d361fc9485485e9827bbed059d9",
+        "authority-sha256:ee915c4dabfff8344b60769eeb3ee8aa0810e538173eb8de6098997a861091f1"
+      ],
+      "within_budget": true
+    },
+    {
+      "deduplicated_quote_words": 3,
+      "excerpts": [
+        {
+          "occurrences": [
+            {
+              "case_id": "first-01",
+              "evidence_id_sha256": "669398c3298a779e22fd0ac8d90c4472c4221d4dbc74818354fd9eeea98859d6",
+              "review": ".temp/round02-reviewer/first-01-review.json",
+              "reviewer": "reviewer-b",
+              "root": "/Users/marcin/agent-work/EdgeMech/m5-round02-reviewers-20261116/reviewer-b"
+            },
+            {
+              "case_id": "first-01",
+              "evidence_id_sha256": "a50f50f5817c4f3e2153cdd93dae480cf6879a5b0ecfa53dc80a251bfc2dbdd8",
+              "review": ".temp/round02-reviewer/first-01-review.json",
+              "reviewer": "reviewer-a",
+              "root": "/Users/marcin/agent-work/EdgeMech/m5-round02-reviewers-20261116/reviewer-a"
+            }
+          ],
+          "quote_sha256": "ccb0cdb65761b122cdcd82362fd616c334f026bd896cd1031865af96d6b0e949",
+          "words": 3
+        }
+      ],
+      "maximum_words": 25,
+      "source_identities": [
+        "authority-raw-sha256:1c8609f746ee7d637d31b9ed2ac5ecb29297d259e61d63eaf3ece59d1d4e2813",
+        "authority-sha256:d90bd1f34ef3b0bf50a4d5233610afc93aa2f79ff7bcc0a356af930eb291e2d6",
+        "authority-sha256:f6158dd6ae988ecc3d09aa89123bc9ea88baec0f40796b6d219ca7f08ed16734"
+      ],
+      "within_budget": true
+    },
+    {
+      "deduplicated_quote_words": 12,
+      "excerpts": [
+        {
+          "occurrences": [
+            {
+              "case_id": "fresh-14",
+              "evidence_id_sha256": "f400b647e4ec5c87eedcf4b2a7d2918f91225bcd7393f96de0a7ce91e28eba21",
+              "review": ".temp/round02-reviewer/fresh-14-review.json",
+              "reviewer": "reviewer-b",
+              "root": "/Users/marcin/agent-work/EdgeMech/m5-round02-reviewers-20261116/reviewer-b"
+            }
+          ],
+          "quote_sha256": "7384e359ed4bd1490a49cae39fcb03a620881d9bfc936c6e1abb69963b7d42ee",
+          "words": 6
+        },
+        {
+          "occurrences": [
+            {
+              "case_id": "fresh-14",
+              "evidence_id_sha256": "0a9887d066dd7878e26054d4c71597d09ef3738668193edbdad307401fc2eeb6",
+              "review": ".temp/round02-reviewer/fresh-14-review.json",
+              "reviewer": "reviewer-a",
+              "root": "/Users/marcin/agent-work/EdgeMech/m5-round02-reviewers-20261116/reviewer-a"
+            },
+            {
+              "case_id": "fresh-14",
+              "evidence_id_sha256": "5f36d7161757d344ace11c1c5597c0731b198a348e7fcb63b599a0e9ed423c9d",
+              "review": ".temp/round02-reviewer/fresh-14-review.json",
+              "reviewer": "reviewer-a",
+              "root": "/Users/marcin/agent-work/EdgeMech/m5-round02-reviewers-20261116/reviewer-a"
+            },
+            {
+              "case_id": "fresh-14",
+              "evidence_id_sha256": "6ace1e56214c368d1734089edb66c9e536c5176c25b041f9b0c51e0b9b5b9d6a",
+              "review": ".temp/round02-reviewer/fresh-14-review.json",
+              "reviewer": "reviewer-a",
+              "root": "/Users/marcin/agent-work/EdgeMech/m5-round02-reviewers-20261116/reviewer-a"
+            },
+            {
+              "case_id": "fresh-14",
+              "evidence_id_sha256": "b4f2e35d303f31b25b8a5ccf09579f1d70630acdf43ba0b021b020e02441fce8",
+              "review": ".temp/round02-reviewer/fresh-14-review.json",
+              "reviewer": "reviewer-a",
+              "root": "/Users/marcin/agent-work/EdgeMech/m5-round02-reviewers-20261116/reviewer-a"
+            },
+            {
+              "case_id": "fresh-14",
+              "evidence_id_sha256": "d79c8cf2ed9efc27828d82f7633eb726c714427ada9f2b5d35c3ba198982dd87",
+              "review": ".temp/round02-reviewer/fresh-14-review.json",
+              "reviewer": "reviewer-a",
+              "root": "/Users/marcin/agent-work/EdgeMech/m5-round02-reviewers-20261116/reviewer-a"
+            }
+          ],
+          "quote_sha256": "df8bb03f425360277404274f9f5de7fe4861023aa276b5e0f8d453a3116090ac",
+          "words": 6
+        }
+      ],
+      "maximum_words": 25,
+      "source_identities": [
+        "authority-raw-sha256:1e282dca347e4f7f17f53428cf53ea05797ff666a710cd73e8aae65cf0bd7820",
+        "authority-sha256:23e357f18d7e71766958877f4aef90143281ea4edff430cdba81a9f0e4209242",
+        "authority-sha256:f3cae9939b526bacca9e56c9c50135922889058b70b1d7119c418a3e074585a8"
+      ],
+      "within_budget": true
+    },
+    {
+      "deduplicated_quote_words": 4,
+      "excerpts": [
+        {
+          "occurrences": [
+            {
+              "case_id": "fresh-05",
+              "evidence_id_sha256": "b1125b669670ab9eb59c79879b08ed345b627ae8906ce8569eaa1b8e057fd604",
+              "review": ".temp/round02-reviewer/fresh-05-review.json",
+              "reviewer": "reviewer-a",
+              "root": "/Users/marcin/agent-work/EdgeMech/m5-round02-reviewers-20261116/reviewer-a"
+            }
+          ],
+          "quote_sha256": "7faade3a6b29cb729c4b2703e4e3e83ac22c528357c63d842da84ac45f3b66ad",
+          "words": 4
+        }
+      ],
+      "maximum_words": 25,
+      "source_identities": [
+        "authority-raw-sha256:29f41098eb41eb4a6ca0d46abe5ecd746e8cc5dbb4edac5cb6b8233bd6cdd7bc",
+        "authority-sha256:925967c28c8af54c67533ad91ae3e24ff3e95d5856cf32589c1a39a382978029"
+      ],
+      "within_budget": true
+    },
+    {
+      "deduplicated_quote_words": 5,
+      "excerpts": [
+        {
+          "occurrences": [
+            {
+              "case_id": "first-32",
+              "evidence_id_sha256": "6833d5ee6f95a9854be8fb15fc4b315cd030d328076162c9e440d129d0e457bd",
+              "review": ".temp/round02-reviewer/first-32-review.json",
+              "reviewer": "reviewer-a",
+              "root": "/Users/marcin/agent-work/EdgeMech/m5-round02-reviewers-20261116/reviewer-a"
+            },
+            {
+              "case_id": "first-32",
+              "evidence_id_sha256": "ac6765f980cddb41074850c27726af6ed08ca0c961279bc8857db3ee5355d389",
+              "review": ".temp/round02-reviewer/first-32-review.json",
+              "reviewer": "reviewer-a",
+              "root": "/Users/marcin/agent-work/EdgeMech/m5-round02-reviewers-20261116/reviewer-a"
+            },
+            {
+              "case_id": "first-32",
+              "evidence_id_sha256": "b454eb2fe9c31c386fa61c5c098341798aca12c603092ee7677df5aa89bbc56a",
+              "review": ".temp/round02-reviewer/first-32-review.json",
+              "reviewer": "reviewer-a",
+              "root": "/Users/marcin/agent-work/EdgeMech/m5-round02-reviewers-20261116/reviewer-a"
+            },
+            {
+              "case_id": "first-32",
+              "evidence_id_sha256": "ef52808be6eade166b25e2f00bd9b7c0846fb77c12984687729c4acb0e227906",
+              "review": ".temp/round02-reviewer/first-32-review.json",
+              "reviewer": "reviewer-b",
+              "root": "/Users/marcin/agent-work/EdgeMech/m5-round02-reviewers-20261116/reviewer-b"
+            }
+          ],
+          "quote_sha256": "e1b681f79d0b1403b6611a26ea984a1aa8ac67309afe5c0f1d92f656c6c85cde",
+          "words": 5
+        }
+      ],
+      "maximum_words": 25,
+      "source_identities": [
+        "authority-raw-sha256:37433381f5915338ee3e342a85ea15e8417fcf7b9bb7f08871cac084f958490d",
+        "authority-sha256:bbb357b80d3d6c0e67ab097bc350bd3be0634f70e5e191f84e12dd743fe6760d",
+        "authority-sha256:d874a702accaac3114d703b29ca654434600788cd2d5daa0eb6af0b6918ec97d"
+      ],
+      "within_budget": true
+    },
+    {
+      "deduplicated_quote_words": 23,
+      "excerpts": [
+        {
+          "occurrences": [
+            {
+              "case_id": "first-01",
+              "evidence_id_sha256": "0f68a63f1a573ac4a496f3c1ef333b208ce27c4708565a59bce01d4e03f946a5",
+              "review": ".temp/round02-reviewer/first-01-review.json",
+              "reviewer": "reviewer-b",
+              "root": "/Users/marcin/agent-work/EdgeMech/m5-round02-reviewers-20261116/reviewer-b"
+            }
+          ],
+          "quote_sha256": "27078012b5a61fa77b39e180e23af4a1b6d1fd560cb3a5db2705d9117074594a",
+          "words": 1
+        },
+        {
+          "occurrences": [
+            {
+              "case_id": "fresh-47",
+              "evidence_id_sha256": "41d2f583ce89f86d76be869e440e112cf4b128e292b2dc00e0ff08b66ebbbc71",
+              "review": ".temp/round02-reviewer/fresh-47-review-v2.json",
+              "reviewer": "reviewer-a",
+              "root": "/Users/marcin/agent-work/EdgeMech/m5-round02-reviewers-20261116/reviewer-a"
+            },
+            {
+              "case_id": "fresh-47",
+              "evidence_id_sha256": "6f7a942f1d582295f9d9aa02c38eec5a6cff293f9dc5ebe25aeef14d94dcdf74",
+              "review": ".temp/round02-reviewer/fresh-47-review-v2.json",
+              "reviewer": "reviewer-a",
+              "root": "/Users/marcin/agent-work/EdgeMech/m5-round02-reviewers-20261116/reviewer-a"
+            },
+            {
+              "case_id": "fresh-47",
+              "evidence_id_sha256": "919ed2c9d3b69d81459d0ae4dbb0f370cecbbca73e8b5180697519c9342609c3",
+              "review": ".temp/round02-reviewer/fresh-47-review-v2.json",
+              "reviewer": "reviewer-a",
+              "root": "/Users/marcin/agent-work/EdgeMech/m5-round02-reviewers-20261116/reviewer-a"
+            }
+          ],
+          "quote_sha256": "79b11ed02b22e2a3305207768fc973b27744953efb466344306239cfdc9a7c3e",
+          "words": 4
+        },
+        {
+          "occurrences": [
+            {
+              "case_id": "fresh-32",
+              "evidence_id_sha256": "fc4c4d7ff60e87a9ce12fd9586cee3a5bafff9fed736434e9d815e30ad1193eb",
+              "review": ".temp/round02-reviewer/fresh-32-review.json",
+              "reviewer": "reviewer-b",
+              "root": "/Users/marcin/agent-work/EdgeMech/m5-round02-reviewers-20261116/reviewer-b"
+            }
+          ],
+          "quote_sha256": "9f6a9d277b2697a767023d06c0634b0e26724c302d2718183b66bf15fb8dfa13",
+          "words": 2
+        },
+        {
+          "occurrences": [
+            {
+              "case_id": "fresh-32",
+              "evidence_id_sha256": "f01f30df8a5d617524cae126795223025f0ee3fb3045b286597794dba8ec7cf8",
+              "review": ".temp/round02-reviewer/fresh-32-review.json",
+              "reviewer": "reviewer-a",
+              "root": "/Users/marcin/agent-work/EdgeMech/m5-round02-reviewers-20261116/reviewer-a"
+            }
+          ],
+          "quote_sha256": "ca2717d1041d5dca82fbdfb7e1f51573249e4f03d937f4f01b76556e2993d792",
+          "words": 3
+        },
+        {
+          "occurrences": [
+            {
+              "case_id": "fresh-47",
+              "evidence_id_sha256": "5f844a11165306fc4a5d79fb2710fc7fed0c5c891abe205c9e5aa08a0e8150a9",
+              "review": ".temp/round02-reviewer/fresh-47-review.json",
+              "reviewer": "reviewer-b",
+              "root": "/Users/marcin/agent-work/EdgeMech/m5-round02-reviewers-20261116/reviewer-b"
+            }
+          ],
+          "quote_sha256": "e1a1966d365a0a4c7441c268ad4e123eaeceef212bc59d1c695760244c94db2e",
+          "words": 8
+        },
+        {
+          "occurrences": [
+            {
+              "case_id": "fresh-32",
+              "evidence_id_sha256": "8d5957de7c8bd3d3b371ce18471da389f0e6d18a0a11257e49d231513c6282ed",
+              "review": ".temp/round02-reviewer/fresh-32-review.json",
+              "reviewer": "reviewer-b",
+              "root": "/Users/marcin/agent-work/EdgeMech/m5-round02-reviewers-20261116/reviewer-b"
+            },
+            {
+              "case_id": "fresh-32",
+              "evidence_id_sha256": "f87bcb17b0910d4fd90fb125f5af727e94d5449eb15554ecdce37f9d79e372a3",
+              "review": ".temp/round02-reviewer/fresh-32-review.json",
+              "reviewer": "reviewer-a",
+              "root": "/Users/marcin/agent-work/EdgeMech/m5-round02-reviewers-20261116/reviewer-a"
+            }
+          ],
+          "quote_sha256": "ef92c13535ba1d75900190a149353785b996d04dfa0715f332e86fa6e433bb51",
+          "words": 5
+        }
+      ],
+      "maximum_words": 25,
+      "source_identities": [
+        "authority-raw-sha256:428cef7d7e84259aebafaf14bfba3238aa3329b91d24d340f6d5bdd60de4e5f0",
+        "authority-raw-sha256:85bb1d23ecb938bd31d1deefd479042ce3b12f35dce8ade511ddc8e499537790",
+        "authority-raw-sha256:8aa801621cae6df7605a38b04a4f1eaf8da57aa2239db770f0ad3c5ab741d63b",
+        "authority-raw-sha256:fd3749c536725d5994d568f0a078f00dab37477b1eb7ae7969b4b9e35377b5e4",
+        "authority-sha256:72a1632b389c79c226bba7128886750963b770040714ad1b45845c444e759636",
+        "authority-sha256:921b156a5dc772123c82e3ed9e00782f5f679538837b9c8ca933d4312ceef4ce",
+        "authority-sha256:9d570bfa76dd0cd68107965bf125088db7a9db0d9695f0e0da384ff5b5e1566c",
+        "authority-sha256:b7684870deabd8a9be614bd1bed1b2cc015ba9528ec181a7cde40fd0c784dd88"
+      ],
+      "within_budget": true
+    },
+    {
+      "deduplicated_quote_words": 21,
+      "excerpts": [
+        {
+          "occurrences": [
+            {
+              "case_id": "first-32",
+              "evidence_id_sha256": "07ac69d64351b6c8ad41138dfb2943cbf45aebf6c381a29a6e23b7caf691ad3f",
+              "review": ".temp/round02-reviewer/first-32-review.json",
+              "reviewer": "reviewer-a",
+              "root": "/Users/marcin/agent-work/EdgeMech/m5-round02-reviewers-20261116/reviewer-a"
+            },
+            {
+              "case_id": "first-32",
+              "evidence_id_sha256": "9ce13b4468fc0eeb73ca45ca69c0cef1678952937376b52441a7bcab27651e86",
+              "review": ".temp/round02-reviewer/first-32-review.json",
+              "reviewer": "reviewer-a",
+              "root": "/Users/marcin/agent-work/EdgeMech/m5-round02-reviewers-20261116/reviewer-a"
+            },
+            {
+              "case_id": "fresh-14",
+              "evidence_id_sha256": "107e0f5f0132628885d53d969ac409c0be371c84df3470a9a005fe263b28f5ff",
+              "review": ".temp/round02-reviewer/fresh-14-review.json",
+              "reviewer": "reviewer-a",
+              "root": "/Users/marcin/agent-work/EdgeMech/m5-round02-reviewers-20261116/reviewer-a"
+            },
+            {
+              "case_id": "fresh-14",
+              "evidence_id_sha256": "1fdec6a7cf9a64f5b956ff2af6ea73449d0edba1c25507236527558a5f713e5a",
+              "review": ".temp/round02-reviewer/fresh-14-review.json",
+              "reviewer": "reviewer-a",
+              "root": "/Users/marcin/agent-work/EdgeMech/m5-round02-reviewers-20261116/reviewer-a"
+            }
+          ],
+          "quote_sha256": "2a2319216524ecff96f3b401f2094b71c67936cb753351f71161660ef2a241da",
+          "words": 7
+        },
+        {
+          "occurrences": [
+            {
+              "case_id": "fresh-47",
+              "evidence_id_sha256": "5b6e275ef6741721f0ba17476d46aa1aec4086ec2443db1b5e5bc9b5667d8a5e",
+              "review": ".temp/round02-reviewer/fresh-47-review-v2.json",
+              "reviewer": "reviewer-a",
+              "root": "/Users/marcin/agent-work/EdgeMech/m5-round02-reviewers-20261116/reviewer-a"
+            }
+          ],
+          "quote_sha256": "2c2ebe47dd5a451599b6928ac7a339e9176248c7e3973fddd6e74f42b48cbf10",
+          "words": 6
+        },
+        {
+          "occurrences": [
+            {
+              "case_id": "first-28",
+              "evidence_id_sha256": "80cc57d86255a7456f11103fbb4288618e4ccdbb70b1d3bdea9602dbbadada1d",
+              "review": ".temp/round02-reviewer/first-28-review.json",
+              "reviewer": "reviewer-a",
+              "root": "/Users/marcin/agent-work/EdgeMech/m5-round02-reviewers-20261116/reviewer-a"
+            },
+            {
+              "case_id": "first-30",
+              "evidence_id_sha256": "04c51b2856a1e3ae721876a45428d762286ec583e9261045e4a8a7dd401bdb25",
+              "review": ".temp/round02-reviewer/first-30-review.json",
+              "reviewer": "reviewer-a",
+              "root": "/Users/marcin/agent-work/EdgeMech/m5-round02-reviewers-20261116/reviewer-a"
+            },
+            {
+              "case_id": "fresh-04",
+              "evidence_id_sha256": "d80437acd6b9a696d9d255cf38dfef539d9b57f5285fc61b1d9fe5d461f6a4a7",
+              "review": ".temp/round02-reviewer/fresh-04-review.json",
+              "reviewer": "reviewer-a",
+              "root": "/Users/marcin/agent-work/EdgeMech/m5-round02-reviewers-20261116/reviewer-a"
+            },
+            {
+              "case_id": "fresh-05",
+              "evidence_id_sha256": "b48c5d6f4e24f432475a8834819918eb8abe777daa581ed996293ecefb3e7400",
+              "review": ".temp/round02-reviewer/fresh-05-review.json",
+              "reviewer": "reviewer-a",
+              "root": "/Users/marcin/agent-work/EdgeMech/m5-round02-reviewers-20261116/reviewer-a"
+            },
+            {
+              "case_id": "fresh-05",
+              "evidence_id_sha256": "e259ed1430ac281295c5022e9bd6b3bacb8718f0cfe64310399345c03e7c9a06",
+              "review": "reviews/structured/20261117T000755Z-round02-152-canary/review.yaml",
+              "reviewer": "operational-canary",
+              "root": "/Users/marcin/agent-work/EdgeMech/m5-calibration-round02-20261116"
+            }
+          ],
+          "quote_sha256": "4a93a6023345900608c01196f424eb7840d44e3a34141d149fefbb89ec56936d",
+          "words": 6
+        },
+        {
+          "occurrences": [
+            {
+              "case_id": "first-43",
+              "evidence_id_sha256": "59a3d729e16725d737f834a2df8702f66857e513a2f4344c3bc5a889267222e7",
+              "review": ".temp/round02-reviewer/first-43-review.json",
+              "reviewer": "reviewer-a",
+              "root": "/Users/marcin/agent-work/EdgeMech/m5-round02-reviewers-20261116/reviewer-a"
+            },
+            {
+              "case_id": "fresh-32",
+              "evidence_id_sha256": "c344a1265bb3518311bf4353d902ef21f6927179dad3e3b2d3ed53adf2ea8aae",
+              "review": ".temp/round02-reviewer/fresh-32-review.json",
+              "reviewer": "reviewer-a",
+              "root": "/Users/marcin/agent-work/EdgeMech/m5-round02-reviewers-20261116/reviewer-a"
+            }
+          ],
+          "quote_sha256": "cd2e89478db5caad28e604ce355918d113eb1690a8f6248be2b9392a444800c4",
+          "words": 2
+        }
+      ],
+      "maximum_words": 25,
+      "source_identities": [
+        "authority-raw-sha256:4955709e1cac1d26fd657f7a0c29d6c8390f42e41f9ebfab859c82b102f2bebb",
+        "authority-sha256:b7d1609b05515e59d5e6eded6001bfbdccdb97ca265c26317690d1d7932861f2",
+        "authority-sha256:c7dc42a1def9f1cb19d5639da2f249bf9f76db1727bba317e654f38a72bc113f"
+      ],
+      "within_budget": true
+    },
+    {
+      "deduplicated_quote_words": 3,
+      "excerpts": [
+        {
+          "occurrences": [
+            {
+              "case_id": "first-01",
+              "evidence_id_sha256": "9a8ffe54395dba5c7ba5f129bf94dbe6b68fc07f7dd2be9ded5c3846a1a46518",
+              "review": ".temp/round02-reviewer/first-01-review.json",
+              "reviewer": "reviewer-a",
+              "root": "/Users/marcin/agent-work/EdgeMech/m5-round02-reviewers-20261116/reviewer-a"
+            },
+            {
+              "case_id": "first-01",
+              "evidence_id_sha256": "c259c13165206781275b5590c000b47de666123a025e010a438d55a33ba96adc",
+              "review": ".temp/round02-reviewer/first-01-review.json",
+              "reviewer": "reviewer-a",
+              "root": "/Users/marcin/agent-work/EdgeMech/m5-round02-reviewers-20261116/reviewer-a"
+            }
+          ],
+          "quote_sha256": "5bdb7866fa2467ac3595ab3e2c7103815cfd4cb9672c4bbbcf03d60e0218baa8",
+          "words": 3
+        }
+      ],
+      "maximum_words": 25,
+      "source_identities": [
+        "authority-raw-sha256:4f504329650719daa561cd2b65c662bb3b5bb54f0b26a7b1b0a09e44d80d9e04",
+        "authority-sha256:9019fa36139e0369cd8f0e8b4995a858535a9168492470d23db7432a38b59e2d"
+      ],
+      "within_budget": true
+    },
+    {
+      "deduplicated_quote_words": 5,
+      "excerpts": [
+        {
+          "occurrences": [
+            {
+              "case_id": "first-01",
+              "evidence_id_sha256": "a4369b8fae0d50690165d2cbd5fd3d4ae856828e0d29fa075594b1bc97232e5e",
+              "review": ".temp/round02-reviewer/first-01-review.json",
+              "reviewer": "reviewer-a",
+              "root": "/Users/marcin/agent-work/EdgeMech/m5-round02-reviewers-20261116/reviewer-a"
+            }
+          ],
+          "quote_sha256": "6e6efbe8f9e3a41d79b9dcf6508c874dcefa25a22d087f33d888f458776e4ac4",
+          "words": 5
+        }
+      ],
+      "maximum_words": 25,
+      "source_identities": [
+        "authority-raw-sha256:612ea15a0c8670d160d5d5f5be7d8feb66cca07ec12d81230afdb5fa7a6aa23f",
+        "authority-sha256:508b04dbc1846bedc71449cdcc8b725420aaa36703678e56b34fe40ba5410739"
+      ],
+      "within_budget": true
+    },
+    {
+      "deduplicated_quote_words": 2,
+      "excerpts": [
+        {
+          "occurrences": [
+            {
+              "case_id": "first-28",
+              "evidence_id_sha256": "0fb2cc65b542a784b87f7194f178986b27ec4dc1abed18dd4fb820c9c5ecb768",
+              "review": ".temp/round02-reviewer/first-28-review.json",
+              "reviewer": "reviewer-b",
+              "root": "/Users/marcin/agent-work/EdgeMech/m5-round02-reviewers-20261116/reviewer-b"
+            },
+            {
+              "case_id": "first-28",
+              "evidence_id_sha256": "1b403cd63ade9ecfa699b0b33214080a4551911300bf64640cb4ce8d8f6cc952",
+              "review": ".temp/round02-reviewer/first-28-review.json",
+              "reviewer": "reviewer-a",
+              "root": "/Users/marcin/agent-work/EdgeMech/m5-round02-reviewers-20261116/reviewer-a"
+            },
+            {
+              "case_id": "first-28",
+              "evidence_id_sha256": "1e1ce6d829206aa89f1e9fbfd33d8e8ca7823cc5641ea164fe5da0003fb3e332",
+              "review": ".temp/round02-reviewer/first-28-review.json",
+              "reviewer": "reviewer-a",
+              "root": "/Users/marcin/agent-work/EdgeMech/m5-round02-reviewers-20261116/reviewer-a"
+            }
+          ],
+          "quote_sha256": "b9bb9a4e1ce16d1d5288b7a002f2d65fb40710f33c6154a6ad78a04c7f252631",
+          "words": 2
+        }
+      ],
+      "maximum_words": 25,
+      "source_identities": [
+        "authority-raw-sha256:7735a7ec8eb55c0c9a4ab0cf2d7df799e7948066b79d5c73d571d696bbcde62a",
+        "authority-sha256:55d0e5ccb8fd18c48235c7c77ea8655b7ef5e43a05c5cc5e8da05a085e45864d",
+        "authority-sha256:8971bf3af4542460dc9e02d12ff6d3aa6bbc8b18e4cede22f18c3480a923ff72"
+      ],
+      "within_budget": true
+    },
+    {
+      "deduplicated_quote_words": 5,
+      "excerpts": [
+        {
+          "occurrences": [
+            {
+              "case_id": "fresh-32",
+              "evidence_id_sha256": "638c16522f2b9a6ec31b8b66a10b2f556f3d9ef571750c4d925be07cf84a232a",
+              "review": ".temp/round02-reviewer/fresh-32-review.json",
+              "reviewer": "reviewer-b",
+              "root": "/Users/marcin/agent-work/EdgeMech/m5-round02-reviewers-20261116/reviewer-b"
+            }
+          ],
+          "quote_sha256": "4871f29f5dcd37d4a31cb58795ff639e565ef7443cacbb80fcd5bd84dd153d99",
+          "words": 3
+        },
+        {
+          "occurrences": [
+            {
+              "case_id": "fresh-32",
+              "evidence_id_sha256": "2a7fcb4490fd838855ce131c4e9c53151413710455f9c247def1ac3876e2291a",
+              "review": ".temp/round02-reviewer/fresh-32-review.json",
+              "reviewer": "reviewer-a",
+              "root": "/Users/marcin/agent-work/EdgeMech/m5-round02-reviewers-20261116/reviewer-a"
+            }
+          ],
+          "quote_sha256": "64cc68f6c6fad7af062fab163107270068a9c89b378367fb2ccd739e97f39d45",
+          "words": 2
+        }
+      ],
+      "maximum_words": 25,
+      "source_identities": [
+        "authority-raw-sha256:79164e966980751134caf08345e2b07a64a7a951e94ce07f7afd69e03cd2bef3",
+        "authority-sha256:52569abe59aabd404b7a19e0fb4245e739f29672af3e00449ab1110b5c850444",
+        "authority-sha256:c61325ec8f91789e7b18d08969d955de45954e8f3a1b4b485645a29c68222315"
+      ],
+      "within_budget": true
+    },
+    {
+      "deduplicated_quote_words": 4,
+      "excerpts": [
+        {
+          "occurrences": [
+            {
+              "case_id": "first-43",
+              "evidence_id_sha256": "25474ca2189894493e924e10d76dce384a332db15d03bbb595d0fb1bc512188e",
+              "review": ".temp/round02-reviewer/first-43-review.json",
+              "reviewer": "reviewer-a",
+              "root": "/Users/marcin/agent-work/EdgeMech/m5-round02-reviewers-20261116/reviewer-a"
+            },
+            {
+              "case_id": "first-43",
+              "evidence_id_sha256": "7ce8c5a98adf3d11108eefe66ac39087075ff8c890da0725ce85f481d1fe5c03",
+              "review": ".temp/round02-reviewer/first-43-review.json",
+              "reviewer": "reviewer-a",
+              "root": "/Users/marcin/agent-work/EdgeMech/m5-round02-reviewers-20261116/reviewer-a"
+            },
+            {
+              "case_id": "first-43",
+              "evidence_id_sha256": "cde6a49f0610d79f12343044f27d21aa206adeeded1e89fb9b67a7212f067790",
+              "review": ".temp/round02-reviewer/first-43-review.json",
+              "reviewer": "reviewer-b",
+              "root": "/Users/marcin/agent-work/EdgeMech/m5-round02-reviewers-20261116/reviewer-b"
+            }
+          ],
+          "quote_sha256": "1f3ae892be6721e27b2689f9cc57814d302617817dba9171f195a2b294fd568e",
+          "words": 4
+        }
+      ],
+      "maximum_words": 25,
+      "source_identities": [
+        "authority-raw-sha256:859322125da66ed892711942cba9129cb50896d1cd5dd2ba5de3d714db49e6d2",
+        "authority-sha256:308f74d4d41521840be4b6cdb8d20581fe06db87e24d0cfbcb7b574448caa395",
+        "authority-sha256:6130b8dccd52b929364e1dc0eae96420e24d62972b4c8189fcc9146c8476adf3"
+      ],
+      "within_budget": true
+    },
+    {
+      "deduplicated_quote_words": 45,
+      "excerpts": [
+        {
+          "occurrences": [
+            {
+              "case_id": "first-43",
+              "evidence_id_sha256": "4a23c84b1624ad017edbefa558d2a950f68fa57612442712a7346110a49fe071",
+              "review": ".temp/round02-reviewer/first-43-review.json",
+              "reviewer": "reviewer-b",
+              "root": "/Users/marcin/agent-work/EdgeMech/m5-round02-reviewers-20261116/reviewer-b"
+            }
+          ],
+          "quote_sha256": "08b9280e7a5a3837217cf5ba8ec4d47db781edef9b32129d1d021a7a5a6118e7",
+          "words": 1
+        },
+        {
+          "occurrences": [
+            {
+              "case_id": "first-43",
+              "evidence_id_sha256": "81640629e25281670c3b5c1f69af5107ed513673370be80d829f2b60eadd20df",
+              "review": ".temp/round02-reviewer/first-43-review.json",
+              "reviewer": "reviewer-a",
+              "root": "/Users/marcin/agent-work/EdgeMech/m5-round02-reviewers-20261116/reviewer-a"
+            },
+            {
+              "case_id": "first-43",
+              "evidence_id_sha256": "f6e2b1a4cbf81e1330b8f26a81e559972171aadca33bf4861e2d10ed5382bd65",
+              "review": ".temp/round02-reviewer/first-43-review.json",
+              "reviewer": "reviewer-a",
+              "root": "/Users/marcin/agent-work/EdgeMech/m5-round02-reviewers-20261116/reviewer-a"
+            }
+          ],
+          "quote_sha256": "0c63044c7a259c94dc6ede95e35ff9820d4d803ab7ee9da766b6e797864af99d",
+          "words": 2
+        },
+        {
+          "occurrences": [
+            {
+              "case_id": "fresh-05",
+              "evidence_id_sha256": "4a23c84b1624ad017edbefa558d2a950f68fa57612442712a7346110a49fe071",
+              "review": ".temp/round02-reviewer/fresh-05-review.json",
+              "reviewer": "reviewer-b",
+              "root": "/Users/marcin/agent-work/EdgeMech/m5-round02-reviewers-20261116/reviewer-b"
+            }
+          ],
+          "quote_sha256": "20df6a0d4392b03a9d1a609e0bdd320d0d4abdf1bfbb4acd6f60ccb2b160b439",
+          "words": 6
+        },
+        {
+          "occurrences": [
+            {
+              "case_id": "fresh-05",
+              "evidence_id_sha256": "469c5754bfa0c1f91314710c1ab206eb26a76240f880a13ee9283e6fd732f402",
+              "review": ".temp/round02-reviewer/fresh-05-review.json",
+              "reviewer": "reviewer-a",
+              "root": "/Users/marcin/agent-work/EdgeMech/m5-round02-reviewers-20261116/reviewer-a"
+            }
+          ],
+          "quote_sha256": "2760145c327cc3060b86b5e929cbeeede051b0938e9603dd4b2a57dae903dc85",
+          "words": 4
+        },
+        {
+          "occurrences": [
+            {
+              "case_id": "first-28",
+              "evidence_id_sha256": "06977f6b8c75499a1e2e077ee4e46565772df63f36654962767d6349e90f1406",
+              "review": ".temp/round02-reviewer/first-28-review.json",
+              "reviewer": "reviewer-a",
+              "root": "/Users/marcin/agent-work/EdgeMech/m5-round02-reviewers-20261116/reviewer-a"
+            },
+            {
+              "case_id": "first-28",
+              "evidence_id_sha256": "880728614253b7431180c24c20d2c037c6dc2744588870e4ecac3ce5c7c4669d",
+              "review": ".temp/round02-reviewer/first-28-review.json",
+              "reviewer": "reviewer-a",
+              "root": "/Users/marcin/agent-work/EdgeMech/m5-round02-reviewers-20261116/reviewer-a"
+            },
+            {
+              "case_id": "first-28",
+              "evidence_id_sha256": "ecb01132ea7ce5f1e81f79f441f76dd35bb03587b5e9f7bc5ca6fe0d51d1fd01",
+              "review": ".temp/round02-reviewer/first-28-review.json",
+              "reviewer": "reviewer-a",
+              "root": "/Users/marcin/agent-work/EdgeMech/m5-round02-reviewers-20261116/reviewer-a"
+            }
+          ],
+          "quote_sha256": "3c77d99e00566baea59e324b53a0c8f7e9238ff05b485fce67fa50f89fca27a8",
+          "words": 3
+        },
+        {
+          "occurrences": [
+            {
+              "case_id": "first-01",
+              "evidence_id_sha256": "74c5728661cf2650d4d88ea6b053c58a9d0af81f704d4548e50a4aa16e8494d2",
+              "review": ".temp/round02-reviewer/first-01-review.json",
+              "reviewer": "reviewer-a",
+              "root": "/Users/marcin/agent-work/EdgeMech/m5-round02-reviewers-20261116/reviewer-a"
+            }
+          ],
+          "quote_sha256": "4248338dbd34dc1eb07f8798065542485569014daabfe032d620ed9b2f3e81ee",
+          "words": 3
+        },
+        {
+          "occurrences": [
+            {
+              "case_id": "fresh-04",
+              "evidence_id_sha256": "4a23c84b1624ad017edbefa558d2a950f68fa57612442712a7346110a49fe071",
+              "review": ".temp/round02-reviewer/fresh-04-review.json",
+              "reviewer": "reviewer-b",
+              "root": "/Users/marcin/agent-work/EdgeMech/m5-round02-reviewers-20261116/reviewer-b"
+            },
+            {
+              "case_id": "fresh-04",
+              "evidence_id_sha256": "539c1a7ba564a9099f9dbe5d090c6c01499c86f2e6941bd73450b02f596263bc",
+              "review": ".temp/round02-reviewer/fresh-04-review.json",
+              "reviewer": "reviewer-a",
+              "root": "/Users/marcin/agent-work/EdgeMech/m5-round02-reviewers-20261116/reviewer-a"
+            },
+            {
+              "case_id": "fresh-04",
+              "evidence_id_sha256": "85a7bb907f9b94ecad5234c3d1d132e4f4dcf02db143f84aa7fb772838da2747",
+              "review": ".temp/round02-reviewer/fresh-04-review.json",
+              "reviewer": "reviewer-a",
+              "root": "/Users/marcin/agent-work/EdgeMech/m5-round02-reviewers-20261116/reviewer-a"
+            }
+          ],
+          "quote_sha256": "5e76d177a156929c5a2b4547da4bfcfede8f0e0a9532e47de2f71ce8d5105fe1",
+          "words": 3
+        },
+        {
+          "occurrences": [
+            {
+              "case_id": "fresh-05",
+              "evidence_id_sha256": "06262ab7a10407e3cdec7b5da2e32299ed098bb33af3cee984a8eb40740df991",
+              "review": "reviews/structured/20261117T000755Z-round02-152-canary/review.yaml",
+              "reviewer": "operational-canary",
+              "root": "/Users/marcin/agent-work/EdgeMech/m5-calibration-round02-20261116"
+            }
+          ],
+          "quote_sha256": "b77e0823be8af1518c3dc85be831bb31289cd4d401d627e8406141620e57b26e",
+          "words": 16
+        },
+        {
+          "occurrences": [
+            {
+              "case_id": "first-28",
+              "evidence_id_sha256": "4a23c84b1624ad017edbefa558d2a950f68fa57612442712a7346110a49fe071",
+              "review": ".temp/round02-reviewer/first-28-review.json",
+              "reviewer": "reviewer-b",
+              "root": "/Users/marcin/agent-work/EdgeMech/m5-round02-reviewers-20261116/reviewer-b"
+            }
+          ],
+          "quote_sha256": "da66a38c445c92019af33e4e0a2ccb59128e1726d018478dc4ecb1631d124c87",
+          "words": 2
+        },
+        {
+          "occurrences": [
+            {
+              "case_id": "first-30",
+              "evidence_id_sha256": "2133b41aa74ebaa775095bc319c20b6df87e51828618a4ab59004eaf04b5cae5",
+              "review": ".temp/round02-reviewer/first-30-review.json",
+              "reviewer": "reviewer-a",
+              "root": "/Users/marcin/agent-work/EdgeMech/m5-round02-reviewers-20261116/reviewer-a"
+            },
+            {
+              "case_id": "first-30",
+              "evidence_id_sha256": "4a23c84b1624ad017edbefa558d2a950f68fa57612442712a7346110a49fe071",
+              "review": ".temp/round02-reviewer/first-30-review.json",
+              "reviewer": "reviewer-b",
+              "root": "/Users/marcin/agent-work/EdgeMech/m5-round02-reviewers-20261116/reviewer-b"
+            },
+            {
+              "case_id": "first-30",
+              "evidence_id_sha256": "8dd6c66dc0f130e6e5289114efab82232fa02cc363dce0bf8180a6f3502ad606",
+              "review": ".temp/round02-reviewer/first-30-review.json",
+              "reviewer": "reviewer-a",
+              "root": "/Users/marcin/agent-work/EdgeMech/m5-round02-reviewers-20261116/reviewer-a"
+            },
+            {
+              "case_id": "first-30",
+              "evidence_id_sha256": "f9d8b72a761a833afcfeed73b700149b02fe932ff456542e2381886a8203b9f0",
+              "review": ".temp/round02-reviewer/first-30-review.json",
+              "reviewer": "reviewer-a",
+              "root": "/Users/marcin/agent-work/EdgeMech/m5-round02-reviewers-20261116/reviewer-a"
+            }
+          ],
+          "quote_sha256": "ffcd2c0750c22df81c3689f6806e6f2cb3dc736c2a8825ff3a076b11dc013d4a",
+          "words": 5
+        }
+      ],
+      "maximum_words": 25,
+      "source_identities": [
+        "authority-raw-sha256:8b6f8fe0510a698579e532658c8ace05da2550093365df9ca83feb0741778415",
+        "authority-sha256:26a3513b9d1eba92ad88de7cca5af9adb53cc384804e9e97b70dee166baebc23",
+        "authority-sha256:6969c3fa53ca1e23875da2c881f08210794fdc824d4b19340a23f7080495ee78",
+        "authority-sha256:e7ca0294c82419388781ea8f87437a1375ffbb4f85f38bb531f27d16946f2c01"
+      ],
+      "within_budget": false
+    },
+    {
+      "deduplicated_quote_words": 2,
+      "excerpts": [
+        {
+          "occurrences": [
+            {
+              "case_id": "fresh-05",
+              "evidence_id_sha256": "8c4d7a34d920df9e61a4cc0725b89f066dc324e760d34340d895dd86840be904",
+              "review": ".temp/round02-reviewer/fresh-05-review.json",
+              "reviewer": "reviewer-a",
+              "root": "/Users/marcin/agent-work/EdgeMech/m5-round02-reviewers-20261116/reviewer-a"
+            },
+            {
+              "case_id": "fresh-05",
+              "evidence_id_sha256": "cbda5489af6a42760237584a527e53b96770fa05cb0c3f37a9600874985f8492",
+              "review": ".temp/round02-reviewer/fresh-05-review.json",
+              "reviewer": "reviewer-b",
+              "root": "/Users/marcin/agent-work/EdgeMech/m5-round02-reviewers-20261116/reviewer-b"
+            }
+          ],
+          "quote_sha256": "49fcdd0bf6b8cd3b7c14cd519175c0eeb8bbe059592560f7047594c94e62450f",
+          "words": 2
+        }
+      ],
+      "maximum_words": 25,
+      "source_identities": [
+        "authority-raw-sha256:8fa3d180a19442d947a7bbdd86cf1efd78f6ca891fe2acbc42f2c6a9d15c6d82",
+        "authority-sha256:4df5fd97886a6bec59c46843fdcb36c0553558de6c8c1da9f7add60230475b28",
+        "authority-sha256:be8f7d0ac2fc7b4205216177496312761d20fbf538e1093ba26d55ff9571d828"
+      ],
+      "within_budget": true
+    },
+    {
+      "deduplicated_quote_words": 2,
+      "excerpts": [
+        {
+          "occurrences": [
+            {
+              "case_id": "fresh-05",
+              "evidence_id_sha256": "278028296275c6986071bd59a4fa9e1d3036252ec331515ca2e6d39218f47449",
+              "review": ".temp/round02-reviewer/fresh-05-review.json",
+              "reviewer": "reviewer-a",
+              "root": "/Users/marcin/agent-work/EdgeMech/m5-round02-reviewers-20261116/reviewer-a"
+            },
+            {
+              "case_id": "fresh-05",
+              "evidence_id_sha256": "fca525f2515fd651f99743be1f309bd6328a80b5afb7fe996f7b0df810458014",
+              "review": ".temp/round02-reviewer/fresh-05-review.json",
+              "reviewer": "reviewer-b",
+              "root": "/Users/marcin/agent-work/EdgeMech/m5-round02-reviewers-20261116/reviewer-b"
+            }
+          ],
+          "quote_sha256": "49fcdd0bf6b8cd3b7c14cd519175c0eeb8bbe059592560f7047594c94e62450f",
+          "words": 2
+        }
+      ],
+      "maximum_words": 25,
+      "source_identities": [
+        "authority-raw-sha256:93d5aec6c739d6bd48c4c4aa66416c7dfe4220ff9ca5c572a1010ad02be0440f",
+        "authority-sha256:6ce0fb6e3177ffc02651d10ce3a23240b22f54368cb59ee06121256fb38f709c",
+        "authority-sha256:97eca20c0c749b8d4d23479d429b50e9174818e291f0d6f775d29c11ac5ef686"
+      ],
+      "within_budget": true
+    },
+    {
+      "deduplicated_quote_words": 2,
+      "excerpts": [
+        {
+          "occurrences": [
+            {
+              "case_id": "fresh-05",
+              "evidence_id_sha256": "4b46415a5f82bbc2ec6eb828cad355cdc234b5a4b4dde9a85a1d7de4ab24c997",
+              "review": ".temp/round02-reviewer/fresh-05-review.json",
+              "reviewer": "reviewer-a",
+              "root": "/Users/marcin/agent-work/EdgeMech/m5-round02-reviewers-20261116/reviewer-a"
+            }
+          ],
+          "quote_sha256": "d983c32a38e793a569d7f79a61abe20c20841c9dd9009dcefa900533593b94c7",
+          "words": 2
+        }
+      ],
+      "maximum_words": 25,
+      "source_identities": [
+        "authority-raw-sha256:99c07d7d2dfeb73ed1fbb69e8213c8034146e51140b2a80f160bd59faead79c8",
+        "authority-sha256:cef9d7c8b7ea25e6823049241f1bf0c588c731b79e417b67a15aa6a0dc57c52b"
+      ],
+      "within_budget": true
+    },
+    {
+      "deduplicated_quote_words": 5,
+      "excerpts": [
+        {
+          "occurrences": [
+            {
+              "case_id": "first-32",
+              "evidence_id_sha256": "1517ce6befc49cd7a8932d62a2750bbf9db526a1f114a0b3673ec630c50a0f86",
+              "review": ".temp/round02-reviewer/first-32-review.json",
+              "reviewer": "reviewer-a",
+              "root": "/Users/marcin/agent-work/EdgeMech/m5-round02-reviewers-20261116/reviewer-a"
+            },
+            {
+              "case_id": "first-32",
+              "evidence_id_sha256": "1b5a86c3aefc487832125f9bb53a1327e8a7fa9b3e96aec8613f1d8f9951af01",
+              "review": ".temp/round02-reviewer/first-32-review.json",
+              "reviewer": "reviewer-a",
+              "root": "/Users/marcin/agent-work/EdgeMech/m5-round02-reviewers-20261116/reviewer-a"
+            },
+            {
+              "case_id": "first-32",
+              "evidence_id_sha256": "88898cacb01caf8585fb4e58a710af6ca7107eb1e52eae0394a13a41477800b0",
+              "review": ".temp/round02-reviewer/first-32-review.json",
+              "reviewer": "reviewer-a",
+              "root": "/Users/marcin/agent-work/EdgeMech/m5-round02-reviewers-20261116/reviewer-a"
+            }
+          ],
+          "quote_sha256": "80b09e3ea6b5f8b34a715fe1feb123e538ad312469775cdd584aa3867264f1b9",
+          "words": 2
+        },
+        {
+          "occurrences": [
+            {
+              "case_id": "first-32",
+              "evidence_id_sha256": "8b0ada2566b3e920ea5dc09828cbb376c82b5620a0171096c4ea32b37a9e4958",
+              "review": ".temp/round02-reviewer/first-32-review.json",
+              "reviewer": "reviewer-b",
+              "root": "/Users/marcin/agent-work/EdgeMech/m5-round02-reviewers-20261116/reviewer-b"
+            }
+          ],
+          "quote_sha256": "9943611a17298a27eec09a7cbe6ed37effc7b960a96220862ff38b22a47aa5ff",
+          "words": 3
+        }
+      ],
+      "maximum_words": 25,
+      "source_identities": [
+        "authority-raw-sha256:b0d4c227cf90f01256edd978d913821d8ad38dc1d15b6850b0ca9d2abb445875",
+        "authority-sha256:007d93576e91bd5743c046a85848d9de533a0b0c95f59ec0e4a84484a6fdc058",
+        "authority-sha256:54c7e3e3f029760989d39fa6e76672615deacfa462cb27c97d170c01814766d1"
+      ],
+      "within_budget": true
+    },
+    {
+      "deduplicated_quote_words": 20,
+      "excerpts": [
+        {
+          "occurrences": [
+            {
+              "case_id": "first-28",
+              "evidence_id_sha256": "c39b74452e0fab60df5e000848127b791ad1bc7986728584824db9473c52d4fe",
+              "review": ".temp/round02-reviewer/first-28-review.json",
+              "reviewer": "reviewer-b",
+              "root": "/Users/marcin/agent-work/EdgeMech/m5-round02-reviewers-20261116/reviewer-b"
+            },
+            {
+              "case_id": "first-30",
+              "evidence_id_sha256": "c39b74452e0fab60df5e000848127b791ad1bc7986728584824db9473c52d4fe",
+              "review": ".temp/round02-reviewer/first-30-review.json",
+              "reviewer": "reviewer-b",
+              "root": "/Users/marcin/agent-work/EdgeMech/m5-round02-reviewers-20261116/reviewer-b"
+            },
+            {
+              "case_id": "fresh-04",
+              "evidence_id_sha256": "c39b74452e0fab60df5e000848127b791ad1bc7986728584824db9473c52d4fe",
+              "review": ".temp/round02-reviewer/fresh-04-review.json",
+              "reviewer": "reviewer-b",
+              "root": "/Users/marcin/agent-work/EdgeMech/m5-round02-reviewers-20261116/reviewer-b"
+            },
+            {
+              "case_id": "fresh-05",
+              "evidence_id_sha256": "c39b74452e0fab60df5e000848127b791ad1bc7986728584824db9473c52d4fe",
+              "review": ".temp/round02-reviewer/fresh-05-review.json",
+              "reviewer": "reviewer-b",
+              "root": "/Users/marcin/agent-work/EdgeMech/m5-round02-reviewers-20261116/reviewer-b"
+            }
+          ],
+          "quote_sha256": "05d492aab9a3deecd78de0c5a5057011c7381fa1f79e0e35ad1b1a2667e442f1",
+          "words": 3
+        },
+        {
+          "occurrences": [
+            {
+              "case_id": "first-32",
+              "evidence_id_sha256": "c39b74452e0fab60df5e000848127b791ad1bc7986728584824db9473c52d4fe",
+              "review": ".temp/round02-reviewer/first-32-review.json",
+              "reviewer": "reviewer-b",
+              "root": "/Users/marcin/agent-work/EdgeMech/m5-round02-reviewers-20261116/reviewer-b"
+            },
+            {
+              "case_id": "fresh-14",
+              "evidence_id_sha256": "c39b74452e0fab60df5e000848127b791ad1bc7986728584824db9473c52d4fe",
+              "review": ".temp/round02-reviewer/fresh-14-review.json",
+              "reviewer": "reviewer-b",
+              "root": "/Users/marcin/agent-work/EdgeMech/m5-round02-reviewers-20261116/reviewer-b"
+            }
+          ],
+          "quote_sha256": "1e955438a030a513358dbf24c1da1c10871bed6f0d517f8c6f330bf4f72bcccc",
+          "words": 3
+        },
+        {
+          "occurrences": [
+            {
+              "case_id": "fresh-47",
+              "evidence_id_sha256": "c39b74452e0fab60df5e000848127b791ad1bc7986728584824db9473c52d4fe",
+              "review": ".temp/round02-reviewer/fresh-47-review.json",
+              "reviewer": "reviewer-b",
+              "root": "/Users/marcin/agent-work/EdgeMech/m5-round02-reviewers-20261116/reviewer-b"
+            }
+          ],
+          "quote_sha256": "2c2ebe47dd5a451599b6928ac7a339e9176248c7e3973fddd6e74f42b48cbf10",
+          "words": 6
+        },
+        {
+          "occurrences": [
+            {
+              "case_id": "first-28",
+              "evidence_id_sha256": "1675a0f5548ef961d9e4314daa584731386d26d94474ae9483296effb054debe",
+              "review": ".temp/round02-reviewer/first-28-review.json",
+              "reviewer": "reviewer-a",
+              "root": "/Users/marcin/agent-work/EdgeMech/m5-round02-reviewers-20261116/reviewer-a"
+            },
+            {
+              "case_id": "first-30",
+              "evidence_id_sha256": "2989f127f7895e224dba490eda573b83c440349f8fc140261a7743db9dd44a4f",
+              "review": ".temp/round02-reviewer/first-30-review.json",
+              "reviewer": "reviewer-a",
+              "root": "/Users/marcin/agent-work/EdgeMech/m5-round02-reviewers-20261116/reviewer-a"
+            },
+            {
+              "case_id": "fresh-04",
+              "evidence_id_sha256": "2ff2ff69e6cec2dfa65062023629065173cd167134ec042b244cc785f6a9a0b1",
+              "review": ".temp/round02-reviewer/fresh-04-review.json",
+              "reviewer": "reviewer-a",
+              "root": "/Users/marcin/agent-work/EdgeMech/m5-round02-reviewers-20261116/reviewer-a"
+            },
+            {
+              "case_id": "fresh-05",
+              "evidence_id_sha256": "b9cf9659fd55b1ec4dc43497645bf42ca276d3a9be3908b7f4e5153fe36a7410",
+              "review": ".temp/round02-reviewer/fresh-05-review.json",
+              "reviewer": "reviewer-a",
+              "root": "/Users/marcin/agent-work/EdgeMech/m5-round02-reviewers-20261116/reviewer-a"
+            }
+          ],
+          "quote_sha256": "4a93a6023345900608c01196f424eb7840d44e3a34141d149fefbb89ec56936d",
+          "words": 6
+        },
+        {
+          "occurrences": [
+            {
+              "case_id": "first-43",
+              "evidence_id_sha256": "c39b74452e0fab60df5e000848127b791ad1bc7986728584824db9473c52d4fe",
+              "review": ".temp/round02-reviewer/first-43-review.json",
+              "reviewer": "reviewer-b",
+              "root": "/Users/marcin/agent-work/EdgeMech/m5-round02-reviewers-20261116/reviewer-b"
+            },
+            {
+              "case_id": "first-43",
+              "evidence_id_sha256": "f88a6a5f50e1eda8a0d6cba367d18368bccc90cb577f3e0f528c9fa93282a5e4",
+              "review": ".temp/round02-reviewer/first-43-review.json",
+              "reviewer": "reviewer-a",
+              "root": "/Users/marcin/agent-work/EdgeMech/m5-round02-reviewers-20261116/reviewer-a"
+            },
+            {
+              "case_id": "fresh-32",
+              "evidence_id_sha256": "a309f1e07d6adde4d007860cbe508de65b31fc64b39d97aaee6459d291396073",
+              "review": ".temp/round02-reviewer/fresh-32-review.json",
+              "reviewer": "reviewer-a",
+              "root": "/Users/marcin/agent-work/EdgeMech/m5-round02-reviewers-20261116/reviewer-a"
+            },
+            {
+              "case_id": "fresh-32",
+              "evidence_id_sha256": "c39b74452e0fab60df5e000848127b791ad1bc7986728584824db9473c52d4fe",
+              "review": ".temp/round02-reviewer/fresh-32-review.json",
+              "reviewer": "reviewer-b",
+              "root": "/Users/marcin/agent-work/EdgeMech/m5-round02-reviewers-20261116/reviewer-b"
+            }
+          ],
+          "quote_sha256": "cd2e89478db5caad28e604ce355918d113eb1690a8f6248be2b9392a444800c4",
+          "words": 2
+        }
+      ],
+      "maximum_words": 25,
+      "source_identities": [
+        "authority-raw-sha256:b6a1320772a92d69e84b8c700cd6386dffe45ed635c8197d61e22b6a6fa3b35e",
+        "authority-sha256:073d13cb0e41216f89d7154640fa6bc90e5ec6e738da74e67b7f27176729d297",
+        "authority-sha256:d22154e2b03cb222eed52297d369a03ac4d61cda2aa298dcc1dd796a1ab275d3"
+      ],
+      "within_budget": true
+    },
+    {
+      "deduplicated_quote_words": 5,
+      "excerpts": [
+        {
+          "occurrences": [
+            {
+              "case_id": "first-01",
+              "evidence_id_sha256": "49bd6d62995b93aa1a2b0e151979137a97d83218ff4a22f0d7503341b51dc876",
+              "review": ".temp/round02-reviewer/first-01-review.json",
+              "reviewer": "reviewer-a",
+              "root": "/Users/marcin/agent-work/EdgeMech/m5-round02-reviewers-20261116/reviewer-a"
+            }
+          ],
+          "quote_sha256": "550cab734a18f2aff138669889a6c93af976b74e5fa0d4bc334d329ae8e33e59",
+          "words": 5
+        }
+      ],
+      "maximum_words": 25,
+      "source_identities": [
+        "authority-raw-sha256:bcbbae81696b41691da740f78ec292204f6551675ba01e8d95217a62699e7205",
+        "authority-sha256:64c21635600490d797be3faba07a87e2467513aa58b6c7478aef7f266202a3c9"
+      ],
+      "within_budget": true
+    },
+    {
+      "deduplicated_quote_words": 2,
+      "excerpts": [
+        {
+          "occurrences": [
+            {
+              "case_id": "fresh-04",
+              "evidence_id_sha256": "1879e1b6f510dba9c0011af43632430d5f237ec60cc95af889bf64ae7705cb84",
+              "review": ".temp/round02-reviewer/fresh-04-review.json",
+              "reviewer": "reviewer-b",
+              "root": "/Users/marcin/agent-work/EdgeMech/m5-round02-reviewers-20261116/reviewer-b"
+            },
+            {
+              "case_id": "fresh-04",
+              "evidence_id_sha256": "737b1d6b7ee0d706bbe9464b65dd1bcce587e375ee703bdbcb85df051c0a6e15",
+              "review": ".temp/round02-reviewer/fresh-04-review.json",
+              "reviewer": "reviewer-a",
+              "root": "/Users/marcin/agent-work/EdgeMech/m5-round02-reviewers-20261116/reviewer-a"
+            }
+          ],
+          "quote_sha256": "8e76a6304c39e027435157b523ec77134872f356e2f746072f931bfa3b84d2e5",
+          "words": 2
+        }
+      ],
+      "maximum_words": 25,
+      "source_identities": [
+        "authority-raw-sha256:c49f4248dd790f2c2abe52d3a224f1b99d022a9fa53dc8362e5a13d740d9ed30",
+        "authority-sha256:1c0b18007d915184fbc67672d5fde4bd09beb0b82b53d360a0bbf7f674ad9e17",
+        "authority-sha256:3e47f78827f7596662b8656d90ba646ad23601600718afb384fb194a3eeeca9a"
+      ],
+      "within_budget": true
+    },
+    {
+      "deduplicated_quote_words": 9,
+      "excerpts": [
+        {
+          "occurrences": [
+            {
+              "case_id": "fresh-05",
+              "evidence_id_sha256": "6f7b72a9101d91637d5ae9b1ec56febbbcb1cd532cd86261a9827f8df966b5fe",
+              "review": "reviews/structured/20261117T000755Z-round02-152-canary/review.yaml",
+              "reviewer": "operational-canary",
+              "root": "/Users/marcin/agent-work/EdgeMech/m5-calibration-round02-20261116"
+            }
+          ],
+          "quote_sha256": "07d0eb2b85acb525140f845392768c46663b134df2edcb9fd6ed14e41687bce0",
+          "words": 5
+        },
+        {
+          "occurrences": [
+            {
+              "case_id": "fresh-05",
+              "evidence_id_sha256": "318bbe8f68c1506a095a784e64bdbdd9d956902027c0c29133163991d4303561",
+              "review": ".temp/round02-reviewer/fresh-05-review.json",
+              "reviewer": "reviewer-b",
+              "root": "/Users/marcin/agent-work/EdgeMech/m5-round02-reviewers-20261116/reviewer-b"
+            },
+            {
+              "case_id": "fresh-05",
+              "evidence_id_sha256": "8509cea5adef38208ac15a7cc75532288a3340e6cd8bbaa5bf7a0a721634fdcc",
+              "review": ".temp/round02-reviewer/fresh-05-review.json",
+              "reviewer": "reviewer-a",
+              "root": "/Users/marcin/agent-work/EdgeMech/m5-round02-reviewers-20261116/reviewer-a"
+            },
+            {
+              "case_id": "fresh-05",
+              "evidence_id_sha256": "ab2940f4f3e6dadb7ef75979be7258960f7aaf20fbd780f216e5d4945339be5d",
+              "review": ".temp/round02-reviewer/fresh-05-review.json",
+              "reviewer": "reviewer-a",
+              "root": "/Users/marcin/agent-work/EdgeMech/m5-round02-reviewers-20261116/reviewer-a"
+            }
+          ],
+          "quote_sha256": "422367ae631e58e84706dc0ed14b7a627a59390d77f4e37d3566e6587caa4d52",
+          "words": 4
+        }
+      ],
+      "maximum_words": 25,
+      "source_identities": [
+        "authority-raw-sha256:e3c3c74d3106e779e9f4864c782c58b5a2f91cd7f5260817776c38059e630772",
+        "authority-sha256:0e58f68967ee8c8dcf193e0717567a659daae8346e65e630d1ee57ed49d71945",
+        "authority-sha256:245c15cd9d98cd9a27a63b3592698ec115d127ab51e579ba6c4c372cdf8c7bca",
+        "authority-sha256:77c183daa821e7b15aedf0b7c1ded1623398145e538813ac7674bb363b4456e3"
+      ],
+      "within_budget": true
+    },
+    {
+      "deduplicated_quote_words": 7,
+      "excerpts": [
+        {
+          "occurrences": [
+            {
+              "case_id": "fresh-32",
+              "evidence_id_sha256": "6f1473121e44c169891c64b932364264bf19b2fba84798d3b1475d1660da822e",
+              "review": ".temp/round02-reviewer/fresh-32-review.json",
+              "reviewer": "reviewer-a",
+              "root": "/Users/marcin/agent-work/EdgeMech/m5-round02-reviewers-20261116/reviewer-a"
+            },
+            {
+              "case_id": "fresh-32",
+              "evidence_id_sha256": "912e28dca114ab788d014f4347aad347b39ee6b806949dbf437a5c4d2f9bf5f1",
+              "review": ".temp/round02-reviewer/fresh-32-review.json",
+              "reviewer": "reviewer-a",
+              "root": "/Users/marcin/agent-work/EdgeMech/m5-round02-reviewers-20261116/reviewer-a"
+            },
+            {
+              "case_id": "fresh-32",
+              "evidence_id_sha256": "a9169f265ac36384ef65b025e7e1b0928fe3352022e94e2ddd5a8220ea2d63ed",
+              "review": ".temp/round02-reviewer/fresh-32-review.json",
+              "reviewer": "reviewer-a",
+              "root": "/Users/marcin/agent-work/EdgeMech/m5-round02-reviewers-20261116/reviewer-a"
+            }
+          ],
+          "quote_sha256": "e9701ed213f49b7bebd30f55141d489b7308087c466fcb2d032e932283cf4cff",
+          "words": 4
+        },
+        {
+          "occurrences": [
+            {
+              "case_id": "fresh-32",
+              "evidence_id_sha256": "bc875abd6e6be01a096e174cf66d7e17b25843bb7f085fcd6e97fa936a3728e1",
+              "review": ".temp/round02-reviewer/fresh-32-review.json",
+              "reviewer": "reviewer-b",
+              "root": "/Users/marcin/agent-work/EdgeMech/m5-round02-reviewers-20261116/reviewer-b"
+            }
+          ],
+          "quote_sha256": "ea7236446648e76777720af82a68c4a2367095cfee3577be39c7eceefddd944d",
+          "words": 3
+        }
+      ],
+      "maximum_words": 25,
+      "source_identities": [
+        "authority-raw-sha256:e5b9eead9f936316410c1a3d58aaa5fe4c2fafb8e859d250796ac70486c12963",
+        "authority-sha256:67083499c49b3251fde5cde65d76051b9df0ad200568ce708c1a84e5bd3c02b7",
+        "authority-sha256:c7eef60f85f6f02305f60b1ada295bafaa55f8f1351b11f112b85fac04379fe2"
+      ],
+      "within_budget": true
+    },
+    {
+      "deduplicated_quote_words": 9,
+      "excerpts": [
+        {
+          "occurrences": [
+            {
+              "case_id": "fresh-14",
+              "evidence_id_sha256": "6813cb9678f1e5bd5e32cba76a4fde39f4ad1c3aa5e3b4d4aa4a0bae57e4769b",
+              "review": ".temp/round02-reviewer/fresh-14-review.json",
+              "reviewer": "reviewer-a",
+              "root": "/Users/marcin/agent-work/EdgeMech/m5-round02-reviewers-20261116/reviewer-a"
+            },
+            {
+              "case_id": "fresh-14",
+              "evidence_id_sha256": "6c94b9b6754dfb70e7e930f370d8b5e4c1418cc646eb623ae8b630ddf0b9e1df",
+              "review": ".temp/round02-reviewer/fresh-14-review.json",
+              "reviewer": "reviewer-a",
+              "root": "/Users/marcin/agent-work/EdgeMech/m5-round02-reviewers-20261116/reviewer-a"
+            },
+            {
+              "case_id": "fresh-14",
+              "evidence_id_sha256": "cb06b072f5b70432c273ce47735befe10973ea69e695631c35bf50fe12890761",
+              "review": ".temp/round02-reviewer/fresh-14-review.json",
+              "reviewer": "reviewer-a",
+              "root": "/Users/marcin/agent-work/EdgeMech/m5-round02-reviewers-20261116/reviewer-a"
+            }
+          ],
+          "quote_sha256": "01566d652ff6b91fc84aec2f92563c57f3521bc7b40152d8b424a7e0c19d1ba7",
+          "words": 9
+        }
+      ],
+      "maximum_words": 25,
+      "source_identities": [
+        "authority-raw-sha256:e90e80cb98e1d60db6886a2a8bf674b4d08c9e10dcb5511b164e6f675f796765",
+        "authority-sha256:bd6c0ccc4157fd456f4487586188e031efedc9f27f3c275f010737318d648379"
+      ],
+      "within_budget": true
+    },
+    {
+      "deduplicated_quote_words": 2,
+      "excerpts": [
+        {
+          "occurrences": [
+            {
+              "case_id": "first-01",
+              "evidence_id_sha256": "04a2cd8ba825c1bc7dea624ddd3405815d368f42ffd6e1012fbdaf80ca031dcb",
+              "review": ".temp/round02-reviewer/first-01-review.json",
+              "reviewer": "reviewer-b",
+              "root": "/Users/marcin/agent-work/EdgeMech/m5-round02-reviewers-20261116/reviewer-b"
+            },
+            {
+              "case_id": "first-01",
+              "evidence_id_sha256": "04b95e633ced0cb790f9656e852e03eac1652f0d78b25123592303ffae2af3b2",
+              "review": ".temp/round02-reviewer/first-01-review.json",
+              "reviewer": "reviewer-a",
+              "root": "/Users/marcin/agent-work/EdgeMech/m5-round02-reviewers-20261116/reviewer-a"
+            },
+            {
+              "case_id": "first-01",
+              "evidence_id_sha256": "4e861abd76afbbadc5f09331598c9fc531262783ccb0f5c144488b0555286b0d",
+              "review": ".temp/round02-reviewer/first-01-review.json",
+              "reviewer": "reviewer-a",
+              "root": "/Users/marcin/agent-work/EdgeMech/m5-round02-reviewers-20261116/reviewer-a"
+            },
+            {
+              "case_id": "first-01",
+              "evidence_id_sha256": "d14999dcc0380c393c736620c9765f829c0373876b2031d4014a2f3ad55e14cc",
+              "review": ".temp/round02-reviewer/first-01-review.json",
+              "reviewer": "reviewer-a",
+              "root": "/Users/marcin/agent-work/EdgeMech/m5-round02-reviewers-20261116/reviewer-a"
+            }
+          ],
+          "quote_sha256": "ee2bb734e41a3a93bdf92595ef8827fc94ef5333d606f209e9e547b71e7362e3",
+          "words": 2
+        }
+      ],
+      "maximum_words": 25,
+      "source_identities": [
+        "authority-raw-sha256:fc232e23ad8037914a1d4c21ec3d97cf704cf1b2fa732556bf4790af108c591e",
+        "authority-sha256:5a2ff888bb6713933d648af28611c4c06f6d0ecbb52f3506d1b4ddcc4a5d68db",
+        "authority-sha256:ab734a0eb14c64be397153dacef55f13319274ab29ef6ba3c12947e74401a9c8"
+      ],
+      "within_budget": true
+    },
+    {
+      "deduplicated_quote_words": 5,
+      "excerpts": [
+        {
+          "occurrences": [
+            {
+              "case_id": "fresh-32",
+              "evidence_id_sha256": "39b9b533a5c21fa75a6649bc916b4167183d04d8752e4b0194ca1eb31dca1771",
+              "review": ".temp/round02-reviewer/fresh-32-review.json",
+              "reviewer": "reviewer-a",
+              "root": "/Users/marcin/agent-work/EdgeMech/m5-round02-reviewers-20261116/reviewer-a"
+            },
+            {
+              "case_id": "fresh-32",
+              "evidence_id_sha256": "f3904dc232c8d8e711f057ee00d41928794bbe9b6d8e48b83f8f61f51f780bec",
+              "review": ".temp/round02-reviewer/fresh-32-review.json",
+              "reviewer": "reviewer-b",
+              "root": "/Users/marcin/agent-work/EdgeMech/m5-round02-reviewers-20261116/reviewer-b"
+            }
+          ],
+          "quote_sha256": "edb3e2c1c3ce83a1cdbde97370373cb19113536be5eb47b0bb048bb372173a5d",
+          "words": 5
+        }
+      ],
+      "maximum_words": 25,
+      "source_identities": [
+        "doi:10.1007/s00792-015-0765-y",
+        "pmcid:PMC4546703",
+        "pmid:26085472"
+      ],
+      "within_budget": true
+    },
+    {
+      "deduplicated_quote_words": 27,
+      "excerpts": [
+        {
+          "occurrences": [
+            {
+              "case_id": "fresh-05",
+              "evidence_id_sha256": "08b5fe50d3fd5b20d123ec9d21b020c2da3a100058e82ec3e59030a07f3c640d",
+              "review": ".temp/round02-reviewer/fresh-05-review.json",
+              "reviewer": "reviewer-b",
+              "root": "/Users/marcin/agent-work/EdgeMech/m5-round02-reviewers-20261116/reviewer-b"
+            }
+          ],
+          "quote_sha256": "6f84389153d32faf792f7ee3d74803396e835005d02f0a36cc095630c7ac213e",
+          "words": 7
+        },
+        {
+          "occurrences": [
+            {
+              "case_id": "fresh-05",
+              "evidence_id_sha256": "6b4b2817b80e0b3ca9edb2352a54a5a89a374cec66b67e8ee32d58bf4b38dd6c",
+              "review": ".temp/round02-reviewer/fresh-05-review.json",
+              "reviewer": "reviewer-a",
+              "root": "/Users/marcin/agent-work/EdgeMech/m5-round02-reviewers-20261116/reviewer-a"
+            }
+          ],
+          "quote_sha256": "a107c689a18098989174bc5edb4a7db3b46ba3f48567c4db9891cbf4ab68710b",
+          "words": 4
+        },
+        {
+          "occurrences": [
+            {
+              "case_id": "fresh-05",
+              "evidence_id_sha256": "c6f7bd6addf8118135c332057b14beb58d03fa25412220095f903bd6037ad997",
+              "review": "reviews/structured/20261117T000755Z-round02-152-canary/review.yaml",
+              "reviewer": "operational-canary",
+              "root": "/Users/marcin/agent-work/EdgeMech/m5-calibration-round02-20261116"
+            }
+          ],
+          "quote_sha256": "d10a32f7f7597d2a8f5eed0dfe36363af7723ed6476d10e63912ec94f27e41ee",
+          "words": 5
+        },
+        {
+          "occurrences": [
+            {
+              "case_id": "fresh-05",
+              "evidence_id_sha256": "f2f04a5e87e2507f1a7059ed42dbc046d000eb3f63eaaa592ea318de9ee8f29a",
+              "review": "reviews/structured/20261117T000755Z-round02-152-canary/review.yaml",
+              "reviewer": "operational-canary",
+              "root": "/Users/marcin/agent-work/EdgeMech/m5-calibration-round02-20261116"
+            }
+          ],
+          "quote_sha256": "e93f32d9b26d36fed2681bf4877dc406f75562127949e4efd3168023a9f6d66e",
+          "words": 11
+        }
+      ],
+      "maximum_words": 25,
+      "source_identities": [
+        "doi:10.1099/ijs.0.65010-0",
+        "pmid:17625207"
+      ],
+      "within_budget": false
+    },
+    {
+      "deduplicated_quote_words": 5,
+      "excerpts": [
+        {
+          "occurrences": [
+            {
+              "case_id": "fresh-04",
+              "evidence_id_sha256": "3ef136e0598a8b33f8d5ca11b549b956d984360ef31dc982d1783acdc3c03791",
+              "review": ".temp/round02-reviewer/fresh-04-review.json",
+              "reviewer": "reviewer-b",
+              "root": "/Users/marcin/agent-work/EdgeMech/m5-round02-reviewers-20261116/reviewer-b"
+            },
+            {
+              "case_id": "fresh-04",
+              "evidence_id_sha256": "dd3f602710eeca5268dade4f7d04b0d40b9f3f2baffb544f9f9b8144420abf35",
+              "review": ".temp/round02-reviewer/fresh-04-review.json",
+              "reviewer": "reviewer-a",
+              "root": "/Users/marcin/agent-work/EdgeMech/m5-round02-reviewers-20261116/reviewer-a"
+            }
+          ],
+          "quote_sha256": "f86d854591571f29e442cb42f379d6ecd84353c84639478b04554312ef9f8cf8",
+          "words": 5
+        }
+      ],
+      "maximum_words": 25,
+      "source_identities": [
+        "doi:10.1099/ijsem.0.001523",
+        "pmid:27671055"
+      ],
+      "within_budget": true
+    },
+    {
+      "deduplicated_quote_words": 17,
+      "excerpts": [
+        {
+          "occurrences": [
+            {
+              "case_id": "fresh-04",
+              "evidence_id_sha256": "9f034134804292b3f507b702dbb8e403f2a940028fb290078028a0328f144dab",
+              "review": ".temp/round02-reviewer/fresh-04-review.json",
+              "reviewer": "reviewer-b",
+              "root": "/Users/marcin/agent-work/EdgeMech/m5-round02-reviewers-20261116/reviewer-b"
+            }
+          ],
+          "quote_sha256": "747dc47f4402cb0093b7694f27c3fbf1af8a05327bc3c43c9b37a426bdfa0e17",
+          "words": 9
+        },
+        {
+          "occurrences": [
+            {
+              "case_id": "fresh-04",
+              "evidence_id_sha256": "b878b23b7b86341483798ca269f7600b974db22f847685f1af97a33347c02296",
+              "review": ".temp/round02-reviewer/fresh-04-review.json",
+              "reviewer": "reviewer-a",
+              "root": "/Users/marcin/agent-work/EdgeMech/m5-round02-reviewers-20261116/reviewer-a"
+            }
+          ],
+          "quote_sha256": "823e7aff0f57dc7e3337b7ee4a1a11bd06eba81b64d203de6472e89f5b538115",
+          "words": 8
+        }
+      ],
+      "maximum_words": 25,
+      "source_identities": [
+        "doi:10.1155/2020/4805706",
+        "pmcid:PMC7038168",
+        "pmid:32104693"
+      ],
+      "within_budget": true
+    },
+    {
+      "deduplicated_quote_words": 25,
+      "excerpts": [
+        {
+          "occurrences": [
+            {
+              "case_id": "fresh-47",
+              "evidence_id_sha256": "0fa414b43144bfabf95ee89f54a615287c5bd40deabfecc4446e8221029c3f3a",
+              "review": ".temp/round02-reviewer/fresh-47-review.json",
+              "reviewer": "reviewer-b",
+              "root": "/Users/marcin/agent-work/EdgeMech/m5-round02-reviewers-20261116/reviewer-b"
+            }
+          ],
+          "quote_sha256": "360481857ccc4c6fe0b3091f05cd7d926503fd792c02943886cf2af24c473c29",
+          "words": 11
+        },
+        {
+          "occurrences": [
+            {
+              "case_id": "fresh-47",
+              "evidence_id_sha256": "c3df5ad933300cf0df9d1acd1aea35d9291c20417ba822d189382999842e7a30",
+              "review": ".temp/round02-reviewer/fresh-47-review-v2.json",
+              "reviewer": "reviewer-a",
+              "root": "/Users/marcin/agent-work/EdgeMech/m5-round02-reviewers-20261116/reviewer-a"
+            }
+          ],
+          "quote_sha256": "a286e4a994a7e505ce7abe8108aac7df3e4b4044ed0dc80b3f96b02a69d91089",
+          "words": 14
+        }
+      ],
+      "maximum_words": 25,
+      "source_identities": [
+        "doi:10.3390/ani14101394",
+        "pmcid:PMC11117391",
+        "pmid:38791612"
+      ],
+      "within_budget": true
+    }
+  ],
+  "over_budget_sources": 2,
+  "private_originals_within_budget": false,
+  "publication_allowed_for_raw_originals": false,
+  "quote_entries": 126,
+  "review_specs": 21,
+  "schema": "edgemech-private-complete-quote-catalog/v1",
+  "scope": "All declared evidence quotations from 20 final authored drafts plus operational canary; exact primary metadata, source hashes and literal offsets replayed. Private raw quotations never for Git. Public source/prose review must independently attest no unaccounted quotation."
+}

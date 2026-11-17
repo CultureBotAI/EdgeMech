@@ -1,0 +1,55 @@
+{
+  "drivers": [
+    {
+      "bytes": 12579,
+      "classification": "private_technical_driver_with_eight_embedded_literal_anchors",
+      "path": "final-citation-replay/scripts/adhoc/replay_final_citations.py",
+      "public_representation": "scripts/adhoc/replay_m5_round02_final_citations_20261116.py plus pinned external private data",
+      "raw_source_published": false,
+      "sha256": "9590a64313c1d7b4206fe34a4b33e3c70557d3028d5a3703f190fb58aaaba9e6"
+    },
+    {
+      "bytes": 16047,
+      "classification": "exact_technical_archive_versioned_as_nonproduction_source",
+      "path": "replay/scripts/adhoc/replay_original_inputs.py",
+      "public_representation": "scripts/adhoc/archive_m5_round02_adjudicator_replay_20261116.py.txt",
+      "raw_source_published": true,
+      "sha256": "09ccaf067b0a45155362f14aa48c86fa4d62384d4718a92e046b3ef3a15c3e53"
+    },
+    {
+      "bytes": 11538,
+      "classification": "private_authored_audit_assembly_payload",
+      "path": "scripts/adhoc/assemble_authored_audit.py",
+      "public_representation": "hash and accounting only; private authored payload unchanged",
+      "raw_source_published": false,
+      "sha256": "029b0b820963896795caaa94b308797b675c65e60bc3f0039c2775c4fc92c192"
+    },
+    {
+      "bytes": 32930,
+      "classification": "private_authored_judgment_constructor",
+      "path": "semantic-first/scripts/adhoc/author_semantic_first.py",
+      "public_representation": "hash and accounting only; private authored payload unchanged",
+      "raw_source_published": false,
+      "sha256": "a060683b89eba4afa61f52ad8babe48009a0f2e0e59d53a560a377410f119961"
+    },
+    {
+      "bytes": 38760,
+      "classification": "private_authored_judgment_constructor",
+      "path": "semantic-fresh/scripts/adhoc/author_semantic_fresh.py",
+      "public_representation": "hash and accounting only; private authored payload unchanged",
+      "raw_source_published": false,
+      "sha256": "6ece8f5e3619dfb6cd408580f70699c600f019daa3b3c9ae72d9cb9f8e254eb3"
+    }
+  ],
+  "issue": "https://github.com/CultureBotAI/EdgeMech/issues/183",
+  "operational_driver_count": 5,
+  "original_private_execution_pre_reviewed": false,
+  "original_sources_modified": false,
+  "quote_bearing_and_judgment_payloads_published": false,
+  "schema": "edgemech-bounded-adjudicator-driver-provenance/v1",
+  "scope": "Retrospective source provenance only. Later independent literal replay does not retroactively approve private execution or support scientific labels.",
+  "search_scope": "Path.rglob includes hidden and gitignored files; all .py/.sh/.bash/.js/.mjs and executable files under the complete finished invocation",
+  "source_inventory_sha256": "aeb2023d6da57a0b409adcd3f4c47f4f652480ded0dca362703fa556812a1d40",
+  "test_fixture_inventory_sha256": "cad22c4023f0bab00899b7b065f67bcb43a3e73529e533ce5675c59341f8c0a5",
+  "test_runtime_fixture_files": 1385
+}
