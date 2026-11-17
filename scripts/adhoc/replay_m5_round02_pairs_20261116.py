@@ -1,10 +1,13 @@
 #!/usr/bin/env python3
-"""Inventory/replay the fixed twenty round02 canonical pairs without authoring ratings.
+"""Inventory/replay the fixed twenty canonical pairs without authoring ratings.
 
 Config: package_sha256, manifest, runtime_git_revision, reviewers keyed a/b with
 root, matrix and canonical_identity; entries has reviewer/case_id/input/proofs/
 review for every original case (null paths retain missing outputs). Python is
 optional per reviewer and defaults to its root/.venv/bin/python.
+round_id defaults to the historical round02 identifier; later rounds must supply
+their exact frozen manifest/matrix identifier. The transport schema name remains
+v1 for compatibility; receipts also record the selected scientific round.
 Run canary for one saved fresh-47, inspect check-canary, then batch with the same
 config and canary directory. All outputs are exclusive private metadata/receipts;
 input reviews, matrices, proofs and sources are read-only. No scientific pass.
@@ -32,6 +35,7 @@ import calibration_round_20261116 as rounds
 from kg_microbe_reviews import load_document
 
 SCHEMA = "edgemech-round02-canonical-replay/v1"
+DEFAULT_ROUND = "m5-calibration-20261116-round02"
 ROOT = Path(__file__).absolute().parents[2]
 
 
@@ -142,12 +146,14 @@ def context(config, rid, out):
             "Coordinator matrix validator differs from frozen clone validator")
     matrix, labels = rounds.sealed_matrix(root, config["manifest"], settings["matrix"])
     require(matrix["reviewer"]["id"] == rid, "Sealed reviewer identity differs")
-    require(matrix["round_id"] == "m5-calibration-20261116-round02", "Wrong scientific round")
+    expected_round = config.get("round_id", DEFAULT_ROUND)
+    rounds.text(expected_round, "expected scientific round")
+    require(matrix["round_id"] == manifest["round_id"] == expected_round, "Wrong scientific round")
     require(settings.get("canonical_identity"), "Expected canonical reviewer identity missing")
     matrix_raw, matrix_pin = pin(root, settings["matrix"])
     receipt_raw, receipt_pin = pin(root, settings["matrix"] + ".receipt.json")
     receipt = json.loads(receipt_raw)
-    meta = {"reviewer": rid, "manifest": manifest_pin, "matrix": matrix_pin,
+    meta = {"reviewer": rid, "round_id": expected_round, "manifest": manifest_pin, "matrix": matrix_pin,
             "matrix_receipt": receipt_pin, "original_seal_time": receipt["saved_at"],
             "runtime_git_revision": revision, "matrix_sha256": sha(matrix_raw),
             "frozen_inputs_verified_before_clone_execution": frozen_input_count,
@@ -218,6 +224,19 @@ def assessment_parity(authored, saved, matrix_case, sidecar, manifest=None):
         errors.extend("matrix_" + axis + "_evidence_" + error for error in mapping_errors)
         if mapped != set(initial["evidence_ids"]):
             errors.append("matrix_" + axis + "_evidence_bindings")
+        if assessment.get("assertion_basis", "independent") != initial.get("assertion_basis", "independent"):
+            errors.append("matrix_" + axis + "_assertion_basis")
+        current_report, initial_report = assessment.get("report_witnesses"), initial.get("report_witnesses")
+        if (current_report is None) != (initial_report is None):
+            errors.append("matrix_" + axis + "_report_witnesses")
+        elif current_report is not None and initial_report is not None:
+            if current_report.get("scope") != initial_report.get("scope"):
+                errors.append("matrix_" + axis + "_report_scope")
+            for group in ("source_instance_evidence_ids", "identity_evidence_ids", "definition_evidence_ids"):
+                group_mapped, group_errors = evidence_mapping(current_report.get(group, []), sidecar,
+                                                               manifest or {}, initial_report.get(group, []))
+                if group_errors or group_mapped != set(initial_report.get(group, [])):
+                    errors.append("matrix_" + axis + "_report_" + group)
     if seen != set(rounds.CATEGORIES):
         errors.append("canonical_six_axes_incomplete")
     return errors
@@ -558,7 +577,8 @@ def run(config, output, mode, reviewer="reviewer-a", canary=None):
     totals["all_parity_and_integrity_passed_pairs"] = sum(r["status"] == "passed" for r in rows)
     artifacts = [{"path": str(path.absolute()), "sha256": sha(path.read_bytes())}
                  for path in sorted(output.rglob("*")) if path.is_file()]
-    receipt = {"schema": SCHEMA, "mode": mode, "helper_sha256": sha(Path(__file__).read_bytes()),
+    receipt = {"schema": SCHEMA, "mode": mode, "round_id": config.get("round_id", DEFAULT_ROUND),
+               "helper_sha256": sha(Path(__file__).read_bytes()),
                "artifact_pins": artifacts,
                "config_sha256": sha(encoded(config)), "package_sha256": config["package_sha256"],
                "contexts": {rid: ctx["meta"] for rid, ctx in contexts.items()},

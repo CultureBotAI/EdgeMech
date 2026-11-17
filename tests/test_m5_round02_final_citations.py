@@ -2,10 +2,12 @@
 import copy
 import importlib.util
 import json
+import shutil
 import sys
 from pathlib import Path
 
 import pytest
+from test_occurrence_review import add_authority, case, category, repin_sidecar  # noqa: F401
 
 ROOT = Path(__file__).parents[1]
 sys.path.insert(0, str(ROOT / "scripts/adhoc"))
@@ -26,7 +28,7 @@ def complete_fixture():
     return audit, report, manifest
 
 
-@pytest.mark.parametrize("corruption", [None, "missing", "duplicate", "axis", "occurrence", "allowlist"])
+@pytest.mark.parametrize("corruption", [None, "missing", "duplicate", "axis", "repeated_axis", "repeated_evidence", "occurrence", "allowlist"])
 def test_all_seventy_two_expected_final_citations_remain_bound(corruption):
     audit, report, manifest = complete_fixture()
     if corruption == "missing":
@@ -35,6 +37,10 @@ def test_all_seventy_two_expected_final_citations_remain_bound(corruption):
         report["rows"][-1] = copy.deepcopy(report["rows"][0])
     elif corruption == "axis":
         report["rows"][0]["final_axes"].pop()
+    elif corruption == "repeated_axis":
+        report["rows"][0]["final_axes"].append(report["rows"][0]["final_axes"][0])
+    elif corruption == "repeated_evidence":
+        audit["final_cases"][0]["assessments"][0]["evidence_ids"].append("e0")
     elif corruption == "occurrence":
         audit["final_cases"][0]["occurrence_id"] = "other"
     elif corruption == "allowlist":
@@ -47,6 +53,44 @@ def test_all_seventy_two_expected_final_citations_remain_bound(corruption):
         assert len(cases) == 10 and len(rows) == 72
 
 
+def test_new_round_denominator_comes_from_complete_authored_bindings():
+    audit, report, manifest = complete_fixture()
+    for axis in audit["final_cases"][0]["assessments"]:
+        axis["evidence_ids"] = ["e0"]
+    report["rows"] = [r for r in report["rows"] if r["case_id"] != "case-0" or r["evidence_id"] == "e0"]
+    _, rows = m.expected_rows(audit, report, manifest)
+    assert len(rows) == 65
+    report["rows"].pop()
+    with pytest.raises(ValueError, match="Every final citation"):
+        m.expected_rows(audit, report, manifest)
+
+
+@pytest.mark.parametrize("missing", [None, "config", "base", "audit", "report", "manifest"])
+def test_new_round_must_be_explicit_and_equal_in_every_bound_document(missing):
+    documents = {key: {"round_id": "m5-calibration-20261116-round03"}
+                 for key in ("config", "base", "audit", "report", "manifest")}
+    if missing is not None:
+        documents[missing]["round_id"] = m.pairs.DEFAULT_ROUND
+        with pytest.raises(ValueError, match="scientific round differs"):
+            m.check_round(**documents)
+    else:
+        assert m.check_round(**documents) == "m5-calibration-20261116-round03"
+
+
+@pytest.mark.parametrize("required", [
+    ["existing_same_case_proof_replayed_again"], ["new_adjudicator_literal_anchor"],
+    ["existing_same_case_proof_replayed_again", "new_adjudicator_literal_anchor"],
+    ["new_adjudicator_paper_anchor"],
+    ["existing_same_case_proof_replayed_again", "new_adjudicator_paper_anchor"],
+])
+def test_canaries_cover_only_the_paths_actually_used(required):
+    rows = [{"proof_origin": origin} for origin in required]
+    checked = [{"rows": [{"origin": origin}]} for origin in required]
+    m.check_canary_origins(rows, checked)
+    with pytest.raises(ValueError, match="every used"):
+        m.check_canary_origins(rows, checked[:-1])
+
+
 @pytest.mark.parametrize("corruption", [None, "version", "identity", "offset", "source", "role"])
 def test_external_anchor_replays_exact_literal_and_frozen_identity(tmp_path, monkeypatch, corruption):
     monkeypatch.setattr(m, "ROOT", tmp_path)
@@ -57,6 +101,7 @@ def test_external_anchor_replays_exact_literal_and_frozen_identity(tmp_path, mon
     quote, identities = m.literal(raw, "authority", proof, "small literal snippet", "test-v1")
     frozen = {"path": "authority.txt", "sha256": m.pairs.sha(raw), "role": "authority", "version": "test-v1"}
     row = {"case_id": "case", "evidence_id": "source", "kind": "authority",
+           "final_axes": ["relation"],
            "proof_origin": "new_adjudicator_literal_anchor", "authority_version": "test-v1",
            "reference": "authority.txt", "inspected_extent": "synthetic source",
            "raw_input": {"path": str(path), "sha256": m.pairs.sha(raw)},
@@ -78,8 +123,144 @@ def test_external_anchor_replays_exact_literal_and_frozen_identity(tmp_path, mon
     else:
         result = m.replay_one(row, frozen, {}, {}, {})
         assert result["status"] == "passed" and result["semantic_support"] == "not_assessed"
+        assert result["kind"] == "authority"
+        assert result["final_axes"] == ["relation"]
         assert not result["canonical_pair_verified"]
         assert "small literal snippet" not in json.dumps(result)
+
+
+@pytest.mark.parametrize("kind", ["jats", "europepmc_abstract"])
+@pytest.mark.parametrize("damage", [None, "title", "doi", "offset", "role", "quote", "extent"])
+def test_new_final_paper_anchor_replays_primary_identity_and_exact_extent(tmp_path, monkeypatch, kind, damage):
+    monkeypatch.setattr(m, "ROOT", tmp_path)
+    metadata = {"title": "Synthetic paper", "doi": "10.1234/synthetic", "pmcid": "PMC123"}
+    extent = "body" if kind == "jats" else "abstract"
+    if kind == "jats":
+        raw = (b'<article><front><article-meta><article-id pub-id-type="doi">10.1234/synthetic</article-id>'
+               b'<article-id pub-id-type="pmc">123</article-id><title-group><article-title>Synthetic paper'
+               b'</article-title></title-group></article-meta></front><body><sec><p>A literal paper excerpt.'
+               b'</p></sec></body></article>')
+    else:
+        metadata["pmid"] = "456"
+        raw = json.dumps({"hitCount": 1, "resultList": {"result": [{
+            **metadata, "id": "456", "source": "MED", "abstractText": "A literal paper excerpt."}]}}).encode()
+    path = tmp_path / "paper.data"
+    path.write_bytes(raw)
+    reference = "https://doi.org/10.1234/synthetic"
+    proof = {**metadata, "reference": reference, "inspected_extent": extent}
+    quote, aliases = m.literal(raw, kind, proof, "literal paper excerpt", None)
+    proof.update({key: quote[key] for key in ("start", "end", "extractor", "text_sha256")})
+    proof.update(scope="exact", support="supports", axes=["claim", "literature"])
+    monkeypatch.setattr(m, "final_authored_proof", lambda *args: (
+        proof, {"reference": reference, "quote": "literal paper excerpt"}, []))
+    frozen = {"path": "paper.data", "sha256": m.pairs.sha(raw), "role": "evidence"}
+    row = {"case_id": "case", "evidence_id": "paper", "kind": kind,
+           "proof_origin": "new_adjudicator_paper_anchor", "paper_identity": metadata,
+           "reference": reference, "inspected_extent": extent, "final_axes": ["claim", "literature"],
+           "raw_input": {"path": str(path), "sha256": m.pairs.sha(raw)},
+           "verified_quote": quote, "verified_identities": sorted(aliases),
+           "locator": f"{extent}; chars {quote['start']}:{quote['end']}"}
+    if damage in {"title", "doi"}:
+        metadata[damage] = "changed"
+    elif damage == "offset":
+        row["verified_quote"]["start"] += 1
+    elif damage == "role":
+        frozen["role"] = "authority"
+    elif damage == "quote":
+        row["verified_quote"]["quote"] = "not present in paper"
+    elif damage == "extent":
+        row["inspected_extent"] = "body" if kind == "europepmc_abstract" else ""
+    if damage:
+        with pytest.raises(ValueError):
+            m.replay_one(row, frozen, {}, {}, {})
+    else:
+        result = m.replay_one(row, frozen, {}, {}, {})
+        assert result["status"] == "passed" and result["source_binding"]["kind"] == "new_final_paper_anchor"
+        assert result["kind"] == kind
+        assert result["source_binding"]["inspected_extent"] == extent
+        assert result["semantic_support"] == "not_assessed" and not result["canonical_pair_verified"]
+        assert result["scope"] == "exact" and result["support"] == "supports"
+
+
+@pytest.mark.parametrize("damage", [None, "session", "model", "identity", "changed_proof", "unbound_scope", "substituted_predicate", "substituted_endpoint"])
+@pytest.mark.parametrize("kind", ["jats", "authority"])
+def test_final_anchor_requires_actual_adjudicator_and_valid_distinct_profile(case, monkeypatch, damage, kind):  # noqa: F811
+    root, review, sidecar = case
+    if kind == "authority":
+        add_authority(case, "relation", "refutes", "model")
+        category(review, "relation", "INCORRECT")
+        sidecar["proofs"][-1]["reference"] = "model.txt"
+        review["evidence"][-1]["reference"] = "model.txt"
+    coordinator = root.parent / (root.name + "-coordinator")
+    shutil.copytree(root, coordinator)
+    monkeypatch.setattr(m, "ROOT", coordinator)
+    packet_hash = m.pairs.sha((coordinator / "packet.json").read_bytes())
+    author = {"id": "adjudicator", "model": "actual-model", "session_id": "actual-final-session"}
+    review["reviewer"].update(identity=author["id"], model=author["model"])
+    sidecar["reviewer"] = dict(author)
+    if damage == "session":
+        sidecar["reviewer"]["session_id"] = "initial-session"
+    elif damage == "model":
+        review["reviewer"]["model"] = "another-model"
+    elif damage == "identity":
+        review["reviewer"]["identity"] = "initial-reviewer"
+    elif damage == "unbound_scope":
+        sidecar["proofs"][0]["scope"] = "invented"
+    elif damage in {"substituted_predicate", "substituted_endpoint"}:
+        from edgemech.occurrence_packet import build_packet
+        source = json.loads((root / "source.json").read_bytes())
+        edge = source["edge"]
+        if damage == "substituted_predicate":
+            edge["predicate"] = "biolink:related_to"
+        else:
+            edge["object"] = "GO:0009987"
+            edge["original_object_node"]["id"] = edge["object"]
+        (root / "source.json").write_text(json.dumps(source))
+        source_pin = {"path": "source.json", "sha256": m.pairs.sha((root / "source.json").read_bytes())}
+        changed = build_packet(edge, source, occurrence_input=source_pin, source_input=source_pin, root=root)
+        (root / "packet.json").write_text(json.dumps(changed))
+        for path in ("source.json", "packet.json"):
+            next(p for p in review["source"]["inputs"] if p["path"] == path)["sha256"] = m.pairs.sha((root / path).read_bytes())
+        packet_pin = next(p for p in review["source"]["inputs"] if p["path"] == "packet.json")
+        sidecar["proofs"][1]["input"]["sha256"] = packet_pin["sha256"]
+        review["evidence"][1]["snapshot_sha256"] = packet_pin["sha256"]
+    repin_sidecar(case)
+    (root / "final-review.json").write_text(json.dumps(review))
+    index = 0 if kind == "jats" else -1
+    proof, item = sidecar["proofs"][index], review["evidence"][index]
+    raw = (root / proof["input"]["path"]).read_bytes()
+    quote, aliases = m.literal(raw, kind, proof, item["quote"], proof.get("version"))
+    def pin(path):
+        return {"path": str(path), "sha256": m.pairs.sha(path.read_bytes())}
+    row = {"case_id": "case", "evidence_id": "final-witness", "kind": kind, "final_root": str(root),
+           "proof_origin": "new_adjudicator_paper_anchor" if kind == "jats" else "new_adjudicator_literal_anchor",
+           "final_proof_id": proof["evidence_id"],
+           "final_input": pin(root / "final-review.json"), "final_sidecar": pin(root / "proofs.json"),
+           "raw_input": pin(coordinator / proof["input"]["path"]), "reference": proof["reference"],
+           "inspected_extent": proof["inspected_extent"], "final_axes": proof["axes"],
+           "verified_quote": quote, "verified_identities": sorted(aliases), "locator": item["locator"]}
+    if kind == "jats":
+        row["paper_identity"] = {key: proof[key] for key in ("title", "doi", "pmcid")}
+    else:
+        row["authority_version"] = proof["version"]
+    if damage == "changed_proof":
+        (root / "proofs.json").write_text("{}")
+    frozen = {**proof["input"], "role": "evidence" if kind == "jats" else "authority",
+              **({"version": proof["version"]} if kind == "authority" else {})}
+    packet = {"packet_path": "packet.json", "occurrence_id": sidecar["occurrence_id"],
+              "frozen_packet_sha256": packet_hash}
+    if damage in {"substituted_predicate", "substituted_endpoint"}:
+        from edgemech.occurrence_review import validate_occurrence_review
+        assert validate_occurrence_review(root, review, "packet.json", "proofs.json")["occurrence_id"] == packet["occurrence_id"]
+    if damage:
+        with pytest.raises(ValueError):
+            m.replay_one(row, frozen, packet, {}, {}, author)
+    else:
+        result = m.replay_one(row, frozen, packet, {}, {}, author)
+        assert result["scope"] == ("partial" if kind == "jats" else "exact")
+        assert result["support"] == ("partial" if kind == "jats" else "refutes")
+        assert result["proof_axes"] == proof["axes"]
+        assert result["status"] == "passed"  # Literal identity; cannot meet exact directional gate.
 
 
 def test_batch_requires_canaries_for_both_data_paths_before_output(tmp_path):
@@ -169,7 +350,7 @@ def test_source_alias_requires_both_frozen_pins_and_embedded_primary_identity(co
     original = {"path": "retained.yaml", "sha256": digest, "role": "authority", "version": "v1", "evidence_ids": ["original-id"]}
     final = {"path": "snapshot.txt", "sha256": digest, "role": "authority", "version": "v1", "evidence_ids": ["final-id"]}
     proof = {"input": {"path": "retained.yaml", "sha256": digest}, "version": "v1", "manifest_evidence_id": "original-id"}
-    case = {"evidence_ids": ["original-id", "final-id"]}
+    case = {"evidence_ids": ["original-id", "final-id"]}  # noqa: F811
     manifest = {"files": [original, final]}
     if corruption in {"missing_id_no_case", "missing_id_ambiguous", "missing_id_unique"}:
         proof.pop("manifest_evidence_id")

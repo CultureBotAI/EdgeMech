@@ -66,6 +66,41 @@ profile additionally requires supported claim and all three modeling axes
 `CORRECT` for plain `pass`; completed reviews cannot contain `UNASSESSED` axes.
 Persisting a partial review creates no scientific approval or KG admission.
 
+### Explicit source-report scope
+
+The shared optional `assertion_basis: source_report` is available only on the
+claim assessment when the **original** proposition concerns what a source
+reports. Omission retains the independent-claim rule. It never changes the
+original occurrence or silently reinterprets a biological property as a report.
+The shared `report_witnesses` has the original `scope` (identical to the claim's
+`assertion_scope`) and explicit `source_instance_evidence_ids`,
+`identity_evidence_ids`, and `definition_evidence_ids`.
+
+Source-instance witnesses must replay the exact original packet. Independent
+identity and definition witnesses remain versioned authority proofs with
+literal quotations; copied packet/source bytes cannot qualify. Each authority
+declares `original_entities`, mapping `subject`, `predicate`, and/or `object`
+to the original identifiers it actually establishes. Identity witnesses together
+cover both endpoints; definition witnesses cover both endpoints and predicate.
+A resolved report requires all three groups, exact scope, and supporting
+identity/definition authorities. Generic category compatibility cannot establish
+these meanings. Entity declarations and literal replay are mechanically checked;
+semantic entailment and generating-version applicability require separate review.
+Every authority linked to a source-report claim must belong to its identity or
+definition witness groups. Omitting a contrary authority from those groups (or
+omitting its entity declaration) cannot conceal an unresolved original meaning.
+Paper counterevidence retains its separate biological/literature interpretation.
+
+Only the exact instance witnesses supply support/refutation for the reported
+content. Authorities establish who/what the original report means, not that a
+particular source row exists. A missing identity/definition witness leaves the
+report unresolved. Source-report support cannot establish biological truth,
+unspecified units or conditions, or independent literature support. Packet
+evidence remains forbidden on the literature axis, and report fields are
+forbidden on other axes. The calibration's independently paper-backed directional
+claim gate excludes source-report assessments; all denominators and thresholds
+remain unchanged. Source-fidelity translation errors remain a separate judgment.
+
 ## Complete packet and provenance
 
 `edgemech.occurrence_packet.build_packet` takes the frozen occurrence and its
@@ -111,13 +146,15 @@ Supported representations in this initial implementation:
   requires an explicit reason and the verified PMID's PubMed URL.
 - Versioned authority text, with a literal quote and retained hash. The reviewer
   must establish relevance to the exact relation/node; replay does not infer it.
-- The validated packet, for source fidelity and original modeling context. This
-  cannot supply independent claim or literature evidence.
+- The validated packet, for source fidelity, original modeling context and the
+  exact instance of an explicitly witnessed source-report claim. It cannot
+  supply independent claim or literature evidence.
 
 Other formats remain explicit unresolved inputs until a replay adapter is added;
-this implementation makes no new full-text requests. Positive or refuting claim
-judgments require exact-scope independent evidence of the corresponding role;
-conflict requires both. Partial or another-strain evidence cannot satisfy these
+this implementation makes no new full-text requests. Positive or refuting
+independent-claim judgments require exact-scope independent evidence of the
+corresponding role; source-report judgments require the explicit witnesses above.
+Conflict requires both directions. Partial or another-strain evidence cannot satisfy these
 gates. Resolved modeling requires corresponding versioned authority evidence.
 Every axis consumes all proofs declaring its applicability; paper evidence used
 for claim or literature binds both axes (#121). Opposing exact modeling

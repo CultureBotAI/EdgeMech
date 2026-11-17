@@ -223,6 +223,13 @@ def _replay_evidence(root, review, packet_path, packet, sidecar, inputs):
     proofs = {}
     quotation_groups = []
     evidence = {item["evidence_id"]: item for item in review["evidence"]}
+    report_instance_ids = {
+        eid for assessment in review["assessments"]
+        if assessment.get("assertion_basis") == "source_report"
+        and any(d["name"] == "axis" and d["value"] == "claim"
+                for d in assessment.get("dimensions", []))
+        for eid in assessment["report_witnesses"]["source_instance_evidence_ids"]
+    }
     for proof in sidecar["proofs"]:
         eid = proof["evidence_id"]
         _require(eid not in proofs and eid in evidence, "Duplicate or unbound evidence proof")
@@ -241,7 +248,10 @@ def _replay_evidence(root, review, packet_path, packet, sidecar, inputs):
         if proof["kind"] == "packet":
             _require(proof["input"]["path"] == packet_path and item["kind"] == "record_content",
                      "Source evidence must bind the verified packet")
-            _require(set(axes) <= {"source_fidelity", "subject_node", "object_node", "relation"},
+            allowed = {"source_fidelity", "subject_node", "object_node", "relation"}
+            if eid in report_instance_ids:
+                allowed.add("claim")
+            _require(set(axes) <= allowed,
                      "Copied source content cannot establish independent claim/literature support")
             _require(not item.get("quote"), "Packet evidence is a locator, not a paper quote")
         elif proof["kind"] in PAPER_KINDS | {"authority"}:
@@ -279,6 +289,50 @@ def _replay_evidence(root, review, packet_path, packet, sidecar, inputs):
     return proofs
 
 
+def _report_claim_roles(assessment, dims, proofs, packet):
+    """Replay an explicit source report without converting it to independent truth."""
+    witnesses = assessment["report_witnesses"]
+    _require(witnesses["scope"] == dims["assertion_scope"]["value"],
+             "Report scope must equal the authored original assertion scope")
+    resolved = assessment["outcome"] in {"supported", "concern"}
+    source_ids = witnesses["source_instance_evidence_ids"]
+    authority_ids = {eid for eid in assessment["evidence_ids"] if proofs[eid]["kind"] == "authority"}
+    witness_authorities = set(witnesses["identity_evidence_ids"]) | set(witnesses["definition_evidence_ids"])
+    _require(authority_ids == witness_authorities,
+             "Every claim authority must have an explicit report witness role")
+    original = packet["original_assertion"]
+    source_hashes = {pin["sha256"] for pin in packet["inputs"].values()}
+    for eid in source_ids:
+        proof = proofs[eid]
+        _require(proof["kind"] == "packet", "Source report requires the replayed original packet")
+        source_hashes.add(proof["input"]["sha256"])
+        if resolved:
+            _require(proof["scope"] == "exact", "Resolved report requires exact source-instance proof")
+    for group, required_entities in (
+        ("identity_evidence_ids", {"subject", "object"}),
+        ("definition_evidence_ids", {"subject", "predicate", "object"}),
+    ):
+        covered = set()
+        for eid in witnesses[group]:
+            proof = proofs[eid]
+            _require(proof["kind"] == "authority"
+                     and proof["input"]["sha256"] not in source_hashes,
+                     "Report identity/definition needs independent authority, not copied source bytes")
+            bindings = proof.get("original_entities")
+            _require(isinstance(bindings, dict) and bindings
+                     and set(bindings) <= {"subject", "predicate", "object"}
+                     and all(original[role] == value for role, value in bindings.items()),
+                     "Report authority must bind exact original entity identifiers")
+            covered.update(bindings)
+            if resolved:
+                _require(proof["scope"] == "exact" and proof["support"] == "supports",
+                         "Resolved report needs exact supporting identity/definition witnesses")
+        if resolved:
+            _require(required_entities <= covered,
+                     "Report authorities omit original endpoint/predicate identity or definition")
+    return {proofs[eid]["support"] for eid in source_ids if proofs[eid]["scope"] == "exact"}
+
+
 def validate_occurrence_review(root: Path, review: dict, packet_path: str, proofs_path: str):
     """Replay one occurrence's inputs, then enforce authored categorical consistency."""
     check_contracts()
@@ -312,6 +366,8 @@ def validate_occurrence_review(root: Path, review: dict, packet_path: str, proof
                  "Category does not match canonical outcome")
         _require(assessment["target_ids"] == [oid], "Assessment is not bound to original occurrence")
         _require(DETAILS[axis] <= dims.keys(), f"Missing {axis} modeling/scope explanations")
+        _require(axis == "claim" or not {"assertion_basis", "report_witnesses"} & assessment.keys(),
+                 "Report assertion fields belong only to the claim axis")
         for dimension in dims.values():
             _text(dimension["value"], "dimension explanation")
             _require(set(dimension["evidence_ids"]) <= set(assessment["evidence_ids"]),
@@ -325,8 +381,11 @@ def validate_occurrence_review(root: Path, review: dict, packet_path: str, proof
         }, "Assessment omits applicable evidence declared for its axis")
         roles = {proof["support"] for proof in linked if proof["scope"] == "exact"}
         if axis == "claim":
-            _require(all(p["kind"] in PAPER_KINDS | {"authority"} for p in linked),
-                     "Claim judgment requires independent literature or authority evidence")
+            if assessment.get("assertion_basis", "independent") == "source_report":
+                roles = _report_claim_roles(assessment, dims, proofs, packet)
+            else:
+                _require(all(p["kind"] in PAPER_KINDS | {"authority"} for p in linked),
+                         "Claim judgment requires independent literature or authority evidence")
             required = {"SUPPORTED_AS_STATED": {"supports"}, "CONTRADICTED_AS_STATED": {"refutes"},
                         "CONFLICTING_EVIDENCE": {"supports", "refutes"}}.get(category, set())
             _require(required <= roles, "Claim category lacks exact-scope supporting/refuting evidence")
@@ -373,7 +432,12 @@ def validate_occurrence_review(root: Path, review: dict, packet_path: str, proof
                  "Unqualified pass requires resolved claim and modeling judgments")
     for path, digest in inputs.items():
         _pinned(root, {"path": path, "sha256": digest}, inputs)
+    claim = next(a for a in review["assessments"]
+                 if any(d["name"] == "axis" and d["value"] == "claim" for d in a["dimensions"]))
     return {"profile": PROFILE, "occurrence_id": oid, "assessments": axes,
+            "claim_assertion_basis": claim.get("assertion_basis", "independent"),
+            "claim_assertion_scope": next(d["value"] for d in claim["dimensions"]
+                                          if d["name"] == "assertion_scope"),
             "verified_evidence": len(proofs), "verified_quotes": sum(p["kind"] != "packet"
                                                                        for p in proofs.values()),
             "kg_admissions": 0, "native_capability_enabled": False}

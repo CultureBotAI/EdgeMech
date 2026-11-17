@@ -1,5 +1,5 @@
 {
-  "commit": "0ca25b8ee68d1fbccb4d05dcc2002fa8a64c0c34",
+  "commit": "4fad8df5b2367da68faca6379ce32eb9b8f4ba9b",
   "format": "edgemech-contract-pins/v2",
   "packages": {
     "kg_microbe_curation": {
@@ -14,12 +14,12 @@
       "schema/native_assertion.json": "0bb7ebf25e0e1bea9fea17d47981b2773b16f3fa8cdbed31686bccdaeaaa5124"
     },
     "kg_microbe_governance": {
-      "__init__.py": "cd4e9b3f22d247804a792565daf867a161d9cc9ac99f9b49276c5a768ef7faf9",
+      "__init__.py": "69be964b3a65cc7e61d309f3c7e7a2c2f17a0e0fe4de75b5cf5659b053f5bbce",
       "artifacts/__init__.py": "4e47389554e9e8d6e05a90ecf7dc6ad5708f08e56d012d9129970d58b9c6d069",
-      "artifacts/schema/record_review.yaml": "229baf9b69118a1fe318e4c31085c0820e4e3d1365e7b04d6ace451b7c35f9bb",
+      "artifacts/schema/record_review.yaml": "6fd8191b6c039b822b23245a0ab312697df9c2ff1c6c27989ce7b1f62d00e6d3",
       "artifacts/scripts/__init__.py": "f04a7a4160750e47ff2bee761c610ed7f4d12f6f50b914dd3527ec672ebc1af2",
-      "artifacts/scripts/check_vendored_sync.py": "673ecd7ea0b34a29ebef8d1068d8d8973a460680e956237c8e09d97a8a22deb3",
-      "artifacts/scripts/record_review.py": "95a4ec41e38ec47ba3578e76838c46a0adbf47e49ad3636524735d08cfcb1c4d"
+      "artifacts/scripts/check_vendored_sync.py": "fa527882d9a50ec3f49148afe0032ecc65a2a3c3eb31d62bdfc14fa7104e7bfb",
+      "artifacts/scripts/record_review.py": "292ab82fecd0b01ef2760d0b251f30ae27263aa0e65a789dfd25e4530bed0da0"
     },
     "kg_microbe_reviews": {
       "__init__.py": "00d7e11fa36a0424fb28fbbe3ca4fb381bc77bc3bd588ab1b46c65a58de141aa"

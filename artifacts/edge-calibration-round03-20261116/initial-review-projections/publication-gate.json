@@ -1,0 +1,591 @@
+{
+  "all_proposed_public_files": [
+    {
+      "path": "quote-inventory.json",
+      "sha256": "3e38ba279be58de53b45095c15b76845163bcbe347a70475c59dfaad7b93ec82"
+    },
+    {
+      "path": "reviewer-a-first-01.json",
+      "sha256": "bc692b854e79030cba52a4ff1bca9c0ead7b3439ffcbcc2261d1707351934ef6"
+    },
+    {
+      "path": "reviewer-a-first-28.json",
+      "sha256": "7560cc9d964af5764b37bc682b86b2fdcada2a7238ce1f899713187ce9b07279"
+    },
+    {
+      "path": "reviewer-a-first-30.json",
+      "sha256": "ca27c4952916d77b10234284bb2b5b595c57b2979b37338ce11158994055eb38"
+    },
+    {
+      "path": "reviewer-a-first-32.json",
+      "sha256": "703ae20ae1894a01862f86c02eda1c578062a13ee75f8a88d9e4016c3dff472f"
+    },
+    {
+      "path": "reviewer-a-first-43.json",
+      "sha256": "df97dcf42f88f1db9feb008262eec60b7a3cb12f86fb237c599033b0df3bbc81"
+    },
+    {
+      "path": "reviewer-a-fresh-04.json",
+      "sha256": "ebbb140a322faa4ed893a92c92b701280b2aa9dd45a354a966b98b18d14be1ad"
+    },
+    {
+      "path": "reviewer-a-fresh-05.json",
+      "sha256": "126a26a90bfb8f6754aff8fdd9c4276f419d8e0ec6a5f6eaf91a531c5bec72ed"
+    },
+    {
+      "path": "reviewer-a-fresh-14.json",
+      "sha256": "0384036e153a97ebd8c4e7a23a56aab309bb00b4eb9d1262079afe36d8106aea"
+    },
+    {
+      "path": "reviewer-a-fresh-32.json",
+      "sha256": "e9d703c1b6f1e7e8a28b6597206ce69d0d3b6b03a8006cfa1ecfc1edc79a0d68"
+    },
+    {
+      "path": "reviewer-a-fresh-47.json",
+      "sha256": "0214ef7ba980bbf7ba5bbd7eacc4be8acc2afcd92f70b42d56e965614d39e5d3"
+    },
+    {
+      "path": "reviewer-b-first-01.json",
+      "sha256": "590b0e439f5278d53c5589094cfd3795367c7c1831ce5b08a7b8c185ee2940cd"
+    },
+    {
+      "path": "reviewer-b-first-28.json",
+      "sha256": "a1c797a4bc77bf3d80b0c1b4b922909f56ee61ef4a5acb28460671b64f437075"
+    },
+    {
+      "path": "reviewer-b-first-30.json",
+      "sha256": "3d5cca148c9133d96485d303c0d8c83aa4b7e6238a6788f9166bbe039be08689"
+    },
+    {
+      "path": "reviewer-b-first-32.json",
+      "sha256": "d629d8d12014443fd32cf0125a7eb3d6d02b57c40914a477eb86b9edf2317d0a"
+    },
+    {
+      "path": "reviewer-b-first-43.json",
+      "sha256": "1637ade7fbd48d438e6ad966e2861afd700a9f5a97ad92acfc9db752fe0eeb2d"
+    },
+    {
+      "path": "reviewer-b-fresh-04.json",
+      "sha256": "5b345f1be563fc2396e4ebadf4461c11cbbaac9a629fc4852c4a38a1fd8b4711"
+    },
+    {
+      "path": "reviewer-b-fresh-05.json",
+      "sha256": "64e98ed055181610886f7336237fb9c37bf4e386b1972de904f1de07ab1d5508"
+    },
+    {
+      "path": "reviewer-b-fresh-14.json",
+      "sha256": "a0f509fde1365f5af61f063df07a52377c1e75eed95d8f86645903a139048387"
+    },
+    {
+      "path": "reviewer-b-fresh-32.json",
+      "sha256": "6728cf12f92e08a3885f4b752dbdaee62676b4998f5f58ce3dab77f04733b385"
+    },
+    {
+      "path": "reviewer-b-fresh-47.json",
+      "sha256": "bd7157108939b7583c8deb6b4ac860ec85164b3b1385646660e0fb4ef3e4b429"
+    }
+  ],
+  "mode": "round",
+  "operational_scientific_package": null,
+  "passed": true,
+  "private_originals_published": false,
+  "private_originals_within_budget": false,
+  "private_over_budget_source_count": 1,
+  "public_quotes": "zero_by_exact_schema_projection",
+  "publication_runtime": {
+    "git_head": "2e31b6f16d0a6f895a1d43a06912341586d24c4b",
+    "manifest": {
+      "path": ".temp/m5-round03-worker-20261116/publication-runtime-02/manifest.json",
+      "sha256": "1e0ad8f7dea88d5138d891341d46ac772f8a7896f0282ee11ddaf2b0686fd168"
+    },
+    "package_verification": {
+      "exit_code": 0,
+      "helper": {
+        "path": "scripts/adhoc/calibration_round_20261116.py",
+        "sha256": "b060792e3c149f3fcd3c56678ea01d4612777cf38c35c00c478f5582edca99a1"
+      },
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "e84b4c96b74d5bfdcdf23448f05d2cb955cae0726ac48ec2ea9b70bd03501ecd"
+    },
+    "production_receipt": {
+      "path": ".temp/m5-round03-worker-20261116/engineering-production-canary-02/canary-receipt.json",
+      "sha256": "5e4c1ccf7cd4e84b35d435cef3255c36001595b83cca068992f8f78633c0ac56"
+    },
+    "repository_identity": "CultureBotAI/EdgeMech",
+    "repository_origin": "https://github.com/CultureBotAI/EdgeMech.git",
+    "runtime_bindings": {
+      "codex_path": "/Users/marcin/.nvm/versions/node/v22.16.0/lib/node_modules/@openai/codex/node_modules/@openai/codex-darwin-arm64/vendor/aarch64-apple-darwin/bin/codex",
+      "codex_sha256": "739cda86e15d30a6e2b40cf8dcbbfb988aaf48b305b27065573bb8e9fd41d002",
+      "distributions_sha256": "dd8a8dda18e3f94fbf23328ae755c1465a03ca4076bae134785921e6fa4a0548",
+      "environment_sha256": "8333f7807e539500830f414c6633d9916d02b084233d056ac9133c505f57c7a8",
+      "git_head": "2e31b6f16d0a6f895a1d43a06912341586d24c4b",
+      "helper_sha256": "3b22a0886cc85e94c537fa5a1da94e445dc79eac47bd9d0c1310feaa651e64b2",
+      "host": "marcins-MacBook-Pro-3.local",
+      "lock_sha256": "ffdec65db5f8ff7e6b32fd751f655eea1881d0305553c5bb154e3195a70f1033",
+      "python_executable": "/Users/marcin/agent-work/EdgeMech/m5-calibration-round03-20261116/.venv/bin/python",
+      "python_prefix": "/Users/marcin/agent-work/EdgeMech/m5-calibration-round03-20261116/.venv",
+      "python_sha256": "9bfc2a72ac7db20d18d0b275f3136fef9e9ede7da34d241d4d82cc5c65d8d20d",
+      "python_version": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:04:32) [Clang 20.1.8 ]",
+      "repository_identity": "CultureBotAI/EdgeMech",
+      "repository_origin": "https://github.com/CultureBotAI/EdgeMech.git"
+    },
+    "runtime_id": "m5-calibration-20261116-round03-publication-repair02"
+  },
+  "round_id": "m5-calibration-20261116-round03",
+  "schema": "edgemech-round02-publication-gate/v1",
+  "scientific_package_sha256": "3928396bf4c089620ec0209fdcb986c14f36969259ed01ab563c6807037ee298",
+  "scope": "Publication quotation gate only; no scientific or calibration approval.",
+  "sealed_reviewer_bindings": {
+    "reviewer-a": {
+      "matrix": {
+        "path": ".temp/round03-reviewer/initial/matrix.json",
+        "sha256": "d11d97e0df567524e74fac2afe0ceb76642c14220037564fb702e0f4c7983917"
+      },
+      "matrix_receipt": {
+        "path": ".temp/round03-reviewer/initial/matrix.json.receipt.json",
+        "sha256": "b7cc392586601f610b7e80e55fba1f4c209c1fcc1edb41ae3ead2d5760e7b38d"
+      },
+      "reviewer": {
+        "id": "reviewer-a",
+        "model": "gpt-6-astra",
+        "session_id": "01a1e78b-4935-7230-9dff-80f171cc581a"
+      },
+      "scientific": {
+        "initial_check": {
+          "exit_code": 0,
+          "helper": {
+            "path": "scripts/adhoc/seal_m5_round03_initial_20261116.py",
+            "sha256": "a1c8994842d30792018345b626e08767e4c997a5144177b2dc98ee436ad6178c"
+          },
+          "stderr_sha256": "e2cf5a8ee56373cb7afeb23be8ac2a30d67f13afa55bb51424877fc908e2a25f",
+          "stdout_sha256": "e161baae98e23b1f01d1aae7d88c55caed3c24eaecb0bbfda73bc71e24cfe63b"
+        },
+        "initial_seal": {
+          "path": ".temp/round03-reviewer/initial/initial-seal.json",
+          "sha256": "6eafb7fdbd1722b9d9f1a5ffb2b16a41bc10f3372336b39a3b83535c15d6ea24"
+        },
+        "package": {
+          "git_head": "fa67837be82cf0244678e564071beb9a2e2203b3",
+          "manifest": {
+            "path": ".temp/m5-round03-worker-20261116/round03-package/manifest.json",
+            "sha256": "3928396bf4c089620ec0209fdcb986c14f36969259ed01ab563c6807037ee298"
+          },
+          "repository_identity": "CultureBotAI/EdgeMech",
+          "repository_origin": "https://github.com/CultureBotAI/EdgeMech.git",
+          "verification": {
+            "exit_code": 0,
+            "helper": {
+              "path": "scripts/adhoc/calibration_round_20261116.py",
+              "sha256": "b060792e3c149f3fcd3c56678ea01d4612777cf38c35c00c478f5582edca99a1"
+            },
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_sha256": "fcfc5ec73a4e2f958b9b2cdfcb54d5c21971c59a2279c39dae168d484099c3e0"
+          }
+        }
+      }
+    },
+    "reviewer-b": {
+      "matrix": {
+        "path": ".temp/round03-reviewer/initial/matrix.json",
+        "sha256": "ae30750029a05cebb0b0aa51a9d39b42bb53717ee52b8169d7e402b7ec93fe47"
+      },
+      "matrix_receipt": {
+        "path": ".temp/round03-reviewer/initial/matrix.json.receipt.json",
+        "sha256": "afc042c9f62d0806c9c3ada78b89dc302b616b6c8d80b44dff32519e4b9d98af"
+      },
+      "reviewer": {
+        "id": "reviewer-b",
+        "model": "gpt-6-astra",
+        "session_id": "01a1e789-ed13-7e22-8c8b-e7e5e09cbffe"
+      },
+      "scientific": {
+        "initial_check": {
+          "exit_code": 0,
+          "helper": {
+            "path": "scripts/adhoc/seal_m5_round03_initial_20261116.py",
+            "sha256": "a1c8994842d30792018345b626e08767e4c997a5144177b2dc98ee436ad6178c"
+          },
+          "stderr_sha256": "e2cf5a8ee56373cb7afeb23be8ac2a30d67f13afa55bb51424877fc908e2a25f",
+          "stdout_sha256": "f39eb7faa33d4ce76c2cdd64ecb624c3e71f9275c3b04113d3ffbce78918f7ea"
+        },
+        "initial_seal": {
+          "path": ".temp/round03-reviewer/initial/initial-seal.json",
+          "sha256": "1d35837adde522e3f019c0731384bbc92b0724e882bed0ede3a825d916be900f"
+        },
+        "package": {
+          "git_head": "fa67837be82cf0244678e564071beb9a2e2203b3",
+          "manifest": {
+            "path": ".temp/m5-round03-worker-20261116/round03-package/manifest.json",
+            "sha256": "3928396bf4c089620ec0209fdcb986c14f36969259ed01ab563c6807037ee298"
+          },
+          "repository_identity": "CultureBotAI/EdgeMech",
+          "repository_origin": "https://github.com/CultureBotAI/EdgeMech.git",
+          "verification": {
+            "exit_code": 0,
+            "helper": {
+              "path": "scripts/adhoc/calibration_round_20261116.py",
+              "sha256": "b060792e3c149f3fcd3c56678ea01d4612777cf38c35c00c478f5582edca99a1"
+            },
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stdout_sha256": "fcfc5ec73a4e2f958b9b2cdfcb54d5c21971c59a2279c39dae168d484099c3e0"
+          }
+        }
+      }
+    }
+  },
+  "self_file": "publication-gate.json",
+  "self_hash_location": "private receipt.json public_file_pins",
+  "source_coverage": [
+    {
+      "case_id": "first-01",
+      "packet": {
+        "path": ".temp/edge-calibration-20261115/first-01/packet.json",
+        "sha256": "b516c976dbdb13900c8e6e83f740c7fa962afa23af6f5aa293f846cdfa768926"
+      },
+      "proofs": {
+        "path": ".temp/round03-reviewer/drafts/first-01-v2/proofs.json",
+        "sha256": "f9deff75757bb0056c7ac25afe5dd39da7d71f6e10414305ffe05b7070bc824a"
+      },
+      "review": {
+        "path": "reviews/structured/20261117T033102Z-reviewer-a-first-01/review.yaml",
+        "sha256": "807eae405f54eccfa73db202aa6e265335f43760b802bcc1ce67ec752add0422"
+      },
+      "reviewer": "reviewer-a"
+    },
+    {
+      "case_id": "first-28",
+      "packet": {
+        "path": ".temp/edge-calibration-20261115/first-28/packet.json",
+        "sha256": "eb5e38bf636fed915f15ee9bd2ce9f1d4d010eb8c1e8d815a17e1de265bcd527"
+      },
+      "proofs": {
+        "path": ".temp/round03-reviewer/drafts/first-28-v1/proofs.json",
+        "sha256": "94ccdcb36b00e9b757135bd6c6c7811e8f1ed39c9c4541302c27bd0f6ece9f26"
+      },
+      "review": {
+        "path": "reviews/structured/20261117T033102Z-reviewer-a-first-28/review.yaml",
+        "sha256": "01d42a8c9d7214e7b36f4c2c217dcf1a8802436311ad0a99deb3b764d46d59c5"
+      },
+      "reviewer": "reviewer-a"
+    },
+    {
+      "case_id": "first-30",
+      "packet": {
+        "path": ".temp/edge-calibration-20261115/first-30/packet.json",
+        "sha256": "68ae9cbdb5c02a160c3497977ce191924e9aed8c89321f3da7924770df3ffc82"
+      },
+      "proofs": {
+        "path": ".temp/round03-reviewer/drafts/first-30-v1/proofs.json",
+        "sha256": "463d503c1e3be78ffc40bb283db246194886cde27289a89872e8c213f90367c2"
+      },
+      "review": {
+        "path": "reviews/structured/20261117T033102Z-reviewer-a-first-30/review.yaml",
+        "sha256": "5722a140af79796aa06e5d8284ccb65159629b2b65242d5b280f6c3eb771c161"
+      },
+      "reviewer": "reviewer-a"
+    },
+    {
+      "case_id": "first-32",
+      "packet": {
+        "path": ".temp/edge-calibration-20261115/first-32/packet.json",
+        "sha256": "32cb804b4f6e0f678f01faf3ecf351146101d1beb0abe6e77ecbffedd470ded2"
+      },
+      "proofs": {
+        "path": ".temp/round03-reviewer/drafts/first-32-v1/proofs.json",
+        "sha256": "05a7f0ed446a23bb9b45b6b31bdc786c0d5fde2a2b0a04c0b99b85687e1539ad"
+      },
+      "review": {
+        "path": "reviews/structured/20261117T033102Z-reviewer-a-first-32/review.yaml",
+        "sha256": "38ce02439a9241c6c9eea57f9317216f20a68c7bd67c2a200be2f23f7e5eda24"
+      },
+      "reviewer": "reviewer-a"
+    },
+    {
+      "case_id": "first-43",
+      "packet": {
+        "path": ".temp/edge-calibration-20261115/first-43/packet.json",
+        "sha256": "70decffa3ed755ad913171964494b4edfcf84b2341a34a76a925837f1565befc"
+      },
+      "proofs": {
+        "path": ".temp/round03-reviewer/drafts/first-43-v1/proofs.json",
+        "sha256": "35de5307fa6b838213938194dff01cf860d34d6382c34b9b0fba893939b86a09"
+      },
+      "review": {
+        "path": "reviews/structured/20261117T033102Z-reviewer-a-first-43/review.yaml",
+        "sha256": "50f0509b7de03800c0259e7391d08daaad5110d7c0c706cd11cdf087f0e7d716"
+      },
+      "reviewer": "reviewer-a"
+    },
+    {
+      "case_id": "fresh-04",
+      "packet": {
+        "path": ".temp/edge-calibration-20261115/fresh-04/packet.json",
+        "sha256": "5249d3331588e1973f5c19414cb5aff171b13d510499567a29954b3059fa716e"
+      },
+      "proofs": {
+        "path": ".temp/round03-reviewer/drafts/fresh-04-v1/proofs.json",
+        "sha256": "eea14f651af7edc6313d4e23079f0a05dc5f42eb755f4b2bfd20f0ca3dd0feba"
+      },
+      "review": {
+        "path": "reviews/structured/20261117T033731Z-reviewer-a-fresh-04/review.yaml",
+        "sha256": "36a07cf870bbc195516264e558eaf17f566fe0fec4f9f6cb54fc7d9508be2466"
+      },
+      "reviewer": "reviewer-a"
+    },
+    {
+      "case_id": "fresh-05",
+      "packet": {
+        "path": ".temp/edge-calibration-20261115/fresh-05/packet.json",
+        "sha256": "9a456958680990e4d6742b2bc012579d6e48d5d2adefdfcd24c6f0b6ab56b34b"
+      },
+      "proofs": {
+        "path": ".temp/round03-reviewer/drafts/fresh-05-v1/proofs.json",
+        "sha256": "fde7bacb7f3e4f7a5c25507fc581ce036332e8d064d69f52847c78b1325cf4e2"
+      },
+      "review": {
+        "path": "reviews/structured/20261117T033731Z-reviewer-a-fresh-05/review.yaml",
+        "sha256": "9a2c12ea212b6244e2e7b67e919a2c9356f69a2d098be661e9556495e08be8b5"
+      },
+      "reviewer": "reviewer-a"
+    },
+    {
+      "case_id": "fresh-14",
+      "packet": {
+        "path": ".temp/edge-calibration-20261115/fresh-14/packet.json",
+        "sha256": "c1c4a61470174802cfdbc08f31fd0e83b273270906111f5a4ef587ae973bd012"
+      },
+      "proofs": {
+        "path": ".temp/round03-reviewer/drafts/fresh-14-v1/proofs.json",
+        "sha256": "32f09962fade349dc1b6275d560f1869ce05d1438684317e0f4a4563b95f3918"
+      },
+      "review": {
+        "path": "reviews/structured/20261117T033731Z-reviewer-a-fresh-14/review.yaml",
+        "sha256": "718fd750241102c71797e0e25ead902d534541089b19a081121cb0e75959c636"
+      },
+      "reviewer": "reviewer-a"
+    },
+    {
+      "case_id": "fresh-32",
+      "packet": {
+        "path": ".temp/edge-calibration-20261115/fresh-32/packet.json",
+        "sha256": "14b21623a1726591121ea2882d9168e081f832e22143a58cad438163551326f7"
+      },
+      "proofs": {
+        "path": ".temp/round03-reviewer/drafts/fresh-32-v1/proofs.json",
+        "sha256": "df912ca14573858f1e1e7ce4e78849e078df615299f1292eabd1297e8b0e7617"
+      },
+      "review": {
+        "path": "reviews/structured/20261117T033731Z-reviewer-a-fresh-32/review.yaml",
+        "sha256": "74c4dc1d3d924e0a1a2aabc6f65867ba4ae5c82881074b59d80e1854edd882f4"
+      },
+      "reviewer": "reviewer-a"
+    },
+    {
+      "case_id": "fresh-47",
+      "packet": {
+        "path": ".temp/edge-calibration-20261115/fresh-47/packet.json",
+        "sha256": "c64b42e5bf6dd8c081ab49b4faa935ae769af8dedcbd40c23c196dae083accf9"
+      },
+      "proofs": {
+        "path": ".temp/round03-reviewer/drafts/fresh-47-v1/proofs.json",
+        "sha256": "5f4fdb08ba85cf0a67032c10961efcd43daf8f0cbcfb28f5d212ea1f79b2601a"
+      },
+      "review": {
+        "path": "reviews/structured/20261117T032757Z-reviewer-a-fresh-47/review.yaml",
+        "sha256": "e011f505f6fcfabcd0ebf0975f4edfcd3878886ea1c1a00beaab74cdc7e5a400"
+      },
+      "reviewer": "reviewer-a"
+    },
+    {
+      "case_id": "first-01",
+      "packet": {
+        "path": ".temp/edge-calibration-20261115/first-01/packet.json",
+        "sha256": "b516c976dbdb13900c8e6e83f740c7fa962afa23af6f5aa293f846cdfa768926"
+      },
+      "proofs": {
+        "path": ".temp/round03-reviewer/drafts/first-01-attempt1/proofs.json",
+        "sha256": "a49e0f52d8ffa2e133120ecd058322dbcb2baf3b08e8bcfb31ee362e14246e83"
+      },
+      "review": {
+        "path": "reviews/structured/20261117T033220Z-reviewer-b-first-01/review.yaml",
+        "sha256": "e887cb48f2fde0b8b6018432c432e129ff88cd6cf6114a75926d0c253a170313"
+      },
+      "reviewer": "reviewer-b"
+    },
+    {
+      "case_id": "first-28",
+      "packet": {
+        "path": ".temp/edge-calibration-20261115/first-28/packet.json",
+        "sha256": "eb5e38bf636fed915f15ee9bd2ce9f1d4d010eb8c1e8d815a17e1de265bcd527"
+      },
+      "proofs": {
+        "path": ".temp/round03-reviewer/drafts/first-28-attempt3/proofs.json",
+        "sha256": "0d8bd7ce7e64416e71a3497e5c11c939efab3eaa3a9d6599d74e1e1066024653"
+      },
+      "review": {
+        "path": "reviews/structured/20261117T033220Z-reviewer-b-first-28/review.yaml",
+        "sha256": "97bccc90212e92d1daa90b2952fbcef1961132594853c1966d4ad36fb4dbf46e"
+      },
+      "reviewer": "reviewer-b"
+    },
+    {
+      "case_id": "first-30",
+      "packet": {
+        "path": ".temp/edge-calibration-20261115/first-30/packet.json",
+        "sha256": "68ae9cbdb5c02a160c3497977ce191924e9aed8c89321f3da7924770df3ffc82"
+      },
+      "proofs": {
+        "path": ".temp/round03-reviewer/drafts/first-30-attempt2/proofs.json",
+        "sha256": "304d11de673c38785fca27a221b52ab310d766ee09867bcf46c7484c3f31cd52"
+      },
+      "review": {
+        "path": "reviews/structured/20261117T033220Z-reviewer-b-first-30/review.yaml",
+        "sha256": "3671f56848d1ca8b540d39390afd6c9d84a2227c5d1d9b7f68aa9e45167315da"
+      },
+      "reviewer": "reviewer-b"
+    },
+    {
+      "case_id": "first-32",
+      "packet": {
+        "path": ".temp/edge-calibration-20261115/first-32/packet.json",
+        "sha256": "32cb804b4f6e0f678f01faf3ecf351146101d1beb0abe6e77ecbffedd470ded2"
+      },
+      "proofs": {
+        "path": ".temp/round03-reviewer/drafts/first-32-attempt1/proofs.json",
+        "sha256": "b6550d99bb32591cf865998413bf883ce3afd72163891452ec3cae64bcab087c"
+      },
+      "review": {
+        "path": "reviews/structured/20261117T033220Z-reviewer-b-first-32/review.yaml",
+        "sha256": "7129267a0f66116f00f94d3683aa6be222b14f05214e3f130823b14012db8c4a"
+      },
+      "reviewer": "reviewer-b"
+    },
+    {
+      "case_id": "first-43",
+      "packet": {
+        "path": ".temp/edge-calibration-20261115/first-43/packet.json",
+        "sha256": "70decffa3ed755ad913171964494b4edfcf84b2341a34a76a925837f1565befc"
+      },
+      "proofs": {
+        "path": ".temp/round03-reviewer/drafts/first-43-attempt3/proofs.json",
+        "sha256": "5ac5313c90316d0e65e4d6a6371eeb88406c8955e91cf9f6d839f44ddd35ccd4"
+      },
+      "review": {
+        "path": "reviews/structured/20261117T033220Z-reviewer-b-first-43/review.yaml",
+        "sha256": "33b2d311e7801458a373f10a128de2a51b02e16328b776cee3be39048f762669"
+      },
+      "reviewer": "reviewer-b"
+    },
+    {
+      "case_id": "fresh-04",
+      "packet": {
+        "path": ".temp/edge-calibration-20261115/fresh-04/packet.json",
+        "sha256": "5249d3331588e1973f5c19414cb5aff171b13d510499567a29954b3059fa716e"
+      },
+      "proofs": {
+        "path": ".temp/round03-reviewer/drafts/fresh-04-attempt1/proofs.json",
+        "sha256": "214edf3538df7e874d3c185ad78dd6112fc7b87c4f902f9943069a0c34dbf39b"
+      },
+      "review": {
+        "path": "reviews/structured/20261117T033220Z-reviewer-b-fresh-04/review.yaml",
+        "sha256": "7513242fca74443da43a0d896d9964fe50c39733f7c2009a26a6f5fc7a87495b"
+      },
+      "reviewer": "reviewer-b"
+    },
+    {
+      "case_id": "fresh-05",
+      "packet": {
+        "path": ".temp/edge-calibration-20261115/fresh-05/packet.json",
+        "sha256": "9a456958680990e4d6742b2bc012579d6e48d5d2adefdfcd24c6f0b6ab56b34b"
+      },
+      "proofs": {
+        "path": ".temp/round03-reviewer/drafts/fresh-05-attempt1/proofs.json",
+        "sha256": "a720fab6a84ba382548aea4c651fd76ac87043cf177bc41f39c348ed2d576334"
+      },
+      "review": {
+        "path": "reviews/structured/20261117T033220Z-reviewer-b-fresh-05/review.yaml",
+        "sha256": "deb935d512aa1f1cceef50855cc2df3a9f5d13a74fb303ddb21945528ce9745c"
+      },
+      "reviewer": "reviewer-b"
+    },
+    {
+      "case_id": "fresh-14",
+      "packet": {
+        "path": ".temp/edge-calibration-20261115/fresh-14/packet.json",
+        "sha256": "c1c4a61470174802cfdbc08f31fd0e83b273270906111f5a4ef587ae973bd012"
+      },
+      "proofs": {
+        "path": ".temp/round03-reviewer/drafts/fresh-14-attempt1/proofs.json",
+        "sha256": "15d280e3edc4e546d56d3fd079313d92799060a5043b9ec6cc330227dbeaf205"
+      },
+      "review": {
+        "path": "reviews/structured/20261117T033220Z-reviewer-b-fresh-14/review.yaml",
+        "sha256": "06583205deb1e23823b531c2ae2ab65d0bc3b19008c4005ee04307dba9b26408"
+      },
+      "reviewer": "reviewer-b"
+    },
+    {
+      "case_id": "fresh-32",
+      "packet": {
+        "path": ".temp/edge-calibration-20261115/fresh-32/packet.json",
+        "sha256": "14b21623a1726591121ea2882d9168e081f832e22143a58cad438163551326f7"
+      },
+      "proofs": {
+        "path": ".temp/round03-reviewer/drafts/fresh-32-attempt1/proofs.json",
+        "sha256": "0e3e685dc7e067caf83cbe49fa45a924101b28b2d6815666065af69da8d88c50"
+      },
+      "review": {
+        "path": "reviews/structured/20261117T033220Z-reviewer-b-fresh-32/review.yaml",
+        "sha256": "5530b8fdb29a0c2de5fecab00978bb208af8d8a86e16b5741d825f79eb630096"
+      },
+      "reviewer": "reviewer-b"
+    },
+    {
+      "case_id": "fresh-47",
+      "packet": {
+        "path": ".temp/edge-calibration-20261115/fresh-47/packet.json",
+        "sha256": "c64b42e5bf6dd8c081ab49b4faa935ae769af8dedcbd40c23c196dae083accf9"
+      },
+      "proofs": {
+        "path": ".temp/round03-reviewer/drafts/fresh-47-attempt1/proofs.json",
+        "sha256": "2e62b25dffec298af2ff940f7befa6fbb02eeeaf523d56538c645df391f8bea8"
+      },
+      "review": {
+        "path": "reviews/structured/20261117T032645Z-reviewer-b-fresh-47/review.yaml",
+        "sha256": "ef6dc125a78f262acd86a42d83d51a9f3d631c50e3798b6094b3c97342759b34"
+      },
+      "reviewer": "reviewer-b"
+    }
+  ],
+  "source_mode": "canonical_review",
+  "verified_derivative_canary": {
+    "config": {
+      "path": ".temp/m5-round03-worker-20261116/publication-preparation/canary-config-02.json",
+      "sha256": "b598b9382da832114be4b5fcef3385e5f075d6926690eb335b04785c931661a6"
+    },
+    "inspection": {
+      "path": ".temp/m5-round03-worker-20261116/publication-preparation/canary-inspection-02.json",
+      "sha256": "00ad7a22432d4ce81ad9d8428902f1ce954fa9cda52d362be86adbbc45e5db77"
+    },
+    "public_file_pins": [
+      {
+        "path": "operational-canary-fresh-47.json",
+        "sha256": "1c7660e7b6df55722bcda773d6724f142d48002a439447641df8898219f332ca"
+      },
+      {
+        "path": "publication-gate.json",
+        "sha256": "dc200c217dbaebc7d71fc65eef04d277b3c896860b358cacc17acf5cb683631e"
+      },
+      {
+        "path": "quote-inventory.json",
+        "sha256": "f45cf0a50989dabda944bbfc12fa1af5f65b3fbd4a95590275b7094817d5e7a0"
+      }
+    ],
+    "receipt": {
+      "path": ".temp/m5-round03-worker-20261116/publication-derivative-canary-02/receipt.json",
+      "sha256": "ebe2069b0eaf448d1634a362c24e43848344dba000250390264c0ca56b56f08a"
+    },
+    "scope": "Actual inspected derivative canary replay; not scientific approval",
+    "stage": ".temp/m5-round03-worker-20261116/publication-derivative-canary-02"
+  }
+}

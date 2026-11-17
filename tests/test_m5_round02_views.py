@@ -46,7 +46,14 @@ def test_unrecognized_replacement_requires_inspection():
 def test_profile_derivative_retains_policy_but_removes_old_case_canary():
     raw = (ROOT / "docs/record-review-profile.md").read_text()
     derivative = m.blinded_profile(raw)
+    policy = " ".join(derivative.split())
     assert "Its partial\nself-review" not in derivative
     assert "source contains conflicting strain" not in derivative
-    assert "Positive or refuting claim" in derivative
+    assert "The abstract-adapter launcher is" not in derivative
+    assert ("Positive or refuting independent-claim judgments require exact-scope independent evidence "
+            "of the corresponding role") in policy
+    assert "source-report judgments require the explicit witnesses above" in policy
+    assert "`assertion_basis: source_report`" in derivative
+    assert ("Source-report support cannot establish biological truth, unspecified units or conditions, "
+            "or independent literature support") in policy
     assert "Preparation receipts from PR #128" in derivative

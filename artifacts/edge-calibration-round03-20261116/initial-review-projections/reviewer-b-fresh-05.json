@@ -1,0 +1,209 @@
+{
+  "assessments": [
+    {
+      "authored_assessment_sha256": "ba9eba55c538b07b9e6354cc40f9be010e1daed4092ac16cbe20966ea7db21f3",
+      "axis": "claim",
+      "category": "SUPPORTED_AS_STATED",
+      "scope_sha256": "4724798d079e2c77bca7311a381c0f172c69f1f2bfd6017185eb2f83599deceb"
+    },
+    {
+      "authored_assessment_sha256": "05711d82b90b5d94038bcd081c6e83107c8ca66cffc000776ed1db8729eb8bd4",
+      "axis": "literature",
+      "category": "SUPPORTS",
+      "scope_sha256": "853c18366c006e8b2127a680118cf383d2e8f368168488808ff5bd7985100383"
+    },
+    {
+      "authored_assessment_sha256": "06b31dbd9686c0184f27266ab3b54c50d9fe30c6b4fb17d7894d601376d2f6db",
+      "axis": "object_node",
+      "category": "CORRECT",
+      "scope_sha256": "d42bff1ed870d11044149c4fdf84e9464b4978b52e6cad443eedad8848e91893"
+    },
+    {
+      "authored_assessment_sha256": "2a5a1587218555538381676dabab618276fb8e28d66fcf4c43d19478ba7e56b4",
+      "axis": "relation",
+      "category": "INCORRECT",
+      "scope_sha256": "397f76a4d0c9f0baf583ed26c4395e42004bb419d79774a11e32dc3159b831b1"
+    },
+    {
+      "authored_assessment_sha256": "12cf23db50f7b9fd57d5680c30db0f68f3c32f7e5c2d9ef6d6286e33353989f1",
+      "axis": "source_fidelity",
+      "category": "NOT_ASSESSABLE",
+      "scope_sha256": "838b51a372f33e2267662f9a8974f9a9dcd726097632788505309ec703d52b99"
+    },
+    {
+      "authored_assessment_sha256": "c175e9839cc9f761dfc76c207426494e227636024398fcd7187f9668513ac3ef",
+      "axis": "subject_node",
+      "category": "CORRECT",
+      "scope_sha256": "2e3987660a1efa67a94c46243e8bcf69e5edb2d1ef8fe901e3c9caa0d9ddc071"
+    }
+  ],
+  "calibration_rating": true,
+  "canonical_pair": {
+    "authored_values_checked": true,
+    "canonical_command": {
+      "exit_code": 0,
+      "helper": {
+        "path": "src/edgemech/occurrence_review.py",
+        "sha256": "c977e3170b470292a1715efba3e737d704929af7b4319635bdb262f44fe029d4"
+      },
+      "stderr_sha256": "e2cf5a8ee56373cb7afeb23be8ac2a30d67f13afa55bb51424877fc908e2a25f",
+      "stdout_sha256": "5face71d7cc7c7cbec202a02f44c8b352270bb38f33eb46c77006323fc84d138"
+    },
+    "markdown": {
+      "path": "reviews/structured/20261117T033220Z-reviewer-b-fresh-05/review.md",
+      "sha256": "a7c5b3805fe279aebe95e8fc39bb2995c26a6750523c71cd2cccb98c549d86c3"
+    },
+    "review": {
+      "path": "reviews/structured/20261117T033220Z-reviewer-b-fresh-05/review.yaml",
+      "sha256": "deb935d512aa1f1cceef50855cc2df3a9f5d13a74fb303ddb21945528ce9745c"
+    },
+    "scope": "Existing canonical pair read/check only; no new save or scientific approval"
+  },
+  "canonical_persistence_asserted": true,
+  "canonical_review": false,
+  "case_id": "fresh-05",
+  "completion": "partial",
+  "kg_admissions": 0,
+  "mode": "round",
+  "occurrence_id": "urn:kg-microbe:occurrence:v1:1e9dec218a07f7e480add8ff273e3a9285f79d57746ca74041702839207a8136",
+  "private_inputs": {
+    "case_id": "fresh-05",
+    "packet": {
+      "path": ".temp/edge-calibration-20261115/fresh-05/packet.json",
+      "sha256": "9a456958680990e4d6742b2bc012579d6e48d5d2adefdfcd24c6f0b6ab56b34b"
+    },
+    "proofs": {
+      "path": ".temp/round03-reviewer/drafts/fresh-05-attempt1/proofs.json",
+      "sha256": "a720fab6a84ba382548aea4c651fd76ac87043cf177bc41f39c348ed2d576334"
+    },
+    "review": {
+      "path": "reviews/structured/20261117T033220Z-reviewer-b-fresh-05/review.yaml",
+      "sha256": "deb935d512aa1f1cceef50855cc2df3a9f5d13a74fb303ddb21945528ce9745c"
+    },
+    "reviewer": "reviewer-b"
+  },
+  "production_input_validation": {
+    "scope": "Production input validation; not persistence",
+    "status": "passed"
+  },
+  "publication_runtime": {
+    "git_head": "2e31b6f16d0a6f895a1d43a06912341586d24c4b",
+    "manifest": {
+      "path": ".temp/m5-round03-worker-20261116/publication-runtime-02/manifest.json",
+      "sha256": "1e0ad8f7dea88d5138d891341d46ac772f8a7896f0282ee11ddaf2b0686fd168"
+    },
+    "package_verification": {
+      "exit_code": 0,
+      "helper": {
+        "path": "scripts/adhoc/calibration_round_20261116.py",
+        "sha256": "b060792e3c149f3fcd3c56678ea01d4612777cf38c35c00c478f5582edca99a1"
+      },
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "e84b4c96b74d5bfdcdf23448f05d2cb955cae0726ac48ec2ea9b70bd03501ecd"
+    },
+    "production_receipt": {
+      "path": ".temp/m5-round03-worker-20261116/engineering-production-canary-02/canary-receipt.json",
+      "sha256": "5e4c1ccf7cd4e84b35d435cef3255c36001595b83cca068992f8f78633c0ac56"
+    },
+    "repository_identity": "CultureBotAI/EdgeMech",
+    "repository_origin": "https://github.com/CultureBotAI/EdgeMech.git",
+    "runtime_bindings": {
+      "codex_path": "/Users/marcin/.nvm/versions/node/v22.16.0/lib/node_modules/@openai/codex/node_modules/@openai/codex-darwin-arm64/vendor/aarch64-apple-darwin/bin/codex",
+      "codex_sha256": "739cda86e15d30a6e2b40cf8dcbbfb988aaf48b305b27065573bb8e9fd41d002",
+      "distributions_sha256": "dd8a8dda18e3f94fbf23328ae755c1465a03ca4076bae134785921e6fa4a0548",
+      "environment_sha256": "8333f7807e539500830f414c6633d9916d02b084233d056ac9133c505f57c7a8",
+      "git_head": "2e31b6f16d0a6f895a1d43a06912341586d24c4b",
+      "helper_sha256": "3b22a0886cc85e94c537fa5a1da94e445dc79eac47bd9d0c1310feaa651e64b2",
+      "host": "marcins-MacBook-Pro-3.local",
+      "lock_sha256": "ffdec65db5f8ff7e6b32fd751f655eea1881d0305553c5bb154e3195a70f1033",
+      "python_executable": "/Users/marcin/agent-work/EdgeMech/m5-calibration-round03-20261116/.venv/bin/python",
+      "python_prefix": "/Users/marcin/agent-work/EdgeMech/m5-calibration-round03-20261116/.venv",
+      "python_sha256": "9bfc2a72ac7db20d18d0b275f3136fef9e9ede7da34d241d4d82cc5c65d8d20d",
+      "python_version": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:04:32) [Clang 20.1.8 ]",
+      "repository_identity": "CultureBotAI/EdgeMech",
+      "repository_origin": "https://github.com/CultureBotAI/EdgeMech.git"
+    },
+    "runtime_id": "m5-calibration-20261116-round03-publication-repair02"
+  },
+  "quotation_words": 0,
+  "reviewer": "reviewer-b",
+  "round_id": "m5-calibration-20261116-round03",
+  "schema": "edgemech-round02-publication-gate/v1",
+  "scientific_package_sha256": "3928396bf4c089620ec0209fdcb986c14f36969259ed01ab563c6807037ee298",
+  "source_evidence": [
+    {
+      "quote_sha256": "837658397ee9171df55948005dc6a1cdaf55893479d691256d83176a32203246",
+      "raw_sha256": "82d96c9481a6d11eefc5976e65b2863e10bed3cedf8b02f9b09cdb92802cf807",
+      "source_identities": [
+        "doi:10.1099/ijs.0.65010-0",
+        "pmid:17625207"
+      ]
+    },
+    {
+      "quote_sha256": "4a93a6023345900608c01196f424eb7840d44e3a34141d149fefbb89ec56936d",
+      "raw_sha256": "4955709e1cac1d26fd657f7a0c29d6c8390f42e41f9ebfab859c82b102f2bebb",
+      "source_identities": [
+        "authority-raw-sha256:4955709e1cac1d26fd657f7a0c29d6c8390f42e41f9ebfab859c82b102f2bebb",
+        "authority-sha256:bc33e7da0e9cb0c424c4842b7b7de813fe71a8a6e80c1b13234d4a1fd869f5e2"
+      ]
+    },
+    {
+      "quote_sha256": "4a93a6023345900608c01196f424eb7840d44e3a34141d149fefbb89ec56936d",
+      "raw_sha256": "b6a1320772a92d69e84b8c700cd6386dffe45ed635c8197d61e22b6a6fa3b35e",
+      "source_identities": [
+        "authority-raw-sha256:b6a1320772a92d69e84b8c700cd6386dffe45ed635c8197d61e22b6a6fa3b35e",
+        "authority-sha256:ea2c709f8cdf93208d8c0f2ec1b003ac988afbc9720a4de1558b45b4a9083224"
+      ]
+    },
+    {
+      "quote_sha256": "422367ae631e58e84706dc0ed14b7a627a59390d77f4e37d3566e6587caa4d52",
+      "raw_sha256": "e3c3c74d3106e779e9f4864c782c58b5a2f91cd7f5260817776c38059e630772",
+      "source_identities": [
+        "authority-raw-sha256:e3c3c74d3106e779e9f4864c782c58b5a2f91cd7f5260817776c38059e630772",
+        "authority-sha256:faa8f6df3638a7296a14de561ea5b2dd1044b1062f93811cdf872d4abb51f0c5"
+      ]
+    },
+    {
+      "quote_sha256": "21a4507674f5bc5e641d984d5f5688485bab9a2a439ee9193e658fff143afb9f",
+      "raw_sha256": "8b6f8fe0510a698579e532658c8ace05da2550093365df9ca83feb0741778415",
+      "source_identities": [
+        "authority-raw-sha256:8b6f8fe0510a698579e532658c8ace05da2550093365df9ca83feb0741778415",
+        "authority-sha256:06ace0ff1313d498de41025666571beb030e30bc14de40db03a0145469a8f2f4"
+      ]
+    },
+    {
+      "quote_sha256": "d983c32a38e793a569d7f79a61abe20c20841c9dd9009dcefa900533593b94c7",
+      "raw_sha256": "99c07d7d2dfeb73ed1fbb69e8213c8034146e51140b2a80f160bd59faead79c8",
+      "source_identities": [
+        "authority-raw-sha256:99c07d7d2dfeb73ed1fbb69e8213c8034146e51140b2a80f160bd59faead79c8",
+        "authority-sha256:c35da70574a6b4b914f9a736f31b40df6449e8d322679d2cb572defa4d382395"
+      ]
+    },
+    {
+      "quote_sha256": "49fcdd0bf6b8cd3b7c14cd519175c0eeb8bbe059592560f7047594c94e62450f",
+      "raw_sha256": "8fa3d180a19442d947a7bbdd86cf1efd78f6ca891fe2acbc42f2c6a9d15c6d82",
+      "source_identities": [
+        "authority-raw-sha256:8fa3d180a19442d947a7bbdd86cf1efd78f6ca891fe2acbc42f2c6a9d15c6d82",
+        "authority-sha256:d8e0ea1a330e9e7b1560e0057d620913dc227d1e2bf8c9427e80d7889d19e667"
+      ]
+    },
+    {
+      "quote_sha256": "49fcdd0bf6b8cd3b7c14cd519175c0eeb8bbe059592560f7047594c94e62450f",
+      "raw_sha256": "93d5aec6c739d6bd48c4c4aa66416c7dfe4220ff9ca5c572a1010ad02be0440f",
+      "source_identities": [
+        "authority-raw-sha256:93d5aec6c739d6bd48c4c4aa66416c7dfe4220ff9ca5c572a1010ad02be0440f",
+        "authority-sha256:08bc9d5d609d9052910bee16cdf1820a1c0a1b30c5b4f6d0057031a6f0121123"
+      ]
+    },
+    {
+      "quote_sha256": "1da3da133f75fd98d3cbbbb7b411afd2e5073c5a3bd076b97a396f7ccbebfb6b",
+      "raw_sha256": "29f41098eb41eb4a6ca0d46abe5ecd746e8cc5dbb4edac5cb6b8233bd6cdd7bc",
+      "source_identities": [
+        "authority-raw-sha256:29f41098eb41eb4a6ca0d46abe5ecd746e8cc5dbb4edac5cb6b8233bd6cdd7bc",
+        "authority-sha256:44974e2f9411997becb6688ffa02b5675b89a3573ee9907c8d401b4e7f3ecc9a"
+      ]
+    }
+  ],
+  "source_mode": "canonical_review",
+  "verdict": "blocked"
+}

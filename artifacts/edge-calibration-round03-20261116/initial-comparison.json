@@ -1,0 +1,440 @@
+{
+  "critical_errors": {
+    "unsupported CONFLICTING_EVIDENCE": {
+      "emitted_labels": 0,
+      "status": "untested_label_class",
+      "unsupported_labels": null
+    },
+    "unsupported CONTRADICTED_AS_STATED": {
+      "emitted_labels": 4,
+      "status": "pending_independent_audit",
+      "unsupported_labels": null
+    },
+    "unsupported CORRECT model judgment": {
+      "emitted_labels": 33,
+      "status": "pending_independent_audit",
+      "unsupported_labels": null
+    },
+    "unsupported INCORRECT model judgment": {
+      "emitted_labels": 18,
+      "status": "pending_independent_audit",
+      "unsupported_labels": null
+    },
+    "unsupported SUPPORTED_AS_STATED": {
+      "emitted_labels": 2,
+      "status": "pending_independent_audit",
+      "unsupported_labels": null
+    }
+  },
+  "disagreement_gate": {
+    "status": "pending_adjudication"
+  },
+  "disagreements": [
+    {
+      "axis": "relation",
+      "case_id": "first-43",
+      "disposition": "pending_adjudication",
+      "reviewer_a": "INCORRECT",
+      "reviewer_b": "UNRESOLVED"
+    },
+    {
+      "axis": "relation",
+      "case_id": "fresh-32",
+      "disposition": "pending_adjudication",
+      "reviewer_a": "INCORRECT",
+      "reviewer_b": "UNRESOLVED"
+    },
+    {
+      "axis": "object_node",
+      "case_id": "fresh-04",
+      "disposition": "pending_adjudication",
+      "reviewer_a": "CORRECT",
+      "reviewer_b": "UNRESOLVED"
+    },
+    {
+      "axis": "source_fidelity",
+      "case_id": "first-28",
+      "disposition": "pending_adjudication",
+      "reviewer_a": "NOT_ASSESSABLE",
+      "reviewer_b": "CONTRADICTED"
+    },
+    {
+      "axis": "source_fidelity",
+      "case_id": "first-43",
+      "disposition": "pending_adjudication",
+      "reviewer_a": "NOT_ASSESSABLE",
+      "reviewer_b": "CONTRADICTED"
+    },
+    {
+      "axis": "source_fidelity",
+      "case_id": "fresh-14",
+      "disposition": "pending_adjudication",
+      "reviewer_a": "NOT_ASSESSABLE",
+      "reviewer_b": "CONTRADICTED"
+    }
+  ],
+  "expansion_authorized": false,
+  "initial_confusion_tables": {
+    "claim": [
+      {
+        "count": 2,
+        "reviewer_a": "CONTRADICTED_AS_STATED",
+        "reviewer_b": "CONTRADICTED_AS_STATED"
+      },
+      {
+        "count": 3,
+        "reviewer_a": "INSUFFICIENT_EVIDENCE",
+        "reviewer_b": "INSUFFICIENT_EVIDENCE"
+      },
+      {
+        "count": 4,
+        "reviewer_a": "NOT_ASSESSABLE",
+        "reviewer_b": "NOT_ASSESSABLE"
+      },
+      {
+        "count": 1,
+        "reviewer_a": "SUPPORTED_AS_STATED",
+        "reviewer_b": "SUPPORTED_AS_STATED"
+      }
+    ],
+    "literature": [
+      {
+        "count": 3,
+        "reviewer_a": "NOT_APPLICABLE",
+        "reviewer_b": "NOT_APPLICABLE"
+      },
+      {
+        "count": 3,
+        "reviewer_a": "PARTIAL",
+        "reviewer_b": "PARTIAL"
+      },
+      {
+        "count": 1,
+        "reviewer_a": "SUPPORTS",
+        "reviewer_b": "SUPPORTS"
+      },
+      {
+        "count": 3,
+        "reviewer_a": "UNAVAILABLE",
+        "reviewer_b": "UNAVAILABLE"
+      }
+    ],
+    "object_node": [
+      {
+        "count": 7,
+        "reviewer_a": "CORRECT",
+        "reviewer_b": "CORRECT"
+      },
+      {
+        "count": 1,
+        "reviewer_a": "CORRECT",
+        "reviewer_b": "UNRESOLVED"
+      },
+      {
+        "count": 1,
+        "reviewer_a": "INCORRECT",
+        "reviewer_b": "INCORRECT"
+      },
+      {
+        "count": 1,
+        "reviewer_a": "UNRESOLVED",
+        "reviewer_b": "UNRESOLVED"
+      }
+    ],
+    "relation": [
+      {
+        "count": 1,
+        "reviewer_a": "CORRECT",
+        "reviewer_b": "CORRECT"
+      },
+      {
+        "count": 7,
+        "reviewer_a": "INCORRECT",
+        "reviewer_b": "INCORRECT"
+      },
+      {
+        "count": 2,
+        "reviewer_a": "INCORRECT",
+        "reviewer_b": "UNRESOLVED"
+      }
+    ],
+    "source_fidelity": [
+      {
+        "count": 1,
+        "reviewer_a": "CONTRADICTED",
+        "reviewer_b": "CONTRADICTED"
+      },
+      {
+        "count": 3,
+        "reviewer_a": "NOT_ASSESSABLE",
+        "reviewer_b": "CONTRADICTED"
+      },
+      {
+        "count": 4,
+        "reviewer_a": "NOT_ASSESSABLE",
+        "reviewer_b": "NOT_ASSESSABLE"
+      },
+      {
+        "count": 2,
+        "reviewer_a": "SUPPORTED",
+        "reviewer_b": "SUPPORTED"
+      }
+    ],
+    "subject_node": [
+      {
+        "count": 8,
+        "reviewer_a": "CORRECT",
+        "reviewer_b": "CORRECT"
+      },
+      {
+        "count": 2,
+        "reviewer_a": "UNRESOLVED",
+        "reviewer_b": "UNRESOLVED"
+      }
+    ]
+  },
+  "initial_gates": {
+    "endpoint_roles_retained": {
+      "denominator": 20,
+      "minimum": 20,
+      "numerator": 20,
+      "passed": true
+    },
+    "initial_claim_agreement": {
+      "denominator": 10,
+      "minimum": 9,
+      "numerator": 10,
+      "passed": true
+    },
+    "initial_exact_category_agreement": {
+      "denominator": 60,
+      "minimum": 54,
+      "numerator": 54,
+      "passed": true
+    },
+    "initial_per_axis_agreement": {
+      "claim": {
+        "denominator": 10,
+        "minimum": 8,
+        "numerator": 10,
+        "passed": true
+      },
+      "literature": {
+        "denominator": 10,
+        "minimum": 8,
+        "numerator": 10,
+        "passed": true
+      },
+      "object_node": {
+        "denominator": 10,
+        "minimum": 8,
+        "numerator": 9,
+        "passed": true
+      },
+      "relation": {
+        "denominator": 10,
+        "minimum": 8,
+        "numerator": 8,
+        "passed": true
+      },
+      "source_fidelity": {
+        "denominator": 10,
+        "minimum": 8,
+        "numerator": 7,
+        "passed": false
+      },
+      "subject_node": {
+        "denominator": 10,
+        "minimum": 8,
+        "numerator": 10,
+        "passed": true
+      }
+    },
+    "packets_replayed": {
+      "denominator": 10,
+      "minimum": 10,
+      "numerator": 10,
+      "passed": true
+    }
+  },
+  "initial_resolution_counts_not_final_gates": {
+    "reviewer-a": {
+      "claim": {
+        "denominator": 10,
+        "numerator": 3
+      },
+      "object_node": {
+        "denominator": 10,
+        "numerator": 9
+      },
+      "relation": {
+        "denominator": 10,
+        "numerator": 10
+      },
+      "source_fidelity": {
+        "denominator": 10,
+        "numerator": 3
+      },
+      "subject_node": {
+        "denominator": 10,
+        "numerator": 8
+      }
+    },
+    "reviewer-b": {
+      "claim": {
+        "denominator": 10,
+        "numerator": 3
+      },
+      "object_node": {
+        "denominator": 10,
+        "numerator": 8
+      },
+      "relation": {
+        "denominator": 10,
+        "numerator": 8
+      },
+      "source_fidelity": {
+        "denominator": 10,
+        "numerator": 6
+      },
+      "subject_node": {
+        "denominator": 10,
+        "numerator": 8
+      }
+    }
+  },
+  "interpretation": "Operational agreement only; no independent expert validation inferred.",
+  "literature_counts": {
+    "reviewer-a": {
+      "all_ten": {
+        "first-01": "NOT_APPLICABLE",
+        "first-28": "UNAVAILABLE",
+        "first-30": "UNAVAILABLE",
+        "first-32": "NOT_APPLICABLE",
+        "first-43": "UNAVAILABLE",
+        "fresh-04": "PARTIAL",
+        "fresh-05": "SUPPORTS",
+        "fresh-14": "NOT_APPLICABLE",
+        "fresh-32": "PARTIAL",
+        "fresh-47": "PARTIAL"
+      },
+      "exact_directional": 1,
+      "experimental_denominator": 7
+    },
+    "reviewer-b": {
+      "all_ten": {
+        "first-01": "NOT_APPLICABLE",
+        "first-28": "UNAVAILABLE",
+        "first-30": "UNAVAILABLE",
+        "first-32": "NOT_APPLICABLE",
+        "first-43": "UNAVAILABLE",
+        "fresh-04": "PARTIAL",
+        "fresh-05": "SUPPORTS",
+        "fresh-14": "NOT_APPLICABLE",
+        "fresh-32": "PARTIAL",
+        "fresh-47": "PARTIAL"
+      },
+      "exact_directional": 1,
+      "experimental_denominator": 7
+    }
+  },
+  "matrices": [
+    {
+      "path": ".temp/m5-round03-worker-20261116/scoring/reviewer-a/matrix.json",
+      "sha256": "d11d97e0df567524e74fac2afe0ceb76642c14220037564fb702e0f4c7983917"
+    },
+    {
+      "path": ".temp/m5-round03-worker-20261116/scoring/reviewer-b/matrix.json",
+      "sha256": "ae30750029a05cebb0b0aa51a9d39b42bb53717ee52b8169d7e402b7ec93fe47"
+    }
+  ],
+  "package_sha256": "3928396bf4c089620ec0209fdcb986c14f36969259ed01ab563c6807037ee298",
+  "remaining_90_authorized_by_result": false,
+  "remaining_gates": {
+    "evidence_replay": {
+      "preregistered_requirement": {
+        "required_fraction": 1.0,
+        "scope": "Every cited input, quote, DOI or alternate publication identity, authority version, packet and saved canonical review pair; no unverifiable item omitted from denominator."
+      },
+      "status": "pending_independent_adjudication_and_canonical_replay"
+    },
+    "exact_authority_backed_incorrect_model_judgments": {
+      "preregistered_requirement": {
+        "minimum": 1
+      },
+      "status": "pending_independent_adjudication_and_canonical_replay"
+    },
+    "exact_paper_backed_directional_claims": {
+      "preregistered_requirement": {
+        "minimum": 1
+      },
+      "status": "pending_independent_adjudication_and_canonical_replay"
+    },
+    "final_authored_axes": {
+      "preregistered_requirement": {
+        "denominator": 60,
+        "minimum": 60,
+        "unassessed_allowed": 0
+      },
+      "status": "pending_independent_adjudication_and_canonical_replay"
+    },
+    "resolved_claims": {
+      "preregistered_requirement": {
+        "categories": [
+          "SUPPORTED_AS_STATED",
+          "CONTRADICTED_AS_STATED",
+          "CONFLICTING_EVIDENCE"
+        ],
+        "denominator": 10,
+        "minimum": 2
+      },
+      "status": "pending_independent_adjudication_and_canonical_replay"
+    },
+    "resolved_modeling_per_axis": {
+      "preregistered_requirement": {
+        "axes": [
+          "relation",
+          "subject_node",
+          "object_node"
+        ],
+        "categories": [
+          "CORRECT",
+          "INCORRECT"
+        ],
+        "denominator": 10,
+        "minimum": 5
+      },
+      "status": "pending_independent_adjudication_and_canonical_replay"
+    },
+    "resolved_source_fidelity": {
+      "preregistered_requirement": {
+        "categories": [
+          "SUPPORTED",
+          "CONTRADICTED"
+        ],
+        "denominator": 10,
+        "minimum": 8
+      },
+      "status": "pending_independent_adjudication_and_canonical_replay"
+    }
+  },
+  "reviewers": [
+    {
+      "historical_exposure": "Fresh blinded session. Only common instructions, original protocol, neutral rubric, designated evidence guide/profile, blinded case views and frozen reviewer-facing witnesses informed ratings. An early filename-only navigation listing exposed names of historical/canary paths and Git ref filenames; no contents, history, judgments or other reviewer data were opened. Designated source/producer text includes inherited wording such as reviewed, the profile includes issue references, and the bounded first-30 method receipt includes technical producer_history/version pins; none was treated as scientific approval. Fresh-32's historical-description redaction notice was visible; withheld prose was not opened. Original packets, authorities outside the designated evidence views and historical occurrence data were only mechanically consumed by maintained helpers. No new retrieval, scientific delegation or comparison occurred.",
+      "id": "reviewer-a",
+      "model": "gpt-6-astra",
+      "session_id": "01a1e78b-4935-7230-9dff-80f171cc581a"
+    },
+    {
+      "historical_exposure": "Frozen source wording, identifiers, selection and producer executable constants were visible. A navigation filename listing included history/canary filenames only; their contents were not read. A reviewer-facing producer definition mentioned withdrawal of unrelated sugar grounding; no historical rating was used. No other reviewer or coordinator judgments were read. Operational-only CLI assistance was delegated; scientific ratings were not.",
+      "id": "reviewer-b",
+      "model": "gpt-6-astra",
+      "session_id": "01a1e789-ed13-7e22-8c8b-e7e5e09cbffe"
+    }
+  ],
+  "round_id": "m5-calibration-20261116-round03",
+  "same_model": true,
+  "schema": "edgemech-calibration-round/v1",
+  "scientific_calibration_passed": false,
+  "status": "failed_initial_gate"
+}

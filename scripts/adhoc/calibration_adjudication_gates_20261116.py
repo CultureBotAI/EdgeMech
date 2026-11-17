@@ -52,6 +52,7 @@ def final_labels(audit, cases):
             evidence_ids(assessment["evidence_ids"], cases[cid]["evidence_ids"],
                          required=category in rounds.RESOLVED.get(axis, set())
                          or category in {"SUPPORTS", "REFUTES", "CONFLICTING", "PARTIAL"})
+            rounds.validate_assertion_basis(assessment)
             axes[axis] = category
         require(axes.keys() == rounds.CATEGORIES.keys(), "All six final axes required")
         labels[cid] = axes
@@ -171,9 +172,17 @@ def evaluate(root, manifest_path, reviewer_a, reviewer_b, comparison_path, audit
     final_gates["final_authored_axes"]["unassessed"] = 0
     nontrivial = audit["nontrivial"]
     text(nontrivial.get("rationale"), "nontrivial exercise rationale")
+    independent_claims = {
+        case["case_id"] for case in audit["final_cases"]
+        for assessment in case["assessments"]
+        if assessment["axis"] == "claim"
+        and assessment.get("assertion_basis", "independent") == "independent"
+    }
     for field, gate_name, eligible in (
         ("exact_paper_claim_cases", "exact_paper_backed_directional_claims",
-         {cid for cid, row in final.items() if row["claim"] in rounds.RESOLVED["claim"]}),
+         {cid for cid, row in final.items()
+          if row["claim"] in rounds.RESOLVED["claim"] and cid in independent_claims
+          and row["literature"] in {"SUPPORTS", "REFUTES", "CONFLICTING"}}),
         ("exact_authority_incorrect_cases", "exact_authority_backed_incorrect_model_judgments",
          {cid for cid, row in final.items() if any(row[axis] == "INCORRECT" for axis in rounds.MODEL_AXES)}),
     ):

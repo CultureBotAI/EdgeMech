@@ -1,0 +1,788 @@
+{
+  "accounting_helper_sha256": "89ca20e637b765573a23c9bee5c2e82fa5c4134ed9f6e9695ded3b8f8b607686",
+  "adjudicator": {
+    "historical_exposure": "Fresh adjudicator session. Both round03 assessments read only after original-root seal checks and exact matrix-byte comparisons. Bounded frozen evidence and source-native wording inspected. Navigation exposed prior/canary filenames and launcher runtime paths only; no rounds01/02 labels, audits, coordinator preparation notes or canary judgments read. Fresh32 withheld description was not read. Mechanical contract/accounting and literal JSON transcription delegated; all scientific judgments authored by this adjudicator. Same-model sessions provide operational comparison, not independent expert validation.",
+    "id": "adjudicator-round03",
+    "model": "gpt-6-astra",
+    "session_id": "01a1e7a0-d5cf-72e1-a18b-5f914c8d9f9c"
+  },
+  "disagreements": [
+    {
+      "adjudication": {
+        "axis": "relation",
+        "case_id": "first-43",
+        "rationale": "Final INCORRECT follows full physical-bearer semantics and inherited participation constraints. Immediate NamedThing domain and another producer's PREGO convention do not establish a taxonomic classification as bearer.",
+        "status": "resolved"
+      },
+      "axis": "relation",
+      "blocks_passage": false,
+      "case_id": "first-43",
+      "disposition": "pending_adjudication",
+      "reviewer_a": "INCORRECT",
+      "reviewer_b": "UNRESOLVED"
+    },
+    {
+      "adjudication": {
+        "axis": "relation",
+        "case_id": "fresh-32",
+        "rationale": "Final INCORRECT follows capable_of physical-continuant meaning applied to the retained species classification; missing object description is not used to supply a new definition.",
+        "status": "resolved"
+      },
+      "axis": "relation",
+      "blocks_passage": false,
+      "case_id": "fresh-32",
+      "disposition": "pending_adjudication",
+      "reviewer_a": "INCORRECT",
+      "reviewer_b": "UNRESOLVED"
+    },
+    {
+      "adjudication": {
+        "axis": "object_node",
+        "case_id": "fresh-04",
+        "rationale": "Final UNRESOLVED retains missing original scalar/interval/fractional-bin meaning. ID, numeric bounds and related synonym cannot decide full definition correctness; reviewer-a's resolved correctness is unsupported.",
+        "status": "unresolved"
+      },
+      "axis": "object_node",
+      "blocks_passage": true,
+      "case_id": "fresh-04",
+      "disposition": "pending_adjudication",
+      "reviewer_a": "CORRECT",
+      "reviewer_b": "UNRESOLVED"
+    },
+    {
+      "adjudication": {
+        "axis": "source_fidelity",
+        "case_id": "first-28",
+        "rationale": "Final NOT_ASSESSABLE retains absence of original generic-sporulation-to-endospore mapping semantics; related synonym does not prove the specific narrowing transformation.",
+        "status": "unresolved"
+      },
+      "axis": "source_fidelity",
+      "blocks_passage": false,
+      "case_id": "first-28",
+      "disposition": "pending_adjudication",
+      "reviewer_a": "NOT_ASSESSABLE",
+      "reviewer_b": "CONTRADICTED"
+    },
+    {
+      "adjudication": {
+        "axis": "source_fidelity",
+        "case_id": "first-43",
+        "rationale": "Final NOT_ASSESSABLE preserves the explicit negative-summary/positive-edge concern but lacks original polarity handling and assertion convention; no biological opposite inferred.",
+        "status": "unresolved"
+      },
+      "axis": "source_fidelity",
+      "blocks_passage": false,
+      "case_id": "first-43",
+      "disposition": "pending_adjudication",
+      "reviewer_a": "NOT_ASSESSABLE",
+      "reviewer_b": "CONTRADICTED"
+    },
+    {
+      "adjudication": {
+        "axis": "source_fidelity",
+        "case_id": "fresh-14",
+        "rationale": "Final NOT_ASSESSABLE distinguishes established species/strain relation error from unproved original emitting branch and source transformation convention; later producer normalization is insufficient.",
+        "status": "unresolved"
+      },
+      "axis": "source_fidelity",
+      "blocks_passage": false,
+      "case_id": "fresh-14",
+      "disposition": "pending_adjudication",
+      "reviewer_a": "NOT_ASSESSABLE",
+      "reviewer_b": "CONTRADICTED"
+    }
+  ],
+  "expansion_authorized": false,
+  "final_authored_validation": {
+    "path": "/Users/marcin/agent-work/EdgeMech/m5-calibration-round03-20261116/.temp/m5-round03-worker-20261116/adjudication/final-artifact-check-01/final-authored-validation.json",
+    "sha256": "1c01da6b46e6712602da9fc0e9630fe89c504d7a3f1e49eddd4896b40ca12eef"
+  },
+  "final_categories": {
+    "first-01": {
+      "claim": "NOT_ASSESSABLE",
+      "literature": "NOT_APPLICABLE",
+      "object_node": "UNRESOLVED",
+      "relation": "INCORRECT",
+      "source_fidelity": "NOT_ASSESSABLE",
+      "subject_node": "CORRECT"
+    },
+    "first-28": {
+      "claim": "INSUFFICIENT_EVIDENCE",
+      "literature": "UNAVAILABLE",
+      "object_node": "CORRECT",
+      "relation": "INCORRECT",
+      "source_fidelity": "NOT_ASSESSABLE",
+      "subject_node": "CORRECT"
+    },
+    "first-30": {
+      "claim": "INSUFFICIENT_EVIDENCE",
+      "literature": "UNAVAILABLE",
+      "object_node": "CORRECT",
+      "relation": "INCORRECT",
+      "source_fidelity": "CONTRADICTED",
+      "subject_node": "UNRESOLVED"
+    },
+    "first-32": {
+      "claim": "CONTRADICTED_AS_STATED",
+      "literature": "NOT_APPLICABLE",
+      "object_node": "CORRECT",
+      "relation": "INCORRECT",
+      "source_fidelity": "SUPPORTED",
+      "subject_node": "CORRECT"
+    },
+    "first-43": {
+      "claim": "INSUFFICIENT_EVIDENCE",
+      "literature": "UNAVAILABLE",
+      "object_node": "CORRECT",
+      "relation": "INCORRECT",
+      "source_fidelity": "NOT_ASSESSABLE",
+      "subject_node": "CORRECT"
+    },
+    "fresh-04": {
+      "claim": "NOT_ASSESSABLE",
+      "literature": "PARTIAL",
+      "object_node": "UNRESOLVED",
+      "relation": "INCORRECT",
+      "source_fidelity": "NOT_ASSESSABLE",
+      "subject_node": "CORRECT"
+    },
+    "fresh-05": {
+      "claim": "SUPPORTED_AS_STATED",
+      "literature": "SUPPORTS",
+      "object_node": "CORRECT",
+      "relation": "INCORRECT",
+      "source_fidelity": "NOT_ASSESSABLE",
+      "subject_node": "CORRECT"
+    },
+    "fresh-14": {
+      "claim": "CONTRADICTED_AS_STATED",
+      "literature": "NOT_APPLICABLE",
+      "object_node": "CORRECT",
+      "relation": "INCORRECT",
+      "source_fidelity": "NOT_ASSESSABLE",
+      "subject_node": "CORRECT"
+    },
+    "fresh-32": {
+      "claim": "NOT_ASSESSABLE",
+      "literature": "PARTIAL",
+      "object_node": "UNRESOLVED",
+      "relation": "INCORRECT",
+      "source_fidelity": "NOT_ASSESSABLE",
+      "subject_node": "CORRECT"
+    },
+    "fresh-47": {
+      "claim": "NOT_ASSESSABLE",
+      "literature": "PARTIAL",
+      "object_node": "CORRECT",
+      "relation": "CORRECT",
+      "source_fidelity": "SUPPORTED",
+      "subject_node": "UNRESOLVED"
+    }
+  },
+  "final_critical_label_classes": {
+    "unsupported CONFLICTING_EVIDENCE": {
+      "emitted_labels": 0,
+      "status": "untested_label_class",
+      "unsupported_labels": 0
+    },
+    "unsupported CONTRADICTED_AS_STATED": {
+      "emitted_labels": 2,
+      "status": "audited",
+      "unsupported_labels": 0
+    },
+    "unsupported CORRECT model judgment": {
+      "emitted_labels": 16,
+      "status": "audited",
+      "unsupported_labels": 0
+    },
+    "unsupported INCORRECT model judgment": {
+      "emitted_labels": 9,
+      "status": "audited",
+      "unsupported_labels": 0
+    },
+    "unsupported SUPPORTED_AS_STATED": {
+      "emitted_labels": 1,
+      "status": "audited",
+      "unsupported_labels": 0
+    }
+  },
+  "final_gates": {
+    "critical_overclaims": {
+      "final_unsupported_labels": 0,
+      "initial_unsupported_labels": 6,
+      "maximum": 0,
+      "passed": false
+    },
+    "disagreement_disposition": {
+      "blocking_unresolved_disagreements": 1,
+      "passed": false
+    },
+    "evidence_replay": {
+      "actual_replay": {
+        "canonical_pairs": {
+          "complete_slot_inventory": true,
+          "expected": 20,
+          "retained": 20,
+          "verified": 20
+        },
+        "exact_authority_exercises": {
+          "eligible_final_incorrect_axes": {
+            "fresh-05": [
+              "relation"
+            ]
+          },
+          "exact_refuting_authority_axes": {
+            "first-01": [
+              "relation"
+            ],
+            "first-28": [
+              "relation"
+            ],
+            "first-30": [
+              "relation"
+            ],
+            "first-32": [
+              "relation"
+            ],
+            "first-43": [
+              "relation"
+            ],
+            "fresh-04": [
+              "relation"
+            ],
+            "fresh-05": [
+              "relation"
+            ],
+            "fresh-14": [
+              "relation"
+            ],
+            "fresh-32": [
+              "relation"
+            ]
+          }
+        },
+        "exact_paper_exercises": {
+          "required": {
+            "fresh-05": [
+              "supports"
+            ]
+          },
+          "verified_support": {
+            "fresh-05": [
+              "supports"
+            ]
+          }
+        },
+        "final_citations": {
+          "complete_slot_inventory": true,
+          "expected": 55,
+          "passed": 55,
+          "retained": 55
+        },
+        "initial_proofs": {
+          "entries_with_unknown_denominator": 0,
+          "known_expected": 153,
+          "passed": 153
+        },
+        "passed": true,
+        "problems": []
+      },
+      "authored_status": "passed",
+      "complete_initial_seals_verified": true,
+      "independent_adjudicator_integrity_passed": true,
+      "passed": true,
+      "reason": "Actual complete canonical, literal and identity replay plus original initial seals; semantic sufficiency remains the separate identified adjudicator's judgment.",
+      "receipts": [
+        {
+          "path": ".temp/m5-round03-worker-20261116/adjudication/manifest-verification.json",
+          "sha256": "fcfc5ec73a4e2f958b9b2cdfcb54d5c21971c59a2279c39dae168d484099c3e0"
+        },
+        {
+          "path": ".temp/m5-round03-worker-20261116/adjudication/reviewer-a-seal-check.json",
+          "sha256": "e161baae98e23b1f01d1aae7d88c55caed3c24eaecb0bbfda73bc71e24cfe63b"
+        },
+        {
+          "path": ".temp/m5-round03-worker-20261116/adjudication/reviewer-b-seal-check.json",
+          "sha256": "f39eb7faa33d4ce76c2cdd64ecb624c3e71f9275c3b04113d3ffbce78918f7ea"
+        },
+        {
+          "path": ".temp/m5-round03-worker-20261116/acceptance/canonical-canary-01/receipt.json",
+          "sha256": "b7a451fada8bd6c35534ea48a3eeae7f0fb7cbaa889e5012a4f0ec6b81ee0586"
+        },
+        {
+          "path": ".temp/m5-round03-worker-20261116/acceptance/canonical-pairs-01/receipt.json",
+          "sha256": "447f37b295123deb1c3e8cce77f8d5ca05a5ab79dc4ea1cd912704f9b0c6060e"
+        },
+        {
+          "path": ".temp/m5-round03-worker-20261116/adjudicator-production-canary/canary-receipt.json",
+          "sha256": "6111f508d1cfee560ed24e5dde90d4aaa3509b171b2a9cb6f2266e2786fd7aed"
+        },
+        {
+          "path": ".temp/m5-round03-worker-20261116/adjudication/citation-canary-01/receipt.json",
+          "sha256": "70464d74844e038a941b58babc346138bbe548a0e5157ac45f95536205e04acd"
+        },
+        {
+          "path": ".temp/m5-round03-worker-20261116/adjudication/citation-batch-01/receipt.json",
+          "sha256": "b420139713283ccd845fe5a30a02fd4a91efd00edd2b7c40ab977c9f99a3f1f5"
+        }
+      ],
+      "required_fraction": 1.0,
+      "status": "passed"
+    },
+    "exact_authority_backed_incorrect_model_judgments": {
+      "case_ids": [
+        "fresh-05"
+      ],
+      "denominator": null,
+      "minimum": 1,
+      "numerator": 1,
+      "passed": true,
+      "scope": "authored evidence audit; independent replay required"
+    },
+    "exact_paper_backed_directional_claims": {
+      "case_ids": [
+        "fresh-05"
+      ],
+      "denominator": null,
+      "minimum": 1,
+      "numerator": 1,
+      "passed": true,
+      "scope": "authored evidence audit; independent replay required"
+    },
+    "final_authored_axes": {
+      "denominator": 60,
+      "minimum": 60,
+      "numerator": 60,
+      "passed": true,
+      "unassessed": 0
+    },
+    "resolved_claims": {
+      "denominator": 10,
+      "minimum": 2,
+      "numerator": 3,
+      "passed": true
+    },
+    "resolved_modeling_per_axis": {
+      "object_node": {
+        "denominator": 10,
+        "minimum": 5,
+        "numerator": 7,
+        "passed": true
+      },
+      "relation": {
+        "denominator": 10,
+        "minimum": 5,
+        "numerator": 10,
+        "passed": true
+      },
+      "subject_node": {
+        "denominator": 10,
+        "minimum": 5,
+        "numerator": 8,
+        "passed": true
+      }
+    },
+    "resolved_source_fidelity": {
+      "denominator": 10,
+      "minimum": 8,
+      "numerator": 3,
+      "passed": false
+    }
+  },
+  "finalizer": {
+    "config_sha256": "95516af3b351b5238492e27a143cd77d738cd50ff6bac25a25f6a6305c46da1b",
+    "graph_admissions": 0,
+    "helper_sha256": "dbd9f79b562f4e22b0159d6dddb6d92b70fcac6772daaab788ce07a9fec24c8d",
+    "published": false,
+    "source_config": ".temp/m5-round03-worker-20261116/adjudication/finalizer-config.json"
+  },
+  "initial_critical_label_classes": {
+    "unsupported CONFLICTING_EVIDENCE": {
+      "emitted_labels": 0,
+      "status": "untested_label_class",
+      "unsupported_labels": 0
+    },
+    "unsupported CONTRADICTED_AS_STATED": {
+      "emitted_labels": 4,
+      "status": "audited",
+      "unsupported_labels": 0
+    },
+    "unsupported CORRECT model judgment": {
+      "emitted_labels": 33,
+      "status": "audited",
+      "unsupported_labels": 1
+    },
+    "unsupported INCORRECT model judgment": {
+      "emitted_labels": 18,
+      "status": "audited",
+      "unsupported_labels": 4
+    },
+    "unsupported SUPPORTED_AS_STATED": {
+      "emitted_labels": 2,
+      "status": "audited",
+      "unsupported_labels": 1
+    }
+  },
+  "initial_gates": {
+    "endpoint_roles_retained": {
+      "denominator": 20,
+      "minimum": 20,
+      "numerator": 20,
+      "passed": true
+    },
+    "initial_claim_agreement": {
+      "denominator": 10,
+      "minimum": 9,
+      "numerator": 10,
+      "passed": true
+    },
+    "initial_exact_category_agreement": {
+      "denominator": 60,
+      "minimum": 54,
+      "numerator": 54,
+      "passed": true
+    },
+    "initial_per_axis_agreement": {
+      "claim": {
+        "denominator": 10,
+        "minimum": 8,
+        "numerator": 10,
+        "passed": true
+      },
+      "literature": {
+        "denominator": 10,
+        "minimum": 8,
+        "numerator": 10,
+        "passed": true
+      },
+      "object_node": {
+        "denominator": 10,
+        "minimum": 8,
+        "numerator": 9,
+        "passed": true
+      },
+      "relation": {
+        "denominator": 10,
+        "minimum": 8,
+        "numerator": 8,
+        "passed": true
+      },
+      "source_fidelity": {
+        "denominator": 10,
+        "minimum": 8,
+        "numerator": 7,
+        "passed": false
+      },
+      "subject_node": {
+        "denominator": 10,
+        "minimum": 8,
+        "numerator": 10,
+        "passed": true
+      }
+    },
+    "packets_replayed": {
+      "denominator": 10,
+      "minimum": 10,
+      "numerator": 10,
+      "passed": true
+    }
+  },
+  "initial_seal_checks": {
+    "reviewer-a": {
+      "check": {
+        "authored_axes": 60,
+        "canonical_persistence_checked": false,
+        "cases": 10,
+        "matrix": {
+          "path": ".temp/round03-reviewer/initial/matrix.json",
+          "sha256": "d11d97e0df567524e74fac2afe0ceb76642c14220037564fb702e0f4c7983917"
+        },
+        "pinned_inputs": 285,
+        "scope": "initial_authored_draft_and_literal_proof_validation_not_semantic_approval_or_persistence",
+        "seal": {
+          "path": ".temp/round03-reviewer/initial/initial-seal.json",
+          "sha256": "6eafb7fdbd1722b9d9f1a5ffb2b16a41bc10f3372336b39a3b83535c15d6ea24"
+        },
+        "status": "passed"
+      },
+      "matrix_sha256": "d11d97e0df567524e74fac2afe0ceb76642c14220037564fb702e0f4c7983917",
+      "mirror_matrix_receipt_sha256": "638725564d42f3d39493c928d002dc7a177452a7f84958e49dbbe6efbd24962c",
+      "original_matrix_receipt_sha256": "b7cc392586601f610b7e80e55fba1f4c209c1fcc1edb41ae3ead2d5760e7b38d",
+      "original_saved_at": "2026-11-17T03:41:45.656047+00:00",
+      "root": "/Users/marcin/agent-work/EdgeMech/m5-round03-reviewers-20261116/reviewer-a",
+      "transport_saved_at": "2026-11-17T03:44:35.817684+00:00"
+    },
+    "reviewer-b": {
+      "check": {
+        "authored_axes": 60,
+        "canonical_persistence_checked": false,
+        "cases": 10,
+        "matrix": {
+          "path": ".temp/round03-reviewer/initial/matrix.json",
+          "sha256": "ae30750029a05cebb0b0aa51a9d39b42bb53717ee52b8169d7e402b7ec93fe47"
+        },
+        "pinned_inputs": 285,
+        "scope": "initial_authored_draft_and_literal_proof_validation_not_semantic_approval_or_persistence",
+        "seal": {
+          "path": ".temp/round03-reviewer/initial/initial-seal.json",
+          "sha256": "1d35837adde522e3f019c0731384bbc92b0724e882bed0ede3a825d916be900f"
+        },
+        "status": "passed"
+      },
+      "matrix_sha256": "ae30750029a05cebb0b0aa51a9d39b42bb53717ee52b8169d7e402b7ec93fe47",
+      "mirror_matrix_receipt_sha256": "1627b7e5be327939fa14bcb0433f65f704f9cc1e8888687007e0848a1c6cb70e",
+      "original_matrix_receipt_sha256": "afc042c9f62d0806c9c3ada78b89dc302b616b6c8d80b44dff32519e4b9d98af",
+      "original_saved_at": "2026-11-17T03:42:22.086949+00:00",
+      "root": "/Users/marcin/agent-work/EdgeMech/m5-round03-reviewers-20261116/reviewer-b",
+      "transport_saved_at": "2026-11-17T03:44:36.384907+00:00"
+    }
+  },
+  "input_pins": [
+    {
+      "path": ".temp/m5-round03-worker-20261116/round03-package/manifest.json",
+      "sha256": "3928396bf4c089620ec0209fdcb986c14f36969259ed01ab563c6807037ee298"
+    },
+    {
+      "path": ".temp/m5-round03-worker-20261116/scoring/reviewer-a/matrix.json",
+      "sha256": "d11d97e0df567524e74fac2afe0ceb76642c14220037564fb702e0f4c7983917"
+    },
+    {
+      "path": ".temp/m5-round03-worker-20261116/scoring/reviewer-b/matrix.json",
+      "sha256": "ae30750029a05cebb0b0aa51a9d39b42bb53717ee52b8169d7e402b7ec93fe47"
+    },
+    {
+      "path": ".temp/m5-round03-worker-20261116/adjudication/comparison.json",
+      "sha256": "408dd3839a5f91bee79ba76930f4050b4547a3b5f7de348442c9796996bf4c49"
+    },
+    {
+      "path": ".temp/m5-round03-worker-20261116/adjudication/audit.json",
+      "sha256": "ff949f12e4e88c332736085798fa2b4454b107a5ed32203cc6ed4ecf7024cefe"
+    }
+  ],
+  "interpretation": "Original operational calibration gates only. Agreement, replay and persistence do not establish independent expert validation or graph admission.",
+  "literature": {
+    "all_ten": {
+      "first-01": "NOT_APPLICABLE",
+      "first-28": "UNAVAILABLE",
+      "first-30": "UNAVAILABLE",
+      "first-32": "NOT_APPLICABLE",
+      "first-43": "UNAVAILABLE",
+      "fresh-04": "PARTIAL",
+      "fresh-05": "SUPPORTS",
+      "fresh-14": "NOT_APPLICABLE",
+      "fresh-32": "PARTIAL",
+      "fresh-47": "PARTIAL"
+    },
+    "applicability_deviations": [],
+    "exact_directional": 1,
+    "experimental_denominator": 7
+  },
+  "package_sha256": "3928396bf4c089620ec0209fdcb986c14f36969259ed01ab563c6807037ee298",
+  "remaining_90_authorized_by_result": false,
+  "replay_receipts": {
+    "citations": {
+      "path": "/Users/marcin/agent-work/EdgeMech/m5-calibration-round03-20261116/.temp/m5-round03-worker-20261116/adjudication/final-artifact-check-01/final-citations/receipt.json",
+      "sha256": "7fbcde34efd6d527ea5c1fbc0f8ba442359665e8ac2e172f2862d8af25091af3"
+    },
+    "pairs": {
+      "path": "/Users/marcin/agent-work/EdgeMech/m5-calibration-round03-20261116/.temp/m5-round03-worker-20261116/adjudication/final-artifact-check-01/canonical-pairs/receipt.json",
+      "sha256": "05219391ad7608054a64663513410818329db776888c8592a7fa25b7719ec2e3"
+    }
+  },
+  "round_id": "m5-calibration-20261116-round03",
+  "schema": "edgemech-calibration-finalization/v1",
+  "scientific_calibration_passed": false,
+  "status": "failed_gate",
+  "supplemental_semantic_audit": {
+    "audited": 15,
+    "entries": [
+      {
+        "axis": "source_fidelity",
+        "case_id": "first-30",
+        "category": "CONTRADICTED",
+        "evidence_ids": [
+          "packet-first-30",
+          "r03-owner-001",
+          "r03-owner-003",
+          "r03-owner-method-result"
+        ],
+        "rationale": "Exact source max1.8 and actual bounded classifier output establish statistic transfer; separately frozen original ontology target establishes optimum meaning. Units/statistic loss is demonstrated within this bounded mapping, not the full dirty build or biological opposite.",
+        "reviewer_id": "reviewer-a",
+        "status": "supported"
+      },
+      {
+        "axis": "source_fidelity",
+        "case_id": "first-32",
+        "category": "SUPPORTED",
+        "evidence_ids": [
+          "packet-first-32"
+        ],
+        "rationale": "Original source explicitly pairs the same LPSN/NCBI IDs and the assertion preserves that narrow crosswalk meaning; independent truth is separately contradicted.",
+        "reviewer_id": "reviewer-a",
+        "status": "supported"
+      },
+      {
+        "axis": "source_fidelity",
+        "case_id": "fresh-47",
+        "category": "SUPPORTED",
+        "evidence_ids": [
+          "packet-fresh-47",
+          "r03-evidence-028"
+        ],
+        "rationale": "Participating LPSN/BacDive chain, selected literal field and report-only minting preserve0-10 without converting statistics or asserting universal biology.",
+        "reviewer_id": "reviewer-a",
+        "status": "supported"
+      },
+      {
+        "axis": "literature",
+        "case_id": "fresh-05",
+        "category": "SUPPORTS",
+        "evidence_ids": [
+          "r03-evidence-011"
+        ],
+        "rationale": "Primary abstract directly characterizes HOact23=DSM18772 non-motility at the stated strain scope; it remains abstract evidence, not all-condition proof.",
+        "reviewer_id": "reviewer-a",
+        "status": "supported"
+      },
+      {
+        "axis": "source_fidelity",
+        "case_id": "first-28",
+        "category": "CONTRADICTED",
+        "evidence_ids": [
+          "packet-first-28",
+          "r03-evidence-003",
+          "r03-evidence-047"
+        ],
+        "rationale": "Generic sporulation and an ontology related synonym do not establish the original emitting rule or whether its selected field meant endospores. The specific narrowing transformation is not demonstrated; this is missing semantic support, not evidence of biological absence.",
+        "reviewer_id": "reviewer-b",
+        "status": "unsupported"
+      },
+      {
+        "axis": "source_fidelity",
+        "case_id": "first-30",
+        "category": "CONTRADICTED",
+        "evidence_ids": [
+          "packet-first-30",
+          "r03-evidence-003",
+          "r03-owner-002",
+          "r03-owner-003",
+          "r03-owner-method-result"
+        ],
+        "rationale": "Exact source, original ontology definition, selected maximum branch and actual bounded replay demonstrate maximum-to-optimum semantic loss. Replay does not establish taxonomy, experimental biology or the full dirty build.",
+        "reviewer_id": "reviewer-b",
+        "status": "supported"
+      },
+      {
+        "axis": "source_fidelity",
+        "case_id": "first-32",
+        "category": "SUPPORTED",
+        "evidence_ids": [
+          "packet-first-32"
+        ],
+        "rationale": "Source and assertion preserve the same explicit erroneous crosswalk; source fidelity is distinct from taxonomic correctness.",
+        "reviewer_id": "reviewer-b",
+        "status": "supported"
+      },
+      {
+        "axis": "source_fidelity",
+        "case_id": "first-43",
+        "category": "CONTRADICTED",
+        "evidence_ids": [
+          "packet-first-43",
+          "r03-evidence-003",
+          "r03-evidence-047"
+        ],
+        "rationale": "Negative summary versus positive edge is a polarity concern, but no exact original polarity-selection rule or producer assertion convention establishes that specific transformation. General process meaning and copied endpoints cannot fill this gap.",
+        "reviewer_id": "reviewer-b",
+        "status": "unsupported"
+      },
+      {
+        "axis": "source_fidelity",
+        "case_id": "fresh-14",
+        "category": "CONTRADICTED",
+        "evidence_ids": [
+          "packet-fresh-14",
+          "r03-evidence-007"
+        ],
+        "rationale": "The source supplies a nomenclatural type, but the source-fidelity axis binds only packet and later producer, not necessary independent type/close-match meaning witnesses. The later branch is not proof of original emission semantics. A modeling error cannot automatically become a resolved source transformation error.",
+        "reviewer_id": "reviewer-b",
+        "status": "unsupported"
+      },
+      {
+        "axis": "source_fidelity",
+        "case_id": "fresh-47",
+        "category": "SUPPORTED",
+        "evidence_ids": [
+          "packet-fresh-47",
+          "r03-evidence-028"
+        ],
+        "rationale": "Selected LPSN/BacDive chain and literal salt field are preserved as a report-only source attribute; unrelated NCBI crosswalk does not change that bounded transfer.",
+        "reviewer_id": "reviewer-b",
+        "status": "supported"
+      },
+      {
+        "axis": "literature",
+        "case_id": "fresh-05",
+        "category": "SUPPORTS",
+        "evidence_ids": [
+          "r03-evidence-011"
+        ],
+        "rationale": "This literature judgment is scoped to the named DSM18772/HOact23 phenotype directly stated in the primary abstract; missing claim-axis ontology bindings are audited separately.",
+        "reviewer_id": "reviewer-b",
+        "status": "supported"
+      },
+      {
+        "axis": "source_fidelity",
+        "case_id": "first-30",
+        "category": "CONTRADICTED",
+        "evidence_ids": [
+          "packet-first-30",
+          "r03-evidence-047",
+          "r03-owner-003",
+          "r03-owner-method-result"
+        ],
+        "rationale": "Bound original source maximum, exact independent METPO optimum definition, inspected selected-max code and actual bounded output demonstrate the statistic/unit meaning mismatch. No full historical-build or biological conclusion follows.",
+        "reviewer_id": "adjudicated",
+        "status": "supported"
+      },
+      {
+        "axis": "source_fidelity",
+        "case_id": "first-32",
+        "category": "SUPPORTED",
+        "evidence_ids": [
+          "packet-first-32"
+        ],
+        "rationale": "The source explicitly makes this same LPSN/NCBI coassignment, and the final judgment is confined to that transfer. Independent identity truth remains contradicted.",
+        "reviewer_id": "adjudicated",
+        "status": "supported"
+      },
+      {
+        "axis": "source_fidelity",
+        "case_id": "fresh-47",
+        "category": "SUPPORTED",
+        "evidence_ids": [
+          "packet-fresh-47",
+          "r03-evidence-028"
+        ],
+        "rationale": "Exact selected field, participating identity chain and frozen report-only minting preserve source token and meaning without adding maximum, optimum, units or universal biology.",
+        "reviewer_id": "adjudicated",
+        "status": "supported"
+      },
+      {
+        "axis": "literature",
+        "case_id": "fresh-05",
+        "category": "SUPPORTS",
+        "evidence_ids": [
+          "r03-evidence-011"
+        ],
+        "rationale": "Retained primary abstract directly states same-strain non-motility; scope remains the published characterization, with no invented method or condition universality.",
+        "reviewer_id": "adjudicated",
+        "status": "supported"
+      }
+    ],
+    "expected": 15,
+    "passed": false,
+    "scope": "Explicit user requirement, separate from unchanged original critical classes and thresholds.",
+    "unsupported": 3
+  }
+}
