@@ -83,7 +83,7 @@ All ten final literature categories are retained: first-01/first-32/fresh-14 are
 NOT_APPLICABLE; first-28/first-30/first-43 are UNAVAILABLE; fresh-04/fresh-32/fresh-47
 are PARTIAL; fresh-05 is SUPPORTS. Over the fixed seven applicable cases there is
 one exact directional support, zero refutations and zero conflicts. All six
-initial confusion tables remain in the immutable comparison artifact.
+initial confusion tables remain in the [immutable comparison artifact](../../artifacts/edge-calibration-round03-20261116/initial-comparison.json).
 
 ## Evidence limits and failed blinding condition
 
@@ -147,15 +147,44 @@ The first actual publication derivative then failed closed before any projection
 the installed-distribution fingerprint differed from that parent receipt. The
 publisher duplicated source paths already supplied to Python, causing local
 distribution metadata to appear twice. Its failed stage and verifier diagnostics
-remain private and immutable. A minimal import-setup repair preserves the existing
-runtime guard and requires another identified runtime, package and parent canary.
-Final derivative publication remains pending at this repair snapshot.
+remain private and immutable. Issue [#204](https://github.com/CultureBotAI/EdgeMech/issues/204)
+records the minimal import-setup repair, which preserves the existing runtime
+guard. Its real metadata regression fails before the fix, passes afterward,
+and still rejects a genuine metadata change. The final code candidate passed
+1,290 tests in 114.20 seconds, 192 focused tests, 16 contracts, configured Ruff,
+wheel/source builds and independent actual-diff review. The initial sandbox
+cache-access build failure was retained; the authorized offline build succeeded.
+
+Publication runtime `2e31b6f16d0a6f895a1d43a06912341586d24c4b` freezes a distinct
+360-pin package, SHA256
+`1e0ad8f7dea88d5138d891341d46ac772f8a7896f0282ee11ddaf2b0686fd168`.
+Its fresh parent production receipt is
+`5e4c1ccf7cd4e84b35d435cef3255c36001595b83cca068992f8f78633c0ac56`.
+The real save/check, complete authored values and both saved files passed
+independent inspection. A corrected ancillary checksum-path typo remains in
+the operational log. No scientific or canonical-pair denominator includes it.
+
+The actual one-unit derivative canary passed complete three-file regeneration
+and independent inspection, then the full twenty-review batch passed complete
+22-file regeneration and independent read-only inspection. It separately binds
+the original scientific packages/seals and the newer publication runtime.
+The batch receipt SHA256 is
+`dfa8af80abb3c888706a7fac615312badc543713d65b63686ae5e3339cfd5316`.
+The [public result bundle](../../artifacts/edge-calibration-round03-20261116/README.md)
+preserves all twenty initial projections, six confusion tables, final accounting
+and the unchanged original finalizer result. Source quotations remain private;
+the twenty projections contain zero quoted source words. The final aggregate
+public-source gate and independent exact-inventory review cover all proposed
+code, documentation and result files, both reviewers and all ten cases, using
+the retained catalog plus twenty initial reviews and ten final drafts.
 
 The engineering package is not a future scientific launch package: its included
 scientific prompt still names the original round03 manifest, and generic case-view
 exposure wording needs reconciliation with the revised content-based rule. These
-are explicit deferred prerequisites for any future scientific package. No new
-scientific run or reuse of an old receipt is authorized by this engineering work.
+are explicit deferred prerequisites in [#203](https://github.com/CultureBotAI/EdgeMech/issues/203).
+No new scientific run or reuse of an old receipt is authorized by this engineering
+work. Receipts certify their named runtime; the later documentation/result commit
+does not confer permission to launch under a changed HEAD.
 
 ## Durable provenance
 

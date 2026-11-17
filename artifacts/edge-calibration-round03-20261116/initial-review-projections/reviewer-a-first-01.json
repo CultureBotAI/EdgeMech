@@ -1,0 +1,193 @@
+{
+  "assessments": [
+    {
+      "authored_assessment_sha256": "565b1075cbfd93f2445cd68ea006486faf11d4569102205a33e9627aa928b05d",
+      "axis": "claim",
+      "category": "NOT_ASSESSABLE",
+      "scope_sha256": "7c8e53f6c6485f4ffe7d76175e60fcb764ed1bde6c711dfb8e174fd2809c1e32"
+    },
+    {
+      "authored_assessment_sha256": "5ac431bbcf925e77f6f98045d0889020c028330079e9e4cfc5ff8aec3f8a19a2",
+      "axis": "literature",
+      "category": "NOT_APPLICABLE",
+      "scope_sha256": "b89af38ecb2e52b6404026fe6a9b1c4277d8df14afb9b4e33547cc3a9d4456c2"
+    },
+    {
+      "authored_assessment_sha256": "b6ac0132073b3444cc58fc03caacd039b37ef7665da2ac7d715d5fb84939c944",
+      "axis": "object_node",
+      "category": "INCORRECT",
+      "scope_sha256": "9b966e403a39f04f756a9bb2d7720f85ce42dbcd9ecdf759c20e8575466957c5"
+    },
+    {
+      "authored_assessment_sha256": "a0992052d6f8b093ea398c8c00b0ab3929533dabdeefb5d96603c9c5ac3e389e",
+      "axis": "relation",
+      "category": "INCORRECT",
+      "scope_sha256": "3fcd998365b17659a52aa024f3c13bceab7cc1b07269ad61943af56ce2812bb8"
+    },
+    {
+      "authored_assessment_sha256": "74b04b46509e59977a69bb4c55c10e28d2e96ccd3492a64b648139f7c119fe9d",
+      "axis": "source_fidelity",
+      "category": "NOT_ASSESSABLE",
+      "scope_sha256": "fa4e43f46f4d7a17bfacb85749c902892becc538491d78ab5b667b831ccd0be2"
+    },
+    {
+      "authored_assessment_sha256": "5dc5bda7d6b4a7f07e92f1f635225b1b2f008fa07388a29695a5f806c45b82d3",
+      "axis": "subject_node",
+      "category": "CORRECT",
+      "scope_sha256": "fa40af7bbc47468a6b9f339a8323bed1955e0e01cb91ec34b88079bd9106180b"
+    }
+  ],
+  "calibration_rating": true,
+  "canonical_pair": {
+    "authored_values_checked": true,
+    "canonical_command": {
+      "exit_code": 0,
+      "helper": {
+        "path": "src/edgemech/occurrence_review.py",
+        "sha256": "c977e3170b470292a1715efba3e737d704929af7b4319635bdb262f44fe029d4"
+      },
+      "stderr_sha256": "e2cf5a8ee56373cb7afeb23be8ac2a30d67f13afa55bb51424877fc908e2a25f",
+      "stdout_sha256": "efc442f242a1fa9575aa0b74c3dc55679dc47ad18e3e2d5653f25c4d2271e40d"
+    },
+    "markdown": {
+      "path": "reviews/structured/20261117T033102Z-reviewer-a-first-01/review.md",
+      "sha256": "94789bdc9a1543c216b741cdf9b823c5a24619d31af1c4a78639edce03ca7595"
+    },
+    "review": {
+      "path": "reviews/structured/20261117T033102Z-reviewer-a-first-01/review.yaml",
+      "sha256": "807eae405f54eccfa73db202aa6e265335f43760b802bcc1ce67ec752add0422"
+    },
+    "scope": "Existing canonical pair read/check only; no new save or scientific approval"
+  },
+  "canonical_persistence_asserted": true,
+  "canonical_review": false,
+  "case_id": "first-01",
+  "completion": "partial",
+  "kg_admissions": 0,
+  "mode": "round",
+  "occurrence_id": "urn:kg-microbe:occurrence:v1:aa8fb3ee82e3e42f14412a810092bfce9905eacfd7ae4c783d702011f59821eb",
+  "private_inputs": {
+    "case_id": "first-01",
+    "packet": {
+      "path": ".temp/edge-calibration-20261115/first-01/packet.json",
+      "sha256": "b516c976dbdb13900c8e6e83f740c7fa962afa23af6f5aa293f846cdfa768926"
+    },
+    "proofs": {
+      "path": ".temp/round03-reviewer/drafts/first-01-v2/proofs.json",
+      "sha256": "f9deff75757bb0056c7ac25afe5dd39da7d71f6e10414305ffe05b7070bc824a"
+    },
+    "review": {
+      "path": "reviews/structured/20261117T033102Z-reviewer-a-first-01/review.yaml",
+      "sha256": "807eae405f54eccfa73db202aa6e265335f43760b802bcc1ce67ec752add0422"
+    },
+    "reviewer": "reviewer-a"
+  },
+  "production_input_validation": {
+    "scope": "Production input validation; not persistence",
+    "status": "passed"
+  },
+  "publication_runtime": {
+    "git_head": "2e31b6f16d0a6f895a1d43a06912341586d24c4b",
+    "manifest": {
+      "path": ".temp/m5-round03-worker-20261116/publication-runtime-02/manifest.json",
+      "sha256": "1e0ad8f7dea88d5138d891341d46ac772f8a7896f0282ee11ddaf2b0686fd168"
+    },
+    "package_verification": {
+      "exit_code": 0,
+      "helper": {
+        "path": "scripts/adhoc/calibration_round_20261116.py",
+        "sha256": "b060792e3c149f3fcd3c56678ea01d4612777cf38c35c00c478f5582edca99a1"
+      },
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_sha256": "e84b4c96b74d5bfdcdf23448f05d2cb955cae0726ac48ec2ea9b70bd03501ecd"
+    },
+    "production_receipt": {
+      "path": ".temp/m5-round03-worker-20261116/engineering-production-canary-02/canary-receipt.json",
+      "sha256": "5e4c1ccf7cd4e84b35d435cef3255c36001595b83cca068992f8f78633c0ac56"
+    },
+    "repository_identity": "CultureBotAI/EdgeMech",
+    "repository_origin": "https://github.com/CultureBotAI/EdgeMech.git",
+    "runtime_bindings": {
+      "codex_path": "/Users/marcin/.nvm/versions/node/v22.16.0/lib/node_modules/@openai/codex/node_modules/@openai/codex-darwin-arm64/vendor/aarch64-apple-darwin/bin/codex",
+      "codex_sha256": "739cda86e15d30a6e2b40cf8dcbbfb988aaf48b305b27065573bb8e9fd41d002",
+      "distributions_sha256": "dd8a8dda18e3f94fbf23328ae755c1465a03ca4076bae134785921e6fa4a0548",
+      "environment_sha256": "8333f7807e539500830f414c6633d9916d02b084233d056ac9133c505f57c7a8",
+      "git_head": "2e31b6f16d0a6f895a1d43a06912341586d24c4b",
+      "helper_sha256": "3b22a0886cc85e94c537fa5a1da94e445dc79eac47bd9d0c1310feaa651e64b2",
+      "host": "marcins-MacBook-Pro-3.local",
+      "lock_sha256": "ffdec65db5f8ff7e6b32fd751f655eea1881d0305553c5bb154e3195a70f1033",
+      "python_executable": "/Users/marcin/agent-work/EdgeMech/m5-calibration-round03-20261116/.venv/bin/python",
+      "python_prefix": "/Users/marcin/agent-work/EdgeMech/m5-calibration-round03-20261116/.venv",
+      "python_sha256": "9bfc2a72ac7db20d18d0b275f3136fef9e9ede7da34d241d4d82cc5c65d8d20d",
+      "python_version": "3.14.7 | packaged by conda-forge | (main, Sep  2 2026, 21:04:32) [Clang 20.1.8 ]",
+      "repository_identity": "CultureBotAI/EdgeMech",
+      "repository_origin": "https://github.com/CultureBotAI/EdgeMech.git"
+    },
+    "runtime_id": "m5-calibration-20261116-round03-publication-repair02"
+  },
+  "quotation_words": 0,
+  "reviewer": "reviewer-a",
+  "round_id": "m5-calibration-20261116-round03",
+  "schema": "edgemech-round02-publication-gate/v1",
+  "scientific_package_sha256": "3928396bf4c089620ec0209fdcb986c14f36969259ed01ab563c6807037ee298",
+  "source_evidence": [
+    {
+      "quote_sha256": "ee2bb734e41a3a93bdf92595ef8827fc94ef5333d606f209e9e547b71e7362e3",
+      "raw_sha256": "fc232e23ad8037914a1d4c21ec3d97cf704cf1b2fa732556bf4790af108c591e",
+      "source_identities": [
+        "authority-raw-sha256:fc232e23ad8037914a1d4c21ec3d97cf704cf1b2fa732556bf4790af108c591e",
+        "authority-sha256:21e8a6a4c1a93e39ddef4a40c1ae315efc0923d9715c9e7bc4d79f4e6c75f115"
+      ]
+    },
+    {
+      "quote_sha256": "221feccf8863d3b6fb2a128926ae19b625fb1828eec00eaf70c536d86fd9c8e5",
+      "raw_sha256": "0314be126d41f59b275f76f5635ae2526b9b536f91826b10a34db61e9080b40d",
+      "source_identities": [
+        "authority-raw-sha256:0314be126d41f59b275f76f5635ae2526b9b536f91826b10a34db61e9080b40d",
+        "authority-sha256:156afa38fb130c5337b9823e2c3b035cc91ce56016bda0b5a776b79b830b9feb"
+      ]
+    },
+    {
+      "quote_sha256": "4248338dbd34dc1eb07f8798065542485569014daabfe032d620ed9b2f3e81ee",
+      "raw_sha256": "8b6f8fe0510a698579e532658c8ace05da2550093365df9ca83feb0741778415",
+      "source_identities": [
+        "authority-raw-sha256:8b6f8fe0510a698579e532658c8ace05da2550093365df9ca83feb0741778415",
+        "authority-sha256:06ace0ff1313d498de41025666571beb030e30bc14de40db03a0145469a8f2f4"
+      ]
+    },
+    {
+      "quote_sha256": "2f1bcebf1de79d9800a2496045c14394872152f85fda0016d19b11046ef26098",
+      "raw_sha256": "1c8609f746ee7d637d31b9ed2ac5ecb29297d259e61d63eaf3ece59d1d4e2813",
+      "source_identities": [
+        "authority-raw-sha256:1c8609f746ee7d637d31b9ed2ac5ecb29297d259e61d63eaf3ece59d1d4e2813",
+        "authority-sha256:30cd3df6172c3b4d93f682b96e505b8d7b01b6d855298cf4f136c26b0ea6c116"
+      ]
+    },
+    {
+      "quote_sha256": "550cab734a18f2aff138669889a6c93af976b74e5fa0d4bc334d329ae8e33e59",
+      "raw_sha256": "bcbbae81696b41691da740f78ec292204f6551675ba01e8d95217a62699e7205",
+      "source_identities": [
+        "authority-raw-sha256:bcbbae81696b41691da740f78ec292204f6551675ba01e8d95217a62699e7205",
+        "authority-sha256:6b86d83c79938694a08c780134e256e90bbd63facf21877517ff9c6032cff2e3"
+      ]
+    },
+    {
+      "quote_sha256": "dd4ab3747c53fee21a41b4e6da0e88704c644e6ad9b18c26058416f7facdc967",
+      "raw_sha256": "411a848d7ee8c50ccd4a677b64917bf4a0d2f6331158d9a7101d7d1b08df1fcf",
+      "source_identities": [
+        "authority-raw-sha256:411a848d7ee8c50ccd4a677b64917bf4a0d2f6331158d9a7101d7d1b08df1fcf",
+        "authority-sha256:ea838ca3b9407de637ee7321bf181d19cdb32a40e4fd7b16f3c61b1d4015be25"
+      ]
+    },
+    {
+      "quote_sha256": "156b0be93196f19a66be6694eacccae3cc1119b2c31d171a2969ef7079a9fd61",
+      "raw_sha256": "17e728c5aac05483633b9decc1dca6a2fd31292bbf7bb2db6d40e1dea756e91a",
+      "source_identities": [
+        "authority-raw-sha256:17e728c5aac05483633b9decc1dca6a2fd31292bbf7bb2db6d40e1dea756e91a",
+        "authority-sha256:93fd759d3ff1981b0538d578067e348261d93983e741453f72dbd7aa47546659"
+      ]
+    }
+  ],
+  "source_mode": "canonical_review",
+  "verdict": "needs_curation"
+}
