@@ -66,10 +66,12 @@ def make_evidence(root, manifest, case, specs, accessed_at):
                 rounds.require(item.get("version") == pin["version"], "Authority version differs")
                 text, extractor_kind, canonical_kind = raw.decode(), "authority_text", "authority"
             elif kind == "europepmc_abstract":
+                rounds.require(pin["role"] == "evidence", "Paper proof requires frozen evidence input")
                 text, _ = _europepmc_abstract(raw, item)
                 extractor_kind, canonical_kind = "abstract", "primary_source"
                 rounds.require(locator.startswith("abstract;"), "Abstract locator must disclose extent")
             elif kind == "jats":
+                rounds.require(pin["role"] == "evidence", "Paper proof requires frozen evidence input")
                 text, _ = _jats(raw, item)
                 extractor_kind, canonical_kind = "oa_fulltext", "primary_source"
             else:

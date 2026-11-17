@@ -189,7 +189,11 @@ commits, issues, external messages, publication, merges or graph admission.
 Finish with audit.json, unchanged helper accounting output, identity receipt,
 final-authored-config.json, all ten final drafts/proof sidecars and their
 validation receipts, citation-report.json, its pinned replay config and inspected
-case-canary/batch receipts, and a self-contained final.md with all outcomes and
-durable paths. The coordinator's frozen finalizer consumes these exact artifacts;
-do not rewrite its pending or failed gates. Do not claim
-jobs remain active after they exit.
+case-canary/batch receipts, and the complete durable report at
+`<output-root>/FINAL_REPORT.md` before sending the final response. The launcher
+manages final.md through Codex's `-o` option and writes the last assistant message
+there; do not prewrite the durable report to that path. Make the final message
+self-contained with outcomes, gate failures, validation, blockers and durable
+report paths, rather than a self-link to final.md. The coordinator's frozen
+finalizer consumes the exact structured artifacts; do not rewrite its pending
+or failed gates. Do not claim jobs remain active after they exit.

@@ -135,3 +135,127 @@ def test_derivative_verifier_checks_original_and_complete_span_coverage(tmp_path
     (package / "evidence-guide.json").write_text(json.dumps(guide))
     with pytest.raises(ValueError):
         assembly.verify_views()
+
+
+def mixed_producer(monkeypatch):
+    # Synthetic data only: no retained source text is embedded in a test/helper.
+    raw = ('NOTE = (\n    "Current α definition; historical verdict v1; "\n'
+           '    "counterevidence: exact identity remains unavailable."\n)\n'
+           'def emit():\n    return NOTE\n').encode()
+    omitted = b"historical verdict v1; "
+    begin = raw.index(omitted)
+    monkeypatch.setattr(assembly, "PRODUCER_SHA", assembly.rounds.digest(raw))
+    monkeypatch.setattr(assembly, "PRODUCER_OMISSION", (begin, begin + len(omitted)))
+    pin = {"path": "microbedecoder.py", "sha256": assembly.rounds.digest(raw),
+           "role": "authority", "version": assembly.PRODUCER_VERSION}
+    return raw, pin
+
+
+def test_mixed_literal_removes_only_reviewed_history_preserves_counterevidence(monkeypatch):
+    raw, pin = mixed_producer(monkeypatch)
+    view, receipt = assembly.bounded(raw, pin["path"])
+    assert b"historical verdict" not in view
+    assert "Current α definition; ".encode() in view
+    assert b"counterevidence: exact identity remains unavailable." in view
+    assert b"return NOTE" in view
+    assert receipt["policy"] == "producer_code_with_reviewed_literal_omission"
+    omission, = receipt["reviewed_content_omissions"]
+    start, end = omission["source_byte_start"], omission["source_byte_end"]
+    assert raw[start:end] == b"historical verdict v1; "
+    assert omission["sha256"] == assembly.rounds.digest(raw[start:end])
+    assert omission["source_version"] == assembly.PRODUCER_VERSION
+    for span in receipt["spans"]:
+        first, last = span["source_byte_start"], span["source_byte_end"]
+        assert not (first < end and start < last)
+        assert raw[first:last] == view[span["view_byte_start"]:span["view_byte_end"]]
+        assert assembly.rounds.digest(raw[first:last]) == span["sha256"]
+
+
+def test_historical_keyword_is_not_a_blanket_string_deletion_rule():
+    raw = (b'STATE = "withdrawn is a current status value; retain contrary evidence"\n'
+           b'RULE = "historical data are permitted only under the current condition"\n')
+    view, receipt = assembly.bounded(raw, "unrelated-producer.py")
+    assert view == raw
+    assert receipt["reviewed_content_omissions"] == []
+
+
+def test_known_producer_changed_bytes_require_new_content_review(monkeypatch):
+    raw, pin = mixed_producer(monkeypatch)
+    with pytest.raises(ValueError, match="exact source hash"):
+        assembly.bounded(raw + b"# different version\n", pin["path"])
+
+
+@pytest.mark.parametrize("changed", ["version", "role", "path"])
+def test_producer_pin_requires_exact_version_identity(monkeypatch, changed):
+    _, pin = mixed_producer(monkeypatch)
+    damaged = {**pin, changed: "unreviewed"}
+    monkeypatch.setattr(assembly, "retained", lambda: {"files": [damaged]})
+    with pytest.raises(ValueError, match="identity/version"):
+        assembly.producer_pin()
+
+
+@pytest.mark.parametrize("damage", ["source", "view", "helper_binding", "omission"])
+def test_producer_canary_is_new_persisted_and_binding_sensitive(tmp_path, monkeypatch, damage):
+    raw, pin = mixed_producer(monkeypatch)
+    monkeypatch.setattr(assembly, "ROOT", tmp_path)
+    monkeypatch.setattr(assembly.original_views, "ROOT", tmp_path)
+    monkeypatch.setattr(assembly, "retained", lambda: {"files": [pin]})
+    monkeypatch.setattr(assembly, "source", lambda _: raw)
+    old = tmp_path / assembly.RUN / "authority-view-canary"
+    old.mkdir(parents=True)
+    (old / "view.txt").write_bytes(b"preserved old canary")
+    result = assembly.producer_canary()
+    assert result["scientific_ratings"] == 0
+    target = tmp_path / assembly.PRODUCER_CANARY
+    saved = json.loads((target / "receipt.json").read_text())
+    assert (target / "source.py").read_bytes() == raw
+    assert b"historical verdict" not in (target / "view.txt").read_bytes()
+    assert saved["reviewed_content_omissions"]
+    assert (old / "view.txt").read_bytes() == b"preserved old canary"
+    with pytest.raises(ValueError, match="exists"):
+        assembly.producer_canary()
+    if damage in {"source", "view"}:
+        name = "source.py" if damage == "source" else "view.txt"
+        (target / name).chmod(0o600)
+        (target / name).write_bytes(b"changed")
+    else:
+        if damage == "helper_binding":
+            saved["helper_sha256"] = "0" * 64
+        else:
+            saved["reviewed_content_omissions"] = []
+        (target / "receipt.json").chmod(0o600)
+        (target / "receipt.json").write_text(json.dumps(saved))
+    with pytest.raises(ValueError, match="changed"):
+        assembly.check_producer_canary()
+
+
+@pytest.mark.parametrize("damage", ["omission", "version", "retained_history"])
+def test_package_verifier_replays_reviewed_literal_policy(tmp_path, monkeypatch, damage):
+    raw, pin = mixed_producer(monkeypatch)
+    monkeypatch.setattr(assembly, "ROOT", tmp_path)
+    package = tmp_path / assembly.PACKAGE
+    package.mkdir(parents=True)
+    view, receipt = assembly.bounded(raw, pin["path"])
+    receipt.update(original_path="source.py", version=pin["version"])
+    item = {"path": "view.txt", "receipt": "receipt.json", "source_name": pin["path"],
+            "version": pin["version"], "source_sha256": assembly.rounds.digest(raw),
+            "view_sha256": assembly.rounds.digest(view)}
+    (tmp_path / "source.py").write_bytes(raw)
+    (tmp_path / "view.txt").write_bytes(view)
+    (tmp_path / "receipt.json").write_text(json.dumps(receipt))
+    (package / "freeze-config.json").write_text(json.dumps(
+        {"files": [{"path": p} for p in ("source.py", "view.txt", "receipt.json")]}))
+    (package / "evidence-guide.json").write_text(json.dumps({"inputs": [item]}))
+    assert assembly.verify_views()["bounded_views_verified"] == 1
+    if damage == "omission":
+        receipt["reviewed_content_omissions"] = []
+    elif damage == "version":
+        receipt["version"] = item["version"] = "wrong-version"
+    else:
+        # Rehashing an unredacted derivative does not make the known policy pass.
+        (tmp_path / "view.txt").write_bytes(raw)
+        receipt["view_sha256"] = item["view_sha256"] = assembly.rounds.digest(raw)
+    (tmp_path / "receipt.json").write_text(json.dumps(receipt))
+    (package / "evidence-guide.json").write_text(json.dumps({"inputs": [item]}))
+    with pytest.raises(ValueError, match="changed"):
+        assembly.verify_views()

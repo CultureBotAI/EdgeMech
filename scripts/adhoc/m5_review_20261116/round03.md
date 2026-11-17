@@ -162,5 +162,10 @@ destructive cleanup or branch deletion is authorized here. No mentions or
 messages to people. Own-agent coordination is allowed. If a notification tool
 rejects an action, retain its draft and report the actual block without retrying
 through another transport. This must not stop independent scientific/engineering
-work. Finish with a self-contained final.md and handoff; do not claim ongoing
-jobs after they exit.
+work. Before the final response, save the complete durable report as
+`<output-root>/FINAL_REPORT.md` and write the handoff. The launcher passes
+`<output-root>/final.md` to Codex's `-o` option, which writes the last assistant
+message there; do not prewrite the durable report to that managed path.
+Make the final assistant message self-contained with outcomes, gate failures,
+validation, blockers and durable report paths, rather than a self-link to
+final.md. Do not claim ongoing jobs after they exit.

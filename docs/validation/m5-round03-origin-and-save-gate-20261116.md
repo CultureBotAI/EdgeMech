@@ -92,6 +92,19 @@ receipt is rejected for `reviewer`. Changes to origin, runtime, package, authore
 input, evidence pins or saved pair require a new canary; preserving a failed
 attempt means choosing a new output directory and operational review ID.
 
+## Durable reports and the last assistant message
+
+The launcher invokes Codex with `-o <output-root>/final.md`. Codex writes the
+last assistant message to that path when the child finishes, replacing any
+report the child wrote there earlier. Save the complete durable report as
+`<output-root>/FINAL_REPORT.md` before sending the final response; keep
+structured results and receipts at their separately identified paths.
+Treat `final.md` as launcher-managed output. The final assistant message must
+itself state the outcome, validation, failures or blockers and durable report
+paths. A link back to `final.md` does not preserve a separately authored report.
+This naming rule leaves historical outputs unchanged and does not alter any
+scientific gate or launcher execution behavior.
+
 ## Verification boundary
 
 Focused tests exercise the real shared Git-origin parser, the actual occurrence

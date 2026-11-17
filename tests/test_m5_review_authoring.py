@@ -156,6 +156,27 @@ def test_packet_cannot_supply_literature_and_failed_attempt_is_retained(authorin
     assert not (root / ".temp/authored/draft-receipt.json").exists()
 
 
+@pytest.mark.parametrize("kind", ["jats", "europepmc_abstract"])
+def test_paper_kind_requires_frozen_evidence_role(authoring, case, monkeypatch, kind):
+    if kind == "europepmc_abstract":
+        install_abstract(case)
+    root, authored, _ = prepare(authoring, case, monkeypatch)
+    if kind == "europepmc_abstract":
+        for proof in authored["proofs"]:
+            if proof["kind"] == kind:
+                proof["locator"] = "abstract; synthetic source"
+    manifest = json.loads((root / "manifest.json").read_text())
+    selected_case = manifest["cases"][0]
+    proofs, _ = authoring.make_evidence(root, manifest, selected_case,
+                                        authored["proofs"], authored["accessed_at"])
+    assert any(proof["kind"] == kind for proof in proofs)
+    frozen = next(item for item in manifest["files"] if "paper" in item.get("evidence_ids", []))
+    frozen.update(role="authority", version="synthetic-misclassification")
+    with pytest.raises(ValueError, match="Paper proof requires frozen evidence input"):
+        authoring.make_evidence(root, manifest, selected_case,
+                                authored["proofs"], authored["accessed_at"])
+
+
 def test_ambiguous_primary_paper_is_rejected(authoring, case, monkeypatch):
     response = install_abstract(case)
     response["resultList"]["result"].append(deepcopy(response["resultList"]["result"][0]))

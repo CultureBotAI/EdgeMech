@@ -46,6 +46,37 @@ def mapped_ids(ids, sidecar, manifest, allowed):
     return sorted(mapped)
 
 
+def validate_frozen_proofs(sidecar, manifest, case):
+    """Check every authored proof, including any absent from projected axes."""
+    files = {}
+    for item in manifest["files"]:
+        files.setdefault((item["path"], item["sha256"]), []).append(item)
+    proofs = sidecar["proofs"]
+    ids = [proof["evidence_id"] for proof in proofs]
+    rounds.require(len(ids) == len(set(ids)), "Repeated initial proof identity")
+    for proof in proofs:
+        source = proof["input"]
+        matches = files.get((source["path"], source["sha256"]), [])
+        rounds.require(len(matches) == 1, "Initial proof input is not uniquely frozen")
+        frozen = matches[0]
+        kind = proof["kind"]
+        if kind == "packet":
+            rounds.require(frozen["role"] == "packet" and frozen["path"] == case["packet_path"],
+                           "Initial packet proof must bind the original frozen case packet")
+        elif kind == "authority":
+            rounds.require(frozen["role"] == "authority",
+                           "Initial authority proof requires frozen authority role")
+            rounds.require(isinstance(frozen.get("version"), str) and frozen["version"].strip()
+                           and proof.get("version") == frozen["version"],
+                           "Initial authority version differs from frozen version")
+        elif kind in {"jats", "europepmc_abstract"}:
+            rounds.require(frozen["role"] == "evidence",
+                           "Initial paper proof requires frozen evidence role")
+        else:
+            raise ValueError("Unsupported initial proof representation")
+        mapped_ids([proof["evidence_id"]], sidecar, manifest, case["evidence_ids"])
+
+
 def project_case(authored, sidecar, manifest, case):
     axes = []
     for assessment in authored["assessments"]:
@@ -121,6 +152,7 @@ def validate(root, manifest_path, config_path):
         add_pin(entry["proofs"])
         authored = load_document(rounds.safe(root, entry["review"]).read_bytes())
         sidecar = rounds.read(root, entry["proofs"])
+        validate_frozen_proofs(sidecar, manifest, case)
         actual = authored["reviewer"]
         rounds.require(actual.get("identity") == canonical_identity and
                        actual.get("model") == reviewer["model"] and actual.get("kind") == "agent",

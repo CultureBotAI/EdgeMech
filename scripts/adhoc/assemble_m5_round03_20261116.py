@@ -4,7 +4,9 @@
 Issues #175, #180, #181, #183: read hash-pinned round02 raw inputs and round03
 owner replay; retain private full originals and produce source-only navigation,
 exact UTF-8 byte-span receipts and current-runtime packet projections. Canary
-one PREGO derivative before assembly. Outputs are private/exclusive. This does
+one PREGO and one mixed-literal producer derivative before future assembly.
+The view-repair candidate has distinct paths and does not replace round03.
+Outputs are private/exclusive. This does
 not freeze a package, launch reviewers, execute evidence code or assign labels.
 """
 from __future__ import annotations
@@ -19,26 +21,38 @@ from pathlib import Path
 import calibration_round_20261116 as rounds
 import prepare_m5_reviewer_views_20261116 as original_views
 import prepare_m5_round02_views_20261116 as views
+import run_m5_review_worker_20261116 as worker
 
 ROOT = rounds.ROOT
 OLD = Path("/Users/marcin/agent-work/EdgeMech/m5-calibration-round02-20261116")
 OLD_MANIFEST = ".temp/m5-round02-worker-20261116/round02-final/round-02-manifest.json"
 OLD_SHA = "09fa2916bc298cd4a76c9baec27470cb0b7b47f44f9570775609b438ebe81445"
 RUN = Path(".temp/m5-round03-worker-20261116")
-PACKAGE = RUN / "round03-package"
-PRIVATE = RUN / "package-private-originals"
-CANARY = RUN / "authority-view-canary"
+FUTURE = RUN / "future-view-repair-01"
+PACKAGE = FUTURE / "package"
+PRIVATE = FUTURE / "private-originals"
+CANARY = FUTURE / "prego-canary"
+PRODUCER_CANARY = FUTURE / "source028-canary"
+PACKAGE_ID = "m5-calibration-20261116-round03-view-repair01"
 REPLAY = Path(".temp/first30-owner-replay-20261116/run-03")
 REPLAY_SHA = "b79a181d650c6030c6df16507093cc66852e20b456bd491500756e1b86f8a4f1"
 HELPER = "scripts/adhoc/assemble_m5_round03_20261116.py"
 PREGO_SHA = "a36dc745ec1a2470c4f237e753736c28ef7ccd6d40976c6619411bd5d9e71935"
 DOWNLOAD_SHA = "209669d1de7e2dfea17712a755217fd201241d2e32f763366ff0570270610153"
 PROCESS_SHA = "85bb1d23ecb938bd31d1deefd479042ce3b12f35dce8ade511ddc8e499537790"
+PRODUCER_NAME = "microbedecoder.py"
+PRODUCER_SHA = "8aa801621cae6df7605a38b04a4f1eaf8da57aa2239db770f0ad3c5ab741d63b"
+PRODUCER_VERSION = "d6baf5b90003a2032747559d94c00f86a7a4c615"
+# Content-reviewed UTF-8 byte interval. Full source remains private. The interval
+# includes a string-token boundary, but no current substantive definition.
+PRODUCER_OMISSION = (7570, 7659)
 EXPOSURE = (
-    "Original source identifiers, definitions, generated code values and source selection remain "
-    "visible. Producer-authored definitions and executable semantics are retained as evidence of "
-    "that version, not independent endorsement or an expected assessment. Comments/docstrings "
-    "and separable historical evaluation prose are omitted from producer views."
+    "Original source identifiers, substantive definitions, generated values and source selection "
+    "remain visible. Executable strings receive content review: current definitions, conditions "
+    "and counterevidence are retained, while separately identified historical evaluation is "
+    "omitted with exact receipts. Code status alone does not make narration inseparable. "
+    "Views are literal source fragments, not executable replacement code or scientific verdicts. "
+    "Private complete originals remain available for mechanical provenance checks."
 )
 
 
@@ -86,7 +100,21 @@ def complements(size, removed):
     return spans
 
 
-def python_spans(raw, *, exclude_description=False):
+def reviewed_literal_omissions(raw, path):
+    """Apply one content-reviewed omission; never classify by keyword alone."""
+    digest = rounds.digest(raw)
+    if Path(path).name != PRODUCER_NAME and digest != PRODUCER_SHA:
+        return []
+    rounds.require(digest == PRODUCER_SHA, "Producer literal review requires exact source hash")
+    start, end = PRODUCER_OMISSION
+    rounds.require(0 <= start < end <= len(raw), "Invalid reviewed literal omission")
+    return [{"source_byte_start": start, "source_byte_end": end,
+             "sha256": rounds.digest(raw[start:end]),
+             "source_version": PRODUCER_VERSION,
+             "reason": "separable_historical_evaluation"}]
+
+
+def python_spans(raw, *, exclude_description=False, extra_removed=()):
     """Remove prose tokens without executing or rewriting producer source code."""
     text = raw.decode("utf-8")
     lines = text.splitlines(keepends=True)
@@ -99,7 +127,7 @@ def python_spans(raw, *, exclude_description=False):
         row, column = position
         return starts[row - 1] + len(lines[row - 1][:column].encode())
 
-    removed = []
+    removed = list(extra_removed)
     for token in tokenize.generate_tokens(io.StringIO(text).readline):
         if token.type == tokenize.COMMENT:
             removed.append((token_position(token.start), token_position(token.end)))
@@ -122,15 +150,21 @@ def bounded(raw, path):
     digest = rounds.digest(raw)
     policy = "whole_native_document"
     spans = [(0, len(raw))]
+    omissions = []
     if digest == PREGO_SHA:
         rounds.require(raw.count(b'"Taxon') == 1, "Producer convention anchor is ambiguous")
         begin = raw.index(b'"Taxon')
         end = raw.index(b". Excluding", begin) + 1
         spans = [(begin, end)]
         policy = "producer_convention_sentence_only"
-    elif Path(path).suffix == ".py":
-        spans = python_spans(raw, exclude_description=digest == PROCESS_SHA)
+    elif Path(path).suffix == ".py" or digest == PRODUCER_SHA:
+        omissions = reviewed_literal_omissions(raw, path)
+        spans = python_spans(raw, exclude_description=digest == PROCESS_SHA,
+                             extra_removed=[(item["source_byte_start"], item["source_byte_end"])
+                                            for item in omissions])
         policy = "producer_code_without_comments_docstrings_or_redacted_description"
+        if omissions:
+            policy = "producer_code_with_reviewed_literal_omission"
     elif digest == DOWNLOAD_SHA:
         removed, cursor = [], 0
         for line in raw.splitlines(keepends=True):
@@ -156,6 +190,7 @@ def bounded(raw, path):
                            "source_sha256": digest, "view_sha256": rounds.digest(output),
                            "offset_encoding": "UTF-8 bytes; zero-based half-open",
                            "span_separator": "two LF bytes, not source text",
+                           "reviewed_content_omissions": omissions,
                            "inseparable_exposure": EXPOSURE}
 
 
@@ -190,8 +225,17 @@ def check_canary():
             "scientific_ratings": 0}
 
 
+def runtime_paths(root):
+    """Use the launcher's complete maintained execution scan, including ignored files."""
+    fixed = {rounds.PROTOCOL, rounds.COHORT, "docs/record-review-profile.md",
+             "scripts/adhoc/calibration_round_20261116.py"}
+    execution = {item["path"] for item in worker.execution_inventory(root)}
+    return (rounds.RUNTIME_PATHS | execution) - fixed
+
+
 def assemble():
     check_canary()
+    check_producer_canary()
     rounds.require(not (ROOT / PACKAGE).exists(), "Package output exists")
     old = retained()
     _, cohort = rounds.baseline(ROOT)
@@ -352,20 +396,11 @@ def assemble():
                  "docs/record-reviews.md"):
         rounds.safe(ROOT, path)
         add(path, "instructions")
-    runtime = rounds.RUNTIME_PATHS | {
-        HELPER, "scripts/adhoc/prepare_m5_round02_views_20261116.py",
-        "scripts/adhoc/prepare_m5_reviewer_views_20261116.py",
-        "scripts/adhoc/run_m5_review_worker_20261116.py",
-        "scripts/adhoc/author_m5_review_data_20261116.py",
-        "scripts/adhoc/seal_m5_round03_initial_20261116.py",
-        "scripts/adhoc/identify_m5_worker_20261116.py",
-        "scripts/adhoc/replay_m5_round02_pairs_20261116.py",
-        "scripts/adhoc/replay_first30_salinity_20261116.py",
-    }
+    runtime = runtime_paths(ROOT)
     for path in sorted(runtime):
         rounds.safe(ROOT, path)
         add(path, "proof_adapter")
-    navigation = {"round_id": "m5-calibration-20261116-round03", "inputs": guide,
+    navigation = {"round_id": PACKAGE_ID, "inputs": guide,
                   "cases": list(cases.values()), "inseparable_exposure": EXPOSURE,
                   "navigation_policy": "Read only case view paths and evidence paths here. "
                   "Receipt/original paths are mechanical replay inputs. Do not follow source links, "
@@ -399,6 +434,15 @@ def verify_views():
                        "Source bytes changed")
         rounds.require(rounds.digest(view) == receipt["view_sha256"] == item["view_sha256"],
                        "View bytes changed")
+        if rounds.digest(raw) == PRODUCER_SHA or item.get("source_name") == PRODUCER_NAME:
+            expected_view, expected_receipt = bounded(raw, item["source_name"])
+            rounds.require(receipt.get("version") == item.get("version") == PRODUCER_VERSION,
+                           "Producer version changed")
+            rounds.require(view == expected_view and all(
+                receipt.get(key) == expected_receipt[key]
+                for key in ("policy", "spans", "reviewed_content_omissions",
+                            "source_sha256", "view_sha256", "offset_encoding", "span_separator")),
+                "Reviewed producer omission changed")
         if receipt["policy"] == "allowlisted_json_projection":
             source_value, view_value = json.loads(raw), json.loads(view)
             expected = {key: source_value[key] for key in receipt["fields"]}
@@ -425,11 +469,55 @@ def verify_views():
             "scope": "Exact derivative replay; semantic blinding requires independent inspection"}
 
 
+def producer_pin():
+    pins = [p for p in retained()["files"] if p["sha256"] == PRODUCER_SHA]
+    rounds.require(len(pins) == 1, "Producer input is not unique")
+    pin = pins[0]
+    rounds.require(pin.get("role") == "authority" and pin.get("version") == PRODUCER_VERSION
+                   and Path(pin["path"]).name == PRODUCER_NAME, "Producer identity/version changed")
+    return pin
+
+
+def producer_canary():
+    """Canary the actual affected input through the same bounded assembly path."""
+    rounds.require(not (ROOT / PRODUCER_CANARY).exists(), "Producer canary output exists")
+    pin = producer_pin()
+    raw = source(pin)
+    view, receipt = bounded(raw, pin["path"])
+    persist(PRODUCER_CANARY / "source.py", raw)
+    persist(PRODUCER_CANARY / "view.txt", view)
+    receipt.update(version=pin["version"], source_path=pin["path"],
+                   package_id=PACKAGE_ID, helper_sha256=rounds.digest(Path(__file__).read_bytes()))
+    persist(PRODUCER_CANARY / "receipt.json", encoded(receipt))
+    return check_producer_canary()
+
+
+def check_producer_canary():
+    receipt = rounds.read(ROOT, str(PRODUCER_CANARY / "receipt.json"))
+    pin = producer_pin()
+    raw = source(pin)
+    view, expected = bounded(raw, pin["path"])
+    expected.update(version=pin["version"], source_path=pin["path"],
+                    package_id=PACKAGE_ID, helper_sha256=rounds.digest(Path(__file__).read_bytes()))
+    rounds.require(receipt == expected, "Producer canary configuration changed")
+    rounds.require((ROOT / PRODUCER_CANARY / "source.py").read_bytes() == raw
+                   and (ROOT / PRODUCER_CANARY / "view.txt").read_bytes() == view,
+                   "Persisted producer canary changed")
+    return {"receipt": str(PRODUCER_CANARY / "receipt.json"), "source_sha256": PRODUCER_SHA,
+            "view_sha256": rounds.digest(view), "version": PRODUCER_VERSION,
+            "helper_sha256": expected["helper_sha256"], "package_id": PACKAGE_ID,
+            "scientific_ratings": 0,
+            "scope": "Literal derivative replay; independent content/navigation review required"}
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("operation", choices=("canary", "check-canary", "assemble", "verify-views"))
+    parser.add_argument("operation", choices=("canary", "check-canary", "producer-canary",
+                                             "check-producer-canary", "assemble", "verify-views"))
     args = parser.parse_args()
     print(json.dumps({"canary": canary, "check-canary": check_canary,
+                      "producer-canary": producer_canary,
+                      "check-producer-canary": check_producer_canary,
                       "assemble": assemble, "verify-views": verify_views}[args.operation](),
                      sort_keys=True))
 

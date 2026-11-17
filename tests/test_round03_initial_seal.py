@@ -177,3 +177,92 @@ def test_private_destination_and_unambiguous_reviewer_required(authored_round, d
     with pytest.raises(ValueError, match="private|Git-ignored|Canonical identity"):
         SEAL.seal(root, "manifest-2.json", "authored.json", output)
     assert not (root / output).exists()
+
+
+def add_direct_authority(data, source_path="authority.txt", version="fixture-1"):
+    """Author valid synthetic canonical data directly, bypassing convenience helpers."""
+    from edgemech.literature_cache import LiteratureCache, verify_quote
+
+    root, config, put = data
+    entry = config["cases"][0]
+    manifest = SEAL.rounds.read(root, "manifest-2.json")
+    case = next(c for c in manifest["cases"] if c["case_id"] == entry["case_id"])
+    if source_path == "case_packet":
+        source_path = case["packet_path"]
+    frozen = next(p for p in manifest["files"] if p["path"] == source_path)
+    raw = (root / source_path).read_bytes()
+    text = raw.decode()
+    span = verify_quote(LiteratureCache._document(
+        {"response_sha256": frozen["sha256"]}, "authority_text", text), text[:20])
+    review = SEAL.rounds.read(root, entry["review"])
+    sidecar = SEAL.rounds.read(root, entry["proofs"])
+    proof = {"evidence_id": "direct-authority", "kind": "authority",
+             "input": {"path": source_path, "sha256": frozen["sha256"]},
+             "manifest_evidence_id": frozen["evidence_ids"][0], "version": version,
+             "scope": "context", "scope_rationale": "Synthetic unresolved context",
+             "support": "context_only", "axes": ["relation"],
+             "reference": source_path, "inspected_extent": "Synthetic source fragment",
+             **{key: span[key] for key in ("start", "end", "extractor", "text_sha256")}}
+    sidecar["proofs"].append(proof)
+    put(entry["proofs"], sidecar)
+    review["evidence"].append({
+        "evidence_id": proof["evidence_id"], "kind": "authority", "reference": source_path,
+        "locator": f"synthetic fragment; chars {span['start']}:{span['end']}",
+        "accessed_at": "2000-01-01T00:00:00Z", "support": "context_only",
+        "summary": "Synthetic context", "snapshot_sha256": frozen["sha256"], "quote": span["quote"]})
+    relation = next(a for a in review["assessments"] if a["assessment_id"] == "relation")
+    relation["evidence_ids"] = [proof["evidence_id"]]
+    for dimension in relation["dimensions"]:
+        dimension["evidence_ids"] = [proof["evidence_id"]]
+    inputs = {p["path"]: p for p in review["source"]["inputs"]}
+    inputs[source_path] = {**proof["input"], "role": "synthetic source"}
+    inputs[entry["proofs"]] = {**SEAL.pin(root, entry["proofs"]), "role": "synthetic proofs"}
+    review["source"]["inputs"] = list(inputs.values())
+    put(entry["review"], review)
+    return entry, case, review, sidecar, manifest
+
+
+@pytest.mark.parametrize("source,version,message", [
+    ("authority.txt", "unreviewed-version", "version differs"),
+    ("evidence.txt", "fixture-1", "authority role"),
+    ("case_packet", "fixture-1", "authority role"),
+])
+def test_direct_authored_role_version_bypass_never_seals(authored_round, source, version, message):
+    entry, case, review, _, _ = add_direct_authority(authored_round, source, version)
+    # The base occurrence profile has no manifest parameter. Demonstrate that
+    # these otherwise valid direct inputs reach the missing package boundary.
+    checked = SEAL.validate_occurrence_review(authored_round[0], review,
+                                              case["packet_path"], entry["proofs"])
+    assert checked["verified_evidence"] == 2
+    with pytest.raises(ValueError, match=message):
+        run_seal(authored_round)
+    assert not (authored_round[0] / ".temp/initial").exists()
+
+
+def test_exact_direct_authority_can_seal_without_convenience_authoring_helper(authored_round):
+    add_direct_authority(authored_round)
+    assert run_seal(authored_round)["status"] == "passed"
+
+
+@pytest.mark.parametrize("damage", ["unreferenced_version", "case_id", "duplicate_frozen_match",
+                                   "input_hash", "wrong_packet", "packet_role", "paper_role"])
+def test_every_proof_has_frozen_case_role_and_version_even_without_axis_projection(authored_round, damage):
+    _, case, _, sidecar, manifest = add_direct_authority(authored_round)
+    # This function consumes the entire sidecar, not any assessment's evidence
+    # subset, so a proof omitted from a future projection cannot avoid checks.
+    if damage == "unreferenced_version":
+        sidecar["proofs"][-1]["version"] = "other"
+    elif damage == "case_id":
+        case["evidence_ids"] = [eid for eid in case["evidence_ids"] if eid != "authority"]
+    elif damage == "duplicate_frozen_match":
+        manifest["files"].append(deepcopy(next(p for p in manifest["files"] if p["path"] == "authority.txt")))
+    elif damage == "input_hash":
+        sidecar["proofs"][-1]["input"]["sha256"] = "0" * 64
+    elif damage == "wrong_packet":
+        case["packet_path"] = "another-case/packet.json"
+    elif damage == "packet_role":
+        next(p for p in manifest["files"] if p["path"] == case["packet_path"])["role"] = "evidence"
+    else:
+        sidecar["proofs"][-1]["kind"] = "jats"
+    with pytest.raises(ValueError):
+        SEAL.validate_frozen_proofs(sidecar, manifest, case)

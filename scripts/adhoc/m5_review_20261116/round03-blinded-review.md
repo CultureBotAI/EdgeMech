@@ -87,6 +87,11 @@ this invocation. Helper gaps go to the coordinator for a new package/canary.
 
 Write reviewer-result.json containing actual identity, exposure, deviations,
 initial matrix and seal paths/hashes, all ten draft/proof/canonical paths,
-save/check commands and exit statuses, and concrete blockers. Finish with a
-self-contained final.md and durable paths. No commits, issues, external
-messages, merges, publication, graph admission or ongoing-job claims.
+save/check commands and exit statuses, and concrete blockers. Before the final
+response, save the complete durable report as `<output-root>/FINAL_REPORT.md`.
+The launcher manages final.md through Codex's `-o` option and writes the last
+assistant message there; do not prewrite your durable report to that path.
+Make that final message self-contained with completion status, validation,
+blockers, exposure and durable artifact paths, rather than a self-link to
+final.md. No commits, issues, external messages, merges, publication, graph
+admission or ongoing-job claims.
