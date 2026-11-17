@@ -40,9 +40,11 @@ Compared with Edge's previous `0ca25b8ee68d1fbccb4d05dcc2002fa8a64c0c34`
 pin, the consumed pre-candidate changes are governance `__init__.py` and
 `artifacts/scripts/check_vendored_sync.py`; record-review schema/helper semantics
 were unchanged. The final immutable candidate is
-`5ca474ea8bd6ca40852a93177fe2d4a7e896776b` (CLAW PR #1289). Its dependency,
+`4fad8df5b2367da68faca6379ce32eb9b8f4ba9b` (CLAW PR #1289). Its dependency,
 lockfile, 16 contract hashes and complete governed artifacts are pinned
 deliberately before any reviewer launch; no installed dependency is patched.
+The #1291 follow-up restores authentic historical test fixtures only; all consumed
+runtime payload hashes remain identical to the prior `5ca474e` candidate.
 
 Normal complete governance sync also carries four maintained upstream updates
 since Edge's older vendored-artifact pin: the vendored checker, backlog-loop
@@ -119,7 +121,7 @@ by relabeling unresolved cases.
 
 ## Consumer verification
 
-At shared pin `5ca474ea8bd6ca40852a93177fe2d4a7e896776b` in an isolated
+At shared pin `4fad8df5b2367da68faca6379ce32eb9b8f4ba9b` in an isolated
 Edge virtual environment, the focused occurrence-review, calibration-round,
 adjudication-gate and canonical-pair replay suites pass: **246 tests**. This
 includes real canonical save/readback/render, copied-raw-source rejection,

@@ -742,7 +742,7 @@ dev = [
 [package.metadata]
 requires-dist = [
     { name = "duckdb", specifier = "==2.0.0" },
-    { name = "kg-microbe-orchestration", git = "https://github.com/CultureBotAI/culturebotai-claw.git?rev=5ca474ea8bd6ca40852a93177fe2d4a7e896776b" },
+    { name = "kg-microbe-orchestration", git = "https://github.com/CultureBotAI/culturebotai-claw.git?rev=4fad8df5b2367da68faca6379ce32eb9b8f4ba9b" },
     { name = "pyarrow", specifier = "==26.0.1" },
     { name = "pytest", marker = "extra == 'dev'", specifier = ">=9,<10" },
     { name = "pyyaml", specifier = "==6.0.3" },
@@ -1363,7 +1363,7 @@ wheels = [
 [[package]]
 name = "kg-microbe-orchestration"
 version = "0.1.0"
-source = { git = "https://github.com/CultureBotAI/culturebotai-claw.git?rev=5ca474ea8bd6ca40852a93177fe2d4a7e896776b#5ca474ea8bd6ca40852a93177fe2d4a7e896776b" }
+source = { git = "https://github.com/CultureBotAI/culturebotai-claw.git?rev=4fad8df5b2367da68faca6379ce32eb9b8f4ba9b#4fad8df5b2367da68faca6379ce32eb9b8f4ba9b" }
 dependencies = [
     { name = "anthropic" },
     { name = "click" },

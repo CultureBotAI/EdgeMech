@@ -1,5 +1,5 @@
 {
-  "commit": "5ca474ea8bd6ca40852a93177fe2d4a7e896776b",
+  "commit": "4fad8df5b2367da68faca6379ce32eb9b8f4ba9b",
   "format": "edgemech-contract-pins/v2",
   "packages": {
     "kg_microbe_curation": {
