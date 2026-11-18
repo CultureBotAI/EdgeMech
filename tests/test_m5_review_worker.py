@@ -372,6 +372,11 @@ def production_worker(worker, case, monkeypatch):
     monkeypatch.setattr(module.subprocess, "run", production_validator)
     monkeypatch.setattr(module.subprocess, "check_output", subprocess.check_output)
     monkeypatch.setattr(module, "repository_identity", repository_identity)
+    # These fixtures isolate production save/readback and drift. Scientific
+    # contract validation has a real-package suite in test_m5_scientific_invocation.
+    controls["scientific_context"] = module.scientific_context
+    monkeypatch.setattr(module, "scientific_context", lambda *a, **kw: {"fixture": "contract"})
+    monkeypatch.setattr(module, "reserve_scientific", lambda *a: None)
     return module, args, controls
 
 
@@ -380,6 +385,7 @@ def reviewer_args(args):
     args.output_root = args.workdir / "reviewer"
     args.role = "reviewer"
     args.production_review = args.production_packet = args.production_proofs = None
+    args.scientific_invocation = "synthetic-scientific-invocation.json"
 
 
 def test_176_parent_runs_real_save_check_and_reviewer_replays_same_clone(production_worker):
@@ -403,6 +409,31 @@ def test_176_parent_runs_real_save_check_and_reviewer_replays_same_clone(product
     state = json.loads((args.output_root / "metadata.json").read_text())
     assert state["status"] == "completed"
     assert state["ending_replay"]["production_replay"]["outputs"] == pair
+
+
+def test_203_production_canary_cannot_substitute_for_scientific_invocation(
+        production_worker, monkeypatch):
+    module, args, controls = production_worker
+    assert module.launch(args) == 0
+    reviewer_args(args)
+    monkeypatch.syspath_prepend(str(HELPER.parent))
+    monkeypatch.setattr(module, "scientific_context", controls["scientific_context"])
+    args.scientific_invocation = None
+    with pytest.raises(ValueError, match="structured scientific invocation"):
+        module.launch(args)
+    assert controls["calls"] == 1 and not args.output_root.exists()
+
+
+def test_203_scientific_invocation_cannot_widen_writable_directories(production_worker, monkeypatch):
+    module, args, controls = production_worker
+    assert module.launch(args) == 0
+    reviewer_args(args)
+    monkeypatch.syspath_prepend(str(HELPER.parent))
+    monkeypatch.setattr(module, "scientific_context", controls["scientific_context"])
+    args.add_dir = [args.workdir.parent]
+    with pytest.raises(ValueError, match="undeclared writable directories"):
+        module.launch(args)
+    assert controls["calls"] == 1 and not args.output_root.exists()
 
 
 def test_176_production_plan_validates_without_saving_or_starting_child(production_worker):
