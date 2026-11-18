@@ -414,6 +414,24 @@ def verify_receipt(path, bindings, root, environment, *, reviewer_package=None):
             "production_replay": production}
 
 
+def scientific_context(root, args, bindings, *, fresh=True):
+    import scientific_invocation_20261117 as invocation
+
+    contract = getattr(args, "scientific_invocation", None)
+    require(contract, "Reviewer requires a structured scientific invocation")
+    require(not args.add_dir, "Scientific invocation cannot add undeclared writable directories")
+    return invocation.validate(
+        root, contract, manifest_path=args.package_manifest, runtime=bindings,
+        receipt_path=args.canary_receipt, output=Path(args.output_root).absolute(),
+        prompt=Path(args.prompt).resolve(), fresh=fresh)
+
+
+def reserve_scientific(root, contract):
+    import scientific_invocation_20261117 as invocation
+
+    invocation.reserve(root, contract)
+
+
 def launch(args):
     root = Path(args.workdir).resolve()
     environment = child_environment(root)
@@ -457,6 +475,12 @@ def launch(args):
         require(args.canary_receipt, "A passing canary receipt is required")
         canary = verify_receipt(args.canary_receipt, bindings, root, environment,
                                reviewer_package=package if args.role == "reviewer" else None)
+    scientific = None
+    if args.role == "reviewer":
+        scientific = scientific_context(root, args, bindings)
+    else:
+        require(getattr(args, "scientific_invocation", None) is None,
+                "Scientific invocation requires reviewer role")
     # Automatic approval review already selects workspace-write (CLI issue #142).
     command = [str(codex), "exec", "--approve-for-me",
                "--json", "--color", "never", "-C", str(root), "-o", str(output / "final.md")]
@@ -481,13 +505,16 @@ def launch(args):
              "output_root": str(output), "prompt_path": str(prompt),
              "prompt_sha256": hashlib.sha256(prompt_bytes).hexdigest(),
              "executed_prompt_sha256": hashlib.sha256(execution_prompt).hexdigest(),
-             "canary": canary, "production_plan": production, "command": command,
+             "canary": canary, "production_plan": production,
+             "scientific_invocation": scientific, "command": command,
              "host": socket.gethostname(), "launcher_pid": os.getpid(), "model": "configured_default"}
     if args.plan:
         print(json.dumps({**state, "status": "plan_only"}, indent=2))
         return 0
     load_cborg(environment)
     require(bool(environment.get("CBORG_API_KEY")), "CBORG credential unavailable")
+    if scientific is not None:
+        reserve_scientific(root, args.scientific_invocation)
     output.mkdir(parents=True, mode=0o700, exist_ok=False)
     os.chmod(output, 0o700)
     environment["EDGEMECH_WORKER_OUTPUT_ROOT"] = str(output)
@@ -515,6 +542,8 @@ def launch(args):
         if args.role == "reviewer":
             state["ending_replay"] = verify_receipt(args.canary_receipt, bindings, root, environment,
                                                     reviewer_package=package)
+            require(scientific_context(root, args, bindings, fresh=False) == scientific,
+                    "Scientific invocation changed during execution")
             # Validators are read-only. Recheck after running them before declaring completion.
             assert_immutable_execution(root, bindings, environment, "Reviewer")
             production_current(root, state["ending_replay"]["production_replay"]["spec"])
@@ -559,6 +588,7 @@ def main():
     parser.add_argument("--role", choices=("canary", "calibration", "release", "reviewer"), required=True)
     parser.add_argument("--canary-receipt", "--production-receipt", dest="canary_receipt", type=Path)
     parser.add_argument("--package-manifest")
+    parser.add_argument("--scientific-invocation", help="Repository-relative generated invocation JSON")
     parser.add_argument("--production-review")
     parser.add_argument("--production-packet")
     parser.add_argument("--production-proofs")

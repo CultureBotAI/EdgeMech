@@ -120,6 +120,9 @@ def reviewer_view(root, case, packet, paths):
     view = read(root, case["reviewer_view_path"])
     if "blinding" in view:
         from prepare_m5_round02_views_20261116 import HELPER, VERSION, projection
+        if view["blinding"].get("version") == "edgemech-blinded-view/v4":
+            require(HELPER in paths, "Unpinned historical projection dependency")
+            from prepare_m5_future_views_20261117 import HELPER, VERSION, projection
         require(HELPER in paths and
                 "scripts/adhoc/prepare_m5_reviewer_views_20261116.py" in paths,
                 "Unpinned blinding adapters")
@@ -191,6 +194,10 @@ def freeze(root, config_path, output):
                 "cohort_id": protocol["cohort_id"], "files": files, "cases": cases,
                 "scientific_status": "unassessed", "thresholds_changed": False,
                 "scope": "input_freeze_not_evidence_entailment_or_calibration_pass"}
+    if "package_purpose" in config:
+        require(config["package_purpose"] in {
+            "engineering_prerequisites", "scientific_calibration_candidate"}, "Invalid package purpose")
+        manifest["package_purpose"] = config["package_purpose"]
     return {"manifest_sha256": write(root, output, manifest), "path": output}
 
 
