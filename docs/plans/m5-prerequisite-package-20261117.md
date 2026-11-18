@@ -16,6 +16,12 @@ at the exact committed candidate runtime. The retained source is M5's
 Its conservative operational specification is
 `.temp/m5-round03-worker-20261116/engineering-operational-canary-spec-02.json`,
 SHA256 `3321872d3bb7685836b46d0d799973ffb17335ea6b78a5783bf63c941a7c1e32`.
+Also supply `--bootstrap-receipt-sha256
+894a803fc18fdf66e715884f51a899fdb5ba5107cec3ad13b237c9c9e369f7af`.
+This binds the original `fresh-47/receipt.json` outside the retained manifest.
+Its original timestamp and bytes stay unchanged; it is not a new runtime/save
+receipt. Configuration equality and the maintained preparation checker are
+required before it can be reused for byte replay.
 
 The helper checks both exact input hashes before staging. Retained evidence,
 source packets, original records and bounded-view receipts retain their exact
@@ -36,6 +42,13 @@ documents, canonical review destination and source pins are checked before
 copying. The helper replays planned evidence hashes, document pins, execution
 inventory, HEAD and clean tracked state around freezing and authoring. It
 preserves failed attempts rather than overwriting them or emitting success.
+The bootstrap quartet is copied at mode 0600 inside a 0700 case directory, as
+required by the real checker; other sealed package inputs retain their existing
+mode policy. The actual free `prepare_calibration_20261115.py --check fresh-47`
+must pass before freezing succeeds. It also reads the retained private source
+archive on M5, verifies its expected upstream hashes, and leaves it unchanged.
+The public fresh-canary projection is explicitly pinned. This addition fixes
+the first actual native-worker failure (#212), which remains preserved.
 
 ## Execution sequence
 
@@ -43,7 +56,7 @@ preserves failed attempts rather than overwriting them or emitting success.
    helper. Inspect its on-disk receipt, origin, revision and isolated environment.
 2. Run package preparation with `--plan`, then the identical arguments and
    `--run`. Supply the source root/manifest/hash and operational spec/hash above;
-   a new `--output`, `--package-id`, UTC `--timestamp` and matching timestamped
+   the bootstrap receipt hash, a new `--output`, `--package-id`, UTC `--timestamp` and matching timestamped
    `--review-id` are required. Inspect the persisted preparation receipt.
 3. Use the maintained worker launcher with role `canary`, the new manifest,
    `operational/review.json`, `operational/proofs.json`, the original fresh-47

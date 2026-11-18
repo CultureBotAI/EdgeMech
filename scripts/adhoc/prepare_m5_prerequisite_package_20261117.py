@@ -12,12 +12,15 @@ import argparse
 import copy
 import json
 import re
+import stat
 import subprocess
+import sys
 from datetime import datetime
 from pathlib import Path
 
 import author_m5_review_data_20261116 as author
 import calibration_round_20261116 as rounds
+import prepare_calibration_20261115 as bootstrap
 import prepare_m5_future_views_20261117 as views
 import run_m5_review_worker_20261116 as worker
 
@@ -26,6 +29,9 @@ SCHEMA = "edgemech-prerequisite-package/v1"
 FIXED = {rounds.PROTOCOL, rounds.COHORT, "docs/record-review-profile.md",
          "scripts/adhoc/calibration_round_20261116.py"}
 REFRESH_ROLES = {"proof_adapter", "profile", "round_helper", "instructions"}
+BOOTSTRAP_ROOT = bootstrap.PRIVATE / bootstrap.CANARY
+BOOTSTRAP_RECEIPT = str(BOOTSTRAP_ROOT / "receipt.json")
+BOOTSTRAP_NAMES = {"occurrence.json", "source.json", "packet.json"}
 
 
 def checked_document(root, path, expected):
@@ -34,7 +40,58 @@ def checked_document(root, path, expected):
     return json.loads(raw, object_pairs_hook=rounds.unique_object)
 
 
-def plan(root, source_root, manifest_path, manifest_sha, spec_path, spec_sha, output):
+def complete_bootstrap_manifest(root, source_root, manifest, receipt_sha):
+    """Bind exact retained preparation; never regenerate or re-date its receipt (#212)."""
+    receipt = checked_document(source_root, BOOTSTRAP_RECEIPT, receipt_sha)
+    cases = [case for case in manifest["cases"] if case["case_id"] == bootstrap.CANARY]
+    rounds.require(len(cases) == 1 and receipt.get("case_id") == bootstrap.CANARY
+                   and receipt.get("occurrence_id") == cases[0]["occurrence_id"]
+                   and receipt.get("cohort_id") == bootstrap.COHORT_ID
+                   and receipt.get("profile") == "edgemech-calibration-preparation/v1",
+                   "Bootstrap receipt identity differs")
+    rounds.require(receipt.get("configuration") == bootstrap.configuration(root),
+                   "Retained bootstrap configuration differs; new preparation required")
+    rounds.require(receipt.get("scientific_status") == "unassessed"
+                   and receipt.get("kg_admissions") == 0
+                   and receipt.get("native_capability_enabled") is False
+                   and receipt.get("canary_receipt") is None, "Invalid bootstrap capability")
+    rounds.require(set(receipt["artifacts"]) == BOOTSTRAP_NAMES,
+                   "Bootstrap artifact inventory differs")
+    complete = copy.deepcopy(manifest)
+    pins = {item["path"]: item for item in complete["files"]}
+    rounds.require(len(pins) == len(complete["files"]), "Repeated source manifest path")
+    for name, pin in receipt["artifacts"].items():
+        path = str(BOOTSTRAP_ROOT / name)
+        rounds.require(pin.get("path") == path and path in pins
+                       and pin.get("sha256") == pins[path]["sha256"],
+                       "Bootstrap artifact differs from retained manifest")
+        rounds.require(rounds.digest(rounds.safe(source_root, path).read_bytes()) == pin["sha256"],
+                       "Retained bootstrap artifact changed")
+        pins[path]["required_mode"] = "0600"
+    if BOOTSTRAP_RECEIPT in pins:
+        rounds.require(pins[BOOTSTRAP_RECEIPT]["sha256"] == receipt_sha,
+                       "Bootstrap receipt differs from retained manifest")
+        pins[BOOTSTRAP_RECEIPT]["required_mode"] = "0600"
+    else:
+        complete["files"].append({"path": BOOTSTRAP_RECEIPT, "sha256": receipt_sha,
+                                  "role": "bootstrap_receipt", "visibility": "coordinator_only",
+                                  "required_mode": "0600"})
+    public_path, public_sha = bootstrap.PUBLIC["fresh"]
+    rounds.require(rounds.digest(rounds.safe(source_root, public_path).read_bytes()) == public_sha
+                   and rounds.digest(rounds.safe(root, public_path).read_bytes()) == public_sha,
+                   "Bootstrap public occurrence projection changed")
+    if public_path in pins:
+        rounds.require(pins[public_path]["sha256"] == public_sha,
+                       "Bootstrap public projection differs from retained manifest")
+    else:
+        complete["files"].append({"path": public_path, "sha256": public_sha,
+                                  "role": "bootstrap_public_projection",
+                                  "visibility": "coordinator_only"})
+    return complete
+
+
+def plan(root, source_root, manifest_path, manifest_sha, spec_path, spec_sha, output,
+         *, bootstrap_receipt_sha256=None):
     rounds.require(root.resolve() != source_root.resolve(), "Use a fresh destination clone")
     rounds.require(Path(output).parts and Path(output).parts[0] == ".temp"
                    and len(Path(output).parts) > 1, "Output must be a private .temp directory")
@@ -48,6 +105,9 @@ def plan(root, source_root, manifest_path, manifest_sha, spec_path, spec_sha, ou
         ["git", "-C", str(root), "remote", "get-url", "origin"], text=True).strip()
     rounds.require(origin == "https://github.com/CultureBotAI/EdgeMech.git", "Noncanonical origin")
     manifest = checked_document(source_root, manifest_path, manifest_sha)
+    if bootstrap_receipt_sha256 is not None:
+        manifest = complete_bootstrap_manifest(root, source_root, manifest,
+                                               bootstrap_receipt_sha256)
     spec = checked_document(source_root, spec_path, spec_sha)
     rounds.require(spec["review"].get("scientific_review") is False
                    and spec["review"]["verdict"] == "not_assessed", "Scientific fixture forbidden")
@@ -77,7 +137,9 @@ def plan(root, source_root, manifest_path, manifest_sha, spec_path, spec_sha, ou
             target = rounds.safe(root, path, exists=False)
             rounds.require(not target.exists(), f"Evidence destination already exists: {path}")
             actions.append({"path": path, "action": "copy_exact_retained_input",
-                            "sha256": pin["sha256"]})
+                            "sha256": pin["sha256"],
+                            **({"required_mode": pin["required_mode"]}
+                               if "required_mode" in pin else {})})
     return manifest, spec, tracked, actions
 
 
@@ -103,18 +165,52 @@ def verify_transition(root, ledger):
         text=True).strip(), "Tracked runtime changed during staging")
     rounds.require(worker.execution_inventory(root) == ledger["execution_inventory"],
                    "Execution inventory changed during staging")
+    if "bootstrap" in ledger:
+        directory = rounds.safe(root, ledger["bootstrap"]["case_directory"], exists=False)
+        rounds.require(directory.is_dir() and stat.S_IMODE(directory.stat().st_mode)
+                       == int(ledger["bootstrap"]["directory_mode"], 8),
+                       "Bootstrap directory mode changed")
     for item in [*ledger["actions"], *ledger["prerequisite_documents"]]:
         if item.get("action") == "omit_historical_instructions":
             continue
         rounds.require(rounds.digest(rounds.safe(root, item["path"]).read_bytes()) == item["sha256"],
                        f"Planned input changed during staging: {item['path']}")
+        if "required_mode" in item:
+            rounds.require(stat.S_IMODE((root / item["path"]).stat().st_mode)
+                           == int(item["required_mode"], 8), "Bootstrap file mode changed")
+
+
+def copy_retained(root, source, pin):
+    raw = rounds.safe(source, pin["path"]).read_bytes()
+    rounds.require(rounds.digest(raw) == pin["sha256"], "Source changed after plan")
+    rounds.write(root, pin["path"], raw=raw)
+    if "required_mode" in pin:
+        path = rounds.safe(root, pin["path"])
+        path.chmod(int(pin["required_mode"], 8))
+        rounds.require(path.read_bytes() == raw, "Bootstrap bytes changed during mode setup")
+
+
+def check_bootstrap(root):
+    """The same free maintained checker used by the actual durable worker launcher."""
+    directory = root / BOOTSTRAP_ROOT
+    rounds.require(stat.S_IMODE(directory.stat().st_mode) == 0o700,
+                   "Bootstrap directory must remain mode 0700")
+    command = [sys.executable, "-B", str(root / "scripts/adhoc/prepare_calibration_20261115.py"),
+               "--check", bootstrap.CANARY]
+    record, receipt = worker.production_validator("bootstrap-preparation-check", command,
+                                                   root, worker.child_environment(root))
+    rounds.require(receipt == rounds.read(root, BOOTSTRAP_RECEIPT),
+                   "Bootstrap checker returned another receipt")
+    return record
 
 
 def prepare(args):
     root, source = args.root.resolve(), args.source_root.resolve()
     metadata_preflight(root, args)
+    rounds.text(args.bootstrap_receipt_sha256, "bootstrap receipt SHA256")
     manifest, spec, tracked, actions = plan(root, source, args.source_manifest,
-        args.source_sha256, args.operational_spec, args.spec_sha256, args.output)
+        args.source_sha256, args.operational_spec, args.spec_sha256, args.output,
+        bootstrap_receipt_sha256=args.bootstrap_receipt_sha256)
     ledger = {"schema": SCHEMA, "package_purpose": "engineering_prerequisites",
               "scientific_authorization": False, "source_manifest": {
                   "path": args.source_manifest, "sha256": args.source_sha256},
@@ -125,6 +221,12 @@ def prepare(args):
               "prerequisite_documents": [{"path": path, "sha256": rounds.digest(
                   rounds.safe(root, path).read_bytes())} for path in args.prerequisite_document],
               "actions": actions,
+              "bootstrap": {"receipt_path": BOOTSTRAP_RECEIPT,
+                            "receipt_sha256": args.bootstrap_receipt_sha256,
+                            "case_directory": str(BOOTSTRAP_ROOT), "directory_mode": "0700",
+                            "artifact_mode": "0600", "archive_root": str(bootstrap.ARCHIVE),
+                            "private_upstream_inputs": rounds.read(
+                                source, BOOTSTRAP_RECEIPT)["private_upstream_inputs"]},
               "scope": "Complete retained byte bindings; unresolved scientific witnesses remain missing."}
     if args.plan:
         return {"status": "plan_only", "files": len(actions), "cases": len(manifest["cases"]),
@@ -136,9 +238,7 @@ def prepare(args):
             continue
         if action["action"] == "copy_exact_retained_input":
             # Check again immediately before persistence; never accept a changed source.
-            raw = rounds.safe(source, pin["path"]).read_bytes()
-            rounds.require(rounds.digest(raw) == pin["sha256"], "Source changed after plan")
-            rounds.write(root, pin["path"], raw=raw)
+            copy_retained(root, source, pin)
         if pin["path"] not in FIXED:
             files[pin["path"]] = {k: v for k, v in pin.items() if k != "sha256"}
     # Freeze every maintained execution input, including newly added helpers.
@@ -178,6 +278,7 @@ def prepare(args):
               "files": list(files.values()), "cases": cases}
     rounds.write(root, config_path, config)
     verify_transition(root, ledger)
+    bootstrap_check = check_bootstrap(root)
     frozen = rounds.freeze(root, config_path, target_manifest)
     verified = rounds.verify(root, target_manifest)
     verify_transition(root, ledger)
@@ -185,6 +286,7 @@ def prepare(args):
     verify_transition(root, ledger)
     result = {"schema": SCHEMA, "status": "prepared", "manifest": frozen,
               "verification": verified, "operational": authored,
+              "bootstrap_check": bootstrap_check,
               "scientific_authorization": False}
     rounds.write(root, str(prefix / "preparation-receipt.json"), result)
     return result
@@ -198,6 +300,8 @@ def main():
     parser.add_argument("--source-sha256", required=True)
     parser.add_argument("--operational-spec", required=True)
     parser.add_argument("--spec-sha256", required=True)
+    parser.add_argument("--bootstrap-receipt-sha256", required=True,
+                        help="Exact original fresh-47 preparation receipt SHA256")
     parser.add_argument("--output", required=True)
     parser.add_argument("--package-id", required=True)
     parser.add_argument("--review-id", required=True)

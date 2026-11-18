@@ -14,6 +14,7 @@ projections remain unchanged.
 | #208: planned tracked evidence/runtime could drift before freeze recomputed hashes | Replay planned input/document hashes, complete execution inventory, HEAD and clean tracked state before and after freeze and after authoring. Drift prevents a success receipt. |
 | #209: adjudication accepted a plan without bound initial results | Reject that phase at validation and prompt generation. A typed initial-matrix/seal/comparison contract remains necessary before a complete future round. |
 | #210: whole-field blinding omitted substantive process meaning while claiming definitions were retained | Restore the exact mixed definition except three separable review-status tokens; retain scope/version limitations and provenance with original hashes and bounded byte-span records. |
+| #212: first native canary lacked its bootstrap receipt and required seed modes | Bind the unchanged historical receipt and full bootstrap inputs, preserve 0600 files/0700 case directory, and run the actual maintained bootstrap checker before any native worker. Preserve the failed clone and re-canary a new runtime before fanout. |
 
 Independent re-review found #207/#208 corrected and no additional material
 defect in the provisioning path or #203/#209 invocation/launcher integration.
