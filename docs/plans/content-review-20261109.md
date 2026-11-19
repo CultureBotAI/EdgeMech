@@ -1,4 +1,136 @@
-# Corrected 17M content-review implementation plan
+# Edge content review: current implementation plan
+
+Reconciled **2026-11-19** against main `f841b1d`, the reviewed prerequisite
+candidate `27be00d` ([PR #211](https://github.com/CultureBotAI/EdgeMech/pull/211)),
+and the completed calibration reports. This update addresses
+[#213](https://github.com/CultureBotAI/EdgeMech/issues/213). The original November 9
+design remains below as a dated baseline; its status and authorization statements
+are historical. This section governs the next execution.
+
+## Objective and assessment contract
+
+Find and correct errors in exact edge occurrences and their endpoint nodes.
+Account for all 17,637,435 frozen occurrences eventually; do not promise positive
+literature support for every assertion. Start with the retained 100, including
+the ten fixed calibration challenges. Repeated review adds assessment depth, not
+new population coverage. Preserve every original assertion, source row and
+multiplicity when proposing corrections.
+
+Use the implemented [occurrence profile](../record-review-profile.md) over the
+pinned CLAW contract. Every selected occurrence receives six **separate**
+categorical assessments:
+
+| Axis | Required question and evidence |
+| --- | --- |
+| Claim | Is the original statement supported as stated, contradicted, conflicting, insufficiently evidenced or not assessable? Preserve organism/strain, conditions, units, polarity, modality and original endpoint meanings. A source report is allowed only when that is the original proposition. |
+| Literature | Does inspected text support, refute, conflict with or partly address the exact claim? Preserve explicit no-match, unavailable and not-applicable states. Verify DOI identity and short literal snippets with retained document hashes, offsets, extraction version and inspected extent. |
+| Relation | Is this predicate, direction, specificity and qualifier set appropriate, beyond mere domain/range compatibility? Pin the applicable relation version. |
+| Subject node | Independently assess identity, label, category, rank/type and definition against version-bound authority. A nonempty category or valid identifier is insufficient. |
+| Object node | Apply the same checks independently, including quantitative bounds, units, endpoint conventions, statistic and process/assay meaning where relevant. |
+| Source fidelity | Does the original edge preserve the source assertion's meaning? Use a directly bound semantic comparison where sufficient; recover the producer branch where selection, identity, polarity or mapping makes it necessary. Missing necessary provenance is not a contradiction. |
+
+The profile defines the exact category vocabulary and shared-outcome mapping;
+this plan does not create a second schema. `UNASSESSED` is unfinished work.
+An assessed unresolved limit is a valid finding, but may still fail a calibration
+resolution gate. Supported claims and incorrect modeling can coexist; persistence
+must preserve that distinction. Transport validity, quote matches and reviewer
+agreement are not scientific truth.
+
+For each directional literature judgment, verify publication identity, organism
+and strain, measured outcome, methods/conditions and entailment. Inspect the full
+paper or relevant methods/table when an abstract cannot answer those questions.
+Use alternate verified identifiers when no DOI exists and record why. Database
+papers and inherited dataset DOIs do not establish each database assertion.
+Keep supporting and contrary text; never manufacture a snippet or reinterpret a
+biological claim as a report to obtain a passing label.
+
+## Reconciled starting state
+
+| Deliverable | State on 2026-11-19 |
+| --- | --- |
+| Inventory, retained100, complete packets, six-axis profile, abstract replay | Implemented on main through PRs #76/#94/#120/#128/#131. Earlier canary judgments are not a completed six-axis reassessment of all100. Remaining9,900 are unreviewed. |
+| Operational calibration | Rounds01,02,03 completed and **failed**. Preserve their matrices, seals, rejected saves, evidence and reports. These are purposive challenges, not a gold standard or a population accuracy estimate. |
+| Latest failed round | [Round03](../validation/m5-calibration-round03-results-20261116.md): initial54/60 overall, fidelity7/10 agreement and3/10 final resolution; unsupported initial judgments, unresolved disagreements and blinding failure. Mechanical20/20 canonical replay did not repair science. |
+| Clone and save/readback repairs | [PR #211 live results](../validation/m5-prerequisites-live-20261117.md): two fresh M5 environments at `3057bb2`,380 bindings each, actual canonical save/readback passed after a preserved failed canary. These receipts apply only to those exact environments/packages/runtime. PR #211 and its calibration base stack remain unmerged. |
+| Scientific invocation | Initial-review instruction/package/session binding implemented; full typed adjudication inputs tracked in [#209](https://github.com/CultureBotAI/EdgeMech/issues/209). Its existing fail-closed rejection is not adjudication readiness. |
+| Evidence gaps | [Ten-case coordinator witness map](m5-source-fidelity-witness-map-20261117.md) names original selection, field-meaning, identity, bin, process-version and cell-lineage gaps. The map contains historical judgments and must not enter blinded reviewer navigation. |
+| BactoTraits correction | Owner quarantine and EdgeMech evidence merged; bounded regenerated candidate verified. Full graph-release verification remains [#143](https://github.com/CultureBotAI/EdgeMech/issues/143). |
+| Library use | Earlier public/CBORG service receipts are recorded in NEXT_TASKS. Failed licensed retrievals remain failures. PR #211 reused evidence without new literature retrieval; fresh05's round03 directional evidence was an abstract, not an inspected full paper. |
+
+## Dependency-ordered implementation on M5
+
+The user authorized implementation using M5 sessions and additional `codex-work`
+or `agy-work` helpers on 2026-11-19. Work on a branch based on PR #211; do not
+mutate old clones or frozen outputs. Merge still requires separate explicit
+authorization. Resolve current sessions before launching: the old count of32
+idle panes is not a current capacity measurement. The execution log and exact
+receipts belong in [the November19 run record](../validation/content-review-execution-20261119.md).
+
+| Stage | Concrete work, owner and dependency | Acceptance / stop condition |
+| --- | --- | --- |
+| W0: register execution | Coordinator reconciles branch/runtime, M5 sessions, wrapper, private output roots and current owner inputs. Implement a single-unit durable helper launcher, separate from scientific reviewers. | Plan mode is free; run exactly one helper end to end through the real wrapper/shell/output path. Verify nonempty report, events, exit status, hashes and runtime identity before another helper. Preserve failures; changed launch path requires a new canary. |
+| W1: recover source witnesses | M5 source helper starts with **first43** MetaTraits mapping/polarity; only after its actual owner-code replay and persisted receipt pass, run first28 through the same helper. Pin original source row, loader, lookup/template, selected serial/worker branch and emitted qualifiers. | Actual owner implementation and exact mapping inputs, not a handwritten equivalent. Compare emitted bytes/meaning with the original occurrence. Separate sampled clean base/current replay from the unknown historical dirty build. No biological refutation inferred from a negative aggregate. |
+| W2: bind adjudication | Contract helper implements #209 in parallel with W1. A separately frozen phase package binds the original package plus both reviewer identities, original matrices, receipts/seals and comparison. | Reject absent, swapped, stale, changed or premature inputs before launching. Replay original seals; preserve timestamps. Initial reviewer instructions remain blind. Meaningful negative tests and real retained-artifact replay precede scientific use. |
+| W3: close remaining evidence dependencies | Coordinator prioritizes the witness map after W1: original type-field linkage; exact process-generation definition/version; LPSN subject authority; BactoTraits bin/weight meaning and culture/cell lineage; original GTDB identity. Assign bounded source-specific helper tasks. | For each dependency record established, conflicting or still missing, with original and current version scope. Do not treat producer-selected ID as proof of the culture supplying a phenotype. Do not silently replace missing historical inputs with a current snapshot. |
+| W4: literature and correction work | Evidence helper replays retained citations before local provenance/Zotero and anonymous OA/appropriate LBNL channels. Start with one exact organism-matched paper needed by a calibration claim. Owner fixes proceed on separate branches with issue and regression records. | Retain service/request outcome, DOI/title identity, inspected extent, document/quote pins and scientific limits. One real retrieval unit before any batch; safe authenticated general-helper integration remains dependent on PR #102. Candidate verification and graph-release verification stay separate. |
+| W5: scientific package readiness | After W1–W4 evidence dispositions and W2 contract review, freeze a **new** package with complete available bindings, neutral navigation and independently checked exposure omissions. Freeze both phase instruction assets/runtime before initial review; bind later sealed outputs in the adjudication phase without circular hashes. | Audit substantive definitions, counterevidence, original entity/version bindings and unresolved dependencies. Missing evidence must remain explicit. Demonstrate the planned evidence can exercise the unchanged gates; do not launch another round merely because every available file hashes. |
+| W6: fresh reviewer execution | Provision new isolated clones at one exact committed runtime. Run actual same-clone save/readback in A; inspect before B. Use fresh scientific sessions that have not read historical judgments. Both initial reviewers get identical scientific evidence, with clone-specific execution paths. | Two immutable10-by-6 initial matrices and seals before mutual exposure; then separate adjudication through W2's bound inputs. Complete canonical save/readback, all proof replay and unchanged scoring. Record model/session identities and exposure limits. |
+| W7: reassess retained100 | Only a passing W6 permits reviewing the remaining90 through the same production path. Start one new occurrence end to end, then bounded queues. Deduplicate evidence/node checks while retaining each edge binding. | All100 occurrence/endpoint accounting, six axes each, explicit unresolved counts, independent directional/model audit, issue/owner/correction linkage and persisted artifacts. |
+| W8: measured expansion | Only after W7 and independently verified real correction against regenerated candidate bytes, select a bounded next cohort from9,900. Later full-population work requires source-family coverage and measured resources. | No automatic17M sweep. Measure wall time, peak memory/swap, bytes, provider throttling/failure rates and writer contention at1, then2, then4. Each new adapter/launcher/provider path has its own live canary. |
+
+W0–W4 are evidence/engineering work, not additional scientific calibration
+coverage. Helper workers exposed to old outcomes cannot become nominally blinded
+reviewers. Each task has one exclusive output directory and an immutable input
+identity; one coordinator owns dispatch and completion accounting. Use a bounded
+queue, at most two new evidence helpers initially after the single-worker canary,
+and one writer per catalogue. Do not interrupt unrelated M5 jobs or infer capacity
+from core count. Native wrapper defaults may be used; record actual model and
+reasoning settings without silently substituting a model.
+
+## Unchanged scientific gates
+
+The [registered protocol](edge-calibration-20261115.md) and its machine-readable
+protocol/cohort remain authoritative. Do not tune these thresholds after scoring:
+
+- 10/10 packet and20/20 endpoint-role input coverage;60/60 final authored axes,
+  no `UNASSESSED`, and explicit reasons for unresolved outcomes.
+- Initial exact-category agreement at least54/60 overall,8/10 on **every** axis
+  and9/10 for claim. Publish all six confusion tables before reconciliation.
+- Zero independently adjudicated unsupported resolved claim/model judgments;
+  audit both reviewers' initial labels and final labels, retaining all failures.
+- Every input, quoted text, publication identity, authority version and immutable
+  canonical review pair replays. A child process exiting0 is insufficient.
+- Final source-fidelity resolution at least8/10; claim at least2/10; each modeling
+  axis at least5/10. Agreement on unresolved labels cannot meet these floors.
+- At least one exact-scope independently paper-backed directional claim and one
+  exact-authority-backed incorrect-model judgment. Source-report support cannot
+  substitute for the paper-backed exercise.
+- Preserve both original ratings and evidence-based disagreement dispositions;
+  unresolved disagreement over a resolved claim/model judgment blocks passage.
+  Maintain prospectively seven applicable literature cases and report all ten.
+
+A failed round is a durable result. Diagnose the specific failure, improve
+evidence/procedure and register a new round only when the new inputs justify it.
+Same-model agreement is operational evidence; it does not establish independent
+expert agreement or calibrated population accuracy. No engineering receipt,
+successful save, candidate correction or merged PR overrides these gates.
+
+## Review, publication and handoff
+
+Every material adversarial finding becomes an issue before repair. Review the
+final diff read-only, address in-scope findings, run focused tests during work and
+the full suite/contracts/lint/build on the final candidate. Open a PR against the
+actual dependency branch and name unmerged owner/CLAW dependencies. No automatic
+merge or cleanup of unmerged worktrees.
+
+Public results contain bounded snippets, DOI/authority identifiers, hashes,
+locators, status counts and limitations. Full articles and raw private packets
+remain in ignored private storage. Helpers remain tracked in `scripts/adhoc/`.
+Record actual library services used, including unavailable/failed outcomes;
+using an LBNL skill alone is not service execution. Reconcile NEXT_TASKS and the
+execution record with persisted results, not the workers' optimistic summaries.
+
+## Historical November 9 design
 
 Reviewed 2026-11-09 against EdgeMech main `47bcaec` and the pinned census.
 Original (retained unchanged in ignored workspace):
