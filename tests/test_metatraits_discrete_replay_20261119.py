@@ -283,3 +283,216 @@ def test_runtime_inventory_skips_credential_paths_and_detects_code_changes(tmp_p
     assert before == replay.runtime_identity()
     code.write_text("changed code")
     assert before != replay.runtime_identity()
+
+
+def failure_run_fixture(tmp_path, monkeypatch, case_name="first43"):
+    """Real private writes/pins and small runtime inventory; no owner emission."""
+    case = replay.retained_case(case_name)
+    kg, original, output = (tmp_path / name for name in ("owner", "original", "attempt"))
+    for name in case["code"] + tuple(case["input_pins"]):
+        path = kg / name
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(f"Synthetic input: {name}\n")
+    original.mkdir()
+    for name in case["packet_pins"]:
+        (original / name).write_text("Synthetic original packet\n")
+    executable = tmp_path / "runtime" / "bin" / "python"
+    executable.parent.mkdir(parents=True)
+    executable.write_bytes(b"synthetic executable inventory member\n")
+    helper = tmp_path / "helper.py"
+    helper.write_text("# Synthetic retained helper source\n")
+    monkeypatch.setattr(replay.sys, "prefix", str(executable.parent.parent))
+    monkeypatch.setattr(replay.sys, "executable", str(executable))
+    monkeypatch.setattr(replay, "__file__", str(helper))
+    monkeypatch.setenv("PYSTOW_HOME", str(tmp_path / "unused-cache"))
+    inspection = {"packet_pins": {name: replay.pin(original / name)
+                                  for name in case["packet_pins"]}}
+    monkeypatch.setattr(replay, "inspect_inputs", lambda *_: inspection)
+    monkeypatch.setattr(replay, "prepare_owner", lambda *_: (SimpleNamespace(), {}))
+    return SimpleNamespace(kg=kg, original=original, output=output, executable=executable,
+                           helper=helper, owner_file=kg / case["code"][0], inspection=inspection)
+
+
+@pytest.mark.parametrize("case_name", ["first43", "first28"])
+@pytest.mark.parametrize("unavailable, diagnostic", [
+    ("executable", "runtime_identity_after"),
+    ("owner_file", "owner_identity_after"),
+    ("helper", "helper_sha256"),
+])
+def test_failure_survives_unavailable_after_diagnostic(tmp_path, monkeypatch, case_name,
+                                                     unavailable, diagnostic):
+    fixture = failure_run_fixture(tmp_path, monkeypatch, case_name)
+    original_error = ValueError("Original source inspection failure")
+
+    def fail_inspection(*_):
+        getattr(fixture, unavailable).unlink()
+        raise original_error
+
+    monkeypatch.setattr(replay, "inspect_inputs", fail_inspection)
+    with pytest.raises(ValueError, match="Original source inspection failure") as caught:
+        replay.run("plan", fixture.kg, fixture.original, fixture.output, case_name)
+    assert caught.value is original_error
+    path = fixture.output / "failure.json"
+    raw = path.read_bytes()
+    failure = json.loads(raw)
+    assert raw and stat.S_IMODE(path.stat().st_mode) == 0o600
+    assert failure["error_type"] == "ValueError" and failure["error"] == str(original_error)
+    assert failure[diagnostic] is None
+    assert failure["diagnostic_errors"] == {diagnostic: {
+        "error_type": "FileNotFoundError",
+        "error": failure["diagnostic_errors"][diagnostic]["error"]}}
+    assert str(getattr(fixture, unavailable)) in failure["diagnostic_errors"][diagnostic]["error"]
+    assert failure["runtime_identity_before"] == json.loads(
+        (fixture.output / "runtime-before.json").read_bytes())
+    assert failure["owner_identity_before"]
+    assert failure["runtime_identity_unchanged"] is (None if unavailable == "executable" else True)
+    assert failure["owner_identity_unchanged"] is (None if unavailable == "owner_file" else True)
+    assert not (fixture.output / "receipt.json").exists()
+    with pytest.raises(ValueError, match="fresh directory"):
+        replay.run("plan", fixture.kg, fixture.original, fixture.output, case_name)
+    assert path.read_bytes() == raw
+
+
+def test_runtime_after_failure_is_persisted_when_diagnostic_retry_also_fails(tmp_path, monkeypatch):
+    fixture = failure_run_fixture(tmp_path, monkeypatch)
+    runtime_errors = []
+    original_runtime_identity = replay.runtime_identity
+
+    def inspect_then_remove_runtime(*_):
+        fixture.executable.unlink()
+        return fixture.inspection
+
+    def observe_runtime():
+        try:
+            return original_runtime_identity()
+        except FileNotFoundError as error:
+            runtime_errors.append(error)
+            raise
+
+    monkeypatch.setattr(replay, "inspect_inputs", inspect_then_remove_runtime)
+    monkeypatch.setattr(replay, "runtime_identity", observe_runtime)
+    with pytest.raises(FileNotFoundError) as caught:
+        replay.run("plan", fixture.kg, fixture.original, fixture.output)
+    assert len(runtime_errors) == 2 and caught.value is runtime_errors[0]
+    failure = json.loads((fixture.output / "failure.json").read_bytes())
+    assert failure["error_type"] == "FileNotFoundError"
+    assert failure["error"] == str(runtime_errors[0])
+    assert failure["runtime_identity_before"]["executable_pin"]
+    assert failure["runtime_identity_after"] is None
+    assert failure["runtime_identity_unchanged"] is None
+    assert failure["diagnostic_errors"]["runtime_identity_after"] == {
+        "error_type": "FileNotFoundError", "error": str(runtime_errors[1])}
+
+
+@pytest.mark.parametrize("unavailable", ["executable", "owner_file"])
+def test_incomplete_initial_snapshot_is_unknown_not_unchanged(tmp_path, monkeypatch, unavailable):
+    fixture = failure_run_fixture(tmp_path, monkeypatch)
+    getattr(fixture, unavailable).unlink()
+    with pytest.raises(FileNotFoundError):
+        replay.run("plan", fixture.kg, fixture.original, fixture.output)
+    failure = json.loads((fixture.output / "failure.json").read_bytes())
+    assert failure["owner_identity_before"] is None
+    assert failure["owner_identity_unchanged"] is None
+    if unavailable == "executable":
+        assert failure["runtime_identity_before"] is None
+        assert failure["runtime_identity_unchanged"] is None
+    diagnostic = "runtime_identity_after" if unavailable == "executable" else "owner_identity_after"
+    assert failure[diagnostic] is None
+    assert failure["diagnostic_errors"][diagnostic]["error_type"] == "FileNotFoundError"
+
+
+@pytest.mark.parametrize("changed, identity", [
+    ("executable", "runtime"), ("owner_file", "owner"),
+])
+def test_available_changed_after_state_is_recorded_as_changed(tmp_path, monkeypatch, changed,
+                                                            identity):
+    fixture = failure_run_fixture(tmp_path, monkeypatch)
+
+    def inspect_then_change(*_):
+        getattr(fixture, changed).write_bytes(b"changed inventory member\n")
+        return fixture.inspection
+
+    monkeypatch.setattr(replay, "inspect_inputs", inspect_then_change)
+    with pytest.raises(ValueError, match="changed during run"):
+        replay.run("plan", fixture.kg, fixture.original, fixture.output)
+    failure = json.loads((fixture.output / "failure.json").read_bytes())
+    assert failure[f"{identity}_identity_unchanged"] is False
+    assert failure[f"{identity}_identity_before"] != failure[f"{identity}_identity_after"]
+    assert failure["diagnostic_errors"] == {}
+
+
+def test_failure_record_write_error_preserves_original_exception_and_existing_bytes(
+        tmp_path, monkeypatch, capsys):
+    fixture = failure_run_fixture(tmp_path, monkeypatch)
+    original_error = ValueError("Original failure with unavailable failure record path")
+    existing = b"Already present; never overwrite\n"
+
+    def fail_inspection(*_):
+        replay.save_private(fixture.output / "failure.json", existing)
+        raise original_error
+
+    monkeypatch.setattr(replay, "inspect_inputs", fail_inspection)
+    with pytest.raises(ValueError) as caught:
+        replay.run("plan", fixture.kg, fixture.original, fixture.output)
+    assert caught.value is original_error
+    assert (fixture.output / "failure.json").read_bytes() == existing
+    assert "Failure record could not be persisted: FileExistsError" in original_error.__notes__[0]
+    assert "Failure record could not be persisted: FileExistsError" in capsys.readouterr().err
+
+
+@pytest.mark.parametrize("stderr_available", [True, False])
+def test_legacy_exception_survives_unwritable_failure_record_without_add_note(
+        tmp_path, monkeypatch, capsys, stderr_available):
+    class LegacyFailure(ValueError):
+        add_note = None
+
+    fixture = failure_run_fixture(tmp_path, monkeypatch)
+    original_error = LegacyFailure("Original error on Python without callable add_note")
+    original_save_json = replay.save_json
+
+    def fail_inspection(*_):
+        raise original_error
+
+    def deny_failure_record(path, value):
+        if path.name == "failure.json":
+            raise PermissionError("Synthetic failure record permission denial")
+        return original_save_json(path, value)
+
+    class UnavailableStderr:
+        def write(self, _):
+            raise OSError("Synthetic stderr unavailable")
+
+    monkeypatch.setattr(replay, "inspect_inputs", fail_inspection)
+    monkeypatch.setattr(replay, "save_json", deny_failure_record)
+    if not stderr_available:
+        monkeypatch.setattr(replay.sys, "stderr", UnavailableStderr())
+    with pytest.raises(LegacyFailure) as caught:
+        replay.run("plan", fixture.kg, fixture.original, fixture.output)
+    assert caught.value is original_error
+    assert not (fixture.output / "failure.json").exists()
+    if stderr_available:
+        assert "Failure record could not be persisted: PermissionError" in capsys.readouterr().err
+
+
+def test_standalone_runtime_smoke_preserves_attempts_and_reread_result(tmp_path, monkeypatch):
+    spec = importlib.util.spec_from_file_location(
+        "metatraits_failure_smoke_test", Path(__file__).parents[1] /
+        "scripts/adhoc/check_metatraits_failure_runtime_20261119.py")
+    smoke = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(smoke)
+    monkeypatch.setattr(smoke, "ROOT", tmp_path)
+    output = tmp_path / ".temp" / "failure-smoke"
+    result = smoke.check(output)
+    assert result["status"] == "passed" and result["checks"] == 4
+    raw = (output / "result.json").read_bytes()
+    assert result["result_pin"] == replay.pin(output / "result.json")
+    assert {check["scenario"] for check in json.loads(raw)["checks"]} == set(smoke.SCENARIOS)
+    assert (output / "removed_runtime/attempt/failure.json").is_file()
+    assert (output / "removed_owner/attempt/failure.json").is_file()
+    assert not (output / "denied_failure/attempt/failure.json").exists()
+    with pytest.raises(ValueError, match="fresh directory"):
+        smoke.check(output)
+    assert (output / "result.json").read_bytes() == raw
+    with pytest.raises(ValueError, match="beneath checkout .temp"):
+        smoke.check(tmp_path / "outside-output")
+    assert not (tmp_path / "outside-output").exists()

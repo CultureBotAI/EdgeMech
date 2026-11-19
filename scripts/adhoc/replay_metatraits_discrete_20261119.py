@@ -624,7 +624,7 @@ def run(mode, kg, original, output, case_name="first43"):
     require(not output.resolve().is_relative_to(kg) and
             not output.resolve().is_relative_to(original), "Output inside read-only evidence")
     create_private_dir(output)
-    before = {}
+    before = None
     runtime_before = None
     log = io.StringIO()
     try:
@@ -699,14 +699,53 @@ def run(mode, kg, original, output, case_name="first43"):
         return {"output": str(output), "receipt": receipt, "status": result["status"]}
     except Exception as error:
         # Failures are durable, including partial owner output; never reuse this attempt.
-        save_json(output / "failure.json", {
+        # An unavailable after-state is unknown, not unchanged. Diagnostics must
+        # never replace the original error or prevent its failure record.
+        diagnostic_errors = {}
+
+        def diagnose(name, operation):
+            try:
+                return operation()
+            except Exception as diagnostic_error:
+                diagnostic_errors[name] = {
+                    "error_type": type(diagnostic_error).__name__,
+                    "error": str(diagnostic_error)}
+                return None
+
+        runtime_after = diagnose("runtime_identity_after", runtime_identity)
+        owner_after = diagnose("owner_identity_after", lambda: {
+            path: pin(kg / path) for path in case["code"] + tuple(case["input_pins"])})
+        helper_sha256 = diagnose("helper_sha256", lambda: sha(Path(__file__).read_bytes()))
+        failure = {
             "error_type": type(error).__name__, "error": str(error), "invocation": sys.argv,
             "case": case_name,
-            "runtime_identity_unchanged": (runtime_identity() == runtime_before
-                                           if runtime_before is not None else None),
-            "helper_sha256": sha(Path(__file__).read_bytes()), "owner_identity_before": before,
-            "owner_identity_after": {path: pin(kg / path) for path in before},
-            "captured_log": log.getvalue(), "limits": LIMITS})
+            "runtime_identity_before": runtime_before, "runtime_identity_after": runtime_after,
+            "runtime_identity_unchanged": (runtime_after == runtime_before
+                                           if runtime_before is not None and
+                                           runtime_after is not None else None),
+            "helper_sha256": helper_sha256, "owner_identity_before": before,
+            "owner_identity_after": owner_after,
+            "owner_identity_unchanged": (owner_after == before
+                                         if before is not None and owner_after is not None else None),
+            "diagnostic_errors": diagnostic_errors,
+            "captured_log": log.getvalue(), "limits": LIMITS}
+        try:
+            save_json(output / "failure.json", failure)
+        except Exception as persistence_error:
+            # An unavailable output store may prevent recording; preserve the
+            # original exception and explicitly report that separate limitation.
+            diagnostic = ("Failure record could not be persisted: "
+                          f"{type(persistence_error).__name__}: {persistence_error}")
+            try:
+                add_note = getattr(error, "add_note", None)
+                if callable(add_note):  # The retained owner runtime is Python 3.10.
+                    add_note(diagnostic)
+            except Exception:
+                pass  # Optional annotation cannot replace the original failure.
+            try:
+                print(diagnostic, file=sys.stderr)
+            except Exception:
+                pass  # Unavailable stderr also cannot replace the original failure.
         raise
 
 
