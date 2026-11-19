@@ -175,12 +175,22 @@ def test_209_adjudication_rejected_without_a_typed_initial_seals_and_results_con
     root, plan, manifest, value, kwargs, put = contract
     plan["phase"] = "evidence_adjudication"
     mutate_plan(root, plan, manifest, put)
-    with pytest.raises(ValueError, match="Unsupported scientific phase"):
+    with pytest.raises(ValueError, match="missing scientific instruction fields"):
         invocation.validate(root, "invocation.json", **kwargs)
-    with pytest.raises(ValueError, match="Unsupported scientific phase"):
+    with pytest.raises(ValueError, match="Missing typed adjudication inputs"):
         invocation.generated_prompt(plan, manifest, value["session"], {
             key: value[key] for key in ("manifest", "instructions")},
             invocation.instruction_templates(root, plan))
+
+
+def test_initial_phase_rejects_result_files_even_when_hidden(contract):
+    root, _, manifest, _, kwargs, put = contract
+    put(".temp/previous-matrix.json", {"fixture": "initial results must not leak"})
+    manifest["files"].append({**invocation.pin(root, ".temp/previous-matrix.json"),
+                              "role": "initial_matrix"})
+    put("future-manifest.json", manifest)
+    with pytest.raises(ValueError, match="Blinded initial package cannot include"):
+        invocation.validate(root, "invocation.json", **kwargs)
 
 
 @pytest.mark.parametrize("legacy", [True, False])

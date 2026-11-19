@@ -46,12 +46,22 @@ occurrences, endpoint identities, packet inputs and pinned file bytes.
 Sessions have distinct clone roots and nonoverlapping, absent session roots. The
 worker output is an immediate child of its session root. A fresh output directory
 inside a completed session does not constitute a fresh session. The native worker
-uses a new `codex exec`, never a resume. Only `blinded_initial_review` is supported.
-Issue #209 records why `evidence_adjudication` is rejected: it needs a separately
-reviewed typed binding for initial matrices, seals and comparison results before
-any prompt can require those inputs. This helper does not establish readiness for
-a complete scientific round. Historical adjudication tooling is unchanged, and
-no default old scoring roots exist in this new contract.
+uses a new `codex exec`, never a resume. Version 1 remains the blinded initial
+phase. The [version 2 adjudication input contract](m5-adjudication-inputs-20261119.md)
+addresses #209 with a separately frozen phase package binding both completed
+original invocations, identities, matrices, authored seals and the replayed
+comparison. An evidence-only plan still cannot request adjudication. Neither
+contract establishes readiness for a complete scientific round. Historical
+adjudication tooling is unchanged, and no default old scoring roots exist in
+this new contract.
+
+The final adjudication stage follows the existing finalizer's persistence
+policy (#219): ten full canonical-schema drafts/proofs and sixty final
+assessments are validated and hash-bound in final accounting; the canonical
+scientific persistence denominator remains the twenty initial reviewer pairs.
+Final drafts are not advertised as additional saved canonical reviews. The
+adjudicator's separate same-clone production save/readback canary remains a
+mandatory operational prerequisite.
 
 ## Instruction templates
 

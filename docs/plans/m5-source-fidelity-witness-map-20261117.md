@@ -13,6 +13,27 @@ remain scientific limitations. No new round or expansion is established by this
 map. Original assertions, source rows, multiplicity and completed reviews stay
 unchanged.
 
+## November19 recovery update
+
+The original November17 inventory and completed round03 judgments below remain
+unchanged. The [new implementation record](../validation/content-review-execution-20261119.md)
+and separate coordinator reports add these bounded witnesses:
+
+| Case | Established by the new replay | Still required |
+| --- | --- | --- |
+| first-43 | Actual owner mapping/Tier1 emission reproduces the positive capability predicate **with 0% qualifier** from the frozen negative aggregate. [MetaTraits report](../validation/metatraits-source-witnesses-20261119.md). | Interpret the complete qualified assertion; preserve seeded-taxonomy and historical dirty-build/template limits. This is not biological refutation. |
+| first-28 | Actual GTDB subclass/inherited Tier1 emission reproduces the exact trait and 100% qualifier from source line1498, summary58. | Original field meaning and spore-type specificity, real taxon selection rather than the replay's synthetic singleton seed, and historical input/build lineage remain unresolved. |
+| fresh-14 | Actual owner type-field branch emits the exact JCM deposit link from the bound CSV record. [LPSN report](../validation/lpsn-type-source-witness-20261119.md). | Original transformed ordinal116674 is unrecovered; retained matching row131469 is a separately identified later comparison. Source type designation, relation semantics and species/deposit identity remain distinct. |
+| fresh-05 | Public extracted body text of the matching primary paper was inspected. [Access report](../validation/fresh05-access-20261119.md). | Original PDF/publisher body and figure inspection were unavailable. This extraction is not yet accepted by the abstract/JATS proof adapter and cannot establish mixed-row cell lineage. |
+
+No new six-axis categories are assigned here. Failure-record repairs #221/#222
+and their fresh source re-canaries are recorded separately from the earlier
+successful witnesses. Package assembly, neutral templates, distinct relative reviewer
+namespaces and actual new scientific invocation lineage are tracked in
+[#220](https://github.com/CultureBotAI/EdgeMech/issues/220). The remaining cases'
+dependency dispositions below are still pending; neither new hashes nor a
+source replay guarantees a passing calibration.
+
 ## What the disagreement reveals
 
 The existing neutral rubric already distinguishes faithful preservation,
