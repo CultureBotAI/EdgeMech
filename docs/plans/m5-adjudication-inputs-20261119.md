@@ -137,11 +137,29 @@ agreements as well as disagreements without changing either original seal.
    phase package. Earlier clone/package receipts do not transfer automatically.
 4. Prepare the normal per-clone invocation envelope with the version 2 plan.
    Use the launcher's `--plan`, then the authorized fresh worker launch. Entry
-   and exit checks replay all phase bindings. Test one final canonical draft
-   and readback through the real path before the remaining final cases.
+   and exit checks replay all phase bindings. Validate one complete final
+   fresh-47 draft/proof pair and inspect its persisted files and validation
+   receipt before authoring the other nine final cases.
 5. Preserve final assessments and all original unsupported labels, missing
    slots, failed gates and unresolved disagreements. Existing numerical
    thresholds and expansion decisions remain separate mandatory checks.
+
+[Finding #219](https://github.com/CultureBotAI/EdgeMech/issues/219) aligns final
+authoring with the existing calibration finalizer. The canonical persistence
+denominator remains the **twenty initial reviewer pairs**. Adjudication produces
+ten separate canonical-schema drafts/proof sidecars, `final-authored-config.json`
+and sixty final assessments in its audit. The full occurrence validator checks
+every draft/proof; the finalizer requires exact parity with the audit and binds
+all inputs in immutable validation/accounting receipts. These are final drafts,
+not ten additional saved canonical reviews or replacement initial seals.
+`canonical_persistence_checked` remains false for the final-draft validation.
+No additional ten scientific canonical saves are required by this stage.
+
+This preserves the registered gates and does not waive the adjudicator's own
+operational prerequisite: a passing canonical production save/readback canary
+in its actual fresh clone, at the same runtime and against the new phase package,
+is still required before its invocation. Operational saves and the twenty
+scientific initial-pair denominator are reported separately.
 
 Final scientific authoring, evidence replay and scoring use the unchanged
 `initial_manifest` named in the typed binding. The later adjudication manifest

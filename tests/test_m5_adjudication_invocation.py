@@ -330,6 +330,10 @@ def test_complete_phase_replays_real_authored_seals_and_keeps_originals(adjudica
     assert b"every resolved claim and model label, including agreements" in prompt
     assert b"native-session.jsonl" not in prompt and b"invocation.prompt.md" not in prompt
     assert b"Use seal_m5_round03_initial" not in prompt
+    assert b"original twenty initial pairs" in prompt
+    assert b"Final canonical persistence is not attempted" in prompt
+    assert b"separate passing same-clone production save/readback canary" in prompt
+    assert b"Validate and save exactly one final canonical draft" not in prompt
     assert all(invocation.pin(root, path)["sha256"] == sha for path, sha in originals.items())
     put(".temp/adjudication/readiness.json", {"fixture": "not operational validation"})
     current_runtime = {"git_head": plan["adjudication"]["runtime_git_head"]}
@@ -357,6 +361,36 @@ def test_complete_phase_replays_real_authored_seals_and_keeps_originals(adjudica
     invocation.validate(root, ".temp/adjudication/invocation.json", **kwargs, fresh=False)
     with pytest.raises(ValueError, match="already exists"):
         invocation.validate(root, ".temp/adjudication/invocation.json", **kwargs)
+
+
+def test_219_final_drafts_receive_full_validation_without_additional_canonical_saves(
+        authored_round, monkeypatch):
+    """Real ten-case final validation retains draft status and immutable input identities."""
+    root, config, put = authored_round
+    finalizer = importlib.import_module("finalize_m5_calibration_20261116")
+    monkeypatch.setattr(finalizer, "ROOT", root)
+    monkeypatch.setattr(finalizer, "initial", SEAL)
+    identity = {**config["reviewer"], "id": "adjudicator", "session_id": "final-fixture-session"}
+    config["reviewer"], config["canonical_identity"] = identity, identity["id"]
+    for case in config["cases"]:
+        proofs = SEAL.rounds.read(root, case["proofs"])
+        proofs["reviewer"] = identity
+        put(case["proofs"], proofs)
+        review = SEAL.rounds.read(root, case["review"])
+        review["reviewer"]["identity"] = identity["id"]
+        next(p for p in review["source"]["inputs"] if p["path"] == case["proofs"]).update(
+            SEAL.pin(root, case["proofs"]))
+        put(case["review"], review)
+    put("final-authored-config.json", config)
+    validated = SEAL.validate(root, "manifest-2.json", "final-authored-config.json")
+    documents = {"audit": {"adjudicator": identity, "final_cases": validated["matrix"]["cases"]}}
+    result = finalizer.final_authored({"manifest": {"path": "manifest-2.json"},
+                                      "final_authored": {"path": "final-authored-config.json"}}, documents)
+    assert result["cases"] == 10 and result["authored_axes"] == 60
+    assert result["canonical_persistence_checked"] is False
+    assert result["initial_seals_augmented"] is False
+    assert result["inputs"] == validated["inputs"] and len(result["validations"]) == 10
+    assert not (root / "reviews").exists() and not (root / ".temp/initial").exists()
 
 
 @pytest.mark.parametrize("damage,message", [

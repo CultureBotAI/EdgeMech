@@ -55,6 +55,14 @@ contract establishes readiness for a complete scientific round. Historical
 adjudication tooling is unchanged, and no default old scoring roots exist in
 this new contract.
 
+The final adjudication stage follows the existing finalizer's persistence
+policy (#219): ten full canonical-schema drafts/proofs and sixty final
+assessments are validated and hash-bound in final accounting; the canonical
+scientific persistence denominator remains the twenty initial reviewer pairs.
+Final drafts are not advertised as additional saved canonical reviews. The
+adjudicator's separate same-clone production save/readback canary remains a
+mandatory operational prerequisite.
+
 ## Instruction templates
 
 Scientific instruction assets use this JSON format, not historical launch prose:
