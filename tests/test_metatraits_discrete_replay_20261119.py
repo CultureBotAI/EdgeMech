@@ -1,4 +1,4 @@
-"""Adversarial checks for the bounded first43 evidence helper, not scientific rules."""
+"""Adversarial checks for two frozen owner replays, not scientific rules."""
 
 import copy
 import importlib.util
@@ -18,16 +18,16 @@ replay = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(replay)
 
 
-def source_record():
-    return {"tax_name": replay.TAXON, "summaries": [
-        {"name": replay.TRAIT, "is_discrete": True, "majority_label": "false: (100%)",
-         "num_observations": 10, "unique_databases": 2, "percentages": {"false": 100.0}}]}
+def source_record(case_name="first43"):
+    case = replay.retained_case(case_name)
+    return {"tax_name": case["taxon"], "summaries": [copy.deepcopy(case["summary"])]}
 
 
 @pytest.mark.parametrize("mutation", ["taxon", "polarity", "percentage", "count", "databases",
                                      "duplicate", "missing", "discrete"])
-def test_changed_source_or_multiplicity_rejected(mutation):
-    record = source_record()
+@pytest.mark.parametrize("case_name", ["first43", "first28"])
+def test_changed_source_or_multiplicity_rejected(mutation, case_name):
+    record = source_record(case_name)
     if mutation == "taxon":
         record["tax_name"] = "another organism"
     elif mutation == "duplicate":
@@ -35,23 +35,35 @@ def test_changed_source_or_multiplicity_rejected(mutation):
     elif mutation == "missing":
         record["summaries"] = []
     else:
-        key, value = {"polarity": ("majority_label", "true: (100%)"),
-                      "percentage": ("percentages", {"true": 100.0}),
+        opposite = "true" if case_name == "first43" else "false"
+        key, value = {"polarity": ("majority_label", f"{opposite}: (100%)"),
+                      "percentage": ("percentages", {opposite: 100.0}),
                       "count": ("num_observations", 11),
                       "databases": ("unique_databases", 1),
                       "discrete": ("is_discrete", False)}[mutation]
         record["summaries"][0][key] = value
     with pytest.raises(ValueError):
-        replay.selected_summary(record)
+        replay.selected_summary(record, case_name)
 
 
-def test_source_selector_retains_actual_ordinal_and_typed_summary():
-    record = source_record()
+@pytest.mark.parametrize("case_name", ["first43", "first28"])
+def test_source_selector_retains_actual_ordinal_and_typed_summary(case_name):
+    record = source_record(case_name)
     original = copy.deepcopy(record["summaries"][0])
     record["summaries"].insert(0, {"name": "unrelated", "majority_label": "true"})
-    index, selected = replay.selected_summary(record)
+    index, selected = replay.selected_summary(record, case_name)
     assert index == 1 and selected == original
-    assert "true" not in selected["percentages"]
+    assert selected["percentages"] == replay.CASES[case_name]["summary"]["percentages"]
+
+
+def test_only_frozen_cases_admitted_and_first43_remains_default():
+    assert set(replay.CASES) == {"first43", "first28"}
+    assert replay.selected_summary(source_record()) == replay.selected_summary(
+        source_record(), "first43")
+    with pytest.raises(ValueError, match="Only first43 and first28"):
+        replay.selected_summary(source_record(), "first99")
+    with pytest.raises(ValueError, match="Wrong source taxon"):
+        replay.selected_summary(source_record("first28"))
 
 
 def test_runtime_code_check_rejects_same_named_stub_and_alias_path(tmp_path):
@@ -83,6 +95,28 @@ def test_headers_read_only_constructor_expressions_without_executing_constructor
                         "        self.node_header = data['node_header']\n")
     assert replay.headers_from_owner(tmp_path, SimpleNamespace(ID="id", SUBJECT="subject")) == {
         "node_header": ["id"], "edge_header": ["subject", "has_percentage"]}
+
+
+def test_gtdb_configuration_comes_from_selected_owner_without_constructor(tmp_path):
+    base = tmp_path / "kg_microbe/transform_utils/transform.py"
+    producer = tmp_path / replay.GTDB_PRODUCER
+    producer.parent.mkdir(parents=True)
+    base.write_text("class Transform:\n"
+                    "    def __init__(self):\n"
+                    "        self.node_header = [ID]\n"
+                    "        self.edge_header = [SUBJECT]\n")
+    producer.write_text("class MetaTraitsGTDBTransform:\n"
+                        "    def __init__(self):\n"
+                        "        raise RuntimeError('must not run')\n"
+                        "        self.edge_header = self.edge_header + ['has_percentage']\n"
+                        "        self.knowledge_source = 'infores:gtdb-metatraits'\n")
+    assert replay.owner_knowledge_source(tmp_path, "first28") == "infores:gtdb-metatraits"
+    assert replay.headers_from_owner(
+        tmp_path, SimpleNamespace(ID="id", SUBJECT="subject"), "first28") == {
+            "node_header": ["id"], "edge_header": ["subject", "has_percentage"]}
+    producer.write_text(producer.read_text().replace("gtdb-metatraits", "metatraits"))
+    with pytest.raises(ValueError, match="knowledge source changed"):
+        replay.owner_knowledge_source(tmp_path, "first28")
 
 
 def test_private_files_exclusive_even_under_permissive_umask(tmp_path):
@@ -149,12 +183,13 @@ def test_missing_empty_column_is_explicit_and_nonempty_column_is_rejected():
                             {"object": replay.OBJECT, "publications": "some citation"})
 
 
-def test_changed_frozen_packet_rejected_even_if_internal_hash_recomputed(tmp_path):
-    for name in replay.PACKET_PINS:
+@pytest.mark.parametrize("case_name", ["first43", "first28"])
+def test_changed_frozen_packet_rejected_even_if_internal_hash_recomputed(tmp_path, case_name):
+    for name in replay.CASES[case_name]["packet_pins"]:
         (tmp_path / name).write_text(json.dumps({"text": "changed", "text_sha256":
                                                replay.sha(b"changed")}))
     with pytest.raises(ValueError, match="Frozen packet mismatch"):
-        replay.inspect_inputs(tmp_path / "unused-owner", tmp_path)
+        replay.inspect_inputs(tmp_path / "unused-owner", tmp_path, case_name)
 
 
 def test_output_tsv_preserves_multiplicity_and_omitted_trailing_cells(tmp_path):
@@ -166,19 +201,22 @@ def test_output_tsv_preserves_multiplicity_and_omitted_trailing_cells(tmp_path):
     assert rows == [{"subject": "S", "predicate": "P", "value": ""}] * 2
 
 
-def readback_fixture(tmp_path):
+def readback_fixture(tmp_path, case_name="first43"):
+    case = replay.retained_case(case_name)
     output = tmp_path / "attempt"
     replay.create_private_dir(output)
     replay.create_private_dir(output / "owner-output")
-    record = source_record()
-    replay.save_json(output / "original-source-line-10486.jsonl", record)
+    record = source_record(case_name)
+    replay.save_json(output / f"original-source-line-{case['raw_line']}.jsonl", record)
     replay.save_json(output / "bounded-input.jsonl", record)
-    raw = b"subject\tpredicate\tobject\thas_percentage\nNCBITaxon:1540872\tbiolink:capable_of\tMETPO:1005039\t0.0\n"
+    percentage = "0.0" if case_name == "first43" else "100.0"
+    raw = ("subject\tpredicate\tobject\thas_percentage\n"
+           f"{case['subject']}\t{case['predicate']}\t{case['object']}\t{percentage}\n").encode()
     edge_path = "owner-output/bounded-input_edges.tsv"
     replay.save_private(output / edge_path, raw)
-    replay.save_private(output / "original-edge-820840.tsv", raw)
+    replay.save_private(output / f"original-edge-{case['edge_row']}.tsv", raw)
     header, raw_rows, rows = replay.read_rows(output / edge_path)
-    receipt = {"status": "replayed", "occurrence_id": replay.OCCURRENCE,
+    receipt = {"status": "replayed", "case": case_name, "occurrence_id": case["occurrence"],
                "selected_summary_index_zero_based": 0, "original_edge": rows[0],
                "owner_mapping": {"edge_header": header}, "emitted_raw_rows": raw_rows,
                "comparison": replay.compare_edge(rows[0], rows[0]),
@@ -190,25 +228,58 @@ def readback_fixture(tmp_path):
     return output, receipt
 
 
-def test_separate_readback_checks_each_row_and_hash(tmp_path):
-    output, receipt = readback_fixture(tmp_path)
-    assert replay.verify_artifacts(output)["emitted_edge_rows"] == 1
+@pytest.mark.parametrize("case_name", ["first43", "first28"])
+def test_separate_readback_checks_each_row_and_hash(tmp_path, case_name):
+    output, receipt = readback_fixture(tmp_path, case_name)
+    assert replay.verify_artifacts(output, case_name)["emitted_edge_rows"] == 1
     path = output / "owner-output/bounded-input_edges.tsv"
     path.write_bytes(path.read_bytes().replace(b"0.0", b"1.0"))
     with pytest.raises(ValueError, match="Artifact changed"):
-        replay.verify_artifacts(output)
+        replay.verify_artifacts(output, case_name)
     # Even re-pinning the changed artifact cannot hide disagreement with the receipt rows.
     receipt["artifact_pins"][str(path.relative_to(output))] = replay.pin(path)
     (output / "receipt.json").write_bytes(replay.json_bytes(receipt))
     with pytest.raises(ValueError, match="raw rows differ"):
-        replay.verify_artifacts(output)
+        replay.verify_artifacts(output, case_name)
 
 
-def test_separate_readback_rejects_multiple_emitted_occurrences(tmp_path):
-    output, receipt = readback_fixture(tmp_path)
+@pytest.mark.parametrize("case_name", ["first43", "first28"])
+def test_separate_readback_rejects_multiple_emitted_occurrences(tmp_path, case_name):
+    output, receipt = readback_fixture(tmp_path, case_name)
     path = output / "owner-output/bounded-input_edges.tsv"
     path.write_bytes(path.read_bytes() + path.read_bytes().splitlines(keepends=True)[1])
     receipt["artifact_pins"][str(path.relative_to(output))] = replay.pin(path)
     (output / "receipt.json").write_bytes(replay.json_bytes(receipt))
     with pytest.raises(ValueError, match="exactly one emitted"):
+        replay.verify_artifacts(output, case_name)
+
+
+def test_readback_rejects_cross_case_receipt_even_with_selected_occurrence_id(tmp_path):
+    output, receipt = readback_fixture(tmp_path, "first28")
+    with pytest.raises(ValueError, match="selected case receipt"):
         replay.verify_artifacts(output)
+    receipt["occurrence_id"] = replay.OCCURRENCE
+    (output / "receipt.json").write_bytes(replay.json_bytes(receipt))
+    with pytest.raises(ValueError, match="selected case receipt"):
+        replay.verify_artifacts(output)
+
+
+def test_runtime_inventory_skips_credential_paths_and_detects_code_changes(tmp_path, monkeypatch):
+    monkeypatch.setattr(replay.sys, "prefix", str(tmp_path))
+    code = tmp_path / "library.py"
+    code.write_text("original code")
+    excluded = tmp_path / "credentials"
+    excluded.mkdir()
+    (excluded / "do-not-read").touch()
+    original_pin = replay.pin
+
+    def guarded_pin(path):
+        assert excluded not in path.parents
+        return original_pin(path)
+
+    monkeypatch.setattr(replay, "pin", guarded_pin)
+    before = replay.runtime_identity()
+    assert before["excluded_paths_not_read"] == ["credentials/do-not-read"]
+    assert before == replay.runtime_identity()
+    code.write_text("changed code")
+    assert before != replay.runtime_identity()

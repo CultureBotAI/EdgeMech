@@ -1,8 +1,8 @@
-"""Bounded first43 owner replay; mechanical evidence only, never a scientific verdict.
+"""Bounded first43/first28 owner replay; mechanical evidence, never a scientific verdict.
 
 Plan checks are read-only apart from exclusive private artifacts. Replay uses the
 actual owner loader and emission method, without the dataset-loading constructor.
-Only the original first43 occurrence is admitted. No provider requests are used.
+Only these two frozen occurrences are admitted. No provider requests are used.
 """
 from __future__ import annotations
 
@@ -69,6 +69,58 @@ INPUT_PINS = {
     "kg_microbe/transform_utils/custom_curies.yaml":
         "5b201563b8042eb51a6984f56354be2b3420deae0d029ce707c961ec6eeab784",
 }
+GTDB_PRODUCER = "kg_microbe/transform_utils/metatraits_gtdb/metatraits_gtdb.py"
+CASES = {
+    "first43": {
+        "occurrence": OCCURRENCE, "subject": SUBJECT, "object": OBJECT,
+        "taxon": TAXON, "trait": TRAIT, "raw_line": RAW_LINE, "edge_row": EDGE_ROW,
+        "record_sha": RECORD_SHA, "packet_pins": PACKET_PINS,
+        "raw": RAW, "edges": EDGES, "finalization": FINALIZATION,
+        "input_pins": INPUT_PINS, "code": CODE,
+        "producer": PRODUCER, "module": MODULE, "class": "MetaTraitsTransform",
+        "origin": "metatraits/edges.tsv", "predicate": "biolink:capable_of",
+        "relation": "RO:0002215", "knowledge_source": "infores:metatraits",
+        "summary_index": 124,
+        "summary": {"name": TRAIT, "is_discrete": True, "majority_label": "false: (100%)",
+                    "num_observations": 10, "unique_databases": 2,
+                    "percentages": {"false": 100.0}},
+    },
+    "first28": {
+        "occurrence": "urn:kg-microbe:occurrence:v1:177815c9e4c39684189e2004e17840e6f0c42a2824750aad5d7f95bd7c0e5f3e",
+        "subject": "NCBITaxon:113559", "object": "METPO:1000870",
+        "taxon": "Actinoplanes campanulatus", "trait": "sporulation",
+        "raw_line": 1498, "edge_row": 96074, "summary_index": 58,
+        "record_sha": "0bf0d3cf44cf54982b9f88ea25666a02d5bec3fc86209911e79c9761ba46a896",
+        "packet_pins": {
+            "packet.json": "eb5e38bf636fed915f15ee9bd2ce9f1d4d010eb8c1e8d815a17e1de265bcd527",
+            "source.json": "a11495091472648e39d2b4a7b1190676cbefbf5a95791784910617c90c38522d",
+            "occurrence.json": "0f48424854ed44e039e0ebe0a53768bcd78a63a583c732d0295f176c4e57f186",
+        },
+        "raw": "data/raw/gtdb_species_summary.jsonl.gz",
+        "edges": "data/transformed/metatraits_gtdb/edges.tsv",
+        "finalization": "data/transformed/metatraits_gtdb/source_finalization.json",
+        "input_pins": {
+            **{path: digest for path, digest in INPUT_PINS.items()
+               if path != RAW and not path.startswith("data/transformed/metatraits/")},
+            "data/raw/gtdb_species_summary.jsonl.gz":
+                "cb2fa59208200105a9473b792c94a45ae41abc24583a37eeaec4c5e4c3d84a63",
+            "data/transformed/metatraits_gtdb/edges.tsv":
+                "4a99138ab98ac453be014f636f4e2f31eb7d0565e652f60f28c76cfacb26c9ab",
+            "data/transformed/metatraits_gtdb/source_finalization.json":
+                "9b4f5d374f1cdcd38f05e54474563723a3d1828cfc0ca6dc29946c8d3fa8cece",
+            "data/transformed/metatraits_gtdb/source_fingerprint.json":
+                "7538fd0f2739f1f40146b834ac355c4c848cae114ac8b1f0c06a6a50dd65c6d9",
+        },
+        "code": CODE + (GTDB_PRODUCER,), "producer": GTDB_PRODUCER,
+        "module": "kg_microbe.transform_utils.metatraits_gtdb.metatraits_gtdb",
+        "class": "MetaTraitsGTDBTransform", "origin": "metatraits_gtdb/edges.tsv",
+        "predicate": "biolink:has_phenotype", "relation": "RO:0002200",
+        "knowledge_source": "infores:gtdb-metatraits",
+        "summary": {"name": "sporulation", "is_discrete": True,
+                    "majority_label": "true: (100%)", "num_observations": 3,
+                    "unique_databases": 2, "percentages": {"true": 100.0}},
+    },
+}
 LIMITS = [
     "Mechanical source/lookup/emission evidence only; no scientific labels or new coverage.",
     "Unknown historical dirty state remains unknown; agreement with two clean bases is not a historical execution trace.",
@@ -77,6 +129,8 @@ LIMITS = [
     "Taxon cache is seeded from the frozen subject/label; independent taxonomy resolution and source-cell biological identity are not tested.",
     "Chemical node enrichment is disabled; it does not supply the emitted edge. Constructor, finalizer, deduplication and full transform are not run.",
     "A negative source aggregate is not independent biological refutation, and replaying source choice does not prove biological truth.",
+    "The original source field definition is unresolved. Generic sporulation does not establish biological spore type; the selected target definition is not a source-field definition.",
+    "For first28 the actual GTDB subclass inherits the emission method; its GTDB-to-NCBI lookup is seeded solely from the frozen subject, with a synthetic singleton weight of one, not recovered genome-count evidence.",
 ]
 
 
@@ -130,15 +184,19 @@ def git_bytes(kg, revision, path):
     return subprocess.check_output(["git", "-C", str(kg), "show", f"{revision}:{path}"])
 
 
-def selected_summary(record):
-    require(record.get("tax_name") == TAXON, "Wrong source taxon")
+def retained_case(name):
+    require(name in CASES, "Only first43 and first28 are admitted")
+    return CASES[name]
+
+
+def selected_summary(record, case_name="first43"):
+    case = retained_case(case_name)
+    require(record.get("tax_name") == case["taxon"], "Wrong source taxon")
     found = [(i, item) for i, item in enumerate(record["summaries"])
-             if item.get("name") == TRAIT]
+             if item.get("name") == case["trait"]]
     require(len(found) == 1, "Missing or duplicate selected summary")
     index, summary = found[0]
-    require(summary == {"name": TRAIT, "is_discrete": True, "majority_label": "false: (100%)",
-                        "num_observations": 10, "unique_databases": 2,
-                        "percentages": {"false": 100.0}}, "Changed source summary")
+    require(summary == case["summary"], "Changed source summary")
     return index, summary
 
 
@@ -153,62 +211,75 @@ def read_selected_line(path, number):
     raise ValueError("Missing source line")
 
 
-def inspect_inputs(kg, original):
+def inspect_inputs(kg, original, case_name="first43"):
+    case = retained_case(case_name)
     packet_pins = {p: pin(original / p) for p in ("packet.json", "source.json", "occurrence.json")}
-    for path, expected in PACKET_PINS.items():
+    for path, expected in case["packet_pins"].items():
         require(packet_pins[path]["sha256"] == expected, f"Frozen packet mismatch: {path}")
     packet = json.loads((original / "packet.json").read_text())
     source = json.loads((original / "source.json").read_text())
     occurrence = json.loads((original / "occurrence.json").read_text())
-    expected = {"occurrence_id": OCCURRENCE, "subject": SUBJECT, "object": OBJECT,
-                "predicate": "biolink:capable_of", "relation": "RO:0002215",
-                "origin_transform": "metatraits/edges.tsv", "transform_row_number": EDGE_ROW}
+    expected = {"occurrence_id": case["occurrence"], "subject": case["subject"],
+                "object": case["object"], "predicate": case["predicate"],
+                "relation": case["relation"], "origin_transform": case["origin"],
+                "transform_row_number": case["edge_row"]}
     for record in (packet["original_assertion"], occurrence, source["edge"]):
         require(all(record.get(k) == v for k, v in expected.items()), "Frozen occurrence mismatch")
-    require(packet["occurrence_id"] == OCCURRENCE, "Packet identity mismatch")
+    require(packet["occurrence_id"] == case["occurrence"], "Packet identity mismatch")
     require(len(source["records"]) == 1, "Expected exactly one retained source record")
     wrapper = source["records"][0]
-    require(wrapper["text_sha256"] == RECORD_SHA == sha(wrapper["text"].encode()),
+    require(wrapper["text_sha256"] == case["record_sha"] == sha(wrapper["text"].encode()),
             "Retained source record pin mismatch")
-    require(wrapper["locator"] == f"JSONL line {RAW_LINE}: {TAXON}", "Wrong source locator")
+    require(wrapper["locator"] == f"JSONL line {case['raw_line']}: {case['taxon']}",
+            "Wrong source locator")
+    require(Path(wrapper["source_path"]).resolve() == kg / case["raw"], "Wrong source path")
     require(wrapper["extractor"] == "source-record-json-canonical/v1", "Wrong extractor")
-    raw = read_selected_line(kg / RAW, RAW_LINE)
+    raw = read_selected_line(kg / case["raw"], case["raw_line"])
     record = json.loads(raw)
     require(record == json.loads(wrapper["text"]), "Owner source differs from frozen source")
-    index, summary = selected_summary(record)
-    with (kg / EDGES).open("rb") as stream:
+    index, summary = selected_summary(record, case_name)
+    require(index == case["summary_index"], "Wrong frozen summary ordinal")
+    with (kg / case["edges"]).open("rb") as stream:
         header = stream.readline()
         for number, row in enumerate(stream, 1):
-            if number == EDGE_ROW:
+            if number == case["edge_row"]:
                 break
         else:
             raise ValueError("Missing original transformed row")
     parsed = next(csv.DictReader(io.StringIO((header + row).decode()), delimiter="\t"))
+    # first28 was retained, so its packet has no omitted_source_record. The
+    # original row comes directly from the hash-pinned original transform;
+    # curated extras and inherited assessments are never comparison authority.
     frozen = source["edge"]["omitted_source_record"]
-    for key in ("subject", "predicate", "object", "relation", "primary_knowledge_source",
-                "has_percentage", "value"):
-        require(parsed[key] == frozen[key], f"Original edge mismatch: {key}")
+    if frozen is not None:
+        require(all(parsed[key] == frozen[key] for key in parsed if key in frozen),
+                "Original edge differs from omitted source record")
+    for key in ("subject", "predicate", "object", "relation"):
+        require(parsed[key] == expected[key], f"Original edge mismatch: {key}")
+    require(parsed["primary_knowledge_source"] == case["knowledge_source"],
+            "Original knowledge source mismatch")
     require(parsed["knowledge_level"] == occurrence["knowledge_level"], "Knowledge level mismatch")
     require(parsed["agent_type"] == occurrence["agent_type"], "Agent type mismatch")
-    pins = {p: pin(kg / p) for p in CODE + INPUTS}
-    for path, expected_hash in INPUT_PINS.items():
+    pins = {p: pin(kg / p) for p in case["code"] + tuple(case["input_pins"])}
+    for path, expected_hash in case["input_pins"].items():
         require(pins[path]["sha256"] == expected_hash, f"Pinned input mismatch: {path}")
-    history = {revision: {p: sha(git_bytes(kg, revision, p)) for p in CODE}
+    history = {revision: {p: sha(git_bytes(kg, revision, p)) for p in case["code"]}
                for revision in (BASE, REV)}
-    for path in CODE:
+    for path in case["code"]:
         require(pins[path]["sha256"] == history[BASE][path] == history[REV][path],
                 f"Owner code differs from clean baselines: {path}")
-    finalization = json.loads((kg / FINALIZATION).read_text())
+    finalization = json.loads((kg / case["finalization"]).read_text())
     require(finalization["members"]["edges.tsv"] ==
-            {key: pins[EDGES][key] for key in ("sha256", "bytes")},
+            {key: pins[case["edges"]][key] for key in ("sha256", "bytes")},
             "Retained edge finalization mismatch")
     return {"packet_pins": packet_pins, "owner_pins": pins, "history": history,
-            "occurrence_id": OCCURRENCE, "original_assertion": packet["original_assertion"],
+            "case": case_name, "occurrence_id": case["occurrence"],
+            "original_assertion": packet["original_assertion"],
             "selected_summary_index_zero_based": index, "summary": summary,
-            "raw_line_sha256": sha(raw), "retained_canonical_source_sha256": RECORD_SHA,
+            "raw_line_sha256": sha(raw), "retained_canonical_source_sha256": case["record_sha"],
             "original_edge": parsed, "original_edge_raw_sha256": sha(header + row),
-            "source_line": RAW_LINE, "transform_data_row": EDGE_ROW,
-            "transform_physical_line": EDGE_ROW + 1,
+            "source_line": case["raw_line"], "transform_data_row": case["edge_row"],
+            "transform_physical_line": case["edge_row"] + 1,
             "source_selector": f"/summaries/{index}", "summary_sha256": sha(json_bytes(summary)),
             "finalization_edge_member": finalization["members"]["edges.tsv"],
             "runtime": {"executable": sys.executable, "version": sys.version,
@@ -235,12 +306,13 @@ def verify_callable(function, path, source):
             "Runtime code differs from pinned owner")
 
 
-def headers_from_owner(kg, constants):
+def headers_from_owner(kg, constants, case_name="first43"):
     """Evaluate only the actual header expressions, never either constructor."""
+    case = retained_case(case_name)
     headers = {}
     base_tree = ast.parse((kg / "kg_microbe/transform_utils/transform.py").read_text())
-    producer_tree = ast.parse((kg / PRODUCER).read_text())
-    for tree, class_name in ((base_tree, "Transform"), (producer_tree, "MetaTraitsTransform")):
+    producer_tree = ast.parse((kg / case["producer"]).read_text())
+    for tree, class_name in ((base_tree, "Transform"), (producer_tree, case["class"])):
         classes = [node for node in tree.body if isinstance(node, ast.ClassDef)
                    and node.name == class_name]
         require(len(classes) == 1, "Ambiguous owner class")
@@ -267,6 +339,23 @@ def headers_from_owner(kg, constants):
             headers[name] = prefix + [getattr(constants, item.id) if isinstance(item, ast.Name)
                                       else item.value for item in value.elts]
     return headers
+
+
+def owner_knowledge_source(kg, case_name):
+    """Read the actual constructor's literal configuration without executing it."""
+    case = retained_case(case_name)
+    tree = ast.parse((kg / case["producer"]).read_text())
+    values = [assignment.value for node in tree.body
+              if isinstance(node, ast.ClassDef) and node.name == case["class"]
+              for method in node.body
+              if isinstance(method, ast.FunctionDef) and method.name == "__init__"
+              for assignment in ast.walk(method) if isinstance(assignment, ast.Assign)
+              for target in assignment.targets
+              if isinstance(target, ast.Attribute) and target.attr == "knowledge_source"]
+    require(len(values) == 1 and isinstance(values[0], ast.Constant),
+            "Ambiguous owner knowledge source")
+    require(values[0].value == case["knowledge_source"], "Owner knowledge source changed")
+    return values[0].value
 
 
 @contextlib.contextmanager
@@ -326,7 +415,8 @@ def private_owner_io(output):
         os.umask(old_umask)
 
 
-def prepare_owner(kg):
+def prepare_owner(kg, case_name="first43"):
+    case = retained_case(case_name)
     require(not any(name == "kg_microbe" or name.startswith("kg_microbe.")
                     for name in sys.modules), "Use a fresh process for the canonical owner import")
     sys.dont_write_bytecode = True
@@ -334,14 +424,19 @@ def prepare_owner(kg):
     os.environ["KG_MICROBE_METPO_JSON"] = str(kg / ONTOLOGY)
     os.environ["KG_MICROBE_METPO_TEMPLATE_DIR"] = str(kg / "data/raw")
     module = importlib.import_module(MODULE)
+    selected_module = importlib.import_module(case["module"])
     loader = importlib.import_module("kg_microbe.utils.mapping_file_utils")
     constants = importlib.import_module("kg_microbe.transform_utils.constants")
     require(Path(module.__file__).resolve() == kg / PRODUCER, "Wrong owner module")
+    require(Path(selected_module.__file__).resolve() == kg / case["producer"],
+            "Wrong selected owner module")
     require(Path(loader.__file__).resolve() == kg / LOADER, "Wrong loader module")
     verify_callable(loader.load_metpo_mappings, kg / LOADER, (kg / LOADER).read_text())
-    cls = module.MetaTraitsTransform
+    cls = getattr(selected_module, case["class"])
     for method in ("_build_trait_mapping", "_load_metpo_lookups", "_process_single_file"):
         verify_callable(getattr(cls, method), kg / PRODUCER, (kg / PRODUCER).read_text())
+    verify_callable(cls._search_ncbitaxon_by_label, kg / case["producer"],
+                    (kg / case["producer"]).read_text())
     require(module.CUSTOM_CURIES_YAML_FILE.resolve() ==
             kg / "kg_microbe/transform_utils/custom_curies.yaml", "Wrong custom mapping file")
     require(loader.LOCAL_METPO_ALIAS_OVERRIDES_PATH.resolve() ==
@@ -357,21 +452,32 @@ def prepare_owner(kg):
     obj.metpo_synonym_to_class = {}
     obj.metpo_pattern_to_predicate = {}
     obj._load_metpo_lookups()
-    require(TRAIT in obj.trait_mapping, "Owner did not load the selected trait")
-    require(obj.trait_mapping[TRAIT]["curie"] == OBJECT, "Owner selected a different object")
+    require(case["trait"] in obj.trait_mapping, "Owner did not load the selected trait")
+    require(obj.trait_mapping[case["trait"]]["curie"] == case["object"],
+            "Owner selected a different object")
     # Explicitly conditioned on the original subject: no independent identity claim.
-    obj.ncbitaxon_name_to_id = {TAXON.lower(): SUBJECT}
+    obj.ncbitaxon_name_to_id = {case["taxon"].lower(): case["subject"]}
+    condition = {"ncbitaxon_name_to_id": obj.ncbitaxon_name_to_id}
+    if case_name == "first28":
+        obj.ncbitaxon_name_to_id = {}
+        obj.gtdb_to_ncbi = {case["taxon"]: {case["subject"]: 1}}
+        obj.gtdb_preferred_ncbi = {}
+        condition = {"gtdb_to_ncbi": obj.gtdb_to_ncbi,
+                     "gtdb_preferred_ncbi": obj.gtdb_preferred_ncbi,
+                     "singleton_weight_is_synthetic_not_genome_evidence": True}
     obj.chemical_loader = None
-    obj.knowledge_source = "infores:metatraits"
-    for name, value in headers_from_owner(kg, constants).items():
+    obj.knowledge_source = owner_knowledge_source(kg, case_name)
+    for name, value in headers_from_owner(kg, constants, case_name).items():
         setattr(obj, name, value)
-    return obj, {"loader_entry": obj.metpo_mappings[TRAIT],
-                 "selected_lookup_entry": obj.trait_mapping[TRAIT],
+    return obj, {"loader_entry": obj.metpo_mappings[case["trait"]],
+                 "selected_lookup_entry": obj.trait_mapping[case["trait"]],
+                 "owner_class": case["module"] + "." + case["class"],
+                 "knowledge_source_from_owner_constructor": obj.knowledge_source,
                  "metpo_declared_version": constants.METPO_VERSION,
                  "template_urls": [constants.METPO_CLASSES_ROBOT_TEMPLATE_URL,
                                    constants.METPO_PROPERTIES_ROBOT_TEMPLATE_URL],
                  "edge_header": obj.edge_header, "node_header": obj.node_header,
-                 "taxon_cache_condition": obj.ncbitaxon_name_to_id}
+                 "taxon_cache_condition": condition}
 
 
 def read_rows(path):
@@ -395,9 +501,11 @@ def compare_edge(emitted, frozen):
             "emitted": emitted, "frozen_original": frozen}
 
 
-def emission_trace(kg):
+def emission_trace(kg, case_name="first43"):
+    case = retained_case(case_name)
     compiled = {str(kg / path): set(code_tree(compile((kg / path).read_text(), str(kg / path),
-                                                   "exec", dont_inherit=True))) for path in CODE}
+                                                   "exec", dont_inherit=True)))
+                for path in case["code"]}
     calls, lines, rows = [], {}, []
 
     def trace(frame, event, arg):
@@ -421,32 +529,33 @@ def emission_trace(kg):
     return trace, calls, lines, rows
 
 
-def persist_inputs(kg, original, output, inspection):
-    for name in PACKET_PINS:
+def persist_inputs(kg, original, output, inspection, case_name="first43"):
+    case = retained_case(case_name)
+    for name in case["packet_pins"]:
         save_private(output / ("frozen-" + name), (original / name).read_bytes())
-    raw = read_selected_line(kg / RAW, RAW_LINE)
-    save_private(output / "original-source-line-10486.jsonl", raw)
+    raw = read_selected_line(kg / case["raw"], case["raw_line"])
+    save_private(output / f"original-source-line-{case['raw_line']}.jsonl", raw)
     record = json.loads(raw)
-    index, summary = selected_summary(record)
+    index, summary = selected_summary(record, case_name)
     require(index == inspection["selected_summary_index_zero_based"], "Source selector changed")
     projected = {**record, "summaries": [summary]}
     save_private(output / "bounded-input.jsonl",
                  (json.dumps(projected, separators=(",", ":")) + "\n").encode())
     save_json(output / "selected-summary.json", summary)
     # Preserve the complete, exact small inputs and implementation files privately.
-    for path in CODE + INPUTS:
-        if path in (RAW, EDGES):
+    for path in case["code"] + tuple(case["input_pins"]):
+        if path in (case["raw"], case["edges"]):
             continue
         save_private(output / path.replace("/", "__"), (kg / path).read_bytes())
-    with (kg / EDGES).open("rb") as stream:
+    with (kg / case["edges"]).open("rb") as stream:
         header = stream.readline()
         for number, row in enumerate(stream, 1):
-            if number == EDGE_ROW:
+            if number == case["edge_row"]:
                 break
-    save_private(output / "original-edge-820840.tsv", header + row)
+    save_private(output / f"original-edge-{case['edge_row']}.tsv", header + row)
     ontology = json.loads((kg / ONTOLOGY).read_text())
     nodes = [node for node in ontology["graphs"][0]["nodes"]
-             if node.get("id") == "https://w3id.org/metpo/1005039"]
+             if node.get("id") == "https://w3id.org/metpo/" + case["object"].split(":")[1]]
     require(len(nodes) == 1, "Missing or duplicate ontology target")
     packet = json.loads((original / "packet.json").read_text())
     endpoint = packet["endpoints"]["object"]
@@ -456,11 +565,12 @@ def persist_inputs(kg, original, output, inspection):
     save_json(output / "ontology-target.json", nodes[0])
 
 
-def verify_artifacts(directory):
+def verify_artifacts(directory, case_name="first43"):
     """Separate process readback: hashes, every emitted row, selector and comparison."""
+    case = retained_case(case_name)
     receipt = json.loads((directory / "receipt.json").read_text())
-    require(receipt["status"] == "replayed" and receipt["occurrence_id"] == OCCURRENCE,
-            "Not a successful first43 receipt")
+    require(receipt["status"] == "replayed" and receipt["occurrence_id"] == case["occurrence"]
+            and receipt.get("case", "first43") == case_name, "Not a successful selected case receipt")
     for name, expected in receipt["artifact_pins"].items():
         path = directory / name
         require(path.resolve().is_relative_to(directory.resolve()), "Artifact escapes directory")
@@ -468,8 +578,8 @@ def verify_artifacts(directory):
         require(actual == expected and actual["mode"] == "0o600", f"Artifact changed: {name}")
     for path in (directory, directory / "owner-output"):
         require(stat.S_IMODE(path.stat().st_mode) == 0o700, "Output directory is not private")
-    record = json.loads((directory / "original-source-line-10486.jsonl").read_bytes())
-    index, summary = selected_summary(record)
+    record = json.loads((directory / f"original-source-line-{case['raw_line']}.jsonl").read_bytes())
+    index, summary = selected_summary(record, case_name)
     projected = json.loads((directory / "bounded-input.jsonl").read_bytes())
     require(projected == {**record, "summaries": [summary]}, "Bounded source projection changed")
     require(index == receipt["selected_summary_index_zero_based"], "Selector changed")
@@ -477,28 +587,52 @@ def verify_artifacts(directory):
     require(len(rows) == 1, "Expected exactly one emitted edge occurrence")
     require(header == receipt["owner_mapping"]["edge_header"], "Emitted header changed")
     require(raw_rows == receipt["emitted_raw_rows"], "Emitted raw rows differ from receipt")
-    frozen = read_rows(directory / "original-edge-820840.tsv")[2]
+    frozen = read_rows(directory / f"original-edge-{case['edge_row']}.tsv")[2]
     require(len(frozen) == 1 and frozen[0] == receipt["original_edge"], "Frozen edge changed")
     comparison = compare_edge(rows[0], frozen[0])
     require(comparison == receipt["comparison"], "Comparison differs from receipt")
     for name, expected in receipt["emitted_line_hashes"].items():
         actual = [sha(line) for line in (directory / name).read_bytes().splitlines(keepends=True)]
         require(actual == expected, f"Emitted line hashes differ: {name}")
-    return {"occurrence_id": OCCURRENCE, "receipt_sha256": pin(directory / "receipt.json")["sha256"],
+    return {"case": case_name, "occurrence_id": case["occurrence"],
+            "receipt_sha256": pin(directory / "receipt.json")["sha256"],
             "artifact_count": len(receipt["artifact_pins"]), "emitted_edge_rows": len(rows),
             "all_artifact_hashes_and_emitted_rows_reread": True, "comparison": comparison}
 
 
-def run(mode, kg, original, output):
+def runtime_identity():
+    """Bind the retained virtualenv before/after use without loading credentials."""
+    prefix = Path(sys.prefix)
+    require(sys.prefix != sys.base_prefix, "Use the retained virtualenv")
+    paths = sorted(path for path in prefix.rglob("*") if path.is_file())
+    excluded = {path for path in paths
+                if any(part in (".aws", ".ssh", ".netrc", ".env", "credentials")
+                       for part in path.relative_to(prefix).parts)}
+    # Some installed libraries have credential-named package directories. Do not
+    # open any of those paths, even for hashing; explicitly bound this inventory.
+    return {"prefix": str(prefix), "executable": sys.executable, "version": sys.version,
+            "resolved_executable": str(Path(sys.executable).resolve()),
+            "executable_pin": pin(Path(sys.executable)),
+            "excluded_paths_not_read": sorted(str(path.relative_to(prefix)) for path in excluded),
+            "files": {str(path.relative_to(prefix)): {**pin(path),
+                      "symlink_target": os.readlink(path) if path.is_symlink() else None}
+                      for path in paths if path not in excluded}}
+
+
+def run(mode, kg, original, output, case_name="first43"):
+    case = retained_case(case_name)
     require(not output.resolve().is_relative_to(kg) and
             not output.resolve().is_relative_to(original), "Output inside read-only evidence")
     create_private_dir(output)
     before = {}
+    runtime_before = None
     log = io.StringIO()
     try:
         save_private(output / "helper-source.txt", Path(__file__).read_bytes())
-        before = {path: pin(kg / path) for path in CODE + INPUTS}
-        inspection = inspect_inputs(kg, original)
+        runtime_before = runtime_identity()
+        save_json(output / "runtime-before.json", runtime_before)
+        before = {path: pin(kg / path) for path in case["code"] + tuple(case["input_pins"])}
+        inspection = inspect_inputs(kg, original, case_name)
         save_json(output / "preflight.json", inspection)
         create_private_dir(output / "runtime-cache")
         # Pystow initializes a README during the oaklib import. Keep that incidental
@@ -507,16 +641,16 @@ def run(mode, kg, original, output):
         mapping = None
         with contextlib.redirect_stdout(log), contextlib.redirect_stderr(log):
             with private_owner_io(output) as reads:
-                obj, mapping = prepare_owner(kg)
+                obj, mapping = prepare_owner(kg, case_name)
         save_private(output / "loader.log", log.getvalue().encode())
         save_json(output / "owner-mapping.json", mapping)
         if mode == "plan":
             result = {**inspection, "status": "checked-no-emission", "owner_mapping": mapping,
                       "owner_read_paths": sorted(reads), "limits": LIMITS}
         else:
-            persist_inputs(kg, original, output, inspection)
+            persist_inputs(kg, original, output, inspection, case_name)
             create_private_dir(output / "owner-output")
-            trace, calls, lines, trace_rows = emission_trace(kg)
+            trace, calls, lines, trace_rows = emission_trace(kg, case_name)
             require(sys.gettrace() is None, "Unexpected existing runtime tracer")
             with private_owner_io(output) as emission_reads:
                 sys.settrace(trace)
@@ -548,10 +682,17 @@ def run(mode, kg, original, output):
                           for path in sorted((output / "owner-output").iterdir())}}
         after = {path: pin(kg / path) for path in before}
         require(before == after, "Read-only owner identity changed during run")
+        runtime_after = runtime_identity()
+        save_json(output / "runtime-after.json", runtime_after)
+        require(runtime_before == runtime_after, "Retained runtime changed during run")
+        require(inspection["packet_pins"] == {name: pin(original / name)
+                                             for name in case["packet_pins"]},
+                "Original packet changed during run")
         result.update(owner_identity_before=before, owner_identity_after=after,
+                      runtime_identity_unchanged=True, original_packet_identity_unchanged=True,
                       owner_checkout=str(kg), original_packet_directory=str(original),
                       helper_sha256=sha(Path(__file__).read_bytes()), mode=mode,
-                      invocation=sys.argv, schema="edgemech.first43-owner-replay/v1")
+                      invocation=sys.argv, schema="edgemech.metatraits-retained-owner-replay/v2")
         result["artifact_pins"] = {str(path.relative_to(output)): pin(path)
                                    for path in sorted(output.rglob("*")) if path.is_file()}
         receipt = save_json(output / "receipt.json", result)
@@ -560,6 +701,9 @@ def run(mode, kg, original, output):
         # Failures are durable, including partial owner output; never reuse this attempt.
         save_json(output / "failure.json", {
             "error_type": type(error).__name__, "error": str(error), "invocation": sys.argv,
+            "case": case_name,
+            "runtime_identity_unchanged": (runtime_identity() == runtime_before
+                                           if runtime_before is not None else None),
             "helper_sha256": sha(Path(__file__).read_bytes()), "owner_identity_before": before,
             "owner_identity_after": {path: pin(kg / path) for path in before},
             "captured_log": log.getvalue(), "limits": LIMITS})
@@ -569,16 +713,17 @@ def run(mode, kg, original, output):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("mode", choices=("plan", "replay", "verify"))
+    parser.add_argument("--case", choices=tuple(CASES), default="first43")
     parser.add_argument("--kg", type=Path, required=True)
     parser.add_argument("--original", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
     output = args.output.absolute()
     if args.mode == "verify":
-        result = verify_artifacts(output)
+        result = verify_artifacts(output, args.case)
         save_json(output / "independent-readback.json", result)
     else:
-        result = run(args.mode, args.kg.resolve(), args.original.resolve(), output)
+        result = run(args.mode, args.kg.resolve(), args.original.resolve(), output, args.case)
     print(json.dumps(result, sort_keys=True))
 
 
