@@ -7,6 +7,13 @@ and the completed calibration reports. This update addresses
 design remains below as a dated baseline; its status and authorization statements
 are historical. This section governs the next execution.
 
+Implementation is in unmerged
+[PR #214](https://github.com/CultureBotAI/EdgeMech/pull/214), stacked on #211.
+The [execution record](../validation/content-review-execution-20261119.md) retains
+three completed native M5 helpers, inspected source witnesses, typed adjudication
+bindings, adversarial repairs and fresh source re-canaries at code revision
+`131669b`. Engineering progress has not changed any scientific outcome or gate.
+
 ## Objective and assessment contract
 
 Find and correct errors in exact edge occurrences and their endpoint nodes.
@@ -57,6 +64,17 @@ biological claim as a report to obtain a passing label.
 | BactoTraits correction | Owner quarantine and EdgeMech evidence merged; bounded regenerated candidate verified. Full graph-release verification remains [#143](https://github.com/CultureBotAI/EdgeMech/issues/143). |
 | Library use | Earlier public/CBORG service receipts are recorded in NEXT_TASKS. Failed licensed retrievals remain failures. PR #211 reused evidence without new literature retrieval; fresh05's round03 directional evidence was an abstract, not an inspected full paper. |
 
+Current implementation disposition:
+
+| Stage | November19 result / remaining work |
+| --- | --- |
+| W0 | Durable native launcher implemented, independently reviewed and exercised by three completed M5 helpers. |
+| W1 | First43 and first28 conditional owner mapping/emission witnesses retained; repaired helper passed fresh first43/readback before first28/readback. Original field meanings, taxon selection and historical dirty-build limits remain explicit. |
+| W2 | Typed initial-result/adjudication binding implemented and tested, including complete readiness lineage and aligned persistence instructions. Positive new scientific-session replay remains a W5/W6 prerequisite. |
+| W3 | Fresh14 bounded type-field emission recovered. Original historical TSV linkage and the other cases' semantic/identity dependencies remain unresolved. |
+| W4 | Matching fresh05 paper body extraction inspected; Valency metadata and failed retrieval outcomes retained. The new extraction is not yet a canonical paper proof and does not resolve mixed-row cell lineage. |
+| W5–W8 | Pending/gated. Concrete next-package tasks are in #220 below; no new scientific round, retained-90 review or expansion has started. |
+
 ## Dependency-ordered implementation on M5
 
 The user authorized implementation using M5 sessions and additional `codex-work`
@@ -86,6 +104,44 @@ queue, at most two new evidence helpers initially after the single-worker canary
 and one writer per catalogue. Do not interrupt unrelated M5 jobs or infer capacity
 from core count. Native wrapper defaults may be used; record actual model and
 reasoning settings without silently substituting a model.
+
+### Concrete package handoff after witness recovery
+
+The readiness audit is tracked in
+[#220](https://github.com/CultureBotAI/EdgeMech/issues/220). Before W5/W6:
+
+1. Record each recovered witness and its unresolved semantic or historical
+   dependency. Independently assess whether the available evidence can exercise
+   the unchanged gates without predicting reviewers' labels.
+2. Build a separately identified **scientific** package. The November17 builder
+   creates an engineering-prerequisite package; old round03 lacks the new
+   invocation provenance. Neither is eligible for retrospective promotion.
+3. Instantiate and review concrete neutral instruction templates and plans for
+   both phases, including version-bound definitions and counterevidence. Register
+   reviewer IDs `reviewer-a` and `reviewer-b`, distinct fresh clone paths and
+   distinct repository-relative artifact namespaces, such as
+   `.temp/ROUND/reviewer-a/` and `.temp/ROUND/reviewer-b/`. Distinct absolute
+   clones alone do not prevent collisions when unchanged relative paths are
+   collected into the adjudicator clone.
+   Pin all authoring, proof, accounting and finalization helpers.
+4. Generate authoring/citation/finalizer configurations against the original
+   scientific manifest. After initial sessions finish, collect their final
+   observed identities, native logs and complete readiness lineage, retaining
+   the original relative file layout. Freeze their results in the separate
+   adjudication launch manifest, then replay the typed #209 bindings.
+5. Preserve the registered **20 initial canonical pairs**. Final adjudication
+   produces separately sealed and proof-validated drafts/matrix; those drafts
+   are not ten additional saved canonical pairs. The adjudicator's actual fresh
+   environment still requires its own production save/readback canary. This
+   prospective policy is aligned under
+   [#219](https://github.com/CultureBotAI/EdgeMech/issues/219).
+
+The new fresh05 public body-text extraction is inspected access evidence, not
+yet an admitted canonical paper proof. The existing paper adapter accepts
+verified Europe PMC abstracts or JATS. Obtain suitable original bytes or review
+and canary a new extractor before using this extraction in scientific scoring;
+do not disguise it as an authority document. The matching primary paper also
+cannot repair mixed-row phenotype-cell lineage.
 
 ## Unchanged scientific gates
 
