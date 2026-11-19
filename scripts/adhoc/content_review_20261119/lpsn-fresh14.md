@@ -21,6 +21,14 @@ Read-only inputs:
 - `/Users/marcin/Documents/VIMSS/ontology/KG-Hub/KG-Microbe/kg-microbe`, retained
   raw/finalized source inputs and actual owner code/history.
 
+For actual owner imports, the first43 canary successfully used Python3.10.11 at
+`/Users/marcin/agent-work/EdgeMech/pr1871-cleanup-20261119/preserved-worktree-artifacts/payload/.venv310/bin/python`.
+The EdgeMech 3.14 environment lacks `kghub_downloader`; owner `.venv-kgm` lacks
+the needed downloader API. Check compatibility for this LPSN path rather than
+assuming first43 proves every dependency. Preserve failures; no owner environment
+may be repaired in place. See the first43 helper/report in the sibling
+`content-review-workers-20261119/metatraits` clone for the bounded I/O strategy.
+
 Trace the exact source field, original subject/object identity, selected lookup
 and emission branch. Distinguish source coassignment/type assertion from the
 semantics of the original mapping relation and the species-versus-strain roles.

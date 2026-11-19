@@ -19,6 +19,15 @@ Read-only sources:
 - `/Users/marcin/agent-work/EdgeMech/m5-calibration-round03-20261116`
 - Original packets under `.temp/edge-calibration-20261115/first-28` and first43.
 
+The successful first43 owner's Python interpreter was
+`/Users/marcin/agent-work/EdgeMech/pr1871-cleanup-20261119/preserved-worktree-artifacts/payload/.venv310/bin/python`
+(3.10.11). The EdgeMech clone's 3.14 environment lacks `kghub_downloader`; the
+owner's `.venv-kgm` downloader lacks `DownloadOptions`. Do not repeat those known
+failed paths. Verify the preserved runtime remains usable and unchanged for this
+bounded task. The earlier result and full failure history are in
+`/Users/marcin/agent-work/EdgeMech/content-review-workers-20261119/metatraits/.temp/helper-workers-20261119/first43/REPORT.md`;
+source receipt SHA256 is `5144dfe483f0b56ac7f7710961ee5dd9d6caae721f1dc5570c87844390005f24`.
+
 Verify the first28 identity and values independently. The recovery lead is source
 summary1498, NCBITaxon113559, generic sporulation, three observations/two databases,
 original transformed row96074 and target METPO1000870. These are selectors to
