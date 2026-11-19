@@ -1,0 +1,214 @@
+"""Adversarial checks for the bounded first43 evidence helper, not scientific rules."""
+
+import copy
+import importlib.util
+import json
+import os
+import socket
+import stat
+from pathlib import Path
+from types import SimpleNamespace
+
+import pytest
+
+SPEC = importlib.util.spec_from_file_location(
+    "first43_replay", Path(__file__).parents[1] /
+    "scripts/adhoc/replay_metatraits_discrete_20261119.py")
+replay = importlib.util.module_from_spec(SPEC)
+SPEC.loader.exec_module(replay)
+
+
+def source_record():
+    return {"tax_name": replay.TAXON, "summaries": [
+        {"name": replay.TRAIT, "is_discrete": True, "majority_label": "false: (100%)",
+         "num_observations": 10, "unique_databases": 2, "percentages": {"false": 100.0}}]}
+
+
+@pytest.mark.parametrize("mutation", ["taxon", "polarity", "percentage", "count", "databases",
+                                     "duplicate", "missing", "discrete"])
+def test_changed_source_or_multiplicity_rejected(mutation):
+    record = source_record()
+    if mutation == "taxon":
+        record["tax_name"] = "another organism"
+    elif mutation == "duplicate":
+        record["summaries"] *= 2
+    elif mutation == "missing":
+        record["summaries"] = []
+    else:
+        key, value = {"polarity": ("majority_label", "true: (100%)"),
+                      "percentage": ("percentages", {"true": 100.0}),
+                      "count": ("num_observations", 11),
+                      "databases": ("unique_databases", 1),
+                      "discrete": ("is_discrete", False)}[mutation]
+        record["summaries"][0][key] = value
+    with pytest.raises(ValueError):
+        replay.selected_summary(record)
+
+
+def test_source_selector_retains_actual_ordinal_and_typed_summary():
+    record = source_record()
+    original = copy.deepcopy(record["summaries"][0])
+    record["summaries"].insert(0, {"name": "unrelated", "majority_label": "true"})
+    index, selected = replay.selected_summary(record)
+    assert index == 1 and selected == original
+    assert "true" not in selected["percentages"]
+
+
+def test_runtime_code_check_rejects_same_named_stub_and_alias_path(tmp_path):
+    path = tmp_path / "owner.py"
+    source = "def owner(value):\n    return value\n"
+    namespace = {}
+    exec(compile(source, str(path), "exec", dont_inherit=True), namespace)
+    replay.verify_callable(namespace["owner"], path, source)
+    with pytest.raises(ValueError, match="Runtime code differs"):
+        replay.verify_callable(namespace["owner"], path, source.replace("return value", "return 0"))
+    with pytest.raises(ValueError, match="source path mismatch"):
+        replay.verify_callable(namespace["owner"], tmp_path / "alias.py", source)
+
+
+def test_headers_read_only_constructor_expressions_without_executing_constructor(tmp_path):
+    base = tmp_path / "kg_microbe/transform_utils/transform.py"
+    producer = tmp_path / replay.PRODUCER
+    producer.parent.mkdir(parents=True)
+    base.write_text("class Transform:\n"
+                    "    def __init__(self):\n"
+                    "        raise RuntimeError('constructor must not run')\n"
+                    "        self.node_header = [ID]\n"
+                    "        self.edge_header = [SUBJECT]\n")
+    producer.write_text("class MetaTraitsTransform:\n"
+                        "    def __init__(self):\n"
+                        "        self.edge_header = self.edge_header + ['has_percentage']\n"
+                        "    def _init_from_shared_data(self, data):\n"
+                        "        self.edge_header = data['edge_header']\n"
+                        "        self.node_header = data['node_header']\n")
+    assert replay.headers_from_owner(tmp_path, SimpleNamespace(ID="id", SUBJECT="subject")) == {
+        "node_header": ["id"], "edge_header": ["subject", "has_percentage"]}
+
+
+def test_private_files_exclusive_even_under_permissive_umask(tmp_path):
+    tmp_path.chmod(0o755)
+    directory = tmp_path / "new-parent" / "attempt"
+    prior = os.umask(0)
+    try:
+        replay.create_private_dir(directory)
+        path = directory / "artifact"
+        witness = replay.save_private(path, b"retained\n")
+    finally:
+        os.umask(prior)
+    assert stat.S_IMODE(tmp_path.stat().st_mode) == 0o755
+    assert stat.S_IMODE(directory.parent.stat().st_mode) == 0o700
+    assert stat.S_IMODE(directory.stat().st_mode) == 0o700
+    assert witness["mode"] == "0o600"
+    assert witness["sha256"] == replay.sha(path.read_bytes())
+    with pytest.raises(FileExistsError):
+        replay.save_private(path, b"overwrite")
+    with pytest.raises(ValueError, match="fresh directory"):
+        replay.create_private_dir(directory)
+    assert path.read_bytes() == b"retained\n"
+
+
+def test_owner_io_keeps_writes_private_exclusive_and_bounded(tmp_path):
+    output = tmp_path / "private"
+    replay.create_private_dir(output)
+    with replay.private_owner_io(output):
+        path = output / "owner.tsv"
+        with path.open("w") as stream:
+            stream.write("unchanged serialization\n")
+        assert stat.S_IMODE(path.stat().st_mode) == 0o600
+        with pytest.raises(FileExistsError):
+            path.open("w")
+        with pytest.raises(ValueError, match="outside output"):
+            (tmp_path / "escape").open("w")
+        with pytest.raises(ValueError, match="exclusive"):
+            os.open(path, os.O_WRONLY | os.O_TRUNC)
+        with pytest.raises(ValueError, match="Credential access"):
+            (tmp_path / ".netrc").open()
+        with pytest.raises(ValueError, match="prohibited"):
+            socket.getaddrinfo("example.invalid", 443)
+    assert path.read_text() == "unchanged serialization\n"
+
+
+@pytest.mark.parametrize("field,value", [("predicate", "biolink:has_phenotype"),
+                                         ("has_percentage", "100.0"),
+                                         ("unit", "percent"), ("negated", "true"),
+                                         ("subject", "NCBITaxon:other")])
+def test_all_edge_qualifiers_compared_not_only_triple(field, value):
+    frozen = {"subject": replay.SUBJECT, "predicate": "biolink:capable_of",
+              "object": replay.OBJECT, "has_percentage": "0.0", "unit": ""}
+    emitted = {**frozen, field: value}
+    with pytest.raises(ValueError, match="differs from frozen original"):
+        replay.compare_edge(emitted, frozen)
+
+
+def test_missing_empty_column_is_explicit_and_nonempty_column_is_rejected():
+    result = replay.compare_edge({"object": replay.OBJECT},
+                                 {"object": replay.OBJECT, "publications": ""})
+    assert result["original_columns_absent_from_owner_header"] == ["publications"]
+    with pytest.raises(ValueError):
+        replay.compare_edge({"object": replay.OBJECT},
+                            {"object": replay.OBJECT, "publications": "some citation"})
+
+
+def test_changed_frozen_packet_rejected_even_if_internal_hash_recomputed(tmp_path):
+    for name in replay.PACKET_PINS:
+        (tmp_path / name).write_text(json.dumps({"text": "changed", "text_sha256":
+                                               replay.sha(b"changed")}))
+    with pytest.raises(ValueError, match="Frozen packet mismatch"):
+        replay.inspect_inputs(tmp_path / "unused-owner", tmp_path)
+
+
+def test_output_tsv_preserves_multiplicity_and_omitted_trailing_cells(tmp_path):
+    path = tmp_path / "edges.tsv"
+    path.write_bytes(b"subject\tpredicate\tvalue\nS\tP\nS\tP\n")
+    header, raw, rows = replay.read_rows(path)
+    assert header == ["subject", "predicate", "value"]
+    assert raw == [["S", "P"], ["S", "P"]]
+    assert rows == [{"subject": "S", "predicate": "P", "value": ""}] * 2
+
+
+def readback_fixture(tmp_path):
+    output = tmp_path / "attempt"
+    replay.create_private_dir(output)
+    replay.create_private_dir(output / "owner-output")
+    record = source_record()
+    replay.save_json(output / "original-source-line-10486.jsonl", record)
+    replay.save_json(output / "bounded-input.jsonl", record)
+    raw = b"subject\tpredicate\tobject\thas_percentage\nNCBITaxon:1540872\tbiolink:capable_of\tMETPO:1005039\t0.0\n"
+    edge_path = "owner-output/bounded-input_edges.tsv"
+    replay.save_private(output / edge_path, raw)
+    replay.save_private(output / "original-edge-820840.tsv", raw)
+    header, raw_rows, rows = replay.read_rows(output / edge_path)
+    receipt = {"status": "replayed", "occurrence_id": replay.OCCURRENCE,
+               "selected_summary_index_zero_based": 0, "original_edge": rows[0],
+               "owner_mapping": {"edge_header": header}, "emitted_raw_rows": raw_rows,
+               "comparison": replay.compare_edge(rows[0], rows[0]),
+               "emitted_line_hashes": {edge_path: [replay.sha(line) for line in
+                                                   raw.splitlines(keepends=True)]},
+               "artifact_pins": {str(path.relative_to(output)): replay.pin(path)
+                                 for path in output.rglob("*") if path.is_file()}}
+    replay.save_json(output / "receipt.json", receipt)
+    return output, receipt
+
+
+def test_separate_readback_checks_each_row_and_hash(tmp_path):
+    output, receipt = readback_fixture(tmp_path)
+    assert replay.verify_artifacts(output)["emitted_edge_rows"] == 1
+    path = output / "owner-output/bounded-input_edges.tsv"
+    path.write_bytes(path.read_bytes().replace(b"0.0", b"1.0"))
+    with pytest.raises(ValueError, match="Artifact changed"):
+        replay.verify_artifacts(output)
+    # Even re-pinning the changed artifact cannot hide disagreement with the receipt rows.
+    receipt["artifact_pins"][str(path.relative_to(output))] = replay.pin(path)
+    (output / "receipt.json").write_bytes(replay.json_bytes(receipt))
+    with pytest.raises(ValueError, match="raw rows differ"):
+        replay.verify_artifacts(output)
+
+
+def test_separate_readback_rejects_multiple_emitted_occurrences(tmp_path):
+    output, receipt = readback_fixture(tmp_path)
+    path = output / "owner-output/bounded-input_edges.tsv"
+    path.write_bytes(path.read_bytes() + path.read_bytes().splitlines(keepends=True)[1])
+    receipt["artifact_pins"][str(path.relative_to(output))] = replay.pin(path)
+    (output / "receipt.json").write_bytes(replay.json_bytes(receipt))
+    with pytest.raises(ValueError, match="exactly one emitted"):
+        replay.verify_artifacts(output)
