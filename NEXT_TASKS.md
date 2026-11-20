@@ -1,5 +1,15 @@
 # Edge-review next tasks
 
+**Restart requested — 2026-11-20 UTC (November19 Pacific):** M5 CLAW is assigned
+the [new campaign order](docs/plans/m5-edge-review-restart-20261120.md): freeze
+the complete target and baseline review ledger; process unreviewed occurrences
+first, then the frozen previously reviewed set with actual LBNL-enabled evidence
+access. This replaces the old W7-before-W8 production cohort order, not the
+scientific calibration or evidence/runtime/correction gates. Findings #223/#224
+clarified that ordering and the exhaustive, disjoint queue partition before
+dispatch. CLAW acknowledgement and the first worker/canary receipt are pending;
+no restarted review coverage is yet claimed.
+
 **Implementation candidate — 2026-11-19, unmerged [PR #214](https://github.com/CultureBotAI/EdgeMech/pull/214):**
 the upgraded [content-review plan](docs/plans/content-review-20261109.md) now covers
 all six axes, failed rounds, unchanged gates and concrete M5 implementation stages.

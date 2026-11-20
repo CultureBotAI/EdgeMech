@@ -1,5 +1,13 @@
 # Edge content review: current implementation plan
 
+**Scheduling update, 2026-11-20 UTC:** the user requested M5 CLAW restart the
+campaign with unreviewed occurrences first, then previously reviewed occurrences
+using LBNL services. The [restart assignment](m5-edge-review-restart-20261120.md)
+governs that new execution, replacing the W7-before-W8 cohort order and freezing
+disjoint baseline queues while retaining the scientific calibration, evidence,
+runtime, correction and resource gates. The November19 implementation record
+below remains the engineering/evidence baseline.
+
 Reconciled **2026-11-19** against main `f841b1d`, the reviewed prerequisite
 candidate `27be00d` ([PR #211](https://github.com/CultureBotAI/EdgeMech/pull/211)),
 and the completed calibration reports. This update addresses
