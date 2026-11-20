@@ -7,8 +7,12 @@ first, then the frozen previously reviewed set with actual LBNL-enabled evidence
 access. This replaces the old W7-before-W8 production cohort order, not the
 scientific calibration or evidence/runtime/correction gates. Findings #223/#224
 clarified that ordering and the exhaustive, disjoint queue partition before
-dispatch. CLAW acknowledgement and the first worker/canary receipt are pending;
-no restarted review coverage is yet claimed.
+dispatch. CLAW accepted the assignment and registered its durable task. An
+isolated native coordinator at `945c421` is waiting at its exact folder-trust
+prompt; the user decision is pending. The coordinator has not accepted its task,
+no review worker has started, and no new library/canonical canary or review
+coverage is claimed. The [startup receipt](docs/validation/m5-restart-startup-20261120.md)
+separates supervisor acceptance from actual review execution.
 
 **Implementation candidate — 2026-11-19, unmerged [PR #214](https://github.com/CultureBotAI/EdgeMech/pull/214):**
 the upgraded [content-review plan](docs/plans/content-review-20261109.md) now covers
