@@ -1,0 +1,24 @@
+{
+  "date": "2026-11-19",
+  "source_commit": "f841b1dff874e78d1a14075413be6a92c90f1378",
+  "canary": true,
+  "records": 1,
+  "checks": [
+    "persisted outputs and sample counts",
+    "populated detail and stable URL refresh",
+    "literal markup query, empty state, reset",
+    "keyboard filter navigation",
+    "390px mobile layout and detail containment",
+    "JavaScript-disabled catalogue with pinned raw manifest, line and hash",
+    "failed asset load gives explicit error and no inferred results"
+  ],
+  "browser_errors": [],
+  "sample_bytes": 7117,
+  "sample_gzip_bytes": 2487,
+  "published_output_bytes": 39083,
+  "builder": {
+    "path": "src/edgemech/site.py",
+    "sha256": "23551fd75179aef06416c9a9fda2c492a354ee23980cbe9109eff10f348ab0fc"
+  },
+  "sample_sha256": "a2ca544d31d10a21bf42d0d4a76a5e41d07a2b9227f5203d9b408fcccaf54699"
+}

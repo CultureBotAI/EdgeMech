@@ -2,6 +2,15 @@
 
 Release-occurrence accounting and inherited native-review eligibility for KG-Microbe.
 
+## Public sample browser
+
+The [static sample browser](docs/public-sample-browser.md) provides search, filters,
+stable occurrence details and downloads for the committed 10,000-occurrence sample.
+It keeps the 100 historical canary assessments separate from inherited rule labels
+and from the dated full-population census. It does not host the complete graph or
+grant scientific approval. The Pages workflow builds pull requests and publishes
+only after a reviewed merge to `main` and repository Pages setup.
+
 EdgeMech keeps bulk rows and decision histories in immutable external Parquet artifacts and queries them with DuckDB. Shared contracts are owned by CultureBotAI/culturebotai-claw. Scientific records and decisions remain in their native Mechs.
 
 Development scope: CLAW issues #766 and #767. No live curation worker, published site, or scientific approval is implied.
