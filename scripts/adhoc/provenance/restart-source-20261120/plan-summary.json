@@ -1,0 +1,23 @@
+{
+  "date_utc": "2026-11-20",
+  "purpose": "Verified source-restoration plan; full census replay still pending",
+  "issues": ["CultureBotAI/EdgeMech#228", "CultureBotAI/EdgeMech#231"],
+  "original_plan_helper_sha256": "4d1217614f522da3ae8e6d254249c6e6e4aadaa6a71047be247068aa47bf9774",
+  "original_plan_receipt_sha256": "ade94ea9badd1d25855fc55ddcc1a74f87c55f45f3746764bb5935102bb66379",
+  "repaired_plan_helper_sha256": "a06782633c92ce8ce59957a0d65c371592e2bdafbd7ad6f52836f8bd4b9cdb37",
+  "repaired_plan_receipt_sha256": "3159950bf4d085614a47e913dfa831ba6b436eee3fe9d87d6f8aa689b9ce82b6",
+  "original_source_manifest_sha256": "f585e55a616d3771f382c91c78713cb8d74812c7ba177576090ccd5f9e6654b2",
+  "original_census_manifest_sha256": "a2b8353349816fd067ab3a7112fd1c2f5ee9c02971591ea52f31e9b981cbdd2e",
+  "verified_source_members": 3,
+  "verified_source_member_bytes": 3267015185,
+  "verified_edge_member_sha256": "e6a846112ff8c769a8daa8a3c509c3390bd7b5e341c7998ce9188ebece9d4c9a",
+  "verification": "Maintained source verifier checked all original member hashes, bytes, row counts, header and selected prefix at the recovered location; no manifest rewrite",
+  "focused_tests_passed": 16,
+  "focused_log_sha256": "417add8ce523b530ebf6659426bf3831a752641770b7d7f5ae8314db0d5d7e58",
+  "live_apply_executed": false,
+  "full_census_replay_completed": false,
+  "scientific_review_coverage": 0,
+  "queue_A_count": null,
+  "queue_B_count": null,
+  "private_preservation": "Executed plan helper bytes, receipts, failure tests and operational bindings remain private; original pins and source bytes unchanged"
+}
