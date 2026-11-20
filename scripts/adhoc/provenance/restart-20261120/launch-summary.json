@@ -1,0 +1,27 @@
+{
+  "date_utc": "2026-11-20",
+  "issue": "CultureBotAI/EdgeMech#228",
+  "purpose": "Preparation worker startup provenance; no scientific coverage",
+  "accepted_request_sha256": "4af8b1cc2fe98032d5ff7f1d7ddb659e491310d3dfd0bcb7a370645c97048a4d",
+  "accepted_runtime_commit": "945c421c648fe09858eabf1f2a4447ab27f9eae3",
+  "executed_helper_sha256": "8bd2fd8e8a3bd34cb741d150b025e943f44bc358a7e61cadefdb3395483c47e0",
+  "actual_launch_receipt_sha256": "0233deb844e0db2ba2c7e4d4e7f26acd353bde36b55ac8f72a213e4436c10fa2",
+  "preservation": "Original executed helper and actual receipt retained privately, byte-identical; neither rerun nor rewritten",
+  "workers_launched": 1,
+  "state_at_inspection": "awaiting_separate_trust_permission",
+  "task_prompt_delivered": false,
+  "scientific_review_coverage": 0,
+  "library_readiness_verified": false,
+  "canonical_readback_verified": false,
+  "queue_A_count": null,
+  "queue_B_count": null,
+  "successor": "scripts/adhoc/launch_restart_preparation_20261120.py",
+  "successor_live_execution": false,
+  "successor_changes": [
+    "Lease-owned LockManager context manager and post-release launch gate",
+    "Private tmux session/socket/executable supplied explicitly at invocation",
+    "Original operational logs remain private; public provenance is digest-only"
+  ],
+  "independent_review_finding": "EDGE-RESTART-PRIVATE-LOG-001",
+  "scope_limit": "Startup and static engineering review are not scientific approval, library access, or production readiness"
+}
