@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Browse EdgeMech's public 10,000-occurrence sample, historical assessment records, and dated release-accounting summaries.">
+  <title>EdgeMech · occurrence sample browser</title>
+  <link rel="stylesheet" href="site.css">
+  <script defer src="browser.js"></script>
+</head>
+<body>
+<a class="skip" href="#browse">Skip to sample browser</a>
+<header class="topbar"><a href="https://culturebotai.github.io/mechs/">← All Mech projects</a><a href="https://github.com/CultureBotAI/EdgeMech">Source repository ↗</a></header>
+<main>
+  <section class="hero" aria-labelledby="title">
+    <div class="eyebrow">KG-Microbe · release accounting &amp; review provenance</div>
+    <h1 id="title"><svg viewBox="0 0 60 60" aria-hidden="true"><path d="M12 13L47 21 24 47 12 13M12 13L24 47"/><circle cx="12" cy="13" r="7"/><circle cx="47" cy="21" r="7"/><circle cx="24" cy="47" r="7"/></svg>EdgeMech</h1>
+    <h2 class="subtitle">BUILD_SCOPEOccurrence sample browser</h2>
+    <p class="lead">Explore <strong>10,000 selected edge occurrences</strong>: the original claims, their release disposition, and the historical evidence assessments retained in this repository.</p>
+    <p class="scope-note">This browser searches a dated sample, not the full KG-Microbe graph. Repeated claims remain separate occurrences. Review states describe retained historical work, not a current scientific approval.</p>
+    <nav class="section-nav" aria-label="Page sections"><a href="#browse"><span aria-hidden="true">⌕</span>Sample</a><a href="#review-scope"><span aria-hidden="true">▤</span>Review scope</a><a href="#census"><span aria-hidden="true">◫</span>Dated census</a><a href="#downloads"><span aria-hidden="true">↓</span>Data &amp; provenance</a></nav>
+    <div class="stats" aria-label="Public sample scope">
+      <div><strong>10,000</strong><span>selected occurrences</span></div><div><strong>8,500</strong><span>retained in curated derivative</span></div><div><strong>1,500</strong><span>omitted from curated derivative</span></div><div><strong>100</strong><span>historically assessed in two cohorts</span></div><div><strong>13</strong><span>source transforms</span></div>
+    </div>
+  </section>
+
+  <section id="browse" aria-labelledby="browse-title">
+    <div class="section-heading"><div><div class="eyebrow">Public sample · 12 November 2026</div><h2 id="browse-title">Find an occurrence</h2></div><a href="catalogue/1.html">Browse without JavaScript ↗</a></div>
+    <form id="filters" role="search">
+      <label class="search-field">Search original labels, identifiers, or occurrence ID<input id="query" name="q" type="search" placeholder="e.g. citrate, BacDive, METPO:2000511" autocomplete="off" disabled></label>
+      <div class="filter-grid">
+        <label>Source transform<select id="transform" name="transform" disabled><option value="">All transforms</option></select></label>
+        <label>Release disposition<select id="disposition" name="disposition" disabled><option value="">All dispositions</option><option value="retained">Retained</option><option value="omitted">Omitted</option></select></label>
+        <label>Historical cohort<select id="cohort" name="cohort" disabled><option value="">All sample occurrences</option><option value="assessed">Either retained cohort</option><option value="2026-11-12">12 Nov 2026 · first 50</option><option value="2026-11-13">13 Nov 2026 · fresh 50</option><option value="unreviewed">Outside retained cohorts</option></select></label>
+        <label>Source fidelity<select id="source" name="source" disabled><option value="">Any recorded state</option></select></label>
+        <label>Scientific support<select id="science" name="science" disabled><option value="">Any recorded state</option></select></label>
+      </div>
+      <div class="toolbar"><button type="reset" disabled>Reset filters</button><button id="download-filtered" type="button" disabled>Download filtered CSV</button><span id="result-count" role="status" aria-live="polite">Loading public sample…</span></div>
+    </form>
+    <div id="load-error" class="notice" role="alert" hidden></div>
+    <noscript><p class="notice">JavaScript is disabled. The <a href="catalogue/1.html">paginated catalogue</a> and <a href="sample.csv">CSV download</a> contain every published sample occurrence.</p></noscript>
+    <div class="table-scroll" tabindex="0" aria-label="Scrollable sample results"><table id="results"><caption class="sr-only">Original sample claims and independent historical assessment axes</caption><thead><tr><th>Original subject</th><th>Original predicate</th><th>Original object</th><th>Transform / disposition</th><th>Source fidelity</th><th>Scientific support</th></tr></thead><tbody></tbody></table></div>
+    <p id="empty" class="notice" hidden>No sample occurrences match these filters. Try a broader term or reset the filters.</p>
+    <nav class="pager" aria-label="Search result pages"><button id="previous" disabled>← Previous</button><span id="page-label"></span><button id="next" disabled>Next →</button></nav>
+  </section>
+
+  <section id="detail" class="detail" aria-labelledby="detail-title" hidden><div class="section-heading"><h2 id="detail-title" tabindex="-1">Occurrence detail</h2><button id="close-detail">Close detail</button></div><div id="detail-body"></div></section>
+
+  <section id="review-scope" aria-labelledby="review-title"><div class="eyebrow">Read the evidence at its recorded scope</div><h2 id="review-title">Three distinct questions</h2>
+    <div class="explain-grid"><article><h3>What was in the release?</h3><p>Each row identifies an original edge occurrence. “Retained” and omission reasons describe the curated derivative. A recorded rule label is provenance, not an independently validated scientific verdict.</p></article><article><h3>What did the source report?</h3><p>Source fidelity asks whether the original claim preserves its source's entities, direction, and meaning. The 100 retained canary records are historical assessments by automated reviewers.</p></article><article><h3>What supports the claim?</h3><p>Scientific support is a separate recorded assessment. “Not found” means unresolved within a bounded search; “not assessable” means the available evidence could not decide. Neither means the claim is false.</p></article></div>
+    <p>These two purposive 50-occurrence cohorts do not estimate population accuracy. The other <strong>9,900 sample occurrences</strong> have no assessment in these retained cohorts. This page does not incorporate open review branches or certify independent calibration.</p>
+    <p>Native-review transfer is another, separate contract: identical native assertion and scope bindings are required. Endpoint or triple matches, transport validity, and existing rule labels cannot establish scientific approval.</p>
+    <a href="https://github.com/CultureBotAI/EdgeMech/blob/SOURCE_COMMIT/NEXT_TASKS.md">Recorded review limitations and follow-up work ↗</a>
+  </section>
+
+  <section id="census" aria-labelledby="census-title"><div class="eyebrow">Separate artifact · 7 November 2026</div><h2 id="census-title">Native-overlap census</h2>
+    <p>The retained census accounts for <strong>17,637,435 occurrences</strong> in a 29 September 2026 source snapshot. This is a separate dated artifact, not the search corpus above or a denominator for sample review accuracy.</p>
+    <div class="stats"><div><strong>0</strong><span>exact-eligible inherited-scope transfers</span></div><div><strong>0</strong><span>independent scientific reviews performed by this census</span></div></div>
+    <div id="census-counts"></div>
+    <p>The census describes inherited-scope transport conformance. Full graph partitions and decision histories remain external; this site provides metadata, not hosted Parquet downloads.</p>
+    <a href="https://github.com/CultureBotAI/EdgeMech/blob/SOURCE_COMMIT/docs/validation/full-native-overlap-20261107/census-manifest.json">Read the retained census manifest ↗</a>
+  </section>
+
+  <section id="downloads" aria-labelledby="downloads-title"><div class="eyebrow">Reproducible public derivative</div><h2 id="downloads-title">Data &amp; provenance</h2>
+    <div class="download-links"><a href="sample.json" download>Public sample JSON ↓</a><a href="sample.csv" download>Public sample CSV ↓</a><a href="build-receipt.json" download>Build receipt &amp; hashes ↓</a></div>
+    <p>Downloads contain the browser's public metadata projection, not private original source rows, quotations, evidence packets, or bulk graphs. CSV cells that could be spreadsheet formulas are prefixed with an apostrophe.</p>
+    <p>The original sampling run did not compute full input-file SHA-256 hashes. Public source derivatives are byte-bound to the commit and hashes below; that does not supply the missing private input hashes.</p>
+    <details><summary>Input files and SHA-256 hashes</summary><div id="provenance"></div></details>
+    <p id="payload-size"></p>
+  </section>
+</main>
+<footer><strong>EdgeMech</strong> · infrastructure for accountable edge review<br>Browser schema <code>edgemech-public-sample-browser/v1</code> · source commit <a href="https://github.com/CultureBotAI/EdgeMech/tree/SOURCE_COMMIT"><code>SOURCE_COMMIT</code></a><br>No repository-wide license is declared. Upstream source terms still apply. <a href="https://github.com/CultureBotAI/EdgeMech/issues">Report a problem ↗</a></footer>
+</body>
+</html>
