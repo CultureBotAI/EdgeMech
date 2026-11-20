@@ -58,6 +58,14 @@ def main():
             page.locator("#results tbody a").first.click()
             assert page.locator("#detail").is_visible()
             assert "Sample SHA-256" in page.locator("#detail-body").inner_text()
+            manifest = next(item for item in data["provenance"]
+                            if item["path"].endswith("/manifest.jsonl"))
+            source_link = page.get_by_role("link", name="Open full source manifest (JSONL)")
+            assert source_link.get_attribute("href") == manifest["download_url"]
+            assert "#L" not in source_link.get_attribute("href")
+            assert f'Source line: {data["records"][0]["source_line"]} (1-based)' in page.locator(
+                "#detail-body").inner_text()
+            assert manifest["sha256"] in page.locator("#detail-body").inner_text()
             assert page.locator("#detail .assessments article").count() == 2
             detail_url = page.url
             page.reload()
@@ -113,8 +121,14 @@ def main():
             fallback = nojs.new_page()
             fallback.goto(url + "catalogue/1.html")
             assert fallback.locator("tbody tr").count() == min(expected, 100)
-            assert fallback.locator("tbody a").last.get_attribute("href").startswith("https://github.com/")
-            checks.append("JavaScript-disabled catalogue and exact source links")
+            source_links = fallback.get_by_role("link", name="Full source manifest (JSONL)")
+            assert source_links.count() == min(expected, 100)
+            assert source_links.first.get_attribute("href") == manifest["download_url"]
+            assert "Source line 1 (1-based)" in fallback.locator("tbody").inner_text()
+            assert manifest["sha256"] in fallback.locator("main").inner_text()
+            fallback.set_viewport_size({"width": 390, "height": 844})
+            assert fallback.evaluate("document.documentElement.scrollWidth <= innerWidth")
+            checks.append("JavaScript-disabled catalogue with pinned raw manifest, line and hash")
             failed = browser.new_page()
             failed.route("**/sample.json", lambda route: route.fulfill(status=503, body="unavailable"))
             failed.goto(url)

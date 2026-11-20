@@ -17,8 +17,8 @@ filter counts, independent science filtering, a persisted filtered CSV download,
 and pagination restored by URL.
 
 The full payload has 10,000 occurrences; 100 retain historical assessments.
-The JSON is 7,771,182 bytes, or 1,225,128 bytes under deterministic gzip.
-The 106 generated files total 18,138,164 bytes before the receipt itself.
+The JSON is 7,772,380 bytes, or 1,225,174 bytes under deterministic gzip.
+The 106 generated files total 18,727,800 bytes before the receipt itself.
 The site includes 100 static catalogue pages. No external graph, model or
 scientific API calls were made. There were no browser JavaScript errors.
 
@@ -27,6 +27,9 @@ Receipts:
 - `canary-browser.json`: one-record persisted/rendered canary.
 - `full-browser.json`: complete sample and render verification.
 - `build-receipt.json`: exact public inputs and every generated output hash.
+- `source-link-227.json`: one real HTTP download of the pinned source manifest,
+  verified against the byte count, hash and canary occurrence's source line.
+- `review-resolution-227.md`: independent review finding and its resolution.
 
 Desktop and mobile screenshots remain in the isolated clone under
 `.temp/browser-qa/`; they were visually inspected. The retained checker is
@@ -51,7 +54,7 @@ node --test tests/browser.test.cjs
 UV_CACHE_DIR=.temp/uv-cache uv build --offline --no-build-isolation --python /path/to/python
 ```
 
-The complete suite passed 711 tests (13 browser-publication tests included),
+The complete suite passed 712 tests (14 browser-publication tests included),
 all four Node behavior tests passed, Ruff passed, and all 16 pinned CLAW contract
 files verified. Source and wheel distributions built offline; the wheel contains
 the builder and all three HTML/CSS/JavaScript assets. Existing-output rejection

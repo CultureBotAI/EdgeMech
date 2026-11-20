@@ -16,6 +16,7 @@ from collections import Counter
 from pathlib import Path
 
 REPOSITORY = "https://github.com/CultureBotAI/EdgeMech"
+RAW_REPOSITORY = "https://raw.githubusercontent.com/CultureBotAI/EdgeMech"
 SAMPLE = "artifacts/edge-sample-review-20261112/manifest.jsonl"
 SAMPLING = "artifacts/edge-sample-review-20261112/sampling-metadata.json"
 FIRST = "artifacts/edge-sample-review-20261112/canary-ledger.jsonl"
@@ -59,7 +60,8 @@ def read_inputs(root: Path, source_ref: str) -> tuple[dict, list[dict]]:
         values[name] = ([json.loads(line) for line in raw.splitlines()]
                         if name.endswith("jsonl") else json.loads(raw))
         provenance.append({"path": name, "sha256": digest(raw), "bytes": len(raw),
-                           "url": f"{REPOSITORY}/blob/{source_ref}/{name}"})
+                           "url": f"{REPOSITORY}/blob/{source_ref}/{name}",
+                           "download_url": f"{RAW_REPOSITORY}/{source_ref}/{name}"})
     expected = values[SAMPLING]["hashes"][SAMPLE]
     if provenance[0]["sha256"] != expected:
         raise ValueError("sample hash differs from retained sampling metadata")
@@ -198,6 +200,7 @@ def csv_bytes(records: list[dict]) -> bytes:
 def catalogue(data: dict, output: Path) -> None:
     """Readable paginated HTML remains available without JavaScript."""
     records = data["records"]
+    source = next(item for item in data["provenance"] if item["path"] == SAMPLE)
     page_size = 100
     pages = (len(records) + page_size - 1) // page_size
     target = output / "catalogue"
@@ -214,8 +217,8 @@ def catalogue(data: dict, output: Path) -> None:
             for axis in ("source_fidelity", "scientific_support"):
                 cells.append(html.escape(row.get("review", {}).get(axis, {}).get(
                     "verdict", "Not in retained review cohorts")))
-            cells.append(f'<a href="{REPOSITORY}/blob/{data["source_commit"]}/{SAMPLE}'
-                         f'#L{row["source_line"]}">Exact source row</a>')
+            cells.append(f'<a href="{source["download_url"]}">Full source manifest (JSONL)</a>'
+                         f'<small>Source line {row["source_line"]} (1-based)</small>')
             body.append("<tr>" + "".join(f"<td>{value}</td>" for value in cells) + "</tr>")
         navigation = " ".join(f'<a href="{number}.html">{label}</a>' for number, label in (
             (page, "Previous"), (page + 2, "Next")) if 1 <= number <= pages)
@@ -227,6 +230,8 @@ def catalogue(data: dict, output: Path) -> None:
 {len(records):,} published sample occurrences. Historical assessment states are separate from
 release presence and inherited transport eligibility. Not a search of the full graph.</p>
 <p><a href="../sample.csv" download>Download this public sample as CSV</a></p>
+<p>Provenance links open the complete pinned source manifest, not an individual row.
+Source SHA-256: <code>{source["sha256"]}</code></p>
 <div class="table-scroll" tabindex="0" aria-label="Occurrence sample table"><table>
 <thead><tr><th>Original subject</th><th>Original predicate</th><th>Original object</th>
 <th>Transform</th><th>Disposition</th><th>Source fidelity</th><th>Scientific support</th>

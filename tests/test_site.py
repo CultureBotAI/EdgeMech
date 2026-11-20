@@ -112,3 +112,18 @@ def test_static_catalogue_escapes_untrusted_labels(inputs, tmp_path):
     site.catalogue(data, tmp_path)
     html = (tmp_path / "catalogue/1.html").read_text()
     assert "&lt;img" in html and "<img" not in html
+
+
+def test_large_manifest_provenance_uses_raw_file_with_visible_line_and_hash(inputs, tmp_path):
+    data = site.project(*inputs, canary=True)
+    source = next(item for item in data["provenance"] if item["path"] == site.SAMPLE)
+    assert source["bytes"] > 7_000_000  # Too large for a GitHub blob line view.
+    assert source["download_url"] == f"{site.RAW_REPOSITORY}/{inputs[2]}/{site.SAMPLE}"
+    row = data["records"][0]
+    assert inputs[0][site.SAMPLE][row["source_line"] - 1]["occurrence_id"] == row["occurrence_id"]
+    site.catalogue(data, tmp_path)
+    html = (tmp_path / "catalogue/1.html").read_text()
+    assert f'href="{source["download_url"]}"' in html
+    assert f'Source line {row["source_line"]} (1-based)' in html
+    assert source["sha256"] in html
+    assert "Exact source row" not in html and "#L" not in html

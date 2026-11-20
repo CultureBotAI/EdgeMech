@@ -124,9 +124,9 @@
     }
     const sample = data.provenance.find(item => item.path.endsWith("/manifest.jsonl"));
     const original = node("p");
-    original.append(link("Exact public sample row ↗", `${sample.url}#L${row.source_line}`));
+    original.append(link("Open full source manifest (JSONL) ↗", sample.download_url));
     body.append(original);
-    body.append(node("p", `Sample SHA-256: ${sample.sha256}`));
+    body.append(node("p", `The link opens the complete pinned file. Source line: ${row.source_line} (1-based). Sample SHA-256: ${sample.sha256}`));
     if (focus) { byId("detail-title").focus(); section.scrollIntoView({block: "start"}); }
   }
   function render() {
@@ -181,7 +181,7 @@
       for (const [key, value] of Object.entries(data.census.counts)) { list.append(node("dt", key.replaceAll("_", " ")), node("dd", value.toLocaleString())); }
       byId("census-counts").append(list);
       for (const source of data.provenance) {
-        const p = node("p"); p.append(link(source.path, source.url), node("code", source.sha256)); byId("provenance").append(p);
+        const p = node("p"); p.append(link(`Raw source file: ${source.path}`, source.download_url), node("code", source.sha256)); byId("provenance").append(p);
       }
       byId("payload-size").textContent = `Public JSON size before HTTP compression: ${new TextEncoder().encode(payload).length.toLocaleString()} bytes. Source files and generated outputs are hashed in the build receipt.`;
       if (state.id) showDetail(false);

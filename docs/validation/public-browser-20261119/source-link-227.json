@@ -1,0 +1,15 @@
+{
+  "issue": 227,
+  "date": "2026-11-19",
+  "source_commit": "f841b1dff874e78d1a14075413be6a92c90f1378",
+  "url": "https://raw.githubusercontent.com/CultureBotAI/EdgeMech/f841b1dff874e78d1a14075413be6a92c90f1378/artifacts/edge-sample-review-20261112/manifest.jsonl",
+  "final_url": "https://raw.githubusercontent.com/CultureBotAI/EdgeMech/f841b1dff874e78d1a14075413be6a92c90f1378/artifacts/edge-sample-review-20261112/manifest.jsonl",
+  "http_status": 200,
+  "content_type": "text/plain; charset=utf-8",
+  "bytes": 7851103,
+  "sha256": "1457df4e1528d7749f39bc47b6a00d06571ea215e39934216f4bc75a2dc6c4f4",
+  "source_rows": 10000,
+  "verified_public_record_lines": 1,
+  "persisted_artifact": "manifest.jsonl",
+  "original_tuples_preserved": true
+}

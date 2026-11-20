@@ -37,7 +37,11 @@ states, authored rationales, model attribution, source paths and hashes. It omit
 retrieved quotations, private paths, full source records, evidence packets and
 bulk graph files. Original sampling metadata explicitly says full private input
 SHA-256 hashes were not computed; hashes of public derivatives do not repair that
-limitation. Downloads and details expose immutable repository source links.
+limitation. Details and the static catalogue link to the complete, pinned raw
+source manifest and visibly retain its SHA-256 and the 1-based source line. They
+do not use GitHub blob line anchors: GitHub cannot render this 7.85 MB JSONL file
+as a line-addressable page. Original occurrence identity and tuples remain in
+the browser and can be located at the stated line in the downloaded manifest.
 
 No repository-wide license declaration was present when this browser was added.
 The browser does not invent or grant one; upstream source terms still apply.
