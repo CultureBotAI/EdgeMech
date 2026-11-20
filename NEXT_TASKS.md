@@ -7,12 +7,19 @@ first, then the frozen previously reviewed set with actual LBNL-enabled evidence
 access. This replaces the old W7-before-W8 production cohort order, not the
 scientific calibration or evidence/runtime/correction gates. Findings #223/#224
 clarified that ordering and the exhaustive, disjoint queue partition before
-dispatch. CLAW accepted the assignment and registered its durable task. An
-isolated native coordinator at `945c421` is waiting at its exact folder-trust
-prompt; the user decision is pending. The coordinator has not accepted its task,
-no review worker has started, and no new library/canonical canary or review
-coverage is claimed. The [startup receipt](docs/validation/m5-restart-startup-20261120.md)
-separates supervisor acceptance from actual review execution.
+dispatch. After the user's explicit trust approval, the isolated native
+coordinator at `945c421` accepted its task and recorded an active continuation
+goal at 05:26 UTC. Its first separate preparation worker reached a new
+folder-trust prompt at 05:29; the exact decision is pending and its task has not
+started. The exact historical census and original source snapshot are now
+recovered into private M5 staging: 904 census files passed checksum comparison
+after a one-partition canary; the three extracted TSVs match their declared
+SHA256/size, and their manifest matches its separately pinned hash. Controlled
+source-path restoration, full census replay,
+baseline A/B freeze and the first library/canonical canary remain pending.
+New scientific review coverage is zero.
+The [startup receipt](docs/validation/m5-restart-startup-20261120.md) separates
+coordinator activation and data recovery from completed review work.
 
 **Implementation candidate — 2026-11-19, unmerged [PR #214](https://github.com/CultureBotAI/EdgeMech/pull/214):**
 the upgraded [content-review plan](docs/plans/content-review-20261109.md) now covers
