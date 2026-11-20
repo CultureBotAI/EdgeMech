@@ -1,0 +1,33 @@
+{
+  "all_locators_read_and_parsed": true,
+  "byte_variant_count": 619,
+  "completed_at_utc": "2026-11-20T05:58:07.394544+00:00",
+  "distinct_declared_review_ids": 120,
+  "documents_sha256": "87d4779ec447b4e6c520eb9e8ed464c1c374b8035d892f7e685a8a4b9615198f",
+  "full_target_frozen": false,
+  "helper_sha256": "e63d43b695f9d6e66645ff21131303a55ef0b6aad302cb8772694b634f2c8a95",
+  "limitations": [
+    "Locator search scope is external; this is not an exhaustive archive search",
+    "Declared timing, source inputs and exact census membership need independent replay",
+    "Markers are retained observations, never automatic fixture exclusion",
+    "Partial/engineering/rejected observations remain; no scientific approval inferred",
+    "No canonical schema validation or source/evidence correctness asserted"
+  ],
+  "locator_count": 871,
+  "locator_status_counts": {
+    "parsed_observations_only": 871
+  },
+  "locators_sha256": "d40b19ddd73f50f0cbd0fadb0996f866ee3530e56219debdd9e86346ef05a33a",
+  "paths_sha256": "5ea37a4cfff117e5e2d5f447f55de7e2e1c92f25d0eff1fac858011f65c8b9a5",
+  "proposed_cutoff_utc": "2026-11-20T05:26:45Z",
+  "queue_A_count": null,
+  "queue_B_count": null,
+  "scientific_review_coverage": 0,
+  "status": "BOUNDED_NATIVE_OBSERVATIONS_BASELINE_RECONCILIATION_STILL_OPEN",
+  "variant_timing_counts": {
+    "declared_at_or_before_cutoff": 618,
+    "unknown_or_incomplete_declared_timing": 1
+  },
+  "variants_with_orphan_assessment_ids": 0,
+  "variants_with_synthetic_content_markers": 222
+}
