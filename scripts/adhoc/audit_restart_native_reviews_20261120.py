@@ -1,6 +1,7 @@
 """Inventory retained native review bytes without qualifying baseline membership.
 
-Date: 2026-11-20 UTC. Issues: #228 (helper/result provenance), #224 (full baseline).
+Date: 2026-11-20 UTC; repaired 2026-11-26. Issues: #228 (provenance), #224
+(full baseline), #234 (timestamp precision), #235 (structural projection).
 Purpose: inspect every explicit native-review locator, retaining copies, byte
 variants, malformed inputs, partial assessments and synthetic-content markers.
 Inputs: private newline-delimited absolute paths with a SHA256 pin, proposed UTC
@@ -30,7 +31,15 @@ from edgemech.pins import check_contracts
 
 MAX_BYTES = 16 * 1024 * 1024
 MAX_LOCATORS = 10_000
+MAX_ITEMS = 10_000
 OCCURRENCE = re.compile(r"urn:kg-microbe:occurrence:v1:[0-9a-f]{64}")
+REVIEW_FIELDS = {
+    "review_id": 160, "kind": 160, "repository": 256, "skill": 256,
+    "completion": 160, "verdict": 160, "started_at": 64, "finished_at": 64,
+}
+TARGET_FIELDS = {"target_id": 4096, "kind": 160, "path": 4096, "selector": 4096}
+INPUT_FIELDS = {"path": 4096, "sha256": 64, "role": 1024}
+ASSESSMENT_FIELDS = {"assessment_id": 160, "area": 256, "outcome": 160}
 
 
 def digest(data):
@@ -47,7 +56,7 @@ def read_bounded(path):
 
 def instant(value):
     if not isinstance(value, str) or not re.fullmatch(
-        r"\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|\+00:00)", value
+        r"\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{1,6})?(?:Z|\+00:00)", value
     ):
         raise ValueError("expected an explicit UTC timestamp")
     return datetime.fromisoformat(value.replace("Z", "+00:00"))
@@ -68,38 +77,65 @@ def timing(review, cutoff):
 
 
 def mappings(value, label):
-    if not isinstance(value, list) or any(not isinstance(item, dict) for item in value):
+    if (not isinstance(value, list) or len(value) > MAX_ITEMS
+            or any(not isinstance(item, dict) for item in value)):
         raise ValueError(f"{label} must be a list of mappings; no silent omission")
     return value
 
 
+def text(value, limit):
+    """Bound declared structural strings; never stringify a nested input value."""
+    if value is None:
+        return None  # Missing optional declarations stay unknown, not inferred.
+    if (not isinstance(value, str) or not value.strip() or len(value) > limit
+            or any(ord(char) < 32 or ord(char) == 127 for char in value)):
+        raise ValueError("invalid structural string type, length or control character")
+    return value
+
+
+def project(mapping, fields):
+    return {key: text(mapping.get(key), limit) for key, limit in fields.items()}
+
+
 def observations(review, cutoff):
-    targets = mappings(review.get("targets", []), "targets")
+    if not isinstance(review, dict):
+        raise ValueError("review must be a mapping")
+    declared = project(review, REVIEW_FIELDS)
+    scientific = review.get("scientific_review")
+    if scientific is not None and type(scientific) is not bool:
+        raise ValueError("scientific_review must be a boolean or absent")
+    targets = [project(row, TARGET_FIELDS)
+               for row in mappings(review.get("targets", []), "targets")]
     assessments = mappings(review.get("assessments", []), "assessments")
-    target_ids = {row.get("target_id") for row in targets if isinstance(row.get("target_id"), str)}
+    target_ids = {row["target_id"] for row in targets if row["target_id"] is not None}
     occurrence_targets = {value for value in target_ids if OCCURRENCE.fullmatch(value)}
     assessment_rows, assessed_ids, orphan_ids = [], set(), set()
     for position, row in enumerate(assessments):
         ids = row.get("target_ids", [])
-        if not isinstance(ids, list) or any(not isinstance(value, str) for value in ids):
+        if (not isinstance(ids, list) or len(ids) > MAX_ITEMS
+                or any(not isinstance(value, str) for value in ids)):
             raise ValueError("assessment target_ids must be strings; no silent omission")
+        ids = [text(value, TARGET_FIELDS["target_id"]) for value in ids]
         exact_ids = {value for value in ids if OCCURRENCE.fullmatch(value)}
         assessed_ids |= exact_ids & occurrence_targets
         orphan_ids |= exact_ids - occurrence_targets
         dimensions = mappings(row.get("dimensions", []), "assessment dimensions")
+        axes = []
+        for item in dimensions:
+            name = text(item.get("name"), 160)
+            if name in {"axis", "category"}:
+                axes.append({"name": name, "value": text(item.get("value"), 256)})
         assessment_rows.append({
-            "position": position, "assessment_id": row.get("assessment_id"),
-            "area": row.get("area"), "outcome": row.get("outcome"), "target_ids": ids,
-            "axis_and_category": [
-                {"name": item.get("name"), "value": item.get("value")}
-                for item in dimensions if item.get("name") in {"axis", "category"}
-            ],
+            "position": position, **project(row, ASSESSMENT_FIELDS),
+            "target_ids": ids, "axis_and_category": axes,
         })
     source = review.get("source", {})
     reviewer = review.get("reviewer", {})
     if not isinstance(source, dict) or not isinstance(reviewer, dict):
         raise ValueError("source and reviewer must be mappings")
-    inputs = mappings(source.get("inputs", []), "source inputs")
+    revision = text(source.get("git_revision"), 64)
+    inputs = [project(row, INPUT_FIELDS)
+              for row in mappings(source.get("inputs", []), "source inputs")]
     markers = []
     if reviewer.get("identity") == "Fixture":
         markers.append("reviewer.identity equals Fixture")
@@ -108,21 +144,15 @@ def observations(review, cutoff):
     if inputs and all(row.get("role") == "fixture input" for row in inputs):
         markers.append("all source inputs explicitly declare fixture input role")
     return {
-        "review_id": review.get("review_id"), "kind": review.get("kind"),
-        "repository": review.get("repository"), "skill": review.get("skill"),
-        "completion": review.get("completion"), "verdict": review.get("verdict"),
-        "scientific_review_declared": review.get("scientific_review"),
-        "started_at_declared": review.get("started_at"),
-        "finished_at_declared": review.get("finished_at"),
+        **{key: value for key, value in declared.items()
+           if key not in {"started_at", "finished_at"}},
+        "scientific_review_declared": scientific,
+        "started_at_declared": declared["started_at"],
+        "finished_at_declared": declared["finished_at"],
         "timing": timing(review, cutoff), "synthetic_content_markers": markers,
-        "source_git_revision_declared": source.get("git_revision"),
-        "source_inputs_unverified": [
-            {key: item.get(key) for key in ("path", "sha256", "role")} for item in inputs
-        ],
-        "declared_targets": [
-            {key: item.get(key) for key in ("target_id", "kind", "path", "selector")}
-            for item in targets
-        ],
+        "source_git_revision_declared": revision,
+        "source_inputs_unverified": inputs,
+        "declared_targets": targets,
         "assessment_rows": assessment_rows,
         "declared_assessed_occurrence_ids": sorted(assessed_ids),
         "orphan_assessment_occurrence_ids": sorted(orphan_ids),

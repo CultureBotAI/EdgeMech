@@ -143,3 +143,133 @@ def test_bad_inventory_pin_fails_before_output_creation(tmp_path, monkeypatch):
     with pytest.raises(ValueError, match="hash mismatch"):
         helper.main()
     assert not result.exists()
+
+
+@pytest.mark.parametrize("field", ["started_at", "finished_at"])
+def test_submicrosecond_precision_remains_unresolved(review, field):
+    # 100 ns after the cutoff must never be truncated into baseline membership.
+    review[field] = "2026-11-20T05:26:45.0000001Z"
+    assert helper.observations(review, CUTOFF)["timing"] == "unknown_or_incomplete_declared_timing"
+
+
+@pytest.mark.parametrize(("finish", "expected"), [
+    ("2026-11-20T05:26:45.000000Z", "declared_at_or_before_cutoff"),
+    ("2026-11-20T05:26:45.000001Z", "declared_straddles_cutoff"),
+    ("2026-11-20T05:26:45.1+00:00", "declared_straddles_cutoff"),
+])
+def test_supported_precision_preserves_exact_cutoff_boundary(review, finish, expected):
+    review["finished_at"] = finish
+    assert helper.observations(review, CUTOFF)["timing"] == expected
+
+
+def test_unsupported_cutoff_precision_refused_before_results(tmp_path, monkeypatch):
+    results = tmp_path / "results"
+    monkeypatch.setattr(sys, "argv", [
+        "audit", "--paths", str(tmp_path / "not-read"), "--paths-sha256", "a" * 64,
+        "--cutoff", "2026-11-20T05:26:45.0000001Z", "--results", str(results),
+    ])
+    with pytest.raises(ValueError, match="UTC timestamp"):
+        helper.main()
+    assert not results.exists()
+
+
+def replace_field(review, path, value):
+    target = review
+    for key in path[:-1]:
+        target = target[key]
+    target[path[-1]] = value
+
+
+@pytest.mark.parametrize("field", [
+    ("review_id",), ("assessments", 0, "assessment_id"),
+    ("assessments", 0, "dimensions", 0, "value"),
+])
+def test_nested_projection_never_reaches_persisted_main_output(
+    tmp_path, monkeypatch, review, field,
+):
+    sentinel = "SYNTHETIC_BODY_QUOTE_MUST_STAY_IN_ORIGINAL"
+    review["assessments"][0]["dimensions"] = [{"name": "category", "value": "unknown"}]
+    replace_field(review, field, {"body": sentinel})
+    source = save(tmp_path / "source.json", review)
+    original = source.read_bytes()
+    paths = tmp_path / "paths.txt"
+    paths.write_text(str(source) + "\n")
+    results = tmp_path / "results"
+    monkeypatch.setattr(helper, "check_contracts", lambda: None)
+    monkeypatch.setattr(sys, "argv", [
+        "audit", "--paths", str(paths), "--paths-sha256", hashlib.sha256(paths.read_bytes()).hexdigest(),
+        "--cutoff", "2026-11-20T05:26:45Z", "--results", str(results),
+    ])
+    code = helper.main()
+    documents = json.loads((results / "documents.json").read_text())
+    locators = json.loads((results / "locators.json").read_text())
+    assert code == 1
+    assert documents == [{"sha256": hashlib.sha256(original).hexdigest(),
+                          "status": "unresolved_parse_or_shape", "error_type": "ValueError"}]
+    assert locators[0]["status"] == "unresolved_parse_or_shape"
+    assert all(sentinel not in path.read_text() for path in results.iterdir())
+    assert source.read_bytes() == original
+
+
+@pytest.mark.parametrize("field", [
+    ("review_id",), ("kind",), ("repository",), ("skill",), ("completion",),
+    ("verdict",), ("started_at",), ("finished_at",), ("scientific_review",),
+    ("source", "git_revision"), ("source", "inputs", 0, "path"),
+    ("source", "inputs", 0, "sha256"), ("source", "inputs", 0, "role"),
+    ("targets", 0, "target_id"), ("targets", 0, "kind"), ("targets", 0, "path"),
+    ("targets", 0, "selector"), ("assessments", 0, "assessment_id"),
+    ("assessments", 0, "area"), ("assessments", 0, "outcome"),
+    ("assessments", 0, "target_ids", 0),
+    ("assessments", 0, "dimensions", 0, "name"),
+    ("assessments", 0, "dimensions", 0, "value"),
+])
+@pytest.mark.parametrize("value", [{"body": "synthetic secret prose"}, ["nested"], 1, True])
+def test_each_projected_field_refuses_wrong_types(tmp_path, review, field, value):
+    if field == ("scientific_review",) and type(value) is bool:
+        return  # This field is deliberately a boolean, unlike structural strings.
+    review["assessments"][0]["dimensions"] = [{"name": "axis", "value": "claim"}]
+    replace_field(review, field, value)
+    locators, documents, summary = helper.audit([save(tmp_path / "source", review)], CUTOFF)
+    assert locators[0]["status"] == "unresolved_parse_or_shape"
+    assert set(documents[0]) == {"sha256", "status", "error_type"}
+    assert not summary["all_locators_read_and_parsed"]
+
+
+@pytest.mark.parametrize(("field", "value"), [
+    (("review_id",), "x" * 161),
+    (("targets", 0, "path"), "x" * 4097),
+    (("targets", 0, "selector"), "line1\nline2"),
+    (("source", "inputs", 0, "role"), "x" * 1025),
+    (("source", "inputs", 0, "sha256"), "c" * 65),
+    (("source", "git_revision"), "c" * 65),
+    (("assessments", 0, "assessment_id"), "x" * 161),
+    (("assessments", 0, "outcome"), "x\x00y"),
+    (("assessments", 0, "target_ids", 0), "x" * 4097),
+    (("assessments", 0, "dimensions", 0, "value"), "x" * 257),
+    (("scientific_review",), "false"),
+])
+def test_projection_bounds_do_not_truncate_or_discard_unresolved_inputs(
+    tmp_path, review, field, value,
+):
+    review["assessments"][0]["dimensions"] = [{"name": "category", "value": "unknown"}]
+    replace_field(review, field, value)
+    path = save(tmp_path / "source", review)
+    original = path.read_bytes()
+    _, documents, _ = helper.audit([path], CUTOFF)
+    assert documents[0]["status"] == "unresolved_parse_or_shape"
+    assert set(documents[0]) == {"sha256", "status", "error_type"}
+    assert path.read_bytes() == original
+
+
+def test_structural_list_bounds_preserve_document_as_unresolved(tmp_path, review):
+    review["targets"] *= 10001
+    _, documents, _ = helper.audit([save(tmp_path / "source", review)], CUTOFF)
+    assert documents[0]["status"] == "unresolved_parse_or_shape"
+
+
+def test_boolean_and_optional_missing_declarations_remain_observations(review):
+    review["scientific_review"] = True
+    result = helper.observations(review, CUTOFF)
+    assert result["scientific_review_declared"] is True
+    assert result["repository"] is None and result["source_git_revision_declared"] is None
+    assert result["membership_disposition"].startswith("UNRESOLVED")
