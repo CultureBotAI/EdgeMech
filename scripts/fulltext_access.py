@@ -53,6 +53,7 @@ DOI_RESOLVER_RE = re.compile(r"https?://(dx\.)?doi\.org/", re.IGNORECASE)
 DOI_PREFIX_RE = re.compile(r"^(?:https?://(?:dx\.)?doi\.org/|doi:)\s*", re.IGNORECASE)
 REPO_ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_STAGING_ROOT = REPO_ROOT / ".temp" / "fulltext"
+ANONYMOUS_REDIRECT_HEADERS = frozenset({"user-agent", "accept", "accept-encoding"})
 FORBIDDEN_REPO_DIRS = frozenset(
     {
         "references_cache",
@@ -92,6 +93,52 @@ class AccessReport:
     manual_fallback_instructions: list[str] = field(default_factory=list)
 
 
+def _http_origin(url: str) -> tuple[str, str, int]:
+    """Parse an unambiguous HTTP(S) origin before attaching or forwarding headers."""
+    if any(char.isspace() or ord(char) < 32 or ord(char) == 127 for char in url):
+        raise ValueError("Whitespace or control characters in HTTP URL")
+    parsed = urllib.parse.urlsplit(url)
+    if (
+        parsed.scheme not in {"http", "https"}
+        or not parsed.hostname
+        or parsed.username is not None
+        or parsed.password is not None
+        or "\\" in parsed.netloc
+    ):
+        raise ValueError("Invalid HTTP origin")
+    default_port = 443 if parsed.scheme == "https" else 80
+    if parsed.port not in (None, default_port):
+        raise ValueError("Unexpected HTTP port")
+    return parsed.scheme, parsed.hostname.lower(), default_port
+
+
+class _SafeRedirectHandler(urllib.request.HTTPRedirectHandler):
+    """Bound redirects; cross-origin requests carry only anonymous headers."""
+
+    max_redirections = 5
+    max_repeats = 2
+
+    def redirect_request(self, req, fp, code, msg, headers, newurl):
+        previous = _http_origin(req.full_url)
+        following = _http_origin(newurl)
+        if previous[0] == "https" and following[0] != "https":
+            raise ValueError("HTTPS downgrade redirect refused")
+        redirected = super().redirect_request(req, fp, code, msg, headers, newurl)
+        if redirected is not None and following != previous:
+            for name in list(redirected.headers):
+                if name.lower() not in ANONYMOUS_REDIRECT_HEADERS:
+                    redirected.remove_header(name)
+            for name in list(redirected.unredirected_hdrs):
+                if name.lower() not in ANONYMOUS_REDIRECT_HEADERS:
+                    redirected.remove_header(name)
+        return redirected
+
+
+def _open_http(req: urllib.request.Request, timeout: int):
+    _http_origin(req.full_url)
+    return urllib.request.build_opener(_SafeRedirectHandler()).open(req, timeout=timeout)
+
+
 def _http_get_json(
     url: str,
     headers: Optional[dict[str, str]] = None,
@@ -101,7 +148,7 @@ def _http_get_json(
     if headers:
         req_headers.update(headers)
     req = urllib.request.Request(url, headers=req_headers)
-    with urllib.request.urlopen(req, timeout=timeout) as resp:
+    with _open_http(req, timeout=timeout) as resp:
         return json.loads(resp.read().decode("utf-8", errors="replace"))
 
 
@@ -751,20 +798,23 @@ def fetch_to_staging(
         "User-Agent": USER_AGENT,
         "Accept": "application/pdf,application/xml,text/xml,*/*;q=0.8",
     }
-    els_key = os.environ.get("ELSEVIER_API_KEY") or os.environ.get("ELS_API_KEY")
-    if "api.elsevier.com" in url and els_key:
-        headers["X-ELS-APIKey"] = els_key
-    wiley_token = os.environ.get("WILEY_TDM_TOKEN") or os.environ.get("WILEY_TDM_CLIENT_TOKEN")
-    if "api.wiley.com" in url and wiley_token:
-        headers["Wiley-TDM-Client-Token"] = wiley_token
-
-    req = urllib.request.Request(url, headers=headers)
     try:
-        with urllib.request.urlopen(req, timeout=timeout) as resp:
+        origin = _http_origin(url)
+        els_key = os.environ.get("ELSEVIER_API_KEY") or os.environ.get("ELS_API_KEY")
+        if origin == ("https", "api.elsevier.com", 443) and els_key:
+            headers["X-ELS-APIKey"] = els_key
+        wiley_token = os.environ.get("WILEY_TDM_TOKEN") or os.environ.get("WILEY_TDM_CLIENT_TOKEN")
+        if origin == ("https", "api.wiley.com", 443) and wiley_token:
+            headers["Wiley-TDM-Client-Token"] = wiley_token
+
+        req = urllib.request.Request(url, headers=headers)
+        with _open_http(req, timeout=timeout) as resp:
             ctype = (resp.headers.get("Content-Type") or "").lower()
             payload = resp.read()
     except Exception as exc:
-        return False, f"HTTP fetch failed: {exc}"
+        # Provider exceptions can contain signed URLs or query credentials.
+        status = f" (HTTP {exc.code})" if isinstance(exc, urllib.error.HTTPError) else ""
+        return False, f"HTTP fetch failed: {type(exc).__name__}{status}"
 
     is_pdf = payload.startswith(b"%PDF-")
     is_xml = payload.lstrip().startswith((b"<?xml", b"<article", b"<full-text-retrieval-response"))
