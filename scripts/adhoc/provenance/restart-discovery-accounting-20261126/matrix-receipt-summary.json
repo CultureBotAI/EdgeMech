@@ -1,0 +1,52 @@
+{
+  "date_utc":"2026-11-26","provenance_issue":228,
+  "purpose":"Sanitized result provenance for bounded retained matrix and receipt inspection; not scientific qualification.",
+  "producer":"scripts/adhoc/capture_restart_retained_text_20261126.py",
+  "producer_sha256":"cb4926e30eeb3221fd32edaf338b5f0d231c70e95d279237bde0ede7a362013f",
+  "support_sha256":"d99752cd5690b9fec34ef09ac7246d9c68301d836b1341fab0d17e8240964f7f",
+  "private_selection_sha256":"107b23a2954b4c8617d6020ab3f5c2e9cc2205a013990f2f02c57d2bbe6852da",
+  "private_size_preflight_sha256":"28cce0ab88394aae7cc2234b3a77105f4d72569a8cde4a1b772468a289e05890",
+  "private_invocation_sha256":"bb9bff813d1bb2cd25639d8a358da03ede8f194b79e8f5b16729d89c8998ae30",
+  "runs":[
+    {"manifest_sha256":"c3335c8058b747c4c3589f7dedf89908215e6ef086c34ec5931687f7d30f9001","output_sha256":"f57abf99e6e0b64933db4be9123054cc78dfde1e8212874d9188499c27109cda","copies":512,"distinct_documents":200,"actual_exit_code":0,"stderr_bytes":0},
+    {"manifest_sha256":"9b795ba2592a61d78534eac6e8224a1df03fc631b96636414f82d2096d2c1ed8","output_sha256":"47d804270fbf43d3662efdf5fe93df005622a60d0e4e1b86cb84b7fafb4cd2c8","copies":512,"distinct_documents":147,"actual_exit_code":0,"stderr_bytes":0},
+    {"manifest_sha256":"508bbef282aa6bb3c71a6fd87f6e5d9104904ffb5b6e1c15e0bdf50dfce2644a","output_sha256":"859bd2c58ce337c9d6bd71f809df02b7592eefebcca70452fb07ce884dede62a","copies":154,"distinct_documents":57,"actual_exit_code":0,"stderr_bytes":0}
+  ],
+  "all_source_and_output_hashes_match":true,
+  "copy_records":1178,"distinct_variants":356,"copy_bytes":15421114,"distinct_bytes":14904690,
+  "all_captured_variants_strict_JSON":true,
+  "matrix_variants":123,"matrix_case_rows":1230,"matrix_assessment_rows":7380,
+  "matrix_fixture_binding":{
+    "construction_source":"tests/test_round03_initial_seal.py",
+    "construction_source_sha256":"1df60c85d534469b1d577f7c4351f1915cbf9ae5e0264914f288953af8e79ef5",
+    "importing_fixture_source_sha256":"5d5fb2e85b46cc340e5be736ab6ad50f618bf63d807620f09c1f42edbfafe203",
+    "maintained_seal_source_sha256":"4e7f709d5c076849c89ffeb31f9e9c9aaa53156a2aa6ddaf54daf50f513a6715",
+    "scope":"Retained source construction and content correspondence; no historical seal or test rerun and no independently accepted fixture exclusion."
+  },
+  "inspection_variants":32,"declared_missing_pair_failures":21,
+  "declared_input_validation_successes":20,"declared_input_validation_failures":1,
+  "inspection_only_variants":11,
+  "receipt_variants":168,"roundtrip_variants":33,
+  "three_top_level_assessment_receipts_match_pinned_retained_native_ID_and_category_maps":true,
+  "technical_replay_receipt_variants":16,"technical_replay_row_instances":206,
+  "declared_failed_replay_row_instances":165,"declared_passed_replay_row_instances":41,
+  "all_technical_replay_scientific_calibration_fields_false":true,
+  "partial_unknown_denominators_and_blocked_canary_receipt_preserved":true,
+  "roundtrip_lookup_rows":593,"roundtrip_individual_ID_references":1186,
+  "all_receipt_and_matrix_canonical_scalar_and_text_ID_references":1196,
+  "all_IDs_already_in_retained_native_inventory":true,
+  "native_projection_sha256":"87d4779ec447b4e6c520eb9e8ed464c1c374b8035d892f7e685a8a4b9615198f",
+  "expanded_selected_reference_hashes":15714,"remaining_without_selected_reference":4795,
+  "expanded_reference_hash_list_sha256":"69e000bb1d3066f792517a1eeb3a5b4dd01b4c45a18ce00fa7cc3c851d718b26",
+  "source_tests_unchanged_since_retained1715_full_tests":true,"new_test_run_claimed":false,
+  "limitations":[
+    "Exact source bytes, operational bindings and full content remain private. Public provenance contains hashes and bounded counts only.",
+    "Historical receipt statuses are retained assertions; reading them is not a new source restoration, census verification, provider request, worker run or canonical replay.",
+    "Variants, case rows and receipt lookup rows retain multiplicity and are not population or qualified-review counts.",
+    "Reference coverage is not exhaustive content inspection, membership assignment, cutoff freeze or scientific approval.",
+    "New source/result/publication review remains pending; all earlier failed attempts and candidate compositions remain preserved."
+  ],
+  "new_candidate_IDs":0,"baseline_IDs_assigned_removed_or_excluded":0,
+  "scientific_review_coverage":0,"queue_A_count":null,"queue_B_count":null,
+  "full_target_frozen":false,"baseline_cutoff_frozen":false
+}
