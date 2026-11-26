@@ -1,0 +1,70 @@
+{
+  "kind": "retained-discovery-reference-accounting-provenance/v1",
+  "date_utc": "2026-11-26",
+  "issue": 228,
+  "purpose": "Account finite saved inventory hashes against pinned evidence references without reopening inventory source locators",
+  "source_base": "7510827b2f21df1603e1f6697456ffb0d4f45a09",
+  "helper": "scripts/adhoc/account_restart_discovery_20261126.py",
+  "helper_sha256": "d99752cd5690b9fec34ef09ac7246d9c68301d836b1341fab0d17e8240964f7f",
+  "tests": "tests/test_account_restart_discovery_20261126.py",
+  "tests_sha256": "3bab3c6cfac6d3df659bd00927d0e2ed3c167629d9b6bed163e8af6dfb0ed68e",
+  "tracked_before_use": true,
+  "new_parameterized_source_not_historical_producer": true,
+  "private_executed_bytes_preserved": true,
+  "private_invocation_sha256": "5cd1ed679a794e4639b2b29253ed9e3bfc435358104d694087f67b1cc9733cad",
+  "inputs": {
+    "manifest_sha256": "41648ed152484040e7729b5c784e7df0fa1296ae59096d53f79c3a25c1ff96bb",
+    "inventory_sha256s": ["7124e1a108f9d243926d0675da154fb7c48a2f35156364f1083936279ff23519", "b2a7c537ad78fd7150a3a2404fcb8b4eb4ab9c2ce229903ec7bc73571ebe8093"],
+    "scope_artifacts": 17,
+    "sqlite_narrative_source_sha256": "b51c4573c1c368743b337e3331956a4957d07f2b903a0194f036729233d01b83",
+    "sqlite_reference_list_sha256": "bba8699928bc41aec794b3bf13a8e689e16b8a286ca9e8da0f49f4d3bf268028"
+  },
+  "actual": {
+    "exit_code": 0,
+    "result_sha256": "07fd89c0350f292c9f0a385537a5846794d5af57918feeab48298de578c9e6ad",
+    "result_bytes": 5210832,
+    "stdout_sha256": "ba64dffe23d66671ca1e03bb9f4a558b0c2eeb969773ea060369526258fddc95",
+    "stderr_bytes": 0,
+    "readback_match": true,
+    "inventory_records": 134910,
+    "distinct_inventoried_hashes": 20509,
+    "hashes_with_scope_reference": 3252,
+    "hashes_without_scope_reference": 17257,
+    "scope_only_hashes": 13,
+    "conflicting_locator_bindings": 0
+  },
+  "validation": {
+    "full_tests": 1669, "full_seconds": 181.75, "full_exit": 0,
+    "full_log_sha256": "f508831c59a4ea6841556067acfc31ae4c491d55896e618b7a2b86ed7266d800",
+    "focused_tests": 32, "focused_seconds": 0.45, "focused_exit": 0,
+    "focused_log_sha256": "a45783726eeb08bdd84026b2e54e3b08d3a79bd57aa8dbf55a59426bc13e8b20",
+    "contracts": 16, "contracts_exit": 0,
+    "contracts_log_sha256": "a80e6516af4e7e300d6fc9083cb590092f2773bb9498f29a0f20077323af7c13",
+    "lint_exit": 0,
+    "lint_log_sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+    "offline_build_exit": 0,
+    "offline_build_log_sha256": "f47e3cb54855cebbc622efd234bd54e68f52946710aa1c693c874ff2a493b335"
+  },
+  "preserved_prefixed_regression": {
+    "finding": "EDGE-DISCOVERY-ACCOUNTANT-OUTPUT-ANCESTRY-001",
+    "filed_before_fix": true,
+    "initial_helper_sha256": "7194faff06d40f8f96c81477feb14d1886f6b60a947e3eb13ad2e86593256afa",
+    "fresh_pytest_failed_tests": 1,
+    "exit_code": 1,
+    "log_sha256": "ef9c979b22ef5b34986f2cc108e7ca0956a5a59ad1e2bed281d4fbec43f6559e",
+    "meaningful_failure": "Intermediate symlink replacement redirected publication; expected refusal did not occur"
+  },
+  "preserved_unsuccessful_validation": [
+    {"kind":"full_suite_basetemp_location","failed":35,"passed":1625,"errors":7,"exit_code":1,"log_sha256":"cf8fbc9b12702a277462163938e24332e51b069736eb4fa4b738a48f83460d3e"},
+    {"kind":"focused_basetemp_parent_missing","passed":14,"errors":18,"exit_code":1,"log_sha256":"9d88fffb25ba07abf6083c86e7cf42fc2ed31a88b2558c3705c7f1105858b17b"},
+    {"kind":"wrong_contract_module_entry","exit_code":1,"log_sha256":"c0113ee3c4292590968a7d8575440d20daed7e1323c8104a60790fab9fd38f4f"},
+    {"kind":"build_global_cache_sandbox_denial","exit_code":2,"log_sha256":"b51fba8fc74f9b458a4bbbbe3846cf46757c3ef1baeb95a7d7d0e90fbc09253e"}
+  ],
+  "independent_source_result_publication_review": "pending",
+  "scientific_review_coverage": 0,
+  "queue_A_count": null,
+  "queue_B_count": null,
+  "full_target_frozen": false,
+  "baseline_cutoff_frozen": false,
+  "source_census_provider_canary_or_canonical_mutation_repeated": false
+}

@@ -1,0 +1,57 @@
+{
+  "kind": "retained-decision-event-observation-provenance/v1",
+  "date_utc": "2026-11-26",
+  "issue": 228,
+  "purpose": "Reconcile bounded retained decision and event containers without baseline qualification",
+  "helper": "scripts/adhoc/capture_restart_retained_text_20261126.py",
+  "helper_sha256": "cb4926e30eeb3221fd32edaf338b5f0d231c70e95d279237bde0ede7a362013f",
+  "support_sha256": "d99752cd5690b9fec34ef09ac7246d9c68301d836b1341fab0d17e8240964f7f",
+  "tests_sha256": "48283d19445fe779c1f65ef0d4b602e875a855cb02b3d1f70c6eb0d2282fdf76",
+  "source_tracked_before_use": true,
+  "exact_executed_source_preserved_privately": true,
+  "source_tests_and_previous_ten_files_unchanged": true,
+  "previous_ten_file_patch_sha256": "1e0143ee15dc25cd622cfb73537c2b2922c3efd61c980e4038cea90e3613f9e7",
+  "private_invocation_sha256": "b1daf43f6db6723b117540d906426145273556ae075812de9676c507f4a4e9eb",
+  "inputs": [
+    {"role":"case_decisions","selection_sha256":"09c8d0f65fa257f4f93066b8fbe834f59630a778cbcae4471faee322f4460c08","manifest_sha256":"0e21545aec7d9b74ad9f9052eda149fbff0cdb0183ca79e40142f5a695cd1b75","variants":30,"bytes":804808},
+    {"role":"ledger_text","selection_sha256":"d8d43996317e2b203f8be29232e972fd1c6087378585fd889a0d1bf324300196","manifest_sha256":"125549acac6a5ec5bb35a0243baa696b110ecba70243917984efdcd2df6e92d7","variants":34,"bytes":36460},
+    {"role":"event_text","selection_sha256":"3f6d3a1c5fd4bd45f065122648ca3e301725314c2b3723080f6c2c48fd3375d0","manifest_sha256":"b2afb8bbe82a3d31d88970505b4e8ad50439b35f13fedbb216d29a43c856a7ba","variants":31,"bytes":25575707}
+  ],
+  "actual": {
+    "exit_codes":[0,0,0],"source_variants":95,"original_copy_records":95,"raw_bytes":26416975,
+    "output_sha256s":["b7b72d83ba3c96e3f156b83c8f0498d813063fd29d9a1605d460cd356a7511e9","cf88f097cdcb87be03d36d8547c8e2d496c4a500cae08030b7b72625b3b246c2","1485113476e2613c4f41527a37c9021ccda644736cb8dbc9c3d9be74def8643e"],
+    "all_source_pins_and_output_readbacks_match":true,"all_stderr_bytes":0,"runs_repeated":false
+  },
+  "observations_not_qualification": {
+    "strict_JSON_decision_arrays":30,"decision_rows":593,"distinct_decision_IDs":593,
+    "exact_ID_set_equals_retained593_index":true,"historical_index_sha256":"8e86be07e7de1e7e33339d4a50e4359ccb5d945af4b7e50ca63ab1ff1290f08e",
+    "case_IDs_outside_native1197":0,"case_states_all_reviewed_withheld":true,
+    "single_line_ledger_documents":34,"additional_declared_synthetic_fixture_IDs":1,
+    "abstract_fixture_rows":17,"fulltext_fixture_rows":17,"normalized_fixture_content_variants":2,
+    "fixture_test_sha256":"4f9e0c082e63aebd976eff0ea71a21d7f49a7039db68529d5cc4836283c8e36e",
+    "fixture_producer_sha256":"38ebea24c9edf34a071901712294cc9be82d09c6bc2c892f2c7d0e5d822898bf",
+    "fixed_model_label_is_not_runtime_evidence":true,
+    "event_streams":31,"event_records_projected_by_jq":6329,"turn_completed_records":30,
+    "streams_without_turn_completed":1,"missing_stream_outer_exit":null,
+    "completed_command_records":2590,"command_status_completed":2422,"command_status_failed":168,
+    "event_text_occurrence_references":10,"new_text_IDs_vs_native1197":0,
+    "JSONL_duplicate_key_validation_performed":false,
+    "strict_JSONL_qualification_claimed":false,"event_completion_does_not_establish_whole_process_success":true,
+    "expanded_selected_reference_hashes":13588,"remaining_without_selected_reference":6921,
+    "reference_hash_list_sha256":"42f0384a707dfba2f342d14aee6800d300ad39db238b78483fcf4b5e167c3b7e",
+    "reference_counts_are_not_complete_inspection":true,
+    "new_independently_qualified_assessments":0,"baseline_IDs_assigned_removed_or_excluded":0
+  },
+  "validation_reused_for_unchanged_source": {
+    "full_tests":1715,"full_seconds":180.01,"full_exit_code":0,
+    "full_log_sha256":"63405f333e7bb3c77ca33127efceef6c3c22afcee031b8008765fc4ffce54938",
+    "focused_tests":23,"contracts":16,"lint_exit_code":0,"offline_build_exit_code":0,
+    "preserved_initial_offline_build_exit_code":2,"new_test_run_claimed":false
+  },
+  "independent_source_result_publication_review":"pending",
+  "private_payloads_and_operational_bindings_published":false,
+  "original_census_outer_exit_code":1,"original_census_child_exit_code":null,
+  "worker_source_restore_census_provider_canary_canonical_save_or_historical_operation_repeated":false,
+  "scientific_review_coverage":0,"queue_A_count":null,"queue_B_count":null,
+  "full_target_frozen":false,"baseline_cutoff_frozen":false
+}

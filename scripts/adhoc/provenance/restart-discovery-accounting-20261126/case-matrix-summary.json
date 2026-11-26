@@ -1,0 +1,91 @@
+{
+  "kind": "retained-case-matrix-observation-provenance/v1",
+  "date_utc": "2026-11-26",
+  "issue": 228,
+  "purpose": "Observe direct nested cases and declared assessment bindings omitted by a top-level native review projection",
+  "source_base": "7510827b2f21df1603e1f6697456ffb0d4f45a09",
+  "helper": "scripts/adhoc/inspect_restart_case_matrices_20261126.py",
+  "helper_sha256": "fe9abf49a5e39f12636adaec9d73f1187fd1150e98cea2e41c9e29bb8dc814c7",
+  "support": "scripts/adhoc/account_restart_discovery_20261126.py",
+  "support_sha256": "d99752cd5690b9fec34ef09ac7246d9c68301d836b1341fab0d17e8240964f7f",
+  "tests": "tests/test_inspect_restart_case_matrices_20261126.py",
+  "tests_sha256": "f16d0b17391a68318088dd9a46772bcc9212060c63021a98283c1c1c424afc2c",
+  "tracked_before_use": true,
+  "new_parameterized_source_not_historical_producer": true,
+  "private_executed_bytes_preserved": true,
+  "scope_finding": {
+    "id": "EDGE-DISCOVERY-ALTERNATE-MATRIX-CONTAINER-001",
+    "filed_before_followthrough": true,
+    "record_sha256": "ef45668a3c3530fb9bdcd79f5955a9d30449646362dab28b9c4de3150c3088e8",
+    "classification": "Different container predicate; no source defect or baseline exclusion inferred",
+    "native_projection_preserved_unchanged": true
+  },
+  "inputs": {
+    "manifest_sha256": "db7814e08e5e548602e5d773ee6241721011c88c4bcf0ffdc42405cf8e22ee8b",
+    "private_invocation_sha256": "7476c069d49f89c0160f2d4c844db22c9f3959775d8c5f0e82d06ea2b5742450",
+    "locator_artifacts": 4,
+    "locator_sha256s": [
+      "27464d843459e704045ad2e6495b30f30254522b8a38add8bd461a7b455deb9e",
+      "20386610af6740919d69d0188bff08a97d3f45ca3de0b4e3c0af12e7f8ff3875",
+      "1f912771e6b860c20695e64ab401ea7c5e3693348bdc7f003f38f349d38410bc",
+      "bbd362076371a37614fee42fd2751f38ea8a5fb6cf400f19a819b6815deeeac4"
+    ]
+  },
+  "actual": {
+    "exit_code": 0,
+    "result_sha256": "25edc532ce503d40a4f6b59c246d9283a769e3082a23717c8cb308d77fe06325",
+    "result_bytes": 19626708,
+    "stdout_sha256": "ea84193a00f9beeadb2beff02195945f1c62c3acdfc2b984f252d331737e9f89",
+    "stderr_bytes": 0,
+    "readback_match": true,
+    "locator_records": 1906,
+    "distinct_raw_hashes": 1906,
+    "raw_bytes": 33053391,
+    "all_raw_pins_match": true,
+    "direct_case_container_variants": 1444,
+    "variants_without_direct_cases_key": 462,
+    "case_rows_across_variants_not_population": 14440,
+    "assessment_rows_across_variants_not_population": 86640,
+    "unresolved_case_rows": 0,
+    "distinct_declared_case_occurrence_ids": 10,
+    "additional_ids_vs_retained_native_projection": 0
+  },
+  "validation": {
+    "final_full_tests": 1692,
+    "final_full_seconds": 177.11,
+    "final_full_exit": 0,
+    "final_full_log_sha256": "f4327067e3a4f9414d21da39ffc5cfa593e7872b50a7d04296b3acbddfb398a6",
+    "focused_tests": 23,
+    "focused_seconds": 0.45,
+    "focused_exit": 0,
+    "focused_log_sha256": "525d249cd8bb5f4ebc672b99f8f94236bb0968745fa3b3bdfc9ad9f277425bc6",
+    "focused_helper_sha256_before_docstring_clarification": "2b1b7e98f217aad903529a296b605ab6441cb0050ec297192404e64263d3ca80",
+    "final_full_suite_includes_new_case_tests": true,
+    "earlier_1669_suite_covers_original_four_files_only": true,
+    "contracts": 16,
+    "contracts_exit": 0,
+    "contracts_log_sha256": "a80e6516af4e7e300d6fc9083cb590092f2773bb9498f29a0f20077323af7c13",
+    "lint_exit": 0,
+    "lint_log_sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+    "offline_build_exit": 0,
+    "offline_build_log_sha256": "d69c583b62636ffacd00529bbc46f7b41b1c9374a23b5328a6c395bec2880c8a"
+  },
+  "preservation": {
+    "original_four_file_candidate_patch_sha256": "7a595ab9d925db411cc0851ac0c8cbfdb7b914d260317c22a1d6a33da6e38f63",
+    "original_four_files_unchanged": true,
+    "prior_accounting_result_unchanged": true,
+    "historical_source_restore_census_provider_canary_or_canonical_operation_repeated": false
+  },
+  "limitations": [
+    "Direct cases and assessment fields only; this is not schema or scientific validation",
+    "Declared scalar IDs, categories and axes remain unverified; detailed output stays private",
+    "Missing or invalid bindings remain explicit; no timing or fixture disposition inferred",
+    "Variant row counts are not population denominators or independent review counts"
+  ],
+  "independent_source_result_publication_review": "pending",
+  "scientific_review_coverage": 0,
+  "queue_A_count": null,
+  "queue_B_count": null,
+  "full_target_frozen": false,
+  "baseline_cutoff_frozen": false
+}
