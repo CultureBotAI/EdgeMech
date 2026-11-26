@@ -1,0 +1,60 @@
+{
+  "timestamp_utc": "2026-11-26T03:13:36.881601+00:00",
+  "classification": "EXCLUDED_PREPARATION_CANARY",
+  "scientific_review_coverage": 0,
+  "occurrence": null,
+  "provider": "valency",
+  "provider_request_count": 1,
+  "request_id": "6bb767d70651468fb56ecce23d76d622",
+  "provider_metadata": {
+    "request_id": "6bb767d70651468fb56ecce23d76d622",
+    "tool": "get_paper_by_id",
+    "duration_ms": 8,
+    "server_version": "0.9.0"
+  },
+  "request": {
+    "path": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01/.temp/restart-preparation-01/library/request-01.json",
+    "bytes": 484,
+    "sha256": "7b400ea802651b58a30ed02031c3be29e6f0c47198c2181f367f97fe4001edd6"
+  },
+  "response": {
+    "path": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01/.temp/restart-preparation-01/library/response-01.json",
+    "bytes": 5082,
+    "sha256": "d385dd90869a1be7498032d4073a649b1a4c11ac1382c9427d554682219728d8"
+  },
+  "response_representation": "JSON serialization of actual exposed MCP tool result; not HTTP wire bytes",
+  "identity": {
+    "id": "17625207",
+    "doi": "10.1099/ijs.0.65010-0",
+    "title": "Rubritalea squalenifaciens sp. nov., a squalene-producing marine bacterium belonging to subdivision 1 of the phylum 'Verrucomicrobia'.",
+    "journal_ref": "International journal of systematic and evolutionary microbiology. 2007;57(Pt 7):1630-1634",
+    "url": "https://pubmed.ncbi.nlm.nih.gov/17625207/"
+  },
+  "identity_verified": true,
+  "inspected_extent": "metadata and complete returned abstract",
+  "body_read": false,
+  "tables_read": false,
+  "figures_read": false,
+  "original_pdf_obtained": false,
+  "fulltext_ready": false,
+  "native_scientific_proof_admitted": false,
+  "proof_limit": "Valency JSON is access evidence; pinned adapter accepts Europe PMC core JSON or JATS, not this representation.",
+  "abstract": {
+    "path": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01/.temp/restart-preparation-01/library/abstract-01.txt",
+    "bytes": 1209,
+    "sha256": "28ae92fb2c8f9d7319bd5ea1effc5587e84e9fb4ea78d6aa6e7a0499eb896f89"
+  },
+  "quote": "was a non-motile, rod-shaped",
+  "quote_words": 4,
+  "quote_sha256": "420de5075c6e7d29b8d170660bc8ffece89138d69d3a59c083874de7837a98d2",
+  "character_offsets_zero_based_end_exclusive": [
+    197,
+    225
+  ],
+  "utf8_byte_offsets_zero_based_end_exclusive": [
+    197,
+    225
+  ],
+  "literal_replay": "passed",
+  "fulltext_provider_sweep": false
+}

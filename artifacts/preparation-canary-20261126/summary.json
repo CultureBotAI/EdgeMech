@@ -1,0 +1,169 @@
+{
+  "classification": "EXCLUDED_PREPARATION_CANARY",
+  "timestamp_utc": "2026-11-26T03:19:15Z",
+  "status": "bounded_preparation_executed_with_limits",
+  "scientific_review_coverage": 0,
+  "occurrence": null,
+  "A_B_attempt": false,
+  "A_count": null,
+  "B_count": null,
+  "baseline_cutoff": null,
+  "identity": {
+    "thread_id": "01a1fd21-cd97-7601-8f2c-12268643a483",
+    "model": "gpt-6-astra",
+    "effort": "ultra",
+    "native_pid": 54646,
+    "model_changed": false,
+    "other_agents_launched": 0,
+    "checkout": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01",
+    "branch": "campaign/lbnl-preparation-20261120-01",
+    "tested_base_head": "945c421c648fe09858eabf1f2a4447ab27f9eae3"
+  },
+  "request_sha256": "4af8b1cc2fe98032d5ff7f1d7ddb659e491310d3dfd0bcb7a370645c97048a4d",
+  "library": {
+    "literature_provider_requests": 1,
+    "provider": "valency",
+    "request_id": "6bb767d70651468fb56ecce23d76d622",
+    "provider_reported_duration_ms": 8,
+    "identity_verified": true,
+    "inspected_extent": "metadata and complete returned abstract",
+    "body_read": false,
+    "tables_read": false,
+    "figures_read": false,
+    "fulltext_ready": false,
+    "scientific_proof_admitted": false,
+    "response_sha256": "d385dd90869a1be7498032d4073a649b1a4c11ac1382c9427d554682219728d8",
+    "abstract_sha256": "28ae92fb2c8f9d7319bd5ea1effc5587e84e9fb4ea78d6aa6e7a0499eb896f89",
+    "abstract_bytes": 1209,
+    "quote_words": 4,
+    "quote_offsets": [
+      197,
+      225
+    ],
+    "literal_replay": "passed",
+    "readback_sha256": "beeb8b6de2e444987ff07271381f387d8bbc5c387c3c3323215c0ead265c4c06",
+    "local_zotero": "failed: configured path absent",
+    "retained_fresh05": "public access report/OA dispositions and abstract digest inspected; historical private body not located in bounded ignored-inclusive filename searches"
+  },
+  "canonical": {
+    "scientific_review": false,
+    "targets": [
+      "pyproject.toml",
+      "docs/record-review-profile.md"
+    ],
+    "new_pairs": 1,
+    "existing_pairs_checked": 6,
+    "review_id": "20261126T031443Z-excluded-preparation-canary",
+    "validate_exit": 0,
+    "save_exit": 0,
+    "check_exit": 0,
+    "readback_exit": 0,
+    "input_hash_replay": "passed",
+    "yaml_sha256": "991f1cebaa22327283d1e54967e9b5a6a1dd8697e2e2270a88809c54f729867a",
+    "yaml_bytes": 11847,
+    "markdown_sha256": "5c334713a6527ad48c8e4daf8caaa9a02b40302608152aca49f0fee282fcb2ad",
+    "markdown_bytes": 18614,
+    "receipt_sha256": "a45d55829e26c35eaa3777e264a9012ffe905733d9275cb538d3fe15df9cff05"
+  },
+  "validation": {
+    "claw_commit": "4fad8df5b2367da68faca6379ce32eb9b8f4ba9b",
+    "contracts": 16,
+    "python": "3.13.2",
+    "frozen_sync_exit": 0,
+    "focused": {
+      "passed": 140,
+      "seconds": 3.66,
+      "exit_code": 0
+    },
+    "full_suite": {
+      "passed": 1468,
+      "failed": 0,
+      "errors": 0,
+      "seconds": 148.55,
+      "exit_code": 0,
+      "attempt": "full-suite-03-approved-staging"
+    },
+    "ruff_exit": 0,
+    "package_build_exit": 0,
+    "core_diff": "empty",
+    "failed_attempts": [
+      {
+        "attempt": "full-suite-01",
+        "exit_code": 1,
+        "passed": 1426,
+        "failed": 35,
+        "errors": 7,
+        "reason": "Fixture basetemp outside required .temp/fulltext root"
+      },
+      {
+        "attempt": "full-suite-02-approved-staging",
+        "exit_code": 1,
+        "passed": 263,
+        "failed": 2,
+        "errors": 1203,
+        "reason": "Missing basetemp parent; pytest does not create parents"
+      }
+    ]
+  },
+  "resources": {
+    "native_worker_rss_sample_kib": 246800,
+    "full_suite_peak_child_rss_bytes": 368689152,
+    "memory_limit": "Single native-worker sample plus command peak-child measurements; not a simultaneous fleet/pool sum or a production capacity claim.",
+    "private_preparation_allocated_kib": 1610556,
+    "private_fixture_allocated_kib": 325764,
+    "storage_note": "du -sk snapshot; environment/cache shared hardlinks may cause double counting across directories; further receipts add bytes."
+  },
+  "request_counts": {
+    "valency": 1,
+    "tavily": 0,
+    "context7": 0,
+    "publisher_tdm": 0,
+    "paid_research": 0,
+    "github_issue_read_attempts": 2,
+    "github_issue_reads_successful": 1,
+    "prepublication_git_remote_read_attempts": 1,
+    "prepublication_git_remote_reads_successful": 0,
+    "uv_sync_attempts": 2,
+    "uv_sync_successes": 1,
+    "dependency_download_http_requests": null,
+    "provider_internal_subrequests": null,
+    "counts_note": "Counts cover explicit worker tool/command invocations; internal transport counts were not instrumented. Tests are validation with synthetic inputs, not occurrence dispatch."
+  },
+  "readiness": {
+    "shared_canonical_engineering": true,
+    "actual_worker_metadata_abstract_access": true,
+    "fulltext": false,
+    "native_occurrence_production": false,
+    "calibration": false,
+    "coordinator_independent_review": "pending",
+    "helper_publication_review": "pending",
+    "census": "original FAILED exit1 retained; attribution under review",
+    "PR233": "held pending two review repairs"
+  },
+  "durable_root": ".temp/restart-preparation-01/",
+  "preserved_failures": [
+    "sandbox ps permission denial and stale shell lookup",
+    "initial environment DNS failure",
+    "configured Zotero database missing",
+    "sandbox GitHub issue read failure",
+    "sandbox Git remote read failure",
+    "both prior full-suite failures",
+    "storage probe missing fixture directory"
+  ],
+  "scope_guards": [
+    "No agent or launcher started",
+    "No production census verification or source restoration repeated",
+    "No source/core or dependency-lock change",
+    "No coordinator catalogue/progress or root ACK/progress writes",
+    "No original launch-receipt changes",
+    "No credentials/auth-file inspection or copying; no new sign-in or prompt answers",
+    "No external human messages, merge or release",
+    "Scientific occurrence selection, assessments and A/B attempts remain absent"
+  ],
+  "external_prerequisites": [
+    "Coordinator independent inspection of saved artifacts and new helpers before expansion",
+    "Supported fulltext/original bytes or separately reviewed native proof adapter before scientific use",
+    "Full frozen A/B manifests and cutoff; census attribution review; PR233 repairs",
+    "W5/W6, issue220, source/identity/lineage, correction and resource gates"
+  ]
+}

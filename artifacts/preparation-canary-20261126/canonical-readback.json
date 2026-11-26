@@ -1,0 +1,32 @@
+{
+  "timestamp_utc": "2026-11-26T03:14:53.376952+00:00",
+  "classification": "EXCLUDED_PREPARATION_CANARY",
+  "scientific_review_coverage": 0,
+  "occurrence": null,
+  "A_B_attempt": false,
+  "contracts": {
+    "verified": true,
+    "claw_commit": "4fad8df5b2367da68faca6379ce32eb9b8f4ba9b",
+    "files": 16
+  },
+  "review_id": "20261126T031443Z-excluded-preparation-canary",
+  "artifacts": [
+    {
+      "path": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01/reviews/structured/20261126T031443Z-excluded-preparation-canary/review.yaml",
+      "bytes": 11847,
+      "sha256": "991f1cebaa22327283d1e54967e9b5a6a1dd8697e2e2270a88809c54f729867a"
+    },
+    {
+      "path": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01/reviews/structured/20261126T031443Z-excluded-preparation-canary/review.md",
+      "bytes": 18614,
+      "sha256": "5c334713a6527ad48c8e4daf8caaa9a02b40302608152aca49f0fee282fcb2ad"
+    }
+  ],
+  "canonical_read_review": "passed",
+  "input_hash_replay": "passed",
+  "markdown_regeneration": "passed by canonical read_review",
+  "source_provenance": {
+    "status": "working_tree_attestation",
+    "reason": "Git base exists; dirty input hashes are a reviewer attestation, not committed-byte proof."
+  }
+}

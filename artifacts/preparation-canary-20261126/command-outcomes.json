@@ -1,0 +1,1642 @@
+{
+  "classification": "EXCLUDED_PREPARATION_CANARY",
+  "scientific_review_coverage": 0,
+  "occurrence": null,
+  "captured_at_utc": "2026-11-26T03:19:15Z",
+  "scope": "Completed preparation command receipts through pre-publication validation. Subsequent Git/handoff outcomes remain in the private append-only command ledger.",
+  "commands": [
+    {
+      "classification": "EXCLUDED_PREPARATION_CANARY",
+      "scientific_review_coverage": 0,
+      "occurrence": null,
+      "A_B_attempt": false,
+      "label": "branch-remote-before-01",
+      "started_at_utc": "2026-11-26T03:15:58.307612+00:00",
+      "finished_at_utc": "2026-11-26T03:15:58.355584+00:00",
+      "command": [
+        "git",
+        "ls-remote",
+        "--heads",
+        "origin",
+        "campaign/lbnl-preparation-20261120-01"
+      ],
+      "cwd": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01",
+      "exit_code": 128,
+      "error": null,
+      "elapsed_seconds": 0.047922875000000004,
+      "child_peak_rss_platform_units": 7602176,
+      "rss_unit": "bytes on macOS; peak child process, not worker total or pool sum",
+      "helper": {
+        "path": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01/scripts/adhoc/preparation_receipt_20261126.py",
+        "bytes": 4142,
+        "sha256": "96df338fd0f2c02b69d21a8870929e715df9c04edc0dcf651ed8fe576caf4c64"
+      },
+      "stdout": {
+        "path": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01/.temp/restart-preparation-01/commands/branch-remote-before-01/stdout",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stderr": {
+        "path": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01/.temp/restart-preparation-01/commands/branch-remote-before-01/stderr",
+        "bytes": 108,
+        "sha256": "0327a3d6c07258364fb5c3381a6d4f007e0485d8ceffdde92e8e14a8377c2d0d"
+      }
+    },
+    {
+      "classification": "EXCLUDED_PREPARATION_CANARY",
+      "scientific_review_coverage": 0,
+      "occurrence": null,
+      "A_B_attempt": false,
+      "label": "build-metadata-origin-01",
+      "started_at_utc": "2026-11-26T03:17:12.356552+00:00",
+      "finished_at_utc": "2026-11-26T03:17:12.360202+00:00",
+      "command": [
+        "stat",
+        "-f",
+        "%N | created=%SB | modified=%Sm",
+        "-t",
+        "%Y-%m-%dT%H:%M:%S%z",
+        "src/edgemech.egg-info",
+        "src/edgemech.egg-info/PKG-INFO"
+      ],
+      "cwd": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01",
+      "exit_code": 0,
+      "error": null,
+      "elapsed_seconds": 0.003602958,
+      "child_peak_rss_platform_units": 1376256,
+      "rss_unit": "bytes on macOS; peak child process, not worker total or pool sum",
+      "helper": {
+        "path": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01/scripts/adhoc/preparation_receipt_20261126.py",
+        "bytes": 4142,
+        "sha256": "96df338fd0f2c02b69d21a8870929e715df9c04edc0dcf651ed8fe576caf4c64"
+      },
+      "stdout": {
+        "path": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01/.temp/restart-preparation-01/commands/build-metadata-origin-01/stdout",
+        "bytes": 195,
+        "sha256": "4eb58a7f0d52fa7bf22c85082ca2525e8084ff97f07c04419101efc52c4e1181"
+      },
+      "stderr": {
+        "path": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01/.temp/restart-preparation-01/commands/build-metadata-origin-01/stderr",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "classification": "EXCLUDED_PREPARATION_CANARY",
+      "scientific_review_coverage": 0,
+      "occurrence": null,
+      "A_B_attempt": false,
+      "label": "canonical-check-01",
+      "started_at_utc": "2026-11-26T03:14:51.807079+00:00",
+      "finished_at_utc": "2026-11-26T03:14:52.807647+00:00",
+      "command": [
+        ".temp/restart-preparation-01/venv/bin/python",
+        "scripts/record_review.py",
+        "check",
+        "--require-reviews",
+        "--base",
+        "945c421c648fe09858eabf1f2a4447ab27f9eae3"
+      ],
+      "cwd": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01",
+      "exit_code": 0,
+      "error": null,
+      "elapsed_seconds": 1.000515125,
+      "child_peak_rss_platform_units": 116916224,
+      "rss_unit": "bytes on macOS; peak child process, not worker total or pool sum",
+      "helper": {
+        "path": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01/scripts/adhoc/preparation_receipt_20261126.py",
+        "bytes": 4142,
+        "sha256": "96df338fd0f2c02b69d21a8870929e715df9c04edc0dcf651ed8fe576caf4c64"
+      },
+      "stdout": {
+        "path": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01/.temp/restart-preparation-01/commands/canonical-check-01/stdout",
+        "bytes": 104,
+        "sha256": "5969c4af741d0cdd0a42669d7d94a8c39fb659269df381eb29d6538e8086d125"
+      },
+      "stderr": {
+        "path": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01/.temp/restart-preparation-01/commands/canonical-check-01/stderr",
+        "bytes": 39,
+        "sha256": "e2cf5a8ee56373cb7afeb23be8ac2a30d67f13afa55bb51424877fc908e2a25f"
+      }
+    },
+    {
+      "classification": "EXCLUDED_PREPARATION_CANARY",
+      "scientific_review_coverage": 0,
+      "occurrence": null,
+      "A_B_attempt": false,
+      "label": "canonical-help-01",
+      "started_at_utc": "2026-11-26T03:12:08.446982+00:00",
+      "finished_at_utc": "2026-11-26T03:12:09.371506+00:00",
+      "command": [
+        ".temp/restart-preparation-01/venv/bin/python",
+        "scripts/record_review.py",
+        "--help"
+      ],
+      "cwd": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01",
+      "exit_code": 0,
+      "error": null,
+      "elapsed_seconds": 0.9244316250000001,
+      "child_peak_rss_platform_units": 104185856,
+      "rss_unit": "bytes on macOS; peak child process, not worker total or pool sum",
+      "helper": {
+        "path": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01/scripts/adhoc/preparation_receipt_20261126.py",
+        "bytes": 4142,
+        "sha256": "96df338fd0f2c02b69d21a8870929e715df9c04edc0dcf651ed8fe576caf4c64"
+      },
+      "stdout": {
+        "path": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01/.temp/restart-preparation-01/commands/canonical-help-01/stdout",
+        "bytes": 1207,
+        "sha256": "541cb23b7643db6cb12adb0efad057091b89c248a6cbdf9d92290890b7da900e"
+      },
+      "stderr": {
+        "path": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01/.temp/restart-preparation-01/commands/canonical-help-01/stderr",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "classification": "EXCLUDED_PREPARATION_CANARY",
+      "scientific_review_coverage": 0,
+      "occurrence": null,
+      "A_B_attempt": false,
+      "label": "canonical-inspect-01",
+      "started_at_utc": "2026-11-26T03:13:01.885100+00:00",
+      "finished_at_utc": "2026-11-26T03:13:02.325633+00:00",
+      "command": [
+        ".temp/restart-preparation-01/venv/bin/python",
+        "scripts/record_review.py",
+        "inspect",
+        "--targets",
+        ".temp/restart-preparation-01/targets.yaml",
+        "--input",
+        "uv.lock",
+        "--input",
+        "src/edgemech/contract-pins.json",
+        "--input",
+        "scripts/record_review.py",
+        "--input",
+        "schema/record_review.yaml",
+        "--input",
+        "docs/record-reviews.md"
+      ],
+      "cwd": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01",
+      "exit_code": 0,
+      "error": null,
+      "elapsed_seconds": 0.440487625,
+      "child_peak_rss_platform_units": 105250816,
+      "rss_unit": "bytes on macOS; peak child process, not worker total or pool sum",
+      "helper": {
+        "path": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01/scripts/adhoc/preparation_receipt_20261126.py",
+        "bytes": 4142,
+        "sha256": "96df338fd0f2c02b69d21a8870929e715df9c04edc0dcf651ed8fe576caf4c64"
+      },
+      "stdout": {
+        "path": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01/.temp/restart-preparation-01/commands/canonical-inspect-01/stdout",
+        "bytes": 2218,
+        "sha256": "06506026f835394422de0c8f929173222663dde298b649f5654f82cce85570fa"
+      },
+      "stderr": {
+        "path": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01/.temp/restart-preparation-01/commands/canonical-inspect-01/stderr",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "classification": "EXCLUDED_PREPARATION_CANARY",
+      "scientific_review_coverage": 0,
+      "occurrence": null,
+      "A_B_attempt": false,
+      "label": "canonical-inspect-02",
+      "started_at_utc": "2026-11-26T03:14:07.592429+00:00",
+      "finished_at_utc": "2026-11-26T03:14:08.070275+00:00",
+      "command": [
+        ".temp/restart-preparation-01/venv/bin/python",
+        "scripts/record_review.py",
+        "inspect",
+        "--targets",
+        ".temp/restart-preparation-01/targets.yaml",
+        "--input",
+        "uv.lock",
+        "--input",
+        "src/edgemech/contract-pins.json",
+        "--input",
+        "scripts/record_review.py",
+        "--input",
+        "schema/record_review.yaml",
+        "--input",
+        "docs/record-reviews.md",
+        "--input",
+        "docs/validation/fresh05-access-20261119.md",
+        "--input",
+        ".temp/restart-preparation-01/commands/contracts-01/stdout",
+        "--input",
+        ".temp/restart-preparation-01/library/readback-01.json",
+        "--input",
+        ".temp/restart-preparation-01/commands/issue220-read-02-network/stdout"
+      ],
+      "cwd": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01",
+      "exit_code": 0,
+      "error": null,
+      "elapsed_seconds": 0.47780291599999997,
+      "child_peak_rss_platform_units": 105005056,
+      "rss_unit": "bytes on macOS; peak child process, not worker total or pool sum",
+      "helper": {
+        "path": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01/scripts/adhoc/preparation_receipt_20261126.py",
+        "bytes": 4142,
+        "sha256": "96df338fd0f2c02b69d21a8870929e715df9c04edc0dcf651ed8fe576caf4c64"
+      },
+      "stdout": {
+        "path": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01/.temp/restart-preparation-01/commands/canonical-inspect-02/stdout",
+        "bytes": 3035,
+        "sha256": "aa4c55e0d51c508023b2a543f9bddc05e434f07fe621d101ee3a3d3ddc5846ae"
+      },
+      "stderr": {
+        "path": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01/.temp/restart-preparation-01/commands/canonical-inspect-02/stderr",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "classification": "EXCLUDED_PREPARATION_CANARY",
+      "scientific_review_coverage": 0,
+      "occurrence": null,
+      "A_B_attempt": false,
+      "label": "canonical-readback-01",
+      "started_at_utc": "2026-11-26T03:14:52.860445+00:00",
+      "finished_at_utc": "2026-11-26T03:14:53.452733+00:00",
+      "command": [
+        ".temp/restart-preparation-01/venv/bin/python",
+        "scripts/adhoc/preparation_readback_20261126.py",
+        "canonical",
+        "--review",
+        "reviews/structured/20261126T031443Z-excluded-preparation-canary/review.yaml",
+        "--output",
+        ".temp/restart-preparation-01/canonical-readback-01.json"
+      ],
+      "cwd": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01",
+      "exit_code": 0,
+      "error": null,
+      "elapsed_seconds": 0.592246333,
+      "child_peak_rss_platform_units": 114130944,
+      "rss_unit": "bytes on macOS; peak child process, not worker total or pool sum",
+      "helper": {
+        "path": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01/scripts/adhoc/preparation_receipt_20261126.py",
+        "bytes": 4142,
+        "sha256": "96df338fd0f2c02b69d21a8870929e715df9c04edc0dcf651ed8fe576caf4c64"
+      },
+      "stdout": {
+        "path": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01/.temp/restart-preparation-01/commands/canonical-readback-01/stdout",
+        "bytes": 1417,
+        "sha256": "a2a726a1e0474358dfad0565d11946bcc893b50e3092709353cea8c02ad69730"
+      },
+      "stderr": {
+        "path": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01/.temp/restart-preparation-01/commands/canonical-readback-01/stderr",
+        "bytes": 39,
+        "sha256": "e2cf5a8ee56373cb7afeb23be8ac2a30d67f13afa55bb51424877fc908e2a25f"
+      }
+    },
+    {
+      "classification": "EXCLUDED_PREPARATION_CANARY",
+      "scientific_review_coverage": 0,
+      "occurrence": null,
+      "A_B_attempt": false,
+      "label": "canonical-readback-02",
+      "started_at_utc": "2026-11-26T03:18:43.060494+00:00",
+      "finished_at_utc": "2026-11-26T03:18:43.614734+00:00",
+      "command": [
+        ".temp/restart-preparation-01/venv/bin/python",
+        "scripts/adhoc/preparation_readback_20261126.py",
+        "canonical",
+        "--review",
+        "reviews/structured/20261126T031443Z-excluded-preparation-canary/review.yaml",
+        "--output",
+        ".temp/restart-preparation-01/canonical-readback-02.json"
+      ],
+      "cwd": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01",
+      "exit_code": 0,
+      "error": null,
+      "elapsed_seconds": 0.5542020839999999,
+      "child_peak_rss_platform_units": 114114560,
+      "rss_unit": "bytes on macOS; peak child process, not worker total or pool sum",
+      "helper": {
+        "path": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01/scripts/adhoc/preparation_receipt_20261126.py",
+        "bytes": 4142,
+        "sha256": "96df338fd0f2c02b69d21a8870929e715df9c04edc0dcf651ed8fe576caf4c64"
+      },
+      "stdout": {
+        "path": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01/.temp/restart-preparation-01/commands/canonical-readback-02/stdout",
+        "bytes": 1417,
+        "sha256": "8711a1b87f375e2c35794eb42907c34769725f0f34f0cb5253405c5b2672b845"
+      },
+      "stderr": {
+        "path": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01/.temp/restart-preparation-01/commands/canonical-readback-02/stderr",
+        "bytes": 39,
+        "sha256": "e2cf5a8ee56373cb7afeb23be8ac2a30d67f13afa55bb51424877fc908e2a25f"
+      }
+    },
+    {
+      "classification": "EXCLUDED_PREPARATION_CANARY",
+      "scientific_review_coverage": 0,
+      "occurrence": null,
+      "A_B_attempt": false,
+      "label": "canonical-save-01",
+      "started_at_utc": "2026-11-26T03:14:51.101055+00:00",
+      "finished_at_utc": "2026-11-26T03:14:51.754414+00:00",
+      "command": [
+        ".temp/restart-preparation-01/venv/bin/python",
+        "scripts/record_review.py",
+        "save",
+        "--content",
+        ".temp/restart-preparation-01/review-draft-01.json"
+      ],
+      "cwd": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01",
+      "exit_code": 0,
+      "error": null,
+      "elapsed_seconds": 0.6533050420000001,
+      "child_peak_rss_platform_units": 116490240,
+      "rss_unit": "bytes on macOS; peak child process, not worker total or pool sum",
+      "helper": {
+        "path": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01/scripts/adhoc/preparation_receipt_20261126.py",
+        "bytes": 4142,
+        "sha256": "96df338fd0f2c02b69d21a8870929e715df9c04edc0dcf651ed8fe576caf4c64"
+      },
+      "stdout": {
+        "path": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01/.temp/restart-preparation-01/commands/canonical-save-01/stdout",
+        "bytes": 325,
+        "sha256": "2b7f758823100ad514e7f2f6a27233fe052655577d8fb95a94595a549e1d7f00"
+      },
+      "stderr": {
+        "path": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01/.temp/restart-preparation-01/commands/canonical-save-01/stderr",
+        "bytes": 39,
+        "sha256": "e2cf5a8ee56373cb7afeb23be8ac2a30d67f13afa55bb51424877fc908e2a25f"
+      }
+    },
+    {
+      "classification": "EXCLUDED_PREPARATION_CANARY",
+      "scientific_review_coverage": 0,
+      "occurrence": null,
+      "A_B_attempt": false,
+      "label": "canonical-validate-01",
+      "started_at_utc": "2026-11-26T03:14:43.853522+00:00",
+      "finished_at_utc": "2026-11-26T03:14:44.447140+00:00",
+      "command": [
+        ".temp/restart-preparation-01/venv/bin/python",
+        "scripts/record_review.py",
+        "validate",
+        ".temp/restart-preparation-01/review-draft-01.json"
+      ],
+      "cwd": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01",
+      "exit_code": 0,
+      "error": null,
+      "elapsed_seconds": 0.5935705830000001,
+      "child_peak_rss_platform_units": 116178944,
+      "rss_unit": "bytes on macOS; peak child process, not worker total or pool sum",
+      "helper": {
+        "path": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01/scripts/adhoc/preparation_receipt_20261126.py",
+        "bytes": 4142,
+        "sha256": "96df338fd0f2c02b69d21a8870929e715df9c04edc0dcf651ed8fe576caf4c64"
+      },
+      "stdout": {
+        "path": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01/.temp/restart-preparation-01/commands/canonical-validate-01/stdout",
+        "bytes": 21,
+        "sha256": "b42ee0197bdb886694684431f9da0d2fba4020263ed572ff756b9eaf0b042ba6"
+      },
+      "stderr": {
+        "path": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01/.temp/restart-preparation-01/commands/canonical-validate-01/stderr",
+        "bytes": 39,
+        "sha256": "e2cf5a8ee56373cb7afeb23be8ac2a30d67f13afa55bb51424877fc908e2a25f"
+      }
+    },
+    {
+      "classification": "EXCLUDED_PREPARATION_CANARY",
+      "scientific_review_coverage": 0,
+      "occurrence": null,
+      "A_B_attempt": false,
+      "label": "contracts-01",
+      "started_at_utc": "2026-11-26T03:12:02.438299+00:00",
+      "finished_at_utc": "2026-11-26T03:12:08.373062+00:00",
+      "command": [
+        ".temp/restart-preparation-01/venv/bin/python",
+        "-m",
+        "edgemech",
+        "check-contracts"
+      ],
+      "cwd": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01",
+      "exit_code": 0,
+      "error": null,
+      "elapsed_seconds": 5.934432708,
+      "child_peak_rss_platform_units": 169934848,
+      "rss_unit": "bytes on macOS; peak child process, not worker total or pool sum",
+      "helper": {
+        "path": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01/scripts/adhoc/preparation_receipt_20261126.py",
+        "bytes": 4142,
+        "sha256": "96df338fd0f2c02b69d21a8870929e715df9c04edc0dcf651ed8fe576caf4c64"
+      },
+      "stdout": {
+        "path": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01/.temp/restart-preparation-01/commands/contracts-01/stdout",
+        "bytes": 91,
+        "sha256": "a80e6516af4e7e300d6fc9083cb590092f2773bb9498f29a0f20077323af7c13"
+      },
+      "stderr": {
+        "path": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01/.temp/restart-preparation-01/commands/contracts-01/stderr",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "classification": "EXCLUDED_PREPARATION_CANARY",
+      "scientific_review_coverage": 0,
+      "occurrence": null,
+      "A_B_attempt": false,
+      "label": "durable-storage-01",
+      "started_at_utc": "2026-11-26T03:15:38.075012+00:00",
+      "finished_at_utc": "2026-11-26T03:15:38.868705+00:00",
+      "command": [
+        "du",
+        "-sk",
+        ".temp/restart-preparation-01",
+        ".temp/fulltext/restart-preparation-01"
+      ],
+      "cwd": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01",
+      "exit_code": 1,
+      "error": null,
+      "elapsed_seconds": 0.793651167,
+      "child_peak_rss_platform_units": 2539520,
+      "rss_unit": "bytes on macOS; peak child process, not worker total or pool sum",
+      "helper": {
+        "path": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01/scripts/adhoc/preparation_receipt_20261126.py",
+        "bytes": 4142,
+        "sha256": "96df338fd0f2c02b69d21a8870929e715df9c04edc0dcf651ed8fe576caf4c64"
+      },
+      "stdout": {
+        "path": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01/.temp/restart-preparation-01/commands/durable-storage-01/stdout",
+        "bytes": 37,
+        "sha256": "485bb3ba0fc1e596c9b738c806a2e8207efb0bc85b8f8af5e5522a09a0bf587a"
+      },
+      "stderr": {
+        "path": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01/.temp/restart-preparation-01/commands/durable-storage-01/stderr",
+        "bytes": 69,
+        "sha256": "1bd7ceccf6ed02daba02eb1d93c8abb4b6c894a77b2dc18c0dd2608728bd2273"
+      }
+    },
+    {
+      "classification": "EXCLUDED_PREPARATION_CANARY",
+      "scientific_review_coverage": 0,
+      "occurrence": null,
+      "A_B_attempt": false,
+      "label": "durable-storage-02",
+      "started_at_utc": "2026-11-26T03:18:43.643066+00:00",
+      "finished_at_utc": "2026-11-26T03:18:44.670153+00:00",
+      "command": [
+        "du",
+        "-sk",
+        ".temp/restart-preparation-01",
+        ".temp/fulltext/restart-preparation-01"
+      ],
+      "cwd": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01",
+      "exit_code": 0,
+      "error": null,
+      "elapsed_seconds": 1.027038209,
+      "child_peak_rss_platform_units": 2555904,
+      "rss_unit": "bytes on macOS; peak child process, not worker total or pool sum",
+      "helper": {
+        "path": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01/scripts/adhoc/preparation_receipt_20261126.py",
+        "bytes": 4142,
+        "sha256": "96df338fd0f2c02b69d21a8870929e715df9c04edc0dcf651ed8fe576caf4c64"
+      },
+      "stdout": {
+        "path": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01/.temp/restart-preparation-01/commands/durable-storage-02/stdout",
+        "bytes": 82,
+        "sha256": "a90a01af5a1b2477d5348dff4874059a3dd1675881c4608cde9be5a2a58ca196"
+      },
+      "stderr": {
+        "path": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01/.temp/restart-preparation-01/commands/durable-storage-02/stderr",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "classification": "EXCLUDED_PREPARATION_CANARY",
+      "scientific_review_coverage": 0,
+      "occurrence": null,
+      "A_B_attempt": false,
+      "label": "env-sync-01",
+      "started_at_utc": "2026-11-26T03:11:09.221621+00:00",
+      "finished_at_utc": "2026-11-26T03:11:14.537748+00:00",
+      "command": [
+        "uv",
+        "sync",
+        "--frozen",
+        "--extra",
+        "dev",
+        "--python",
+        "3.13",
+        "--no-progress"
+      ],
+      "cwd": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01",
+      "exit_code": 2,
+      "error": null,
+      "elapsed_seconds": 5.316064459,
+      "child_peak_rss_platform_units": 22020096,
+      "rss_unit": "bytes on macOS; peak child process, not worker total or pool sum",
+      "helper": {
+        "path": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01/scripts/adhoc/preparation_receipt_20261126.py",
+        "bytes": 4142,
+        "sha256": "96df338fd0f2c02b69d21a8870929e715df9c04edc0dcf651ed8fe576caf4c64"
+      },
+      "stdout": {
+        "path": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01/.temp/restart-preparation-01/commands/env-sync-01/stdout",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stderr": {
+        "path": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01/.temp/restart-preparation-01/commands/env-sync-01/stderr",
+        "bytes": 666,
+        "sha256": "227cb23ad414f8838d858bce3a5132115a8a64682f123c34f103764587ebd54c"
+      }
+    },
+    {
+      "classification": "EXCLUDED_PREPARATION_CANARY",
+      "scientific_review_coverage": 0,
+      "occurrence": null,
+      "A_B_attempt": false,
+      "label": "env-sync-02-network",
+      "started_at_utc": "2026-11-26T03:11:43.337943+00:00",
+      "finished_at_utc": "2026-11-26T03:11:47.549877+00:00",
+      "command": [
+        "uv",
+        "sync",
+        "--frozen",
+        "--extra",
+        "dev",
+        "--python",
+        "/Users/marcin/.local/share/uv/python/cpython-3.13.2-macos-aarch64-none/bin/python3.13",
+        "--no-progress"
+      ],
+      "cwd": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01",
+      "exit_code": 0,
+      "error": null,
+      "elapsed_seconds": 4.211801917,
+      "child_peak_rss_platform_units": 113557504,
+      "rss_unit": "bytes on macOS; peak child process, not worker total or pool sum",
+      "helper": {
+        "path": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01/scripts/adhoc/preparation_receipt_20261126.py",
+        "bytes": 4142,
+        "sha256": "96df338fd0f2c02b69d21a8870929e715df9c04edc0dcf651ed8fe576caf4c64"
+      },
+      "stdout": {
+        "path": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01/.temp/restart-preparation-01/commands/env-sync-02-network/stdout",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stderr": {
+        "path": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01/.temp/restart-preparation-01/commands/env-sync-02-network/stderr",
+        "bytes": 6270,
+        "sha256": "89aea0de1f46b0304c6f41d109f93f56666a1bbddd1f93b41fde2902213c1ea2"
+      }
+    },
+    {
+      "classification": "EXCLUDED_PREPARATION_CANARY",
+      "scientific_review_coverage": 0,
+      "occurrence": null,
+      "A_B_attempt": false,
+      "label": "environment-packages-01",
+      "started_at_utc": "2026-11-26T03:16:44.645929+00:00",
+      "finished_at_utc": "2026-11-26T03:16:44.656316+00:00",
+      "command": [
+        "uv",
+        "pip",
+        "list",
+        "--python",
+        ".temp/restart-preparation-01/venv/bin/python",
+        "--format",
+        "json"
+      ],
+      "cwd": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01",
+      "exit_code": 0,
+      "error": null,
+      "elapsed_seconds": 0.01034225,
+      "child_peak_rss_platform_units": 18694144,
+      "rss_unit": "bytes on macOS; peak child process, not worker total or pool sum",
+      "helper": {
+        "path": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01/scripts/adhoc/preparation_receipt_20261126.py",
+        "bytes": 4142,
+        "sha256": "96df338fd0f2c02b69d21a8870929e715df9c04edc0dcf651ed8fe576caf4c64"
+      },
+      "stdout": {
+        "path": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01/.temp/restart-preparation-01/commands/environment-packages-01/stdout",
+        "bytes": 6980,
+        "sha256": "0d0c78a0a217f43092d9e3b4172138f9aed4a6c2ab361a963b5237c83d123b71"
+      },
+      "stderr": {
+        "path": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01/.temp/restart-preparation-01/commands/environment-packages-01/stderr",
+        "bytes": 70,
+        "sha256": "e966e8a674cf445dcf192f2adbb41880919eca56cc8a45bd6d8b8dd3764cb4b9"
+      }
+    },
+    {
+      "classification": "EXCLUDED_PREPARATION_CANARY",
+      "scientific_review_coverage": 0,
+      "occurrence": null,
+      "A_B_attempt": false,
+      "label": "environment-python-01",
+      "started_at_utc": "2026-11-26T03:16:44.684531+00:00",
+      "finished_at_utc": "2026-11-26T03:16:44.696498+00:00",
+      "command": [
+        ".temp/restart-preparation-01/venv/bin/python",
+        "--version"
+      ],
+      "cwd": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01",
+      "exit_code": 0,
+      "error": null,
+      "elapsed_seconds": 0.011926666999999998,
+      "child_peak_rss_platform_units": 9928704,
+      "rss_unit": "bytes on macOS; peak child process, not worker total or pool sum",
+      "helper": {
+        "path": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01/scripts/adhoc/preparation_receipt_20261126.py",
+        "bytes": 4142,
+        "sha256": "96df338fd0f2c02b69d21a8870929e715df9c04edc0dcf651ed8fe576caf4c64"
+      },
+      "stdout": {
+        "path": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01/.temp/restart-preparation-01/commands/environment-python-01/stdout",
+        "bytes": 14,
+        "sha256": "37c71daf531d479b497f6e6eb964f6af1aef21097615012f1fb678a0263ec020"
+      },
+      "stderr": {
+        "path": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01/.temp/restart-preparation-01/commands/environment-python-01/stderr",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "classification": "EXCLUDED_PREPARATION_CANARY",
+      "scientific_review_coverage": 0,
+      "occurrence": null,
+      "A_B_attempt": false,
+      "label": "final-receipts-pin-01",
+      "started_at_utc": "2026-11-26T03:17:33.029315+00:00",
+      "finished_at_utc": "2026-11-26T03:17:33.053456+00:00",
+      "command": [
+        "shasum",
+        "-a",
+        "256",
+        ".temp/restart-preparation-01/ACCEPTANCE.json",
+        ".temp/restart-preparation-01/review-draft-01.json",
+        ".temp/restart-preparation-01/targets.yaml",
+        ".temp/restart-preparation-01/request-outcomes.jsonl",
+        ".temp/restart-preparation-01/library/readback-01.json",
+        ".temp/restart-preparation-01/canonical-readback-01.json"
+      ],
+      "cwd": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01",
+      "exit_code": 0,
+      "error": null,
+      "elapsed_seconds": 0.024099500000000003,
+      "child_peak_rss_platform_units": 7700480,
+      "rss_unit": "bytes on macOS; peak child process, not worker total or pool sum",
+      "helper": {
+        "path": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01/scripts/adhoc/preparation_receipt_20261126.py",
+        "bytes": 4142,
+        "sha256": "96df338fd0f2c02b69d21a8870929e715df9c04edc0dcf651ed8fe576caf4c64"
+      },
+      "stdout": {
+        "path": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01/.temp/restart-preparation-01/commands/final-receipts-pin-01/stdout",
+        "bytes": 695,
+        "sha256": "e00ba4163bd845201961f4ab425fa21f54383c0382decb97cbfa961449ee1a2a"
+      },
+      "stderr": {
+        "path": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01/.temp/restart-preparation-01/commands/final-receipts-pin-01/stderr",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "classification": "EXCLUDED_PREPARATION_CANARY",
+      "scientific_review_coverage": 0,
+      "occurrence": null,
+      "A_B_attempt": false,
+      "label": "focused-01",
+      "started_at_utc": "2026-11-26T03:14:06.432813+00:00",
+      "finished_at_utc": "2026-11-26T03:14:10.363805+00:00",
+      "command": [
+        ".temp/restart-preparation-01/venv/bin/python",
+        "-m",
+        "pytest",
+        "-q",
+        "tests/test_pins.py",
+        "tests/test_occurrence_review.py",
+        "--basetemp=.temp/restart-preparation-01/pytest-focused-01",
+        "-o",
+        "cache_dir=.temp/restart-preparation-01/pytest-cache-focused"
+      ],
+      "cwd": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01",
+      "exit_code": 0,
+      "error": null,
+      "elapsed_seconds": 3.9309193749999998,
+      "child_peak_rss_platform_units": 176635904,
+      "rss_unit": "bytes on macOS; peak child process, not worker total or pool sum",
+      "helper": {
+        "path": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01/scripts/adhoc/preparation_receipt_20261126.py",
+        "bytes": 4142,
+        "sha256": "96df338fd0f2c02b69d21a8870929e715df9c04edc0dcf651ed8fe576caf4c64"
+      },
+      "stdout": {
+        "path": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01/.temp/restart-preparation-01/commands/focused-01/stdout",
+        "bytes": 180,
+        "sha256": "2ea85b6a5f4bc496e83b5ace8fa4a27d2ce0592467a96ee7616bf4eb987c1470"
+      },
+      "stderr": {
+        "path": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01/.temp/restart-preparation-01/commands/focused-01/stderr",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "classification": "EXCLUDED_PREPARATION_CANARY",
+      "scientific_review_coverage": 0,
+      "occurrence": null,
+      "A_B_attempt": false,
+      "label": "full-suite-01",
+      "started_at_utc": "2026-11-26T03:12:30.414565+00:00",
+      "finished_at_utc": "2026-11-26T03:15:03.386746+00:00",
+      "command": [
+        ".temp/restart-preparation-01/venv/bin/python",
+        "-m",
+        "pytest",
+        "-q",
+        "--basetemp=.temp/restart-preparation-01/pytest-full-01",
+        "-o",
+        "cache_dir=.temp/restart-preparation-01/pytest-cache"
+      ],
+      "cwd": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01",
+      "exit_code": 1,
+      "error": null,
+      "elapsed_seconds": 152.970894417,
+      "child_peak_rss_platform_units": 372998144,
+      "rss_unit": "bytes on macOS; peak child process, not worker total or pool sum",
+      "helper": {
+        "path": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01/scripts/adhoc/preparation_receipt_20261126.py",
+        "bytes": 4142,
+        "sha256": "96df338fd0f2c02b69d21a8870929e715df9c04edc0dcf651ed8fe576caf4c64"
+      },
+      "stdout": {
+        "path": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01/.temp/restart-preparation-01/commands/full-suite-01/stdout",
+        "bytes": 209618,
+        "sha256": "a43f73b72157b8222a50b11692e68b9f1f8544962723e7001e43afaf9bff94c6"
+      },
+      "stderr": {
+        "path": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01/.temp/restart-preparation-01/commands/full-suite-01/stderr",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "classification": "EXCLUDED_PREPARATION_CANARY",
+      "scientific_review_coverage": 0,
+      "occurrence": null,
+      "A_B_attempt": false,
+      "label": "full-suite-02-approved-staging",
+      "started_at_utc": "2026-11-26T03:15:23.404680+00:00",
+      "finished_at_utc": "2026-11-26T03:15:30.806366+00:00",
+      "command": [
+        ".temp/restart-preparation-01/venv/bin/python",
+        "-m",
+        "pytest",
+        "-q",
+        "--basetemp=.temp/fulltext/restart-preparation-01/pytest-full-02",
+        "-o",
+        "cache_dir=.temp/restart-preparation-01/pytest-cache-02"
+      ],
+      "cwd": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01",
+      "exit_code": 1,
+      "error": null,
+      "elapsed_seconds": 7.401586667,
+      "child_peak_rss_platform_units": 317390848,
+      "rss_unit": "bytes on macOS; peak child process, not worker total or pool sum",
+      "helper": {
+        "path": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01/scripts/adhoc/preparation_receipt_20261126.py",
+        "bytes": 4142,
+        "sha256": "96df338fd0f2c02b69d21a8870929e715df9c04edc0dcf651ed8fe576caf4c64"
+      },
+      "stdout": {
+        "path": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01/.temp/restart-preparation-01/commands/full-suite-02-approved-staging/stdout",
+        "bytes": 1106317,
+        "sha256": "ad6338b896ed18f7e3408b1ff703c4a9cda0451a002149662b9e4a9981aa8185"
+      },
+      "stderr": {
+        "path": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01/.temp/restart-preparation-01/commands/full-suite-02-approved-staging/stderr",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "classification": "EXCLUDED_PREPARATION_CANARY",
+      "scientific_review_coverage": 0,
+      "occurrence": null,
+      "A_B_attempt": false,
+      "label": "full-suite-03-approved-staging",
+      "started_at_utc": "2026-11-26T03:15:57.147453+00:00",
+      "finished_at_utc": "2026-11-26T03:18:25.980984+00:00",
+      "command": [
+        ".temp/restart-preparation-01/venv/bin/python",
+        "-m",
+        "pytest",
+        "-q",
+        "--basetemp=.temp/fulltext/restart-preparation-01/pytest-full-03",
+        "-o",
+        "cache_dir=.temp/restart-preparation-01/pytest-cache-03"
+      ],
+      "cwd": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01",
+      "exit_code": 0,
+      "error": null,
+      "elapsed_seconds": 148.83227575,
+      "child_peak_rss_platform_units": 368689152,
+      "rss_unit": "bytes on macOS; peak child process, not worker total or pool sum",
+      "helper": {
+        "path": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01/scripts/adhoc/preparation_receipt_20261126.py",
+        "bytes": 4142,
+        "sha256": "96df338fd0f2c02b69d21a8870929e715df9c04edc0dcf651ed8fe576caf4c64"
+      },
+      "stdout": {
+        "path": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01/.temp/restart-preparation-01/commands/full-suite-03-approved-staging/stdout",
+        "bytes": 1713,
+        "sha256": "b427d5938db1697e06148f7277871c87783903df0ca3aa97a8722324febc83c5"
+      },
+      "stderr": {
+        "path": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01/.temp/restart-preparation-01/commands/full-suite-03-approved-staging/stderr",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "classification": "EXCLUDED_PREPARATION_CANARY",
+      "scientific_review_coverage": 0,
+      "occurrence": null,
+      "A_B_attempt": false,
+      "label": "fulltext-help-01",
+      "started_at_utc": "2026-11-26T03:12:24.155446+00:00",
+      "finished_at_utc": "2026-11-26T03:12:24.303068+00:00",
+      "command": [
+        ".temp/restart-preparation-01/venv/bin/kg-microbe-sources",
+        "fulltext",
+        "--help"
+      ],
+      "cwd": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01",
+      "exit_code": 0,
+      "error": null,
+      "elapsed_seconds": 0.14757958300000001,
+      "child_peak_rss_platform_units": 35717120,
+      "rss_unit": "bytes on macOS; peak child process, not worker total or pool sum",
+      "helper": {
+        "path": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01/scripts/adhoc/preparation_receipt_20261126.py",
+        "bytes": 4142,
+        "sha256": "96df338fd0f2c02b69d21a8870929e715df9c04edc0dcf651ed8fe576caf4c64"
+      },
+      "stdout": {
+        "path": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01/.temp/restart-preparation-01/commands/fulltext-help-01/stdout",
+        "bytes": 933,
+        "sha256": "f732fdd1f065408db56bee98b1f453b406e9b4284edfb2031c2c31bd52a15e08"
+      },
+      "stderr": {
+        "path": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01/.temp/restart-preparation-01/commands/fulltext-help-01/stderr",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "classification": "EXCLUDED_PREPARATION_CANARY",
+      "scientific_review_coverage": 0,
+      "occurrence": null,
+      "A_B_attempt": false,
+      "label": "git-baseline-diff-01",
+      "started_at_utc": "2026-11-26T03:15:38.033200+00:00",
+      "finished_at_utc": "2026-11-26T03:15:38.044983+00:00",
+      "command": [
+        "git",
+        "diff",
+        "945c421c648fe09858eabf1f2a4447ab27f9eae3",
+        "--",
+        "src",
+        "scripts/record_review.py",
+        "scripts/fulltext_access.py",
+        "schema",
+        "pyproject.toml",
+        "uv.lock",
+        "docs/record-review-profile.md"
+      ],
+      "cwd": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01",
+      "exit_code": 0,
+      "error": null,
+      "elapsed_seconds": 0.0117155,
+      "child_peak_rss_platform_units": 6242304,
+      "rss_unit": "bytes on macOS; peak child process, not worker total or pool sum",
+      "helper": {
+        "path": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01/scripts/adhoc/preparation_receipt_20261126.py",
+        "bytes": 4142,
+        "sha256": "96df338fd0f2c02b69d21a8870929e715df9c04edc0dcf651ed8fe576caf4c64"
+      },
+      "stdout": {
+        "path": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01/.temp/restart-preparation-01/commands/git-baseline-diff-01/stdout",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stderr": {
+        "path": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01/.temp/restart-preparation-01/commands/git-baseline-diff-01/stderr",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "classification": "EXCLUDED_PREPARATION_CANARY",
+      "scientific_review_coverage": 0,
+      "occurrence": null,
+      "A_B_attempt": false,
+      "label": "helper-lint-01",
+      "started_at_utc": "2026-11-26T03:14:10.397638+00:00",
+      "finished_at_utc": "2026-11-26T03:14:10.719243+00:00",
+      "command": [
+        ".temp/restart-preparation-01/venv/bin/ruff",
+        "check",
+        "scripts/adhoc/preparation_receipt_20261126.py",
+        "scripts/adhoc/preparation_readback_20261126.py"
+      ],
+      "cwd": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01",
+      "exit_code": 0,
+      "error": null,
+      "elapsed_seconds": 0.321546834,
+      "child_peak_rss_platform_units": 22511616,
+      "rss_unit": "bytes on macOS; peak child process, not worker total or pool sum",
+      "helper": {
+        "path": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01/scripts/adhoc/preparation_receipt_20261126.py",
+        "bytes": 4142,
+        "sha256": "96df338fd0f2c02b69d21a8870929e715df9c04edc0dcf651ed8fe576caf4c64"
+      },
+      "stdout": {
+        "path": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01/.temp/restart-preparation-01/commands/helper-lint-01/stdout",
+        "bytes": 19,
+        "sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+      },
+      "stderr": {
+        "path": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01/.temp/restart-preparation-01/commands/helper-lint-01/stderr",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "classification": "EXCLUDED_PREPARATION_CANARY",
+      "scientific_review_coverage": 0,
+      "occurrence": null,
+      "A_B_attempt": false,
+      "label": "issue220-read-01",
+      "started_at_utc": "2026-11-26T03:11:09.221620+00:00",
+      "finished_at_utc": "2026-11-26T03:11:09.304892+00:00",
+      "command": [
+        "gh",
+        "issue",
+        "view",
+        "220",
+        "--repo",
+        "CultureBotAI/EdgeMech",
+        "--json",
+        "number,title,state,body,url,updatedAt"
+      ],
+      "cwd": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01",
+      "exit_code": 1,
+      "error": null,
+      "elapsed_seconds": 0.083206458,
+      "child_peak_rss_platform_units": 44793856,
+      "rss_unit": "bytes on macOS; peak child process, not worker total or pool sum",
+      "helper": {
+        "path": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01/scripts/adhoc/preparation_receipt_20261126.py",
+        "bytes": 4142,
+        "sha256": "96df338fd0f2c02b69d21a8870929e715df9c04edc0dcf651ed8fe576caf4c64"
+      },
+      "stdout": {
+        "path": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01/.temp/restart-preparation-01/commands/issue220-read-01/stdout",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stderr": {
+        "path": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01/.temp/restart-preparation-01/commands/issue220-read-01/stderr",
+        "bytes": 94,
+        "sha256": "eed65211f0fcee1b82c2661764250c1adaebcb36f0cb78a702d59632f056c439"
+      }
+    },
+    {
+      "classification": "EXCLUDED_PREPARATION_CANARY",
+      "scientific_review_coverage": 0,
+      "occurrence": null,
+      "A_B_attempt": false,
+      "label": "issue220-read-02-network",
+      "started_at_utc": "2026-11-26T03:11:26.698044+00:00",
+      "finished_at_utc": "2026-11-26T03:11:27.153695+00:00",
+      "command": [
+        "gh",
+        "issue",
+        "view",
+        "220",
+        "--repo",
+        "CultureBotAI/EdgeMech",
+        "--json",
+        "number,title,state,body,url,updatedAt"
+      ],
+      "cwd": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01",
+      "exit_code": 0,
+      "error": null,
+      "elapsed_seconds": 0.45555920899999996,
+      "child_peak_rss_platform_units": 49266688,
+      "rss_unit": "bytes on macOS; peak child process, not worker total or pool sum",
+      "helper": {
+        "path": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01/scripts/adhoc/preparation_receipt_20261126.py",
+        "bytes": 4142,
+        "sha256": "96df338fd0f2c02b69d21a8870929e715df9c04edc0dcf651ed8fe576caf4c64"
+      },
+      "stdout": {
+        "path": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01/.temp/restart-preparation-01/commands/issue220-read-02-network/stdout",
+        "bytes": 3294,
+        "sha256": "3977c3621953cc85eacf3c38675c76d96b764d6fa3f06ca36ad96e3fbeaa0091"
+      },
+      "stderr": {
+        "path": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01/.temp/restart-preparation-01/commands/issue220-read-02-network/stderr",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "classification": "EXCLUDED_PREPARATION_CANARY",
+      "scientific_review_coverage": 0,
+      "occurrence": null,
+      "A_B_attempt": false,
+      "label": "library-bytes-reread-01",
+      "started_at_utc": "2026-11-26T03:15:24.593227+00:00",
+      "finished_at_utc": "2026-11-26T03:15:24.635288+00:00",
+      "command": [
+        "shasum",
+        "-a",
+        "256",
+        ".temp/restart-preparation-01/library/response-01.json",
+        ".temp/restart-preparation-01/library/abstract-01.txt",
+        ".temp/restart-preparation-01/library/readback-01.json",
+        "reviews/structured/20261126T031443Z-excluded-preparation-canary/review.yaml",
+        "reviews/structured/20261126T031443Z-excluded-preparation-canary/review.md"
+      ],
+      "cwd": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01",
+      "exit_code": 0,
+      "error": null,
+      "elapsed_seconds": 0.042021625,
+      "child_peak_rss_platform_units": 7782400,
+      "rss_unit": "bytes on macOS; peak child process, not worker total or pool sum",
+      "helper": {
+        "path": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01/scripts/adhoc/preparation_receipt_20261126.py",
+        "bytes": 4142,
+        "sha256": "96df338fd0f2c02b69d21a8870929e715df9c04edc0dcf651ed8fe576caf4c64"
+      },
+      "stdout": {
+        "path": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01/.temp/restart-preparation-01/commands/library-bytes-reread-01/stdout",
+        "bytes": 641,
+        "sha256": "c3b457098e08a170025c668364be17376143004ae79c3f97292df9e0769e759e"
+      },
+      "stderr": {
+        "path": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01/.temp/restart-preparation-01/commands/library-bytes-reread-01/stderr",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "classification": "EXCLUDED_PREPARATION_CANARY",
+      "scientific_review_coverage": 0,
+      "occurrence": null,
+      "A_B_attempt": false,
+      "label": "library-replay-01",
+      "started_at_utc": "2026-11-26T03:13:36.860377+00:00",
+      "finished_at_utc": "2026-11-26T03:13:36.908307+00:00",
+      "command": [
+        ".temp/restart-preparation-01/venv/bin/python",
+        "scripts/adhoc/preparation_readback_20261126.py",
+        "library",
+        "--output",
+        ".temp/restart-preparation-01/library/readback-01.json"
+      ],
+      "cwd": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01",
+      "exit_code": 0,
+      "error": null,
+      "elapsed_seconds": 0.047891083,
+      "child_peak_rss_platform_units": 24690688,
+      "rss_unit": "bytes on macOS; peak child process, not worker total or pool sum",
+      "helper": {
+        "path": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01/scripts/adhoc/preparation_receipt_20261126.py",
+        "bytes": 4142,
+        "sha256": "96df338fd0f2c02b69d21a8870929e715df9c04edc0dcf651ed8fe576caf4c64"
+      },
+      "stdout": {
+        "path": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01/.temp/restart-preparation-01/commands/library-replay-01/stdout",
+        "bytes": 2571,
+        "sha256": "7e6707117190cddb80bb7ddba7c8da6796c1f1ffcf3b99a320f0e05ce309155c"
+      },
+      "stderr": {
+        "path": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01/.temp/restart-preparation-01/commands/library-replay-01/stderr",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "classification": "EXCLUDED_PREPARATION_CANARY",
+      "scientific_review_coverage": 0,
+      "occurrence": null,
+      "A_B_attempt": false,
+      "label": "local-provenance-01",
+      "started_at_utc": "2026-11-26T03:12:36.227176+00:00",
+      "finished_at_utc": "2026-11-26T03:12:36.423961+00:00",
+      "command": [
+        ".temp/restart-preparation-01/venv/bin/kg-microbe-sources",
+        "local-provenance",
+        "--token",
+        "10.1099/ijs.0.65010-0",
+        "--token",
+        "PMID:17625207",
+        "--root",
+        "docs",
+        "--root",
+        "artifacts",
+        "--max-hits-per-root",
+        "30",
+        "--json"
+      ],
+      "cwd": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01",
+      "exit_code": 0,
+      "error": null,
+      "elapsed_seconds": 0.196739917,
+      "child_peak_rss_platform_units": 108478464,
+      "rss_unit": "bytes on macOS; peak child process, not worker total or pool sum",
+      "helper": {
+        "path": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01/scripts/adhoc/preparation_receipt_20261126.py",
+        "bytes": 4142,
+        "sha256": "96df338fd0f2c02b69d21a8870929e715df9c04edc0dcf651ed8fe576caf4c64"
+      },
+      "stdout": {
+        "path": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01/.temp/restart-preparation-01/commands/local-provenance-01/stdout",
+        "bytes": 12069,
+        "sha256": "4f6ce111f044b4cc451c5c7b4b0ed7b273e54cc9f3ce32f4d930551297cd21ac"
+      },
+      "stderr": {
+        "path": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01/.temp/restart-preparation-01/commands/local-provenance-01/stderr",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "classification": "EXCLUDED_PREPARATION_CANARY",
+      "scientific_review_coverage": 0,
+      "occurrence": null,
+      "A_B_attempt": false,
+      "label": "local-provenance-help-01",
+      "started_at_utc": "2026-11-26T03:12:23.918255+00:00",
+      "finished_at_utc": "2026-11-26T03:12:24.126983+00:00",
+      "command": [
+        ".temp/restart-preparation-01/venv/bin/kg-microbe-sources",
+        "local-provenance",
+        "--help"
+      ],
+      "cwd": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01",
+      "exit_code": 0,
+      "error": null,
+      "elapsed_seconds": 0.20868183299999998,
+      "child_peak_rss_platform_units": 35962880,
+      "rss_unit": "bytes on macOS; peak child process, not worker total or pool sum",
+      "helper": {
+        "path": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01/scripts/adhoc/preparation_receipt_20261126.py",
+        "bytes": 4142,
+        "sha256": "96df338fd0f2c02b69d21a8870929e715df9c04edc0dcf651ed8fe576caf4c64"
+      },
+      "stdout": {
+        "path": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01/.temp/restart-preparation-01/commands/local-provenance-help-01/stdout",
+        "bytes": 1078,
+        "sha256": "c372ea9d9dd087523b5bb6aa597f5e6eeda07c0054ae21c3b6ec7e6ede977307"
+      },
+      "stderr": {
+        "path": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01/.temp/restart-preparation-01/commands/local-provenance-help-01/stderr",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "classification": "EXCLUDED_PREPARATION_CANARY",
+      "scientific_review_coverage": 0,
+      "occurrence": null,
+      "A_B_attempt": false,
+      "label": "native-process-sample-01",
+      "started_at_utc": "2026-11-26T03:16:12.315374+00:00",
+      "finished_at_utc": "2026-11-26T03:16:12.318559+00:00",
+      "command": [
+        "ps",
+        "-p",
+        "54646",
+        "-o",
+        "pid=,ppid=,rss=,comm="
+      ],
+      "cwd": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01",
+      "exit_code": 0,
+      "error": null,
+      "elapsed_seconds": 0.003061292,
+      "child_peak_rss_platform_units": 1474560,
+      "rss_unit": "bytes on macOS; peak child process, not worker total or pool sum",
+      "helper": {
+        "path": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01/scripts/adhoc/preparation_receipt_20261126.py",
+        "bytes": 4142,
+        "sha256": "96df338fd0f2c02b69d21a8870929e715df9c04edc0dcf651ed8fe576caf4c64"
+      },
+      "stdout": {
+        "path": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01/.temp/restart-preparation-01/commands/native-process-sample-01/stdout",
+        "bytes": 25,
+        "sha256": "b89f2728e8b2e1dfd97cbe351ff894c73aabbd66ed15777301cbab161957c08f"
+      },
+      "stderr": {
+        "path": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01/.temp/restart-preparation-01/commands/native-process-sample-01/stderr",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "classification": "EXCLUDED_PREPARATION_CANARY",
+      "scientific_review_coverage": 0,
+      "occurrence": null,
+      "A_B_attempt": false,
+      "label": "package-build-01",
+      "started_at_utc": "2026-11-26T03:15:38.033201+00:00",
+      "finished_at_utc": "2026-11-26T03:15:38.869633+00:00",
+      "command": [
+        "uv",
+        "build",
+        "--python",
+        ".temp/restart-preparation-01/venv/bin/python",
+        "--no-build-isolation",
+        "--out-dir",
+        ".temp/restart-preparation-01/dist"
+      ],
+      "cwd": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01",
+      "exit_code": 0,
+      "error": null,
+      "elapsed_seconds": 0.8363625419999999,
+      "child_peak_rss_platform_units": 68304896,
+      "rss_unit": "bytes on macOS; peak child process, not worker total or pool sum",
+      "helper": {
+        "path": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01/scripts/adhoc/preparation_receipt_20261126.py",
+        "bytes": 4142,
+        "sha256": "96df338fd0f2c02b69d21a8870929e715df9c04edc0dcf651ed8fe576caf4c64"
+      },
+      "stdout": {
+        "path": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01/.temp/restart-preparation-01/commands/package-build-01/stdout",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stderr": {
+        "path": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01/.temp/restart-preparation-01/commands/package-build-01/stderr",
+        "bytes": 26493,
+        "sha256": "a15606c8d3a1aa39bbc7eb4fb96e22c91049fefa78245d5afed0f43fd1892e8d"
+      }
+    },
+    {
+      "classification": "EXCLUDED_PREPARATION_CANARY",
+      "scientific_review_coverage": 0,
+      "occurrence": null,
+      "A_B_attempt": false,
+      "label": "public-receipt-copy-check-01",
+      "started_at_utc": "2026-11-26T03:16:55.689308+00:00",
+      "finished_at_utc": "2026-11-26T03:16:55.701300+00:00",
+      "command": [
+        "shasum",
+        "-a",
+        "256",
+        "artifacts/preparation-canary-20261126/library-readback.json",
+        "artifacts/preparation-canary-20261126/canonical-readback.json"
+      ],
+      "cwd": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01",
+      "exit_code": 0,
+      "error": null,
+      "elapsed_seconds": 0.011943167000000001,
+      "child_peak_rss_platform_units": 7651328,
+      "rss_unit": "bytes on macOS; peak child process, not worker total or pool sum",
+      "helper": {
+        "path": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01/scripts/adhoc/preparation_receipt_20261126.py",
+        "bytes": 4142,
+        "sha256": "96df338fd0f2c02b69d21a8870929e715df9c04edc0dcf651ed8fe576caf4c64"
+      },
+      "stdout": {
+        "path": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01/.temp/restart-preparation-01/commands/public-receipt-copy-check-01/stdout",
+        "bytes": 254,
+        "sha256": "384b63da14e81c14e3d97d7116e3c250fc00e18c6a0c05ee143cf16f6cb353bd"
+      },
+      "stderr": {
+        "path": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01/.temp/restart-preparation-01/commands/public-receipt-copy-check-01/stderr",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "classification": "EXCLUDED_PREPARATION_CANARY",
+      "scientific_review_coverage": 0,
+      "occurrence": null,
+      "A_B_attempt": false,
+      "label": "retain-generated-metadata-01",
+      "started_at_utc": "2026-11-26T03:18:43.025558+00:00",
+      "finished_at_utc": "2026-11-26T03:18:43.032012+00:00",
+      "command": [
+        "mv",
+        "-n",
+        "src/edgemech.egg-info",
+        ".temp/restart-preparation-01/generated-edgemech.egg-info"
+      ],
+      "cwd": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01",
+      "exit_code": 0,
+      "error": null,
+      "elapsed_seconds": 0.006411375,
+      "child_peak_rss_platform_units": 1196032,
+      "rss_unit": "bytes on macOS; peak child process, not worker total or pool sum",
+      "helper": {
+        "path": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01/scripts/adhoc/preparation_receipt_20261126.py",
+        "bytes": 4142,
+        "sha256": "96df338fd0f2c02b69d21a8870929e715df9c04edc0dcf651ed8fe576caf4c64"
+      },
+      "stdout": {
+        "path": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01/.temp/restart-preparation-01/commands/retain-generated-metadata-01/stdout",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stderr": {
+        "path": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01/.temp/restart-preparation-01/commands/retain-generated-metadata-01/stderr",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "classification": "EXCLUDED_PREPARATION_CANARY",
+      "scientific_review_coverage": 0,
+      "occurrence": null,
+      "A_B_attempt": false,
+      "label": "retained-fresh05-paths-01",
+      "started_at_utc": "2026-11-26T03:12:23.876104+00:00",
+      "finished_at_utc": "2026-11-26T03:12:23.888722+00:00",
+      "command": [
+        "rg",
+        "--no-ignore",
+        "--hidden",
+        "--files",
+        "-g",
+        "*fresh05*",
+        "-g",
+        "*fresh-05*",
+        "-g",
+        "*17625207*",
+        "-g",
+        "academia-web-extraction.txt",
+        "-g",
+        "valency-detail.json",
+        "/Users/marcin/Documents/VIMSS/ontology/Mechs/EdgeMech/.temp"
+      ],
+      "cwd": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01",
+      "exit_code": 1,
+      "error": null,
+      "elapsed_seconds": 0.012569708000000002,
+      "child_peak_rss_platform_units": 5177344,
+      "rss_unit": "bytes on macOS; peak child process, not worker total or pool sum",
+      "helper": {
+        "path": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01/scripts/adhoc/preparation_receipt_20261126.py",
+        "bytes": 4142,
+        "sha256": "96df338fd0f2c02b69d21a8870929e715df9c04edc0dcf651ed8fe576caf4c64"
+      },
+      "stdout": {
+        "path": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01/.temp/restart-preparation-01/commands/retained-fresh05-paths-01/stdout",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stderr": {
+        "path": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01/.temp/restart-preparation-01/commands/retained-fresh05-paths-01/stderr",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "classification": "EXCLUDED_PREPARATION_CANARY",
+      "scientific_review_coverage": 0,
+      "occurrence": null,
+      "A_B_attempt": false,
+      "label": "ruff-01",
+      "started_at_utc": "2026-11-26T03:15:03.417321+00:00",
+      "finished_at_utc": "2026-11-26T03:15:03.442091+00:00",
+      "command": [
+        ".temp/restart-preparation-01/venv/bin/ruff",
+        "check",
+        "src/edgemech",
+        "tests",
+        "scripts/adhoc"
+      ],
+      "cwd": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01",
+      "exit_code": 0,
+      "error": null,
+      "elapsed_seconds": 0.024731375000000003,
+      "child_peak_rss_platform_units": 49381376,
+      "rss_unit": "bytes on macOS; peak child process, not worker total or pool sum",
+      "helper": {
+        "path": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01/scripts/adhoc/preparation_receipt_20261126.py",
+        "bytes": 4142,
+        "sha256": "96df338fd0f2c02b69d21a8870929e715df9c04edc0dcf651ed8fe576caf4c64"
+      },
+      "stdout": {
+        "path": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01/.temp/restart-preparation-01/commands/ruff-01/stdout",
+        "bytes": 19,
+        "sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+      },
+      "stderr": {
+        "path": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01/.temp/restart-preparation-01/commands/ruff-01/stderr",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "classification": "EXCLUDED_PREPARATION_CANARY",
+      "scientific_review_coverage": 0,
+      "occurrence": null,
+      "A_B_attempt": false,
+      "label": "skill-and-fleet-pins-01",
+      "started_at_utc": "2026-11-26T03:17:12.305287+00:00",
+      "finished_at_utc": "2026-11-26T03:17:12.327257+00:00",
+      "command": [
+        "shasum",
+        "-a",
+        "256",
+        "/Users/marcin/.codex/skills/lbnl-literature-and-db-access/SKILL.md",
+        "/Users/marcin/.codex/skills/lbnl-mech-record-review/SKILL.md",
+        ".temp/restart-preparation-01/venv/lib/python3.13/site-packages/kg_microbe_fleet/fleet.yaml"
+      ],
+      "cwd": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01",
+      "exit_code": 0,
+      "error": null,
+      "elapsed_seconds": 0.021924416,
+      "child_peak_rss_platform_units": 7700480,
+      "rss_unit": "bytes on macOS; peak child process, not worker total or pool sum",
+      "helper": {
+        "path": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01/scripts/adhoc/preparation_receipt_20261126.py",
+        "bytes": 4142,
+        "sha256": "96df338fd0f2c02b69d21a8870929e715df9c04edc0dcf651ed8fe576caf4c64"
+      },
+      "stdout": {
+        "path": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01/.temp/restart-preparation-01/commands/skill-and-fleet-pins-01/stdout",
+        "bytes": 417,
+        "sha256": "4f1bfd2b3dee449da5a87aa09664d56fa6c2f0240847b902e1b47c5bd2c6b9b7"
+      },
+      "stderr": {
+        "path": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01/.temp/restart-preparation-01/commands/skill-and-fleet-pins-01/stderr",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "classification": "EXCLUDED_PREPARATION_CANARY",
+      "scientific_review_coverage": 0,
+      "occurrence": null,
+      "A_B_attempt": false,
+      "label": "source-cli-help-01",
+      "started_at_utc": "2026-11-26T03:12:09.426951+00:00",
+      "finished_at_utc": "2026-11-26T03:12:09.740171+00:00",
+      "command": [
+        ".temp/restart-preparation-01/venv/bin/kg-microbe-sources",
+        "--help"
+      ],
+      "cwd": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01",
+      "exit_code": 0,
+      "error": null,
+      "elapsed_seconds": 0.313130042,
+      "child_peak_rss_platform_units": 38502400,
+      "rss_unit": "bytes on macOS; peak child process, not worker total or pool sum",
+      "helper": {
+        "path": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01/scripts/adhoc/preparation_receipt_20261126.py",
+        "bytes": 4142,
+        "sha256": "96df338fd0f2c02b69d21a8870929e715df9c04edc0dcf651ed8fe576caf4c64"
+      },
+      "stdout": {
+        "path": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01/.temp/restart-preparation-01/commands/source-cli-help-01/stdout",
+        "bytes": 865,
+        "sha256": "8df147cb3773f988c340266160f04988b0dc46d4f54081d5e9a2dac09141df9e"
+      },
+      "stderr": {
+        "path": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01/.temp/restart-preparation-01/commands/source-cli-help-01/stderr",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "classification": "EXCLUDED_PREPARATION_CANARY",
+      "scientific_review_coverage": 0,
+      "occurrence": null,
+      "A_B_attempt": false,
+      "label": "tracked-diff-check-01",
+      "started_at_utc": "2026-11-26T03:15:24.554054+00:00",
+      "finished_at_utc": "2026-11-26T03:15:24.564598+00:00",
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "cwd": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01",
+      "exit_code": 0,
+      "error": null,
+      "elapsed_seconds": 0.010505917,
+      "child_peak_rss_platform_units": 5537792,
+      "rss_unit": "bytes on macOS; peak child process, not worker total or pool sum",
+      "helper": {
+        "path": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01/scripts/adhoc/preparation_receipt_20261126.py",
+        "bytes": 4142,
+        "sha256": "96df338fd0f2c02b69d21a8870929e715df9c04edc0dcf651ed8fe576caf4c64"
+      },
+      "stdout": {
+        "path": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01/.temp/restart-preparation-01/commands/tracked-diff-check-01/stdout",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stderr": {
+        "path": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01/.temp/restart-preparation-01/commands/tracked-diff-check-01/stderr",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "classification": "EXCLUDED_PREPARATION_CANARY",
+      "scientific_review_coverage": 0,
+      "occurrence": null,
+      "A_B_attempt": false,
+      "label": "tracked-source-pins-01",
+      "started_at_utc": "2026-11-26T03:16:44.724363+00:00",
+      "finished_at_utc": "2026-11-26T03:16:44.747598+00:00",
+      "command": [
+        "shasum",
+        "-a",
+        "256",
+        "pyproject.toml",
+        "uv.lock",
+        "src/edgemech/contract-pins.json",
+        "scripts/record_review.py",
+        "schema/record_review.yaml",
+        "docs/record-review-profile.md",
+        "scripts/adhoc/preparation_receipt_20261126.py",
+        "scripts/adhoc/preparation_readback_20261126.py"
+      ],
+      "cwd": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01",
+      "exit_code": 0,
+      "error": null,
+      "elapsed_seconds": 0.023199542,
+      "child_peak_rss_platform_units": 7766016,
+      "rss_unit": "bytes on macOS; peak child process, not worker total or pool sum",
+      "helper": {
+        "path": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01/scripts/adhoc/preparation_receipt_20261126.py",
+        "bytes": 4142,
+        "sha256": "96df338fd0f2c02b69d21a8870929e715df9c04edc0dcf651ed8fe576caf4c64"
+      },
+      "stdout": {
+        "path": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01/.temp/restart-preparation-01/commands/tracked-source-pins-01/stdout",
+        "bytes": 757,
+        "sha256": "ff67f314e15eecf49968c176a3ddb4b8b1de713544b1a622a35be4ceb7ac492f"
+      },
+      "stderr": {
+        "path": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01/.temp/restart-preparation-01/commands/tracked-source-pins-01/stderr",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "classification": "EXCLUDED_PREPARATION_CANARY",
+      "scientific_review_coverage": 0,
+      "occurrence": null,
+      "A_B_attempt": false,
+      "label": "zotero-local-01",
+      "started_at_utc": "2026-11-26T03:11:09.221621+00:00",
+      "finished_at_utc": "2026-11-26T03:11:09.418357+00:00",
+      "command": [
+        "python3",
+        "scripts/adhoc/fresh05_fulltext_20261119.py",
+        "local",
+        "--unit",
+        "preparation20261126local01"
+      ],
+      "cwd": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01",
+      "exit_code": 1,
+      "error": null,
+      "elapsed_seconds": 0.196671333,
+      "child_peak_rss_platform_units": 24641536,
+      "rss_unit": "bytes on macOS; peak child process, not worker total or pool sum",
+      "helper": {
+        "path": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01/scripts/adhoc/preparation_receipt_20261126.py",
+        "bytes": 4142,
+        "sha256": "96df338fd0f2c02b69d21a8870929e715df9c04edc0dcf651ed8fe576caf4c64"
+      },
+      "stdout": {
+        "path": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01/.temp/restart-preparation-01/commands/zotero-local-01/stdout",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stderr": {
+        "path": "/Users/marcin/agent-work/EdgeMech/restart-20261120/preparation-worker-01/.temp/restart-preparation-01/commands/zotero-local-01/stderr",
+        "bytes": 639,
+        "sha256": "ceae602d720297908324ecde4446c924b843297e721c2ec33e63577df1dd6c7f"
+      }
+    }
+  ]
+}
