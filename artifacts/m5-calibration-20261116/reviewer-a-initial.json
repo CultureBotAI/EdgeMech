@@ -1,0 +1,929 @@
+{
+  "round_id": "m5-calibration-20261116-round01",
+  "package_sha256": "14175634b794a90124bb66a458af3c30f23ca40e10731c4ba89226134a89f4ab",
+  "reviewer": {
+    "id": "reviewer-a",
+    "model": "gpt-6-astra",
+    "session_id": "01a1e61f-534d-7db3-a921-683a6eeffa64",
+    "historical_exposure": "Required docs/record-review-profile.md mentions partial fresh-05 canary and identity conflict; required evidence-guide-v2.json mentions coordinator issue145 and quarantine; allowlisted fresh-32 endpoint description contains inherited reviewed vocabulary prose. These are excluded as judgment evidence. No other reviewer outputs, historical rating matrices, raw original_occurrence, curated records or dispositions inspected."
+  },
+  "cases": [
+    {
+      "case_id": "first-01",
+      "occurrence_id": "urn:kg-microbe:occurrence:v1:aa8fb3ee82e3e42f14412a810092bfce9905eacfd7ae4c783d702011f59821eb",
+      "assessments": [
+        {
+          "axis": "claim",
+          "category": "INSUFFICIENT_EVIDENCE",
+          "scope": "Original bacdive171442 METPO2000511 API20E_CIT procedure association; no citrate-utilization claim substituted.",
+          "rationale": "The source and current catalog show an assay entry, but current METPO deprecates the original relation without defining a live exact assertion. Independent evidence does not resolve that original predicate. Inspected: .temp/m5-worker-run-20261116/package/cases-v2/first-01/view.json [original_assertion, both endpoints, measurement_context, all source wrappers]; .temp/m5-worker-run-20261116/package/structural-v2/first-01-authority.txt [Bacterial strain identity header; API 20E table inspected].",
+          "evidence_ids": [
+            "first-01-catalog"
+          ],
+          "dimensions": {
+            "assertion_scope": "Original bacdive171442 METPO2000511 API20E_CIT procedure association; no citrate-utilization claim substituted."
+          }
+        },
+        {
+          "axis": "literature",
+          "category": "NOT_APPLICABLE",
+          "scope": "Frozen manifest-listed case evidence only, including ignored .temp inputs; no new retrieval. Experimental denominator fixed at seven; structural cases still assessed. Absence is limited to this package.",
+          "rationale": "Preregistered structural observation-link case, not an experimental result assertion. Inspected: .temp/m5-worker-run-20261116/package/cases-v2/first-01/view.json [original_assertion, both endpoints, measurement_context, all source wrappers].",
+          "evidence_ids": [],
+          "dimensions": {
+            "search_scope": "Frozen manifest-listed case evidence only, including ignored .temp inputs; no new retrieval. Experimental denominator fixed at seven; structural cases still assessed. Absence is limited to this package."
+          }
+        },
+        {
+          "axis": "relation",
+          "category": "INCORRECT",
+          "scope": "Original predicate and relation, with original endpoint categories; strict semantics of named retained authority versions.",
+          "rationale": "Strain points to an assay procedure. METPO 2026-06-12 marks original 2000511 deprecated; it supplies no live domain/range definition for this procedure link. The original property is obsolete has observation. A procedure link is not a positive citrate-metabolism assertion. Do not interpret CIT+ as a replacement predicate or result qualifier. Semantic assessment against separately retained Biolink 4.4.0 and 4.4.2; their relevant definitions agree. Neither proves which ontology bytes generated the sampled graph. Inspected: .temp/m5-worker-run-20261116/package/cases-v2/first-01/view.json [original_assertion, both endpoints, measurement_context, all source wrappers]; .temp/m5-worker-run-20261116/evidence/fresh14/metpo.owl [ObjectProperty https://w3id.org/metpo/2000511; owl:deprecated=true].",
+          "evidence_ids": [
+            "metpo20260612"
+          ],
+          "dimensions": {
+            "direction": "Strain points to an assay procedure.",
+            "domain_range": "METPO 2026-06-12 marks original 2000511 deprecated; it supplies no live domain/range definition for this procedure link.",
+            "specificity": "The original property is obsolete has observation. A procedure link is not a positive citrate-metabolism assertion.",
+            "qualifiers": "Do not interpret CIT+ as a replacement predicate or result qualifier."
+          }
+        },
+        {
+          "axis": "subject_node",
+          "category": "CORRECT",
+          "scope": "Original subject endpoint independently; current retained authorities, with historical release binding assessed separately.",
+          "rationale": "BacDive171442 identifies AH405, linked to species taxid1396; the local strain identifier is not the species identifier. Empty catalog definition is a documentation limit; exact strain designation is nevertheless bound by the independent current BacDive catalog. Inspected: .temp/m5-worker-run-20261116/package/cases-v2/first-01/view.json [original_assertion, both endpoints, measurement_context, all source wrappers]; .temp/m5-worker-run-20261116/package/structural-v2/first-01-authority.txt [Bacterial strain identity header; API 20E table inspected]; .temp/m5-worker-run-20261116/evidence/fresh14/biolink-model-4.4.2.yaml [classes.organism taxon; also slots.has attribute, slots.capable of and class definitions inspected].",
+          "evidence_ids": [
+            "first-01-catalog",
+            "biolink442"
+          ],
+          "dimensions": {
+            "identity": "BacDive171442 identifies AH405, linked to species taxid1396; the local strain identifier is not the species identifier.",
+            "label": "Original label preserves the strain and species context.",
+            "category_fit": "OrganismTaxon explicitly permits strain representation in both retained Biolink versions.",
+            "rank_or_type": "Named strain AH405; not a nomenclatural species or asserted type strain.",
+            "definition": "Empty catalog definition is a documentation limit; exact strain designation is nevertheless bound by the independent current BacDive catalog.",
+            "authority_version": "Semantic assessment against separately retained Biolink 4.4.0 and 4.4.2; their relevant definitions agree. Neither proves which ontology bytes generated the sampled graph. BacDive provider snapshot2026-11-16."
+          }
+        },
+        {
+          "axis": "object_node",
+          "category": "UNRESOLVED",
+          "scope": "Original object endpoint independently; current retained authorities, with historical release binding assessed separately.",
+          "rationale": "Local API20E_CIT identifier matches the source test field, but an independent versioned kit/well definition is absent. Source description combines utilization/fermentation; retained catalog table does not independently settle the exact kit procedure semantics. Inspected: .temp/m5-worker-run-20261116/package/cases-v2/first-01/view.json [original_assertion, both endpoints, measurement_context, all source wrappers]; .temp/m5-worker-run-20261116/evidence/fresh14/biolink-model-4.4.2.yaml [classes.organism taxon; also slots.has attribute, slots.capable of and class definitions inspected].",
+          "evidence_ids": [
+            "biolink442"
+          ],
+          "dimensions": {
+            "identity": "Local API20E_CIT identifier matches the source test field, but an independent versioned kit/well definition is absent.",
+            "label": "API20E Citrate is consistent with the source assay label.",
+            "category_fit": "Procedure is plausible for a test procedure, not a chemical or phenotype.",
+            "rank_or_type": "Assay procedure/well rather than a taxon or observed result.",
+            "definition": "Source description combines utilization/fermentation; retained catalog table does not independently settle the exact kit procedure semantics.",
+            "authority_version": "Semantic assessment against separately retained Biolink 4.4.0 and 4.4.2; their relevant definitions agree. Neither proves which ontology bytes generated the sampled graph. No versioned manufacturer assay definition is case-listed."
+          }
+        },
+        {
+          "axis": "source_fidelity",
+          "category": "SUPPORTED",
+          "scope": "Semantic fidelity of the original source field/association and its exact retained binding; independent biological truth is separate.",
+          "rationale": "BacDive171442 wrapper Physiology and metabolism/API20E/CIT contains + at reference117337; original edge links that strain to that assay. No biological result is substituted for the procedure link. Inspected: .temp/m5-worker-run-20261116/package/cases-v2/first-01/view.json [original_assertion, both endpoints, measurement_context, all source wrappers]; .temp/edge-calibration-20261115/first-01/packet.json [original_assertion; endpoints; measurement_context; complete source_records].",
+          "evidence_ids": [
+            "packet-first-01"
+          ],
+          "dimensions": {
+            "source_binding": "BacDive171442 wrapper Physiology and metabolism/API20E/CIT contains + at reference117337; original edge links that strain to that assay. No biological result is substituted for the procedure link."
+          }
+        }
+      ]
+    },
+    {
+      "case_id": "first-28",
+      "occurrence_id": "urn:kg-microbe:occurrence:v1:177815c9e4c39684189e2004e17840e6f0c42a2824750aad5d7f95bd7c0e5f3e",
+      "assessments": [
+        {
+          "axis": "claim",
+          "category": "INSUFFICIENT_EVIDENCE",
+          "scope": "Actinoplanes campanulatus has_phenotype METPO1000870, whose retained definition concerns endospore ability.",
+          "rationale": "Three positive aggregated observations from two databases lack individual evidence. Broad sporulation wording cannot establish the narrower endospore meaning; no exact independent experiment is retained. Inspected: .temp/m5-worker-run-20261116/package/cases-v2/first-28/view.json [original_assertion, both endpoints, measurement_context, all source wrappers].",
+          "evidence_ids": [],
+          "dimensions": {
+            "assertion_scope": "Actinoplanes campanulatus has_phenotype METPO1000870, whose retained definition concerns endospore ability."
+          }
+        },
+        {
+          "axis": "literature",
+          "category": "NO_MATCH",
+          "scope": "Frozen manifest-listed case evidence only, including ignored .temp inputs; no new retrieval. Experimental denominator fixed at seven; structural cases still assessed. Absence is limited to this package.",
+          "rationale": "No case-listed replayable paper matches the exact species/endospore assertion. Bounded absence is not evidence that it is false. Inspected: .temp/m5-worker-run-20261116/package/cases-v2/first-28/view.json [original_assertion, both endpoints, measurement_context, all source wrappers].",
+          "evidence_ids": [],
+          "dimensions": {
+            "search_scope": "Frozen manifest-listed case evidence only, including ignored .temp inputs; no new retrieval. Experimental denominator fixed at seven; structural cases still assessed. Absence is limited to this package."
+          }
+        },
+        {
+          "axis": "relation",
+          "category": "INCORRECT",
+          "scope": "Original predicate and relation, with original endpoint categories; strict semantics of named retained authority versions.",
+          "rationale": "Taxon or strain points toward its proposed phenotype; this is the intended descriptive direction. Both Biolink 4.4.0 and 4.4.2 require biological entity to phenotypic feature. OrganismTaxon directly descends from named thing, while PhenotypicQuality descends from organism attribute; these are not the declared domain/range classes. The original typed edge fails strict domain/range. The broad phenotype predicate does not supply missing measurement or identity semantics. No qualification repairs the declared category mismatch; source strain, fractional bin or measurement limits remain separate. Semantic assessment against separately retained Biolink 4.4.0 and 4.4.2; their relevant definitions agree. Neither proves which ontology bytes generated the sampled graph. Inspected: .temp/m5-worker-run-20261116/package/cases-v2/first-28/view.json [original_assertion, both endpoints, measurement_context, all source wrappers]; .temp/m5-worker-run-20261116/evidence/fresh14/biolink-model-4.4.0.yaml [slots.has phenotype; domain and range; class ancestry also inspected].",
+          "evidence_ids": [
+            "biolink440"
+          ],
+          "dimensions": {
+            "direction": "Taxon or strain points toward its proposed phenotype; this is the intended descriptive direction.",
+            "domain_range": "Both Biolink 4.4.0 and 4.4.2 require biological entity to phenotypic feature. OrganismTaxon directly descends from named thing, while PhenotypicQuality descends from organism attribute; these are not the declared domain/range classes. The original typed edge fails strict domain/range.",
+            "specificity": "The broad phenotype predicate does not supply missing measurement or identity semantics.",
+            "qualifiers": "No qualification repairs the declared category mismatch; source strain, fractional bin or measurement limits remain separate."
+          }
+        },
+        {
+          "axis": "subject_node",
+          "category": "CORRECT",
+          "scope": "Original subject endpoint independently; current retained authorities, with historical release binding assessed separately.",
+          "rationale": "NCBI TaxId113559 and ScientificName match the original Actinoplanes campanulatus; assessed independently of the source association. The empty free-text definition is limited; TaxId, name, rank, parent and lineage jointly identify the taxonomic concept. Inspected: .temp/m5-worker-run-20261116/package/cases-v2/first-28/view.json [original_assertion, both endpoints, measurement_context, all source wrappers]; .temp/m5-worker-run-20261116/evidence/literature/new-first28-ncbi113559/response.xml [Taxon/TaxId,ScientificName,Rank,Lineage,ParentTaxId,UpdateDate]; .temp/m5-worker-run-20261116/evidence/fresh14/biolink-model-4.4.2.yaml [classes.organism taxon; also slots.has attribute, slots.capable of and class definitions inspected].",
+          "evidence_ids": [
+            "ncbi-113559",
+            "biolink442"
+          ],
+          "dimensions": {
+            "identity": "NCBI TaxId113559 and ScientificName match the original Actinoplanes campanulatus; assessed independently of the source association.",
+            "label": "Original label matches the retained NCBI ScientificName.",
+            "category_fit": "OrganismTaxon supports species and strain concepts; source-row identity errors do not change the endpoint identity.",
+            "rank_or_type": "NCBI Rank is species; no conversion to a different rank.",
+            "definition": "The empty free-text definition is limited; TaxId, name, rank, parent and lineage jointly identify the taxonomic concept.",
+            "authority_version": "NCBI record UpdateDate=2025/04/11 17:22:02; retrieved=2026-11-16T20:38:57.884586+00:00; Semantic assessment against separately retained Biolink 4.4.0 and 4.4.2; their relevant definitions agree. Neither proves which ontology bytes generated the sampled graph."
+          }
+        },
+        {
+          "axis": "object_node",
+          "category": "CORRECT",
+          "scope": "Original object endpoint independently; current retained authorities, with historical release binding assessed separately.",
+          "rationale": "Original METPO:1000870 resolves to the exact retained OWL class, without replacement. The retained term denotes endospore-related ability, not arbitrary sporangia. Original label and definition match that narrower authority. Inspected: .temp/m5-worker-run-20261116/package/cases-v2/first-28/view.json [original_assertion, both endpoints, measurement_context, all source wrappers]; .temp/m5-worker-run-20261116/evidence/fresh14/metpo.owl [Class https://w3id.org/metpo/1000870; definition, hierarchy and annotations]; .temp/m5-worker-run-20261116/evidence/fresh14/biolink-model-4.4.2.yaml [classes.organism taxon; also slots.has attribute, slots.capable of and class definitions inspected].",
+          "evidence_ids": [
+            "metpo20260612",
+            "biolink442"
+          ],
+          "dimensions": {
+            "identity": "Original METPO:1000870 resolves to the exact retained OWL class, without replacement.",
+            "label": "Original label matches METPO class1000870.",
+            "category_fit": "PhenotypicQuality appropriately represents this defined process or phenotypic property; predicate range compatibility is assessed separately.",
+            "rank_or_type": "OWL phenotype/quality class; no organism rank.",
+            "definition": "The retained term denotes endospore-related ability, not arbitrary sporangia. Original label and definition match that narrower authority.",
+            "authority_version": "METPO2026-06-12; Semantic assessment against separately retained Biolink 4.4.0 and 4.4.2; their relevant definitions agree. Neither proves which ontology bytes generated the sampled graph."
+          }
+        },
+        {
+          "axis": "source_fidelity",
+          "category": "SUPPORTED",
+          "scope": "Semantic fidelity of the original source field/association and its exact retained binding; independent biological truth is separate.",
+          "rationale": "JSONL1498 tax_name Actinoplanes campanulatus includes sporulation true100%,3 observations,2 databases. This establishes faithful positive source-field transport only, not exact endospore entailment. Inspected: .temp/m5-worker-run-20261116/package/cases-v2/first-28/view.json [original_assertion, both endpoints, measurement_context, all source wrappers]; .temp/edge-calibration-20261115/first-28/packet.json [original_assertion; endpoints; measurement_context; complete source_records].",
+          "evidence_ids": [
+            "packet-first-28"
+          ],
+          "dimensions": {
+            "source_binding": "JSONL1498 tax_name Actinoplanes campanulatus includes sporulation true100%,3 observations,2 databases. This establishes faithful positive source-field transport only, not exact endospore entailment."
+          }
+        }
+      ]
+    },
+    {
+      "case_id": "first-30",
+      "occurrence_id": "urn:kg-microbe:occurrence:v1:b912410040f3b6027290e16710d457e3e45753a38d8a5adda78f0a8ea423eb9b",
+      "assessments": [
+        {
+          "axis": "claim",
+          "category": "INSUFFICIENT_EVIDENCE",
+          "scope": "Original GTDB species SYIM01 sp009921765 has a phenotype requiring 0.3–0.8 M NaCl for optimal growth.",
+          "rationale": "The source has median maximum 1.8% NaCl (w/v), and median growth/minimum 0.0%, over 27 observations. Maximum tolerance does not establish salt requirement or optimum; no independent exact organism experiment or release-bound GTDB authority is retained. Inspected: .temp/m5-worker-run-20261116/package/cases-v2/first-30/view.json [original_assertion, both endpoints, measurement_context, all source wrappers].",
+          "evidence_ids": [],
+          "dimensions": {
+            "assertion_scope": "Original GTDB species SYIM01 sp009921765 has a phenotype requiring 0.3–0.8 M NaCl for optimal growth."
+          }
+        },
+        {
+          "axis": "literature",
+          "category": "NO_MATCH",
+          "scope": "Frozen manifest-listed case evidence only, including ignored .temp inputs; no new retrieval. Experimental denominator fixed at seven; structural cases still assessed. Absence is limited to this package.",
+          "rationale": "No case-listed exact identifier paper; semantic search fallbacks cannot serve as exact evidence. Inspected: .temp/m5-worker-run-20261116/package/cases-v2/first-30/view.json [original_assertion, both endpoints, measurement_context, all source wrappers].",
+          "evidence_ids": [],
+          "dimensions": {
+            "search_scope": "Frozen manifest-listed case evidence only, including ignored .temp inputs; no new retrieval. Experimental denominator fixed at seven; structural cases still assessed. Absence is limited to this package."
+          }
+        },
+        {
+          "axis": "relation",
+          "category": "INCORRECT",
+          "scope": "Original predicate and relation, with original endpoint categories; strict semantics of named retained authority versions.",
+          "rationale": "Taxon or strain points toward its proposed phenotype; this is the intended descriptive direction. Both Biolink 4.4.0 and 4.4.2 require biological entity to phenotypic feature. OrganismTaxon directly descends from named thing, while PhenotypicQuality descends from organism attribute; these are not the declared domain/range classes. The original typed edge fails strict domain/range. The broad phenotype predicate does not supply missing measurement or identity semantics. No qualification repairs the declared category mismatch; source strain, fractional bin or measurement limits remain separate. Semantic assessment against separately retained Biolink 4.4.0 and 4.4.2; their relevant definitions agree. Neither proves which ontology bytes generated the sampled graph. Inspected: .temp/m5-worker-run-20261116/package/cases-v2/first-30/view.json [original_assertion, both endpoints, measurement_context, all source wrappers]; .temp/m5-worker-run-20261116/evidence/fresh14/biolink-model-4.4.0.yaml [slots.has phenotype; domain and range; class ancestry also inspected].",
+          "evidence_ids": [
+            "biolink440"
+          ],
+          "dimensions": {
+            "direction": "Taxon or strain points toward its proposed phenotype; this is the intended descriptive direction.",
+            "domain_range": "Both Biolink 4.4.0 and 4.4.2 require biological entity to phenotypic feature. OrganismTaxon directly descends from named thing, while PhenotypicQuality descends from organism attribute; these are not the declared domain/range classes. The original typed edge fails strict domain/range.",
+            "specificity": "The broad phenotype predicate does not supply missing measurement or identity semantics.",
+            "qualifiers": "No qualification repairs the declared category mismatch; source strain, fractional bin or measurement limits remain separate."
+          }
+        },
+        {
+          "axis": "subject_node",
+          "category": "UNRESOLVED",
+          "scope": "Original subject endpoint independently; current retained authorities, with historical release binding assessed separately.",
+          "rationale": "GTDB species-style identifier and source tax_name agree, but no pinned GTDB release record independently binds this cluster. Empty definition and missing release/representative-genome authority prevent exact independent resolution. Inspected: .temp/m5-worker-run-20261116/package/cases-v2/first-30/view.json [original_assertion, both endpoints, measurement_context, all source wrappers]; .temp/m5-worker-run-20261116/evidence/fresh14/biolink-model-4.4.2.yaml [classes.organism taxon; also slots.has attribute, slots.capable of and class definitions inspected].",
+          "evidence_ids": [
+            "biolink442"
+          ],
+          "dimensions": {
+            "identity": "GTDB species-style identifier and source tax_name agree, but no pinned GTDB release record independently binds this cluster.",
+            "label": "SYIM01 sp009921765 is lexically consistent with the local identifier.",
+            "category_fit": "OrganismTaxon is suitable in principle for a GTDB species cluster.",
+            "rank_or_type": "s__ denotes a species-level cluster convention; actual release assignment unverified.",
+            "definition": "Empty definition and missing release/representative-genome authority prevent exact independent resolution.",
+            "authority_version": "Semantic assessment against separately retained Biolink 4.4.0 and 4.4.2; their relevant definitions agree. Neither proves which ontology bytes generated the sampled graph. No case-listed GTDB release authority."
+          }
+        },
+        {
+          "axis": "object_node",
+          "category": "CORRECT",
+          "scope": "Original object endpoint independently; current retained authorities, with historical release binding assessed separately.",
+          "rationale": "Original METPO:1000625 resolves to the exact retained OWL class, without replacement. The retained term is salt requirement for an optimum at 0.3–0.8 M NaCl; it is not maximum salinity. Inspected: .temp/m5-worker-run-20261116/package/cases-v2/first-30/view.json [original_assertion, both endpoints, measurement_context, all source wrappers]; .temp/m5-worker-run-20261116/evidence/fresh14/metpo.owl [Class https://w3id.org/metpo/1000625; definition, hierarchy and annotations]; .temp/m5-worker-run-20261116/evidence/fresh14/biolink-model-4.4.2.yaml [classes.organism taxon; also slots.has attribute, slots.capable of and class definitions inspected].",
+          "evidence_ids": [
+            "metpo20260612",
+            "biolink442"
+          ],
+          "dimensions": {
+            "identity": "Original METPO:1000625 resolves to the exact retained OWL class, without replacement.",
+            "label": "Original label matches METPO class1000625.",
+            "category_fit": "PhenotypicQuality appropriately represents this defined process or phenotypic property; predicate range compatibility is assessed separately.",
+            "rank_or_type": "OWL phenotype/quality class; no organism rank.",
+            "definition": "The retained term is salt requirement for an optimum at 0.3–0.8 M NaCl; it is not maximum salinity.",
+            "authority_version": "METPO2026-06-12; Semantic assessment against separately retained Biolink 4.4.0 and 4.4.2; their relevant definitions agree. Neither proves which ontology bytes generated the sampled graph."
+          }
+        },
+        {
+          "axis": "source_fidelity",
+          "category": "CONTRADICTED",
+          "scope": "Semantic fidelity of the original source field/association and its exact retained binding; independent biological truth is separate.",
+          "rationale": "JSONL54895 salinity maximum is median1.8%NaCl(w/v), n27; growth and minimum medians are0.0%. Rendering a maximum-tolerance aggregate as a salt-requiring optimal-growth phenotype changes the measured quantity. It is not a biological refutation. Inspected: .temp/m5-worker-run-20261116/package/cases-v2/first-30/view.json [original_assertion, both endpoints, measurement_context, all source wrappers]; .temp/edge-calibration-20261115/first-30/packet.json [original_assertion; endpoints; measurement_context; complete source_records].",
+          "evidence_ids": [
+            "packet-first-30"
+          ],
+          "dimensions": {
+            "source_binding": "JSONL54895 salinity maximum is median1.8%NaCl(w/v), n27; growth and minimum medians are0.0%. Rendering a maximum-tolerance aggregate as a salt-requiring optimal-growth phenotype changes the measured quantity. It is not a biological refutation."
+          }
+        }
+      ]
+    },
+    {
+      "case_id": "first-32",
+      "occurrence_id": "urn:kg-microbe:occurrence:v1:192571d351f25940fa1d092f9943862376a9603e28391d518c131e3d0341669b",
+      "assessments": [
+        {
+          "axis": "claim",
+          "category": "CONTRADICTED_AS_STATED",
+          "scope": "Original lpsn46511 close_match NCBITaxon1281099, without replacing either endpoint.",
+          "rationale": "The current independent LPSN catalog identifies Methanomethylophilus alvi in Archaea and NCBI identifies Escherichia coli HVH169 in Bacteria. These different taxa contradict the asserted near-equivalence under Biolink close_match. Inspected: .temp/m5-worker-run-20261116/package/cases-v2/first-32/view.json [original_assertion, both endpoints, measurement_context, all source wrappers]; .temp/m5-worker-run-20261116/package/structural-v2/first-32-authority.txt [Name, Category, Classification and Record number 46511]; .temp/m5-worker-run-20261116/evidence/literature/new-first32-ncbi1281099/response.xml [Taxon/TaxId,ScientificName,Rank,Lineage,ParentTaxId,UpdateDate]; .temp/m5-worker-run-20261116/evidence/fresh14/biolink-model-4.4.0.yaml [slots.close match.description; symmetric; related to at concept level].",
+          "evidence_ids": [
+            "first-32-catalog",
+            "ncbi-1281099",
+            "biolink440"
+          ],
+          "dimensions": {
+            "assertion_scope": "Original lpsn46511 close_match NCBITaxon1281099, without replacing either endpoint."
+          }
+        },
+        {
+          "axis": "literature",
+          "category": "NOT_APPLICABLE",
+          "scope": "Frozen manifest-listed case evidence only, including ignored .temp inputs; no new retrieval. Experimental denominator fixed at seven; structural cases still assessed. Absence is limited to this package.",
+          "rationale": "Preregistered structural taxon-mapping case; identity authorities are assessed on other axes. Inspected: .temp/m5-worker-run-20261116/package/cases-v2/first-32/view.json [original_assertion, both endpoints, measurement_context, all source wrappers].",
+          "evidence_ids": [],
+          "dimensions": {
+            "search_scope": "Frozen manifest-listed case evidence only, including ignored .temp inputs; no new retrieval. Experimental denominator fixed at seven; structural cases still assessed. Absence is limited to this package."
+          }
+        },
+        {
+          "axis": "relation",
+          "category": "INCORRECT",
+          "scope": "Original predicate and relation, with original endpoint categories; strict semantics of named retained authority versions.",
+          "rationale": "close_match is symmetric; reversing the endpoints cannot fix this cross-domain identity error. Both are taxon concepts, so broad concept-level typing is possible; semantic equivalence is the defect. Current LPSN46511 is an archaeal species; NCBI1281099 is an E. coli strain. They are not near-equivalent concepts. The source row co-listing does not establish a match. No replacement taxon is assessed. Semantic assessment against separately retained Biolink 4.4.0 and 4.4.2; their relevant definitions agree. Neither proves which ontology bytes generated the sampled graph. Inspected: .temp/m5-worker-run-20261116/package/cases-v2/first-32/view.json [original_assertion, both endpoints, measurement_context, all source wrappers]; .temp/m5-worker-run-20261116/evidence/fresh14/biolink-model-4.4.0.yaml [slots.close match.description; symmetric; related to at concept level]; .temp/m5-worker-run-20261116/package/structural-v2/first-32-authority.txt [Name, Category, Classification and Record number 46511]; .temp/m5-worker-run-20261116/evidence/literature/new-first32-ncbi1281099/response.xml [Taxon/TaxId,ScientificName,Rank,Lineage,ParentTaxId,UpdateDate].",
+          "evidence_ids": [
+            "biolink440",
+            "first-32-catalog",
+            "ncbi-1281099"
+          ],
+          "dimensions": {
+            "direction": "close_match is symmetric; reversing the endpoints cannot fix this cross-domain identity error.",
+            "domain_range": "Both are taxon concepts, so broad concept-level typing is possible; semantic equivalence is the defect.",
+            "specificity": "Current LPSN46511 is an archaeal species; NCBI1281099 is an E. coli strain. They are not near-equivalent concepts.",
+            "qualifiers": "The source row co-listing does not establish a match. No replacement taxon is assessed."
+          }
+        },
+        {
+          "axis": "subject_node",
+          "category": "CORRECT",
+          "scope": "Original subject endpoint independently; current retained authorities, with historical release binding assessed separately.",
+          "rationale": "LPSN46511 current catalog identifies Methanomethylophilus alvi and the archaeal lineage. Independent LPSN catalog confirms validly published/correct-name status; this does not validate a match to E.coli. Inspected: .temp/m5-worker-run-20261116/package/cases-v2/first-32/view.json [original_assertion, both endpoints, measurement_context, all source wrappers]; .temp/m5-worker-run-20261116/package/structural-v2/first-32-authority.txt [Name, Category, Classification and Record number 46511]; .temp/m5-worker-run-20261116/evidence/fresh14/biolink-model-4.4.2.yaml [classes.organism taxon; also slots.has attribute, slots.capable of and class definitions inspected].",
+          "evidence_ids": [
+            "first-32-catalog",
+            "biolink442"
+          ],
+          "dimensions": {
+            "identity": "LPSN46511 current catalog identifies Methanomethylophilus alvi and the archaeal lineage.",
+            "label": "Name and original label agree.",
+            "category_fit": "OrganismTaxon is appropriate for the species concept.",
+            "rank_or_type": "Species; type strains CIP112449/JCM31474 are distinct deposits.",
+            "definition": "Independent LPSN catalog confirms validly published/correct-name status; this does not validate a match to E.coli.",
+            "authority_version": "LPSN provider snapshot2026-11-16; Semantic assessment against separately retained Biolink 4.4.0 and 4.4.2; their relevant definitions agree. Neither proves which ontology bytes generated the sampled graph."
+          }
+        },
+        {
+          "axis": "object_node",
+          "category": "CORRECT",
+          "scope": "Original object endpoint independently; current retained authorities, with historical release binding assessed separately.",
+          "rationale": "NCBI TaxId1281099 and ScientificName match the original Escherichia coli HVH 169 (4-1075578); assessed independently of the source association. The empty free-text definition is limited; TaxId, name, rank, parent and lineage jointly identify the taxonomic concept. Inspected: .temp/m5-worker-run-20261116/package/cases-v2/first-32/view.json [original_assertion, both endpoints, measurement_context, all source wrappers]; .temp/m5-worker-run-20261116/evidence/literature/new-first32-ncbi1281099/response.xml [Taxon/TaxId,ScientificName,Rank,Lineage,ParentTaxId,UpdateDate]; .temp/m5-worker-run-20261116/evidence/fresh14/biolink-model-4.4.2.yaml [classes.organism taxon; also slots.has attribute, slots.capable of and class definitions inspected].",
+          "evidence_ids": [
+            "ncbi-1281099",
+            "biolink442"
+          ],
+          "dimensions": {
+            "identity": "NCBI TaxId1281099 and ScientificName match the original Escherichia coli HVH 169 (4-1075578); assessed independently of the source association.",
+            "label": "Original label matches the retained NCBI ScientificName.",
+            "category_fit": "OrganismTaxon supports species and strain concepts; source-row identity errors do not change the endpoint identity.",
+            "rank_or_type": "NCBI Rank is strain; no conversion to a different rank.",
+            "definition": "The empty free-text definition is limited; TaxId, name, rank, parent and lineage jointly identify the taxonomic concept.",
+            "authority_version": "NCBI record UpdateDate=2013/01/11 12:14:10; retrieved=2026-11-16T20:38:28.005741+00:00; Semantic assessment against separately retained Biolink 4.4.0 and 4.4.2; their relevant definitions agree. Neither proves which ontology bytes generated the sampled graph."
+          }
+        },
+        {
+          "axis": "source_fidelity",
+          "category": "SUPPORTED",
+          "scope": "Semantic fidelity of the original source field/association and its exact retained binding; independent biological truth is separate.",
+          "rationale": "CSV10743 lists LPSN46511 and NCBI1281099 together, with conflicting archaeal and bacterial classifications. The original association faithfully exposes the source join; its scientific invalidity is separately assessed. Inspected: .temp/m5-worker-run-20261116/package/cases-v2/first-32/view.json [original_assertion, both endpoints, measurement_context, all source wrappers]; .temp/edge-calibration-20261115/first-32/packet.json [original_assertion; endpoints; measurement_context; complete source_records].",
+          "evidence_ids": [
+            "packet-first-32"
+          ],
+          "dimensions": {
+            "source_binding": "CSV10743 lists LPSN46511 and NCBI1281099 together, with conflicting archaeal and bacterial classifications. The original association faithfully exposes the source join; its scientific invalidity is separately assessed."
+          }
+        }
+      ]
+    },
+    {
+      "case_id": "first-43",
+      "occurrence_id": "urn:kg-microbe:occurrence:v1:2cad956c7d5d6ace49ddb7e887de8eab4a7c1b78410942732e2a44bbd1a00559",
+      "assessments": [
+        {
+          "axis": "claim",
+          "category": "INSUFFICIENT_EVIDENCE",
+          "scope": "Original HOT-871 capable_of nitrogen fixation, specifically atmospheric dinitrogen reduction to ammonia.",
+          "rationale": "The retained aggregate is negative, but it is not an independent experiment and the individual ten observations from two databases are unavailable. No exact independent literature supports or refutes this biological capability. Inspected: .temp/m5-worker-run-20261116/package/cases-v2/first-43/view.json [original_assertion, both endpoints, measurement_context, all source wrappers].",
+          "evidence_ids": [],
+          "dimensions": {
+            "assertion_scope": "Original HOT-871 capable_of nitrogen fixation, specifically atmospheric dinitrogen reduction to ammonia."
+          }
+        },
+        {
+          "axis": "literature",
+          "category": "NO_MATCH",
+          "scope": "Frozen manifest-listed case evidence only, including ignored .temp inputs; no new retrieval. Experimental denominator fixed at seven; structural cases still assessed. Absence is limited to this package.",
+          "rationale": "No replayable case-listed experimental paper for exact HOT-871 nitrogen fixation. Inspected: .temp/m5-worker-run-20261116/package/cases-v2/first-43/view.json [original_assertion, both endpoints, measurement_context, all source wrappers].",
+          "evidence_ids": [],
+          "dimensions": {
+            "search_scope": "Frozen manifest-listed case evidence only, including ignored .temp inputs; no new retrieval. Experimental denominator fixed at seven; structural cases still assessed. Absence is limited to this package."
+          }
+        },
+        {
+          "axis": "relation",
+          "category": "CORRECT",
+          "scope": "Original predicate and relation, with original endpoint categories; strict semantics of named retained authority versions.",
+          "rationale": "Organism taxon points to a biological process capability. Biolink 4.4.0/4.4.2 capable_of permits named thing to occurrent; OrganismTaxon is a named thing and BiologicalProcess has the occurrent mixin. Capability of the named process is the intended biological reading; this typing does not validate the organism evidence. No quantitative rate or universal all-strain qualification is added. Source polarity and experimental scope are evaluated separately. Semantic assessment against separately retained Biolink 4.4.0 and 4.4.2; their relevant definitions agree. Neither proves which ontology bytes generated the sampled graph. Inspected: .temp/m5-worker-run-20261116/package/cases-v2/first-43/view.json [original_assertion, both endpoints, measurement_context, all source wrappers]; .temp/m5-worker-run-20261116/evidence/fresh14/biolink-model-4.4.2.yaml [slots.capable of and classes.organism taxon/biological process].",
+          "evidence_ids": [
+            "biolink442"
+          ],
+          "dimensions": {
+            "direction": "Organism taxon points to a biological process capability.",
+            "domain_range": "Biolink 4.4.0/4.4.2 capable_of permits named thing to occurrent; OrganismTaxon is a named thing and BiologicalProcess has the occurrent mixin.",
+            "specificity": "Capability of the named process is the intended biological reading; this typing does not validate the organism evidence.",
+            "qualifiers": "No quantitative rate or universal all-strain qualification is added. Source polarity and experimental scope are evaluated separately."
+          }
+        },
+        {
+          "axis": "subject_node",
+          "category": "CORRECT",
+          "scope": "Original subject endpoint independently; current retained authorities, with historical release binding assessed separately.",
+          "rationale": "NCBI TaxId1540872 and ScientificName match the original Candidatus Gracilibacteria bacterium HOT-871; assessed independently of the source association. The empty free-text definition is limited; TaxId, name, rank, parent and lineage jointly identify the taxonomic concept. Inspected: .temp/m5-worker-run-20261116/package/cases-v2/first-43/view.json [original_assertion, both endpoints, measurement_context, all source wrappers]; .temp/m5-worker-run-20261116/evidence/literature/new-first43-ncbi1540872/response.xml [Taxon/TaxId,ScientificName,Rank,Lineage,ParentTaxId,UpdateDate]; .temp/m5-worker-run-20261116/evidence/fresh14/biolink-model-4.4.2.yaml [classes.organism taxon; also slots.has attribute, slots.capable of and class definitions inspected].",
+          "evidence_ids": [
+            "ncbi-1540872",
+            "biolink442"
+          ],
+          "dimensions": {
+            "identity": "NCBI TaxId1540872 and ScientificName match the original Candidatus Gracilibacteria bacterium HOT-871; assessed independently of the source association.",
+            "label": "Original label matches the retained NCBI ScientificName.",
+            "category_fit": "OrganismTaxon supports species and strain concepts; source-row identity errors do not change the endpoint identity.",
+            "rank_or_type": "NCBI Rank is species; no conversion to a different rank.",
+            "definition": "The empty free-text definition is limited; TaxId, name, rank, parent and lineage jointly identify the taxonomic concept.",
+            "authority_version": "NCBI record UpdateDate=2016/10/19 16:56:42; retrieved=2026-11-16T20:39:00.430672+00:00; Semantic assessment against separately retained Biolink 4.4.0 and 4.4.2; their relevant definitions agree. Neither proves which ontology bytes generated the sampled graph."
+          }
+        },
+        {
+          "axis": "object_node",
+          "category": "CORRECT",
+          "scope": "Original object endpoint independently; current retained authorities, with historical release binding assessed separately.",
+          "rationale": "Original METPO:1005039 resolves to the exact retained OWL class, without replacement. The retained term is nitrogenase-mediated atmospheric N2 reduction to ammonia, not generic nitrogen respiration. Inspected: .temp/m5-worker-run-20261116/package/cases-v2/first-43/view.json [original_assertion, both endpoints, measurement_context, all source wrappers]; .temp/m5-worker-run-20261116/evidence/fresh14/metpo.owl [Class https://w3id.org/metpo/1005039; definition, hierarchy and annotations]; .temp/m5-worker-run-20261116/evidence/fresh14/biolink-model-4.4.2.yaml [classes.organism taxon; also slots.has attribute, slots.capable of and class definitions inspected].",
+          "evidence_ids": [
+            "metpo20260612",
+            "biolink442"
+          ],
+          "dimensions": {
+            "identity": "Original METPO:1005039 resolves to the exact retained OWL class, without replacement.",
+            "label": "Original label matches METPO class1005039.",
+            "category_fit": "BiologicalProcess appropriately represents this defined process or phenotypic property; predicate range compatibility is assessed separately.",
+            "rank_or_type": "OWL process class.",
+            "definition": "The retained term is nitrogenase-mediated atmospheric N2 reduction to ammonia, not generic nitrogen respiration.",
+            "authority_version": "METPO2026-06-12; Semantic assessment against separately retained Biolink 4.4.0 and 4.4.2; their relevant definitions agree. Neither proves which ontology bytes generated the sampled graph."
+          }
+        },
+        {
+          "axis": "source_fidelity",
+          "category": "CONTRADICTED",
+          "scope": "Semantic fidelity of the original source field/association and its exact retained binding; independent biological truth is separate.",
+          "rationale": "JSONL10486 nitrogen fixation is false100%,10 observations,2 databases. The original positive capable_of edge reverses the retained source polarity; negative aggregate alone is not independent experimental refutation. Inspected: .temp/m5-worker-run-20261116/package/cases-v2/first-43/view.json [original_assertion, both endpoints, measurement_context, all source wrappers]; .temp/edge-calibration-20261115/first-43/packet.json [original_assertion; endpoints; measurement_context; complete source_records].",
+          "evidence_ids": [
+            "packet-first-43"
+          ],
+          "dimensions": {
+            "source_binding": "JSONL10486 nitrogen fixation is false100%,10 observations,2 databases. The original positive capable_of edge reverses the retained source polarity; negative aggregate alone is not independent experimental refutation."
+          }
+        }
+      ]
+    },
+    {
+      "case_id": "fresh-04",
+      "occurrence_id": "urn:kg-microbe:occurrence:v1:155d6d2d7ac159eb931374219e919b3e9984224866ecb96f110e77407345f0e4",
+      "assessments": [
+        {
+          "axis": "claim",
+          "category": "INSUFFICIENT_EVIDENCE",
+          "scope": "Original Paludifilum halophilum has_phenotype METPO1000471 NaCl range mid2, retaining the 0.25 source bin and conflicting collection accessions.",
+          "rationale": "The abstract gives a 10% (w/v) optimum at 40–45 C and pH8–9; the JATS paper reports growth tolerance to 20% and no growth below 5%. Neither explains the 0.25 bin encoding or repairs DSM102218/CSURP2414 versus SMBg3/DSM102817/CCUG68698. A range intersecting 3–8% is not by itself proof of the exact source-derived assertion. Inspected: .temp/m5-worker-run-20261116/package/cases-v2/fresh-04/view.json [original_assertion, both endpoints, measurement_context, all source wrappers]; .temp/m5-worker-run-20261116/evidence/literature/raw/0936f6d23e71af74055f902eee841e2f1249c58c622bb98fac1731ccfecc0257.response [abstract; optimum and final type-strain equivalences]; .temp/m5-worker-run-20261116/evidence/literature/raw/9f9ced0667978d0c8b9d6f90cfbebdde5513d42a9ced9fe4853d18070c7625a4.response [Results 3.1 strain characterization; Methods strain/medium context].",
+          "evidence_ids": [
+            "fresh04-original-description",
+            "fresh04-primary-growth-context"
+          ],
+          "dimensions": {
+            "assertion_scope": "Original Paludifilum halophilum has_phenotype METPO1000471 NaCl range mid2, retaining the 0.25 source bin and conflicting collection accessions."
+          }
+        },
+        {
+          "axis": "literature",
+          "category": "PARTIAL",
+          "scope": "Frozen manifest-listed case evidence only, including ignored .temp inputs; no new retrieval. Experimental denominator fixed at seven; structural cases still assessed. Absence is limited to this package.",
+          "rationale": "Primary abstract and selected full-text strain/methods/results passages concern nominal SMBg3. They give relevant growth information but not a validated original bin/strain association. Routine cultivation conditions are not attached to the range assay. Inspected: .temp/m5-worker-run-20261116/package/cases-v2/fresh-04/view.json [original_assertion, both endpoints, measurement_context, all source wrappers]; .temp/m5-worker-run-20261116/evidence/literature/raw/0936f6d23e71af74055f902eee841e2f1249c58c622bb98fac1731ccfecc0257.response [abstract; optimum and final type-strain equivalences]; .temp/m5-worker-run-20261116/evidence/literature/raw/9f9ced0667978d0c8b9d6f90cfbebdde5513d42a9ced9fe4853d18070c7625a4.response [Results 3.1 strain characterization; Methods strain/medium context].",
+          "evidence_ids": [
+            "fresh04-original-description",
+            "fresh04-primary-growth-context"
+          ],
+          "dimensions": {
+            "search_scope": "Frozen manifest-listed case evidence only, including ignored .temp inputs; no new retrieval. Experimental denominator fixed at seven; structural cases still assessed. Absence is limited to this package."
+          }
+        },
+        {
+          "axis": "relation",
+          "category": "INCORRECT",
+          "scope": "Original predicate and relation, with original endpoint categories; strict semantics of named retained authority versions.",
+          "rationale": "Taxon or strain points toward its proposed phenotype; this is the intended descriptive direction. Both Biolink 4.4.0 and 4.4.2 require biological entity to phenotypic feature. OrganismTaxon directly descends from named thing, while PhenotypicQuality descends from organism attribute; these are not the declared domain/range classes. The original typed edge fails strict domain/range. The broad phenotype predicate does not supply missing measurement or identity semantics. No qualification repairs the declared category mismatch; source strain, fractional bin or measurement limits remain separate. Semantic assessment against separately retained Biolink 4.4.0 and 4.4.2; their relevant definitions agree. Neither proves which ontology bytes generated the sampled graph. Inspected: .temp/m5-worker-run-20261116/package/cases-v2/fresh-04/view.json [original_assertion, both endpoints, measurement_context, all source wrappers]; .temp/m5-worker-run-20261116/evidence/fresh14/biolink-model-4.4.0.yaml [slots.has phenotype; domain and range; class ancestry also inspected].",
+          "evidence_ids": [
+            "biolink440"
+          ],
+          "dimensions": {
+            "direction": "Taxon or strain points toward its proposed phenotype; this is the intended descriptive direction.",
+            "domain_range": "Both Biolink 4.4.0 and 4.4.2 require biological entity to phenotypic feature. OrganismTaxon directly descends from named thing, while PhenotypicQuality descends from organism attribute; these are not the declared domain/range classes. The original typed edge fails strict domain/range.",
+            "specificity": "The broad phenotype predicate does not supply missing measurement or identity semantics.",
+            "qualifiers": "No qualification repairs the declared category mismatch; source strain, fractional bin or measurement limits remain separate."
+          }
+        },
+        {
+          "axis": "subject_node",
+          "category": "CORRECT",
+          "scope": "Original subject endpoint independently; current retained authorities, with historical release binding assessed separately.",
+          "rationale": "NCBI TaxId1642702 and ScientificName match the original Paludifilum halophilum; assessed independently of the source association. The empty free-text definition is limited; TaxId, name, rank, parent and lineage jointly identify the taxonomic concept. Inspected: .temp/m5-worker-run-20261116/package/cases-v2/fresh-04/view.json [original_assertion, both endpoints, measurement_context, all source wrappers]; .temp/m5-worker-run-20261116/evidence/literature/new-fresh04-ncbi1642702/response.xml [Taxon/TaxId,ScientificName,Rank,Lineage,ParentTaxId,UpdateDate]; .temp/m5-worker-run-20261116/evidence/fresh14/biolink-model-4.4.2.yaml [classes.organism taxon; also slots.has attribute, slots.capable of and class definitions inspected].",
+          "evidence_ids": [
+            "ncbi-1642702",
+            "biolink442"
+          ],
+          "dimensions": {
+            "identity": "NCBI TaxId1642702 and ScientificName match the original Paludifilum halophilum; assessed independently of the source association.",
+            "label": "Original label matches the retained NCBI ScientificName.",
+            "category_fit": "OrganismTaxon supports species and strain concepts; source-row identity errors do not change the endpoint identity.",
+            "rank_or_type": "NCBI Rank is species; no conversion to a different rank.",
+            "definition": "The empty free-text definition is limited; TaxId, name, rank, parent and lineage jointly identify the taxonomic concept.",
+            "authority_version": "NCBI record UpdateDate=2018/11/23 13:57:52; retrieved=2026-11-16T20:38:47.832457+00:00; Semantic assessment against separately retained Biolink 4.4.0 and 4.4.2; their relevant definitions agree. Neither proves which ontology bytes generated the sampled graph."
+          }
+        },
+        {
+          "axis": "object_node",
+          "category": "CORRECT",
+          "scope": "Original object endpoint independently; current retained authorities, with historical release binding assessed separately.",
+          "rationale": "Original METPO:1000471 resolves to the exact retained OWL class, without replacement. METPO supplies a NaCl range quantity class with inclusive3–8, UCUM %, and NaR_3_to_8 synonym. Its class definition does not explain the source fraction0.25 or specify percent basis. Inspected: .temp/m5-worker-run-20261116/package/cases-v2/fresh-04/view.json [original_assertion, both endpoints, measurement_context, all source wrappers]; .temp/m5-worker-run-20261116/evidence/fresh14/metpo.owl [Class https://w3id.org/metpo/1000471; definition, hierarchy and annotations]; .temp/m5-worker-run-20261116/evidence/fresh14/biolink-model-4.4.2.yaml [classes.organism taxon; also slots.has attribute, slots.capable of and class definitions inspected].",
+          "evidence_ids": [
+            "metpo20260612",
+            "biolink442"
+          ],
+          "dimensions": {
+            "identity": "Original METPO:1000471 resolves to the exact retained OWL class, without replacement.",
+            "label": "Original label matches METPO class1000471.",
+            "category_fit": "PhenotypicQuality appropriately represents this defined process or phenotypic property; predicate range compatibility is assessed separately.",
+            "rank_or_type": "OWL phenotype/quality class; no organism rank.",
+            "definition": "METPO supplies a NaCl range quantity class with inclusive3–8, UCUM %, and NaR_3_to_8 synonym. Its class definition does not explain the source fraction0.25 or specify percent basis.",
+            "authority_version": "METPO2026-06-12; Semantic assessment against separately retained Biolink 4.4.0 and 4.4.2; their relevant definitions agree. Neither proves which ontology bytes generated the sampled graph."
+          }
+        },
+        {
+          "axis": "source_fidelity",
+          "category": "NOT_ASSESSABLE",
+          "scope": "Semantic fidelity of the original source field/association and its exact retained binding; independent biological truth is separate.",
+          "rationale": "BactoTraits CSV10677 NaR_3_to_8=0.25 is retained, but DSM102218/CSURP2414 conflicts with BacDive132033 SMBg3/DSM102817/CCUG68698. Without a field-level identity and fraction interpretation, exact binding of the asserted phenotype cannot be resolved. Inspected: .temp/m5-worker-run-20261116/package/cases-v2/fresh-04/view.json [original_assertion, both endpoints, measurement_context, all source wrappers]; .temp/edge-calibration-20261115/fresh-04/packet.json [original_assertion; endpoints; measurement_context; complete source_records].",
+          "evidence_ids": [
+            "packet-fresh-04"
+          ],
+          "dimensions": {
+            "source_binding": "BactoTraits CSV10677 NaR_3_to_8=0.25 is retained, but DSM102218/CSURP2414 conflicts with BacDive132033 SMBg3/DSM102817/CCUG68698. Without a field-level identity and fraction interpretation, exact binding of the asserted phenotype cannot be resolved."
+          }
+        }
+      ]
+    },
+    {
+      "case_id": "fresh-05",
+      "occurrence_id": "urn:kg-microbe:occurrence:v1:1e9dec218a07f7e480add8ff273e3a9285f79d57746ca74041702839207a8136",
+      "assessments": [
+        {
+          "axis": "claim",
+          "category": "SUPPORTED_AS_STATED",
+          "scope": "Original NCBITaxon1123071 Rubritalea squalenifaciens DSM18772 has the nonmotile phenotype; bounded to the named strain and published observation, not every species member.",
+          "rationale": "PMID17625207 explicitly describes HOact23(T) as nonmotile and identifies it as DSM18772 in the same abstract. This directly supports the original named-strain phenotype; conflicting source-row DSM19353/JCM14586 does not change that endpoint or negate this independent observation. Strict relation typing is independently incorrect. Inspected: .temp/m5-worker-run-20261116/package/cases-v2/fresh-05/view.json [original_assertion, both endpoints, measurement_context, all source wrappers]; .temp/m5-worker-run-20261116/evidence/literature/raw/82d96c9481a6d11eefc5976e65b2863e10bed3cedf8b02f9b09cdb92802cf807.response [abstract; nonmotility sentence and final DSM18772 equivalence].",
+          "evidence_ids": [
+            "fresh05-original-description"
+          ],
+          "dimensions": {
+            "assertion_scope": "Original NCBITaxon1123071 Rubritalea squalenifaciens DSM18772 has the nonmotile phenotype; bounded to the named strain and published observation, not every species member."
+          }
+        },
+        {
+          "axis": "literature",
+          "category": "SUPPORTS",
+          "scope": "Frozen manifest-listed case evidence only, including ignored .temp inputs; no new retrieval. Experimental denominator fixed at seven; structural cases still assessed. Absence is limited to this package.",
+          "rationale": "The retained primary abstract directly reports nonmotility for HOact23=DSM18772. Abstract-level evidence is sufficient for this bounded descriptive claim, with no full-paper methods verification claimed. Inspected: .temp/m5-worker-run-20261116/package/cases-v2/fresh-05/view.json [original_assertion, both endpoints, measurement_context, all source wrappers]; .temp/m5-worker-run-20261116/evidence/literature/raw/82d96c9481a6d11eefc5976e65b2863e10bed3cedf8b02f9b09cdb92802cf807.response [abstract; nonmotility sentence and final DSM18772 equivalence].",
+          "evidence_ids": [
+            "fresh05-original-description"
+          ],
+          "dimensions": {
+            "search_scope": "Frozen manifest-listed case evidence only, including ignored .temp inputs; no new retrieval. Experimental denominator fixed at seven; structural cases still assessed. Absence is limited to this package."
+          }
+        },
+        {
+          "axis": "relation",
+          "category": "INCORRECT",
+          "scope": "Original predicate and relation, with original endpoint categories; strict semantics of named retained authority versions.",
+          "rationale": "Taxon or strain points toward its proposed phenotype; this is the intended descriptive direction. Both Biolink 4.4.0 and 4.4.2 require biological entity to phenotypic feature. OrganismTaxon directly descends from named thing, while PhenotypicQuality descends from organism attribute; these are not the declared domain/range classes. The original typed edge fails strict domain/range. The broad phenotype predicate does not supply missing measurement or identity semantics. No qualification repairs the declared category mismatch; source strain, fractional bin or measurement limits remain separate. Semantic assessment against separately retained Biolink 4.4.0 and 4.4.2; their relevant definitions agree. Neither proves which ontology bytes generated the sampled graph. Inspected: .temp/m5-worker-run-20261116/package/cases-v2/fresh-05/view.json [original_assertion, both endpoints, measurement_context, all source wrappers]; .temp/m5-worker-run-20261116/evidence/fresh14/biolink-model-4.4.0.yaml [slots.has phenotype; domain and range; class ancestry also inspected].",
+          "evidence_ids": [
+            "biolink440"
+          ],
+          "dimensions": {
+            "direction": "Taxon or strain points toward its proposed phenotype; this is the intended descriptive direction.",
+            "domain_range": "Both Biolink 4.4.0 and 4.4.2 require biological entity to phenotypic feature. OrganismTaxon directly descends from named thing, while PhenotypicQuality descends from organism attribute; these are not the declared domain/range classes. The original typed edge fails strict domain/range.",
+            "specificity": "The broad phenotype predicate does not supply missing measurement or identity semantics.",
+            "qualifiers": "No qualification repairs the declared category mismatch; source strain, fractional bin or measurement limits remain separate."
+          }
+        },
+        {
+          "axis": "subject_node",
+          "category": "CORRECT",
+          "scope": "Original subject endpoint independently; current retained authorities, with historical release binding assessed separately.",
+          "rationale": "NCBI TaxId1123071 and ScientificName match the original Rubritalea squalenifaciens DSM 18772; assessed independently of the source association. The empty free-text definition is limited; TaxId, name, rank, parent and lineage jointly identify the taxonomic concept. Inspected: .temp/m5-worker-run-20261116/package/cases-v2/fresh-05/view.json [original_assertion, both endpoints, measurement_context, all source wrappers]; .temp/m5-worker-run-20261116/evidence/literature/new-fresh05-ncbi1123071/response.xml [Taxon/TaxId,ScientificName,Rank,Lineage,ParentTaxId,UpdateDate]; .temp/m5-worker-run-20261116/evidence/fresh14/biolink-model-4.4.2.yaml [classes.organism taxon; also slots.has attribute, slots.capable of and class definitions inspected].",
+          "evidence_ids": [
+            "ncbi-1123071",
+            "biolink442"
+          ],
+          "dimensions": {
+            "identity": "NCBI TaxId1123071 and ScientificName match the original Rubritalea squalenifaciens DSM 18772; assessed independently of the source association.",
+            "label": "Original label matches the retained NCBI ScientificName.",
+            "category_fit": "OrganismTaxon supports species and strain concepts; source-row identity errors do not change the endpoint identity.",
+            "rank_or_type": "NCBI Rank is strain; no conversion to a different rank.",
+            "definition": "The empty free-text definition is limited; TaxId, name, rank, parent and lineage jointly identify the taxonomic concept.",
+            "authority_version": "NCBI record UpdateDate=2014/05/01 13:16:02; retrieved=2026-11-16T20:39:02.936683+00:00; Semantic assessment against separately retained Biolink 4.4.0 and 4.4.2; their relevant definitions agree. Neither proves which ontology bytes generated the sampled graph."
+          }
+        },
+        {
+          "axis": "object_node",
+          "category": "CORRECT",
+          "scope": "Original object endpoint independently; current retained authorities, with historical release binding assessed separately.",
+          "rationale": "Original METPO:1000703 resolves to the exact retained OWL class, without replacement. The original nonmotile term means inability to move independently under own power; spelling and meaning agree with retained METPO. Inspected: .temp/m5-worker-run-20261116/package/cases-v2/fresh-05/view.json [original_assertion, both endpoints, measurement_context, all source wrappers]; .temp/m5-worker-run-20261116/evidence/fresh14/metpo.owl [Class https://w3id.org/metpo/1000703; definition, hierarchy and annotations]; .temp/m5-worker-run-20261116/evidence/fresh14/biolink-model-4.4.2.yaml [classes.organism taxon; also slots.has attribute, slots.capable of and class definitions inspected].",
+          "evidence_ids": [
+            "metpo20260612",
+            "biolink442"
+          ],
+          "dimensions": {
+            "identity": "Original METPO:1000703 resolves to the exact retained OWL class, without replacement.",
+            "label": "Original label matches METPO class1000703.",
+            "category_fit": "PhenotypicQuality appropriately represents this defined process or phenotypic property; predicate range compatibility is assessed separately.",
+            "rank_or_type": "OWL phenotype/quality class; no organism rank.",
+            "definition": "The original nonmotile term means inability to move independently under own power; spelling and meaning agree with retained METPO.",
+            "authority_version": "METPO2026-06-12; Semantic assessment against separately retained Biolink 4.4.0 and 4.4.2; their relevant definitions agree. Neither proves which ontology bytes generated the sampled graph."
+          }
+        },
+        {
+          "axis": "source_fidelity",
+          "category": "NOT_ASSESSABLE",
+          "scope": "Semantic fidelity of the original source field/association and its exact retained binding; independent biological truth is separate.",
+          "rationale": "BactoTraits CSV8521 has non-motile=1 and BacDive17851, but culture codes DSM19353/JCM14586 identify another organism in independent catalogs. BacDive17851 and original endpoint instead identify DSM18772/HOact23. No evidence assigns the source-row phenotype field to one of these conflicting identities. Inspected: .temp/m5-worker-run-20261116/package/cases-v2/fresh-05/view.json [original_assertion, both endpoints, measurement_context, all source wrappers]; .temp/edge-calibration-20261115/fresh-05/packet.json [original_assertion; endpoints; measurement_context; complete source_records].",
+          "evidence_ids": [
+            "packet-fresh-05"
+          ],
+          "dimensions": {
+            "source_binding": "BactoTraits CSV8521 has non-motile=1 and BacDive17851, but culture codes DSM19353/JCM14586 identify another organism in independent catalogs. BacDive17851 and original endpoint instead identify DSM18772/HOact23. No evidence assigns the source-row phenotype field to one of these conflicting identities."
+          }
+        }
+      ]
+    },
+    {
+      "case_id": "fresh-14",
+      "occurrence_id": "urn:kg-microbe:occurrence:v1:78725eeeea961ce059a55092aebc34b522b1b4ffc2ea844207ce7049a039cc80",
+      "assessments": [
+        {
+          "axis": "claim",
+          "category": "CONTRADICTED_AS_STATED",
+          "scope": "Original Stackebrandtia nassauensis species close_match JCM14905 type strain under the original Biolink mapping semantics.",
+          "rationale": "LPSN identifies the species and its type deposit separately; the glossary defines a strain as descended cultures, while Biolink close_match excludes broader/narrower concepts. The taxon and one strain are not coextensive concepts suitable for this original mapping. This does not deny the actual type-strain relationship. Inspected: .temp/m5-worker-run-20261116/package/cases-v2/fresh-14/view.json [original_assertion, both endpoints, measurement_context, all source wrappers]; .temp/m5-worker-run-20261116/evidence/fresh14/biolink-model-4.4.0.yaml [slots.close match.description; symmetric; related to at concept level]; .temp/m5-worker-run-20261116/evidence/fresh14/lpsn-current.txt [Type strain deposit list]; .temp/m5-worker-run-20261116/evidence/fresh14/glossary.txt [Type strain].",
+          "evidence_ids": [
+            "biolink440",
+            "fresh14-authority-7",
+            "lpsn-glossary"
+          ],
+          "dimensions": {
+            "assertion_scope": "Original Stackebrandtia nassauensis species close_match JCM14905 type strain under the original Biolink mapping semantics."
+          }
+        },
+        {
+          "axis": "literature",
+          "category": "NOT_APPLICABLE",
+          "scope": "Frozen manifest-listed case evidence only, including ignored .temp inputs; no new retrieval. Experimental denominator fixed at seven; structural cases still assessed. Absence is limited to this package.",
+          "rationale": "Preregistered structural species/type-strain mapping case. Authority evidence still assesses original claim, relation and both nodes. Inspected: .temp/m5-worker-run-20261116/package/cases-v2/fresh-14/view.json [original_assertion, both endpoints, measurement_context, all source wrappers].",
+          "evidence_ids": [],
+          "dimensions": {
+            "search_scope": "Frozen manifest-listed case evidence only, including ignored .temp inputs; no new retrieval. Experimental denominator fixed at seven; structural cases still assessed. Absence is limited to this package."
+          }
+        },
+        {
+          "axis": "relation",
+          "category": "INCORRECT",
+          "scope": "Original predicate and relation, with original endpoint categories; strict semantics of named retained authority versions.",
+          "rationale": "The asserted symmetric close_match is between a species and its designated type strain. Concept-level endpoints alone do not satisfy mapping semantics. Biolink 4.4.0/4.4.2 close_match excludes a broader/narrower relationship; a species and its type strain differ in extension. LPSN identifies JCM14905 as type material, not a second species concept. Current producer strain-to-taxon subclass_of is a deliberate domain/range exception, not strict correctness or evidence of sampled ontology provenance. Semantic assessment against separately retained Biolink 4.4.0 and 4.4.2; their relevant definitions agree. Neither proves which ontology bytes generated the sampled graph. Inspected: .temp/m5-worker-run-20261116/package/cases-v2/fresh-14/view.json [original_assertion, both endpoints, measurement_context, all source wrappers]; .temp/m5-worker-run-20261116/evidence/fresh14/biolink-model-4.4.0.yaml [slots.close match.description; symmetric; related to at concept level]; .temp/m5-worker-run-20261116/evidence/fresh14/glossary.txt [Type strain]; .temp/m5-worker-run-20261116/evidence/fresh14/lpsn-current.txt [Type strain deposit list].",
+          "evidence_ids": [
+            "biolink440",
+            "lpsn-glossary",
+            "fresh14-authority-7"
+          ],
+          "dimensions": {
+            "direction": "The asserted symmetric close_match is between a species and its designated type strain.",
+            "domain_range": "Concept-level endpoints alone do not satisfy mapping semantics.",
+            "specificity": "Biolink 4.4.0/4.4.2 close_match excludes a broader/narrower relationship; a species and its type strain differ in extension. LPSN identifies JCM14905 as type material, not a second species concept.",
+            "qualifiers": "Current producer strain-to-taxon subclass_of is a deliberate domain/range exception, not strict correctness or evidence of sampled ontology provenance."
+          }
+        },
+        {
+          "axis": "subject_node",
+          "category": "CORRECT",
+          "scope": "Original subject endpoint independently; current retained authorities, with historical release binding assessed separately.",
+          "rationale": "LPSN781160 current catalog resolves to Stackebrandtia nassauensis. Retained current LPSN page confirms nomenclatural and taxonomic status; no equation with its type culture is inferred. Inspected: .temp/m5-worker-run-20261116/package/cases-v2/fresh-14/view.json [original_assertion, both endpoints, measurement_context, all source wrappers]; .temp/m5-worker-run-20261116/evidence/fresh14/lpsn-current.txt [Name, Category, Record number 781160]; .temp/m5-worker-run-20261116/evidence/fresh14/biolink-model-4.4.2.yaml [classes.organism taxon; also slots.has attribute, slots.capable of and class definitions inspected].",
+          "evidence_ids": [
+            "fresh14-authority-5",
+            "biolink442"
+          ],
+          "dimensions": {
+            "identity": "LPSN781160 current catalog resolves to Stackebrandtia nassauensis.",
+            "label": "Original label matches current species name.",
+            "category_fit": "OrganismTaxon fits the named species.",
+            "rank_or_type": "Species, distinct from type strain JCM14905.",
+            "definition": "Retained current LPSN page confirms nomenclatural and taxonomic status; no equation with its type culture is inferred.",
+            "authority_version": "LPSN retrieved2026-11-16 without release; Semantic assessment against separately retained Biolink 4.4.0 and 4.4.2; their relevant definitions agree. Neither proves which ontology bytes generated the sampled graph."
+          }
+        },
+        {
+          "axis": "object_node",
+          "category": "CORRECT",
+          "scope": "Original object endpoint independently; current retained authorities, with historical release binding assessed separately.",
+          "rationale": "JCM14905 is explicitly listed among the type deposits of S.nassauensis. The local identifier denotes that named strain. LPSN type-deposit list and glossary establish the strain sense even though the local free-text definition is empty. Inspected: .temp/m5-worker-run-20261116/package/cases-v2/fresh-14/view.json [original_assertion, both endpoints, measurement_context, all source wrappers]; .temp/m5-worker-run-20261116/evidence/fresh14/lpsn-current.txt [Type strain deposit list]; .temp/m5-worker-run-20261116/evidence/fresh14/glossary.txt [Type strain]; .temp/m5-worker-run-20261116/evidence/fresh14/biolink-model-4.4.2.yaml [classes.organism taxon; also slots.has attribute, slots.capable of and class definitions inspected].",
+          "evidence_ids": [
+            "fresh14-authority-7",
+            "lpsn-glossary",
+            "biolink442"
+          ],
+          "dimensions": {
+            "identity": "JCM14905 is explicitly listed among the type deposits of S.nassauensis. The local identifier denotes that named strain.",
+            "label": "JCM14905 label preserves collection accession.",
+            "category_fit": "OrganismTaxon explicitly permits strains; it does not make the strain equal to its species.",
+            "rank_or_type": "Designated type strain/deposit, not a species rank.",
+            "definition": "LPSN type-deposit list and glossary establish the strain sense even though the local free-text definition is empty.",
+            "authority_version": "LPSN retrieved2026-11-16 without release; Semantic assessment against separately retained Biolink 4.4.0 and 4.4.2; their relevant definitions agree. Neither proves which ontology bytes generated the sampled graph."
+          }
+        },
+        {
+          "axis": "source_fidelity",
+          "category": "SUPPORTED",
+          "scope": "Semantic fidelity of the original source field/association and its exact retained binding; independent biological truth is separate.",
+          "rationale": "CSV29573 and LPSN781160 type_strain_names explicitly contain JCM14905; exact association and endpoints are retained. Source association fidelity does not validate the asserted close_match semantics. Inspected: .temp/m5-worker-run-20261116/package/cases-v2/fresh-14/view.json [original_assertion, both endpoints, measurement_context, all source wrappers]; .temp/edge-calibration-20261115/fresh-14/packet.json [original_assertion; endpoints; measurement_context; complete source_records].",
+          "evidence_ids": [
+            "packet-fresh-14"
+          ],
+          "dimensions": {
+            "source_binding": "CSV29573 and LPSN781160 type_strain_names explicitly contain JCM14905; exact association and endpoints are retained. Source association fidelity does not validate the asserted close_match semantics."
+          }
+        }
+      ]
+    },
+    {
+      "case_id": "fresh-32",
+      "occurrence_id": "urn:kg-microbe:occurrence:v1:bc0ccdeacd77c07acd22afd349f58309daaf6c46c7727a7f1d6dc267ac85cfd6",
+      "assessments": [
+        {
+          "axis": "claim",
+          "category": "INSUFFICIENT_EVIDENCE",
+          "scope": "Original Desulfobacter halotolerans capable_of source-local sulfite_respiration, without substituting sulfate respiration or another strain.",
+          "rationale": "PMC4546703 Table1 final column attributes sulfite use as electron acceptor to D.halotolerans, but cites Brandt/Ingvorsen1997. The current experiments are APT3, not GSL-Ac1/DSM11383. This corroborates the trait in secondary reporting without directly verifying the target experiment or generating FAPROTAX semantics. Inspected: .temp/m5-worker-run-20261116/package/cases-v2/fresh-32/view.json [original_assertion, both endpoints, measurement_context, all source wrappers]; .temp/m5-worker-run-20261116/evidence/literature/raw/4e8b045ec2a2393ebe3716c9a335d5c6b21c96e239388c43a5ec45f3226e30c9.response [Table 1, Electron acceptors row, final Desulfobacter halotolerans column; full header, caption and reference CR1 inspected].",
+          "evidence_ids": [
+            "fresh32-comparative-table"
+          ],
+          "dimensions": {
+            "assertion_scope": "Original Desulfobacter halotolerans capable_of source-local sulfite_respiration, without substituting sulfate respiration or another strain."
+          }
+        },
+        {
+          "axis": "literature",
+          "category": "PARTIAL",
+          "scope": "Frozen manifest-listed case evidence only, including ignored .temp inputs; no new retrieval. Experimental denominator fixed at seven; structural cases still assessed. Absence is limited to this package.",
+          "rationale": "Inspected Table1 header and all cells, final species column Electron acceptors, caption and CR1 DOI10.1016/S0723-2020(97)80004-5. Target-specific reporting is secondary within a primary APT3 study; the underlying 1997 experiment is unavailable in this package. Inspected: .temp/m5-worker-run-20261116/package/cases-v2/fresh-32/view.json [original_assertion, both endpoints, measurement_context, all source wrappers]; .temp/m5-worker-run-20261116/evidence/literature/raw/4e8b045ec2a2393ebe3716c9a335d5c6b21c96e239388c43a5ec45f3226e30c9.response [Table 1, Electron acceptors row, final Desulfobacter halotolerans column; full header, caption and reference CR1 inspected].",
+          "evidence_ids": [
+            "fresh32-comparative-table"
+          ],
+          "dimensions": {
+            "search_scope": "Frozen manifest-listed case evidence only, including ignored .temp inputs; no new retrieval. Experimental denominator fixed at seven; structural cases still assessed. Absence is limited to this package."
+          }
+        },
+        {
+          "axis": "relation",
+          "category": "CORRECT",
+          "scope": "Original predicate and relation, with original endpoint categories; strict semantics of named retained authority versions.",
+          "rationale": "Organism taxon points to a biological process capability. Biolink 4.4.0/4.4.2 capable_of permits named thing to occurrent; OrganismTaxon is a named thing and BiologicalProcess has the occurrent mixin. Capability of the named process is the intended biological reading; this typing does not validate the organism evidence. No quantitative rate or universal all-strain qualification is added. Source polarity and experimental scope are evaluated separately. Semantic assessment against separately retained Biolink 4.4.0 and 4.4.2; their relevant definitions agree. Neither proves which ontology bytes generated the sampled graph. Inspected: .temp/m5-worker-run-20261116/package/cases-v2/fresh-32/view.json [original_assertion, both endpoints, measurement_context, all source wrappers]; .temp/m5-worker-run-20261116/evidence/fresh14/biolink-model-4.4.2.yaml [slots.capable of and classes.organism taxon/biological process].",
+          "evidence_ids": [
+            "biolink442"
+          ],
+          "dimensions": {
+            "direction": "Organism taxon points to a biological process capability.",
+            "domain_range": "Biolink 4.4.0/4.4.2 capable_of permits named thing to occurrent; OrganismTaxon is a named thing and BiologicalProcess has the occurrent mixin.",
+            "specificity": "Capability of the named process is the intended biological reading; this typing does not validate the organism evidence.",
+            "qualifiers": "No quantitative rate or universal all-strain qualification is added. Source polarity and experimental scope are evaluated separately."
+          }
+        },
+        {
+          "axis": "subject_node",
+          "category": "UNRESOLVED",
+          "scope": "Original subject endpoint independently; current retained authorities, with historical release binding assessed separately.",
+          "rationale": "Retained source rows consistently identify LPSN775534 as Desulfobacter halotolerans, but no independent current exact LPSN authority is case-listed. Source supplies nomenclatural status; independent exact identifier authority remains unavailable. Inspected: .temp/m5-worker-run-20261116/package/cases-v2/fresh-32/view.json [original_assertion, both endpoints, measurement_context, all source wrappers]; .temp/m5-worker-run-20261116/evidence/fresh14/biolink-model-4.4.2.yaml [classes.organism taxon; also slots.has attribute, slots.capable of and class definitions inspected].",
+          "evidence_ids": [
+            "biolink442"
+          ],
+          "dimensions": {
+            "identity": "Retained source rows consistently identify LPSN775534 as Desulfobacter halotolerans, but no independent current exact LPSN authority is case-listed.",
+            "label": "Name agrees across source wrappers and the comparative paper.",
+            "category_fit": "OrganismTaxon is suitable for the nominal species.",
+            "rank_or_type": "Species with GSL-Ac1/DSM11383 as type; this source information is not an independent taxonomy check.",
+            "definition": "Source supplies nomenclatural status; independent exact identifier authority remains unavailable.",
+            "authority_version": "Semantic assessment against separately retained Biolink 4.4.0 and 4.4.2; their relevant definitions agree. Neither proves which ontology bytes generated the sampled graph. LPSN source cache version1 only; no independent exact authority."
+          }
+        },
+        {
+          "axis": "object_node",
+          "category": "UNRESOLVED",
+          "scope": "Original object endpoint independently; current retained authorities, with historical release binding assessed separately.",
+          "rationale": "The hash-minted local process identifier retains sulfite_respiration; no independent generating vocabulary artifact is case-listed. Inherited reviewed description states dissimilatory sulfite reduction. That historical assertion is not adopted as independent proof; underlying FAPROTAX1.2.12 bytes and sampled-version binding are unavailable in the package. Inspected: .temp/m5-worker-run-20261116/package/cases-v2/fresh-32/view.json [original_assertion, both endpoints, measurement_context, all source wrappers]; .temp/m5-worker-run-20261116/evidence/fresh14/biolink-model-4.4.2.yaml [classes.organism taxon; also slots.has attribute, slots.capable of and class definitions inspected].",
+          "evidence_ids": [
+            "biolink442"
+          ],
+          "dimensions": {
+            "identity": "The hash-minted local process identifier retains sulfite_respiration; no independent generating vocabulary artifact is case-listed.",
+            "label": "Literal label matches FAPROTAX source token.",
+            "category_fit": "BiologicalProcess is plausible for respiratory reduction, separate from sulfate activation.",
+            "rank_or_type": "Source-local process class, not an experimentally confirmed observation.",
+            "definition": "Inherited reviewed description states dissimilatory sulfite reduction. That historical assertion is not adopted as independent proof; underlying FAPROTAX1.2.12 bytes and sampled-version binding are unavailable in the package.",
+            "authority_version": "Semantic assessment against separately retained Biolink 4.4.0 and 4.4.2; their relevant definitions agree. Neither proves which ontology bytes generated the sampled graph. Claimed FAPROTAX1.2.12 in endpoint is inherited context only."
+          }
+        },
+        {
+          "axis": "source_fidelity",
+          "category": "SUPPORTED",
+          "scope": "Semantic fidelity of the original source field/association and its exact retained binding; independent biological truth is separate.",
+          "rationale": "CSV5072 FAPROTAX_Type_of_metabolism explicitly includes sulfite_respiration, alongside separate sulfate and thiosulfate tokens. Occurrence-specific token and source identity are preserved without independent validation. Inspected: .temp/m5-worker-run-20261116/package/cases-v2/fresh-32/view.json [original_assertion, both endpoints, measurement_context, all source wrappers]; .temp/edge-calibration-20261115/fresh-32/packet.json [original_assertion; endpoints; measurement_context; complete source_records].",
+          "evidence_ids": [
+            "packet-fresh-32"
+          ],
+          "dimensions": {
+            "source_binding": "CSV5072 FAPROTAX_Type_of_metabolism explicitly includes sulfite_respiration, alongside separate sulfate and thiosulfate tokens. Occurrence-specific token and source identity are preserved without independent validation."
+          }
+        }
+      ]
+    },
+    {
+      "case_id": "fresh-47",
+      "occurrence_id": "urn:kg-microbe:occurrence:v1:358f925d6342994dbe5598a3d3d2cdfafe3ad30028b7305c3cf21242cf3a9b57",
+      "assessments": [
+        {
+          "axis": "claim",
+          "category": "INSUFFICIENT_EVIDENCE",
+          "scope": "Original Weissella halotolerans has_attribute a reported 0-10 source salt-concentration value, bound to BacDive6845/G1/DSM20190; no decoded universal growth claim.",
+          "rationale": "Source replay establishes the recorded field and percent unit. The independent paper studies GI38, with tests at 3.0% and 6.5% NaCl in MRS at30 C for2d; it does not establish the G1 observation or the meaning and completeness of its 0-10 report. The paper discussion of 12% is not a same-strain refutation of a nonmaximum source value. Inspected: .temp/m5-worker-run-20261116/package/cases-v2/fresh-47/view.json [original_assertion, both endpoints, measurement_context, all source wrappers]; .temp/m5-worker-run-20261116/evidence/literature/raw/fresh47-primary2024.xml [Methods physiological tests; Results GI38 group K identification; Table 1 group K; Discussion salt tolerance].",
+          "evidence_ids": [
+            "fresh47-other-isolate"
+          ],
+          "dimensions": {
+            "assertion_scope": "Original Weissella halotolerans has_attribute a reported 0-10 source salt-concentration value, bound to BacDive6845/G1/DSM20190; no decoded universal growth claim."
+          }
+        },
+        {
+          "axis": "literature",
+          "category": "PARTIAL",
+          "scope": "Frozen manifest-listed case evidence only, including ignored .temp inputs; no new retrieval. Experimental denominator fixed at seven; structural cases still assessed. Absence is limited to this package.",
+          "rationale": "PMCID PMC11117391 provides another isolate and discrete salt tests. GI38 is placed nearest W.halotolerans but is not G1/DSM20190. The exact original range, percent basis and assay conditions remain unverified. Inspected: .temp/m5-worker-run-20261116/package/cases-v2/fresh-47/view.json [original_assertion, both endpoints, measurement_context, all source wrappers]; .temp/m5-worker-run-20261116/evidence/literature/raw/fresh47-primary2024.xml [Methods physiological tests; Results GI38 group K identification; Table 1 group K; Discussion salt tolerance].",
+          "evidence_ids": [
+            "fresh47-other-isolate"
+          ],
+          "dimensions": {
+            "search_scope": "Frozen manifest-listed case evidence only, including ignored .temp inputs; no new retrieval. Experimental denominator fixed at seven; structural cases still assessed. Absence is limited to this package."
+          }
+        },
+        {
+          "axis": "relation",
+          "category": "CORRECT",
+          "scope": "Original predicate and relation, with original endpoint categories; strict semantics of named retained authority versions.",
+          "rationale": "Species record points to a reported source attribute. Biolink 4.4.0/4.4.2 has_attribute is entity to attribute; the original categories satisfy these broad classes. The object explicitly denotes a reported field value, preserving a metadata claim rather than imposing a decoded tolerance phenotype. Retain G1/BacDive6845 and literal percent; no inferred optimum, maximum, assay medium, duration or every-strain claim. Semantic assessment against separately retained Biolink 4.4.0 and 4.4.2; their relevant definitions agree. Neither proves which ontology bytes generated the sampled graph. Inspected: .temp/m5-worker-run-20261116/package/cases-v2/fresh-47/view.json [original_assertion, both endpoints, measurement_context, all source wrappers]; .temp/m5-worker-run-20261116/evidence/fresh14/biolink-model-4.4.2.yaml [slots.has attribute and classes.attribute].",
+          "evidence_ids": [
+            "biolink442"
+          ],
+          "dimensions": {
+            "direction": "Species record points to a reported source attribute.",
+            "domain_range": "Biolink 4.4.0/4.4.2 has_attribute is entity to attribute; the original categories satisfy these broad classes.",
+            "specificity": "The object explicitly denotes a reported field value, preserving a metadata claim rather than imposing a decoded tolerance phenotype.",
+            "qualifiers": "Retain G1/BacDive6845 and literal percent; no inferred optimum, maximum, assay medium, duration or every-strain claim."
+          }
+        },
+        {
+          "axis": "subject_node",
+          "category": "UNRESOLVED",
+          "scope": "Original subject endpoint independently; current retained authorities, with historical release binding assessed separately.",
+          "rationale": "Source LPSN783091 identifies Weissella halotolerans and links G1/DSM20190. Independent exact current LPSN authority is not case-listed. Source nomenclatural description does not independently establish current identifier status; other MicrobeDecoder NCBI fields name Brachybacterium muris and cannot be used to repair or endorse this endpoint. Inspected: .temp/m5-worker-run-20261116/package/cases-v2/fresh-47/view.json [original_assertion, both endpoints, measurement_context, all source wrappers]; .temp/m5-worker-run-20261116/evidence/fresh14/biolink-model-4.4.2.yaml [classes.organism taxon; also slots.has attribute, slots.capable of and class definitions inspected].",
+          "evidence_ids": [
+            "biolink442"
+          ],
+          "dimensions": {
+            "identity": "Source LPSN783091 identifies Weissella halotolerans and links G1/DSM20190. Independent exact current LPSN authority is not case-listed.",
+            "label": "Original Weissella halotolerans label matches the retained LPSN record, with Lactobacillus halotolerans as basonym.",
+            "category_fit": "OrganismTaxon is appropriate for the named species.",
+            "rank_or_type": "Species; G1/DSM20190 is a narrower strain, not interchangeable with GI38.",
+            "definition": "Source nomenclatural description does not independently establish current identifier status; other MicrobeDecoder NCBI fields name Brachybacterium muris and cannot be used to repair or endorse this endpoint.",
+            "authority_version": "Semantic assessment against separately retained Biolink 4.4.0 and 4.4.2; their relevant definitions agree. Neither proves which ontology bytes generated the sampled graph. LPSN source cache version1 only."
+          }
+        },
+        {
+          "axis": "object_node",
+          "category": "CORRECT",
+          "scope": "Original object endpoint independently; current retained authorities, with historical release binding assessed separately.",
+          "rationale": "Source-local hash identifier denotes the exact reported MicrobeDecoder field token0-10. Definition explicitly limits meaning to a reported field; original literal percent observation is retained separately with unknown basis and assay conditions. Inspected: .temp/m5-worker-run-20261116/package/cases-v2/fresh-47/view.json [original_assertion, both endpoints, measurement_context, all source wrappers]; .temp/m5-worker-run-20261116/evidence/fresh14/biolink-model-4.4.2.yaml [slots.has attribute; classes.attribute and its name interpretation].",
+          "evidence_ids": [
+            "biolink442"
+          ],
+          "dimensions": {
+            "identity": "Source-local hash identifier denotes the exact reported MicrobeDecoder field token0-10.",
+            "label": "Label explicitly marks a reported source value.",
+            "category_fit": "Attribute is suitable for a reported record property under Biolink4.4.0/4.4.2.",
+            "rank_or_type": "Source-attribute type, not a phenotype class or numerical optimum.",
+            "definition": "Definition explicitly limits meaning to a reported field; original literal percent observation is retained separately with unknown basis and assay conditions.",
+            "authority_version": "Semantic assessment against separately retained Biolink 4.4.0 and 4.4.2; their relevant definitions agree. Neither proves which ontology bytes generated the sampled graph. The local source-attribute identity is defined by the retained record, not an external ontology registration."
+          }
+        },
+        {
+          "axis": "source_fidelity",
+          "category": "SUPPORTED",
+          "scope": "Semantic fidelity of the original source field/association and its exact retained binding; independent biological truth is separate.",
+          "rationale": "CSV20904 BacDive_ID6845 and Salt_concentration0-10 with unit% join exactly to BacDive6845/G1 halophily concentration0-10%, growth positive, reference119830. This is source-bound only; basis, assay medium, temperature and duration are unknown. Inspected: .temp/m5-worker-run-20261116/package/cases-v2/fresh-47/view.json [original_assertion, both endpoints, measurement_context, all source wrappers]; .temp/edge-calibration-20261115/fresh-47/packet.json [original_assertion; endpoints; measurement_context; complete source_records].",
+          "evidence_ids": [
+            "packet-fresh-47"
+          ],
+          "dimensions": {
+            "source_binding": "CSV20904 BacDive_ID6845 and Salt_concentration0-10 with unit% join exactly to BacDive6845/G1 halophily concentration0-10%, growth positive, reference119830. This is source-bound only; basis, assay medium, temperature and duration are unknown."
+          }
+        }
+      ]
+    }
+  ]
+}

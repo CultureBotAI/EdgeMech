@@ -1,0 +1,1360 @@
+{
+  "accounting_helper": {
+    "path": "scripts/adhoc/summarize_m5_execution_20261116.py",
+    "sha256": "0afb274213d7da9b6054d0429b5d452db79b19d908002b12612aa0a1c5107615"
+  },
+  "all_listed_worker_jobs_completed": true,
+  "canonical_accounting": {
+    "all_expected_replay_denominator": 20,
+    "completed_scientific_reviews": 0,
+    "expected": 20,
+    "independent_replay_passed": 18,
+    "partial_reviews": 18,
+    "persisted": 18,
+    "persisted_replay_denominator": 18,
+    "save_failed": 2,
+    "unavailable": 2
+  },
+  "canonical_attempts": [
+    {
+      "authored_categories_match_sealed_matrix": true,
+      "authored_completion": "partial",
+      "authored_input": {
+        "path": ".temp/m5-worker-run-20261116/reviewer-a/first-01/review-input.json",
+        "sha256": "bd246a0e9dd0e84dd057a90805d6f7a980882b05c2303a3d1b4a2a188fdfb89a"
+      },
+      "canonical_pair": [
+        {
+          "path": "reviews/structured/20261116T205613Z-reviewer-a-first-01/review.yaml",
+          "sha256": "24783e85930dcffb0098c8de9962423c0111633e8afa49e084d3a38f8006a2b4"
+        },
+        {
+          "path": "reviews/structured/20261116T205613Z-reviewer-a-first-01/review.md",
+          "sha256": "21c1fe34186758e6effb9107362b5e6d6afc3718f7433ce877ed004d0ba44b10"
+        }
+      ],
+      "canonical_publication_status": "retained_privately_uncommitted_not_public",
+      "canonical_replay": "passed",
+      "case_id": "first-01",
+      "completion": "partial",
+      "independent_replay_file_pins": [
+        {
+          "path": "reviews/structured/20261116T205613Z-reviewer-a-first-01/review.yaml",
+          "sha256": "24783e85930dcffb0098c8de9962423c0111633e8afa49e084d3a38f8006a2b4"
+        },
+        {
+          "path": "reviews/structured/20261116T205613Z-reviewer-a-first-01/review.md",
+          "sha256": "21c1fe34186758e6effb9107362b5e6d6afc3718f7433ce877ed004d0ba44b10"
+        },
+        {
+          "path": ".temp/edge-calibration-20261115/first-01/packet.json",
+          "sha256": "b516c976dbdb13900c8e6e83f740c7fa962afa23af6f5aa293f846cdfa768926"
+        },
+        {
+          "path": ".temp/m5-worker-run-20261116/reviewer-a/first-01/proofs.json",
+          "sha256": "41490d0ccbbfb609be021b4e38ccc3ba8b6b267cbe19e758d68eb9afd6ecf0b8"
+        }
+      ],
+      "persisted": true,
+      "persisted_categories_match_sealed_matrix": true,
+      "proof_sidecar": {
+        "path": ".temp/m5-worker-run-20261116/reviewer-a/first-01/proofs.json",
+        "sha256": "41490d0ccbbfb609be021b4e38ccc3ba8b6b267cbe19e758d68eb9afd6ecf0b8"
+      },
+      "required_unavailable_checks": 2,
+      "review_id": "20261116T205613Z-reviewer-a-first-01",
+      "reviewer_id": "reviewer-a",
+      "save_command_receipt": {
+        "path": ".temp/m5-worker-run-20261116/reviewer-a/first-01/save-command.json",
+        "sha256": "50f4721a22af7eaabc49ff8d2930e6f521d3ed4f6ed1636e90ce91ceaa89d8f6"
+      },
+      "save_exit_status": 0,
+      "save_finished_at": "2026-11-16T20:56:14Z"
+    },
+    {
+      "authored_categories_match_sealed_matrix": true,
+      "authored_completion": "partial",
+      "authored_input": {
+        "path": ".temp/m5-worker-run-20261116/reviewer-a/first-28/review-input.json",
+        "sha256": "11aa9db14e6a579b0644421b6b3c86bcbacaad414be1aa2c98aa3d6ad60a83e5"
+      },
+      "canonical_pair": [
+        {
+          "path": "reviews/structured/20261116T205616Z-reviewer-a-first-28/review.yaml",
+          "sha256": "bf5a6341f5b9d004e45b984de4447db122198c16b92ece5a5fce69fc4f7d2d2b"
+        },
+        {
+          "path": "reviews/structured/20261116T205616Z-reviewer-a-first-28/review.md",
+          "sha256": "f69d0cd0f7b269096c43ce407ebe157fc13aee708f864a2d03a8ae7999a0d491"
+        }
+      ],
+      "canonical_publication_status": "retained_privately_uncommitted_not_public",
+      "canonical_replay": "passed",
+      "case_id": "first-28",
+      "completion": "partial",
+      "independent_replay_file_pins": [
+        {
+          "path": "reviews/structured/20261116T205616Z-reviewer-a-first-28/review.yaml",
+          "sha256": "bf5a6341f5b9d004e45b984de4447db122198c16b92ece5a5fce69fc4f7d2d2b"
+        },
+        {
+          "path": "reviews/structured/20261116T205616Z-reviewer-a-first-28/review.md",
+          "sha256": "f69d0cd0f7b269096c43ce407ebe157fc13aee708f864a2d03a8ae7999a0d491"
+        },
+        {
+          "path": ".temp/edge-calibration-20261115/first-28/packet.json",
+          "sha256": "eb5e38bf636fed915f15ee9bd2ce9f1d4d010eb8c1e8d815a17e1de265bcd527"
+        },
+        {
+          "path": ".temp/m5-worker-run-20261116/reviewer-a/first-28/proofs.json",
+          "sha256": "80a3773bfc67d983f25910deafbb6a5cab19cb4f2576130bb4ed61b5a2c95cad"
+        }
+      ],
+      "persisted": true,
+      "persisted_categories_match_sealed_matrix": true,
+      "proof_sidecar": {
+        "path": ".temp/m5-worker-run-20261116/reviewer-a/first-28/proofs.json",
+        "sha256": "80a3773bfc67d983f25910deafbb6a5cab19cb4f2576130bb4ed61b5a2c95cad"
+      },
+      "required_unavailable_checks": 2,
+      "review_id": "20261116T205616Z-reviewer-a-first-28",
+      "reviewer_id": "reviewer-a",
+      "save_command_receipt": {
+        "path": ".temp/m5-worker-run-20261116/reviewer-a/first-28/save-command.json",
+        "sha256": "b7f79b5c783db519a1b0295a1f8ce7297203f09f5f635cb56389e1082de8b330"
+      },
+      "save_exit_status": 0,
+      "save_finished_at": "2026-11-16T20:56:17Z"
+    },
+    {
+      "authored_categories_match_sealed_matrix": true,
+      "authored_completion": "partial",
+      "authored_input": {
+        "path": ".temp/m5-worker-run-20261116/reviewer-a/first-30/review-input.json",
+        "sha256": "a1cf39fe8c9dd551af985f4970a81da37094fe49ff3c92fe64280013c2e9a58a"
+      },
+      "canonical_pair": [
+        {
+          "path": "reviews/structured/20261116T205618Z-reviewer-a-first-30/review.yaml",
+          "sha256": "9fff5f430e535bcb07646aae27f4275752bd562d38e790559ff24f3350304186"
+        },
+        {
+          "path": "reviews/structured/20261116T205618Z-reviewer-a-first-30/review.md",
+          "sha256": "6544ced001215dca088ac652e9b66c57ec4de2accdd967cc6e74fad79dfa74e3"
+        }
+      ],
+      "canonical_publication_status": "retained_privately_uncommitted_not_public",
+      "canonical_replay": "passed",
+      "case_id": "first-30",
+      "completion": "partial",
+      "independent_replay_file_pins": [
+        {
+          "path": "reviews/structured/20261116T205618Z-reviewer-a-first-30/review.yaml",
+          "sha256": "9fff5f430e535bcb07646aae27f4275752bd562d38e790559ff24f3350304186"
+        },
+        {
+          "path": "reviews/structured/20261116T205618Z-reviewer-a-first-30/review.md",
+          "sha256": "6544ced001215dca088ac652e9b66c57ec4de2accdd967cc6e74fad79dfa74e3"
+        },
+        {
+          "path": ".temp/edge-calibration-20261115/first-30/packet.json",
+          "sha256": "68ae9cbdb5c02a160c3497977ce191924e9aed8c89321f3da7924770df3ffc82"
+        },
+        {
+          "path": ".temp/m5-worker-run-20261116/reviewer-a/first-30/proofs.json",
+          "sha256": "72fc26df868a0ab69089e302dc90838c62babffd4c2a77d53e5a98de2e0f31aa"
+        }
+      ],
+      "persisted": true,
+      "persisted_categories_match_sealed_matrix": true,
+      "proof_sidecar": {
+        "path": ".temp/m5-worker-run-20261116/reviewer-a/first-30/proofs.json",
+        "sha256": "72fc26df868a0ab69089e302dc90838c62babffd4c2a77d53e5a98de2e0f31aa"
+      },
+      "required_unavailable_checks": 2,
+      "review_id": "20261116T205618Z-reviewer-a-first-30",
+      "reviewer_id": "reviewer-a",
+      "save_command_receipt": {
+        "path": ".temp/m5-worker-run-20261116/reviewer-a/first-30/save-command.json",
+        "sha256": "c2d68a5dce84b16ea81a56b3d4bf282c0376db4d9b087960b016f82270083925"
+      },
+      "save_exit_status": 0,
+      "save_finished_at": "2026-11-16T20:56:19Z"
+    },
+    {
+      "authored_categories_match_sealed_matrix": true,
+      "authored_completion": "partial",
+      "authored_input": {
+        "path": ".temp/m5-worker-run-20261116/reviewer-a/first-32/review-input.json",
+        "sha256": "3090d3f9602d3a01abf6a3b0a8ddd93a7721d8d00c0e44adc858a592e5b071a4"
+      },
+      "canonical_pair": [
+        {
+          "path": "reviews/structured/20261116T205621Z-reviewer-a-first-32/review.yaml",
+          "sha256": "a5a4e7c62bb94e2f2b88e78b17028956d2628415fb183c6ce78a2ace418b8a2e"
+        },
+        {
+          "path": "reviews/structured/20261116T205621Z-reviewer-a-first-32/review.md",
+          "sha256": "d285bf990d7fd8483e670951d25fdc3ae645d3fcf8a1b847753783b9eed736c4"
+        }
+      ],
+      "canonical_publication_status": "retained_privately_uncommitted_not_public",
+      "canonical_replay": "passed",
+      "case_id": "first-32",
+      "completion": "partial",
+      "independent_replay_file_pins": [
+        {
+          "path": "reviews/structured/20261116T205621Z-reviewer-a-first-32/review.yaml",
+          "sha256": "a5a4e7c62bb94e2f2b88e78b17028956d2628415fb183c6ce78a2ace418b8a2e"
+        },
+        {
+          "path": "reviews/structured/20261116T205621Z-reviewer-a-first-32/review.md",
+          "sha256": "d285bf990d7fd8483e670951d25fdc3ae645d3fcf8a1b847753783b9eed736c4"
+        },
+        {
+          "path": ".temp/edge-calibration-20261115/first-32/packet.json",
+          "sha256": "32cb804b4f6e0f678f01faf3ecf351146101d1beb0abe6e77ecbffedd470ded2"
+        },
+        {
+          "path": ".temp/m5-worker-run-20261116/reviewer-a/first-32/proofs.json",
+          "sha256": "c1b1af6be5c1c02f3471119c58e211d5ac11eee1df509e4b45204762168b77e7"
+        }
+      ],
+      "persisted": true,
+      "persisted_categories_match_sealed_matrix": true,
+      "proof_sidecar": {
+        "path": ".temp/m5-worker-run-20261116/reviewer-a/first-32/proofs.json",
+        "sha256": "c1b1af6be5c1c02f3471119c58e211d5ac11eee1df509e4b45204762168b77e7"
+      },
+      "required_unavailable_checks": 2,
+      "review_id": "20261116T205621Z-reviewer-a-first-32",
+      "reviewer_id": "reviewer-a",
+      "save_command_receipt": {
+        "path": ".temp/m5-worker-run-20261116/reviewer-a/first-32/save-command.json",
+        "sha256": "f8be07fa91df39b0d3e75a4af1a643fc4e81615f11e7a4c373883313d21f54a4"
+      },
+      "save_exit_status": 0,
+      "save_finished_at": "2026-11-16T20:56:22Z"
+    },
+    {
+      "authored_categories_match_sealed_matrix": true,
+      "authored_completion": "partial",
+      "authored_input": {
+        "path": ".temp/m5-worker-run-20261116/reviewer-a/first-43/review-input.json",
+        "sha256": "6fbf1b17a0c0aae6ff8c0a41b79b91311dc4a43a1d56cc407f9d3443e0fa0114"
+      },
+      "canonical_pair": [
+        {
+          "path": "reviews/structured/20261116T205623Z-reviewer-a-first-43/review.yaml",
+          "sha256": "18e80a417964dddab4c2d5baa5d6aa00f63577876b962e4804ea8a1c61138165"
+        },
+        {
+          "path": "reviews/structured/20261116T205623Z-reviewer-a-first-43/review.md",
+          "sha256": "c9e52282f7d886b68c542435d003c6230ea841c921105852a0bc2ddcb9e632d3"
+        }
+      ],
+      "canonical_publication_status": "retained_privately_uncommitted_not_public",
+      "canonical_replay": "passed",
+      "case_id": "first-43",
+      "completion": "partial",
+      "independent_replay_file_pins": [
+        {
+          "path": "reviews/structured/20261116T205623Z-reviewer-a-first-43/review.yaml",
+          "sha256": "18e80a417964dddab4c2d5baa5d6aa00f63577876b962e4804ea8a1c61138165"
+        },
+        {
+          "path": "reviews/structured/20261116T205623Z-reviewer-a-first-43/review.md",
+          "sha256": "c9e52282f7d886b68c542435d003c6230ea841c921105852a0bc2ddcb9e632d3"
+        },
+        {
+          "path": ".temp/edge-calibration-20261115/first-43/packet.json",
+          "sha256": "70decffa3ed755ad913171964494b4edfcf84b2341a34a76a925837f1565befc"
+        },
+        {
+          "path": ".temp/m5-worker-run-20261116/reviewer-a/first-43/proofs.json",
+          "sha256": "5e7b0bfaa46411373b97157152e67202e5c2f19357586412c05c700e527cc27d"
+        }
+      ],
+      "persisted": true,
+      "persisted_categories_match_sealed_matrix": true,
+      "proof_sidecar": {
+        "path": ".temp/m5-worker-run-20261116/reviewer-a/first-43/proofs.json",
+        "sha256": "5e7b0bfaa46411373b97157152e67202e5c2f19357586412c05c700e527cc27d"
+      },
+      "required_unavailable_checks": 2,
+      "review_id": "20261116T205623Z-reviewer-a-first-43",
+      "reviewer_id": "reviewer-a",
+      "save_command_receipt": {
+        "path": ".temp/m5-worker-run-20261116/reviewer-a/first-43/save-command.json",
+        "sha256": "e1fef5e1e623dd50b4019637ced241b9d69ab404004f2138e0916e8cbcb9d934"
+      },
+      "save_exit_status": 0,
+      "save_finished_at": "2026-11-16T20:56:24Z"
+    },
+    {
+      "authored_categories_match_sealed_matrix": true,
+      "authored_completion": "partial",
+      "authored_input": {
+        "path": ".temp/m5-worker-run-20261116/reviewer-a/fresh-04/review-input.json",
+        "sha256": "8bc8c6ca1b1fcb338c7bb3ae0bfaf528657a37b2e32d6e734d0fbe99102268ad"
+      },
+      "canonical_pair": [
+        {
+          "path": "reviews/structured/20261116T205625Z-reviewer-a-fresh-04/review.yaml",
+          "sha256": "274632dddbd394048b13810d91211e703127672ee59885f2c78399ae2204790b"
+        },
+        {
+          "path": "reviews/structured/20261116T205625Z-reviewer-a-fresh-04/review.md",
+          "sha256": "e67be92ff84a689ee0b3bff2780a782d065412ca5b68da91d3bc4af05eb67451"
+        }
+      ],
+      "canonical_publication_status": "retained_privately_uncommitted_not_public",
+      "canonical_replay": "passed",
+      "case_id": "fresh-04",
+      "completion": "partial",
+      "independent_replay_file_pins": [
+        {
+          "path": "reviews/structured/20261116T205625Z-reviewer-a-fresh-04/review.yaml",
+          "sha256": "274632dddbd394048b13810d91211e703127672ee59885f2c78399ae2204790b"
+        },
+        {
+          "path": "reviews/structured/20261116T205625Z-reviewer-a-fresh-04/review.md",
+          "sha256": "e67be92ff84a689ee0b3bff2780a782d065412ca5b68da91d3bc4af05eb67451"
+        },
+        {
+          "path": ".temp/edge-calibration-20261115/fresh-04/packet.json",
+          "sha256": "5249d3331588e1973f5c19414cb5aff171b13d510499567a29954b3059fa716e"
+        },
+        {
+          "path": ".temp/m5-worker-run-20261116/reviewer-a/fresh-04/proofs.json",
+          "sha256": "4a5191cff4e5bc334b963b3fabb63b4bdd2605002dc2dd4fbc40ea0019b96d4d"
+        }
+      ],
+      "persisted": true,
+      "persisted_categories_match_sealed_matrix": true,
+      "proof_sidecar": {
+        "path": ".temp/m5-worker-run-20261116/reviewer-a/fresh-04/proofs.json",
+        "sha256": "4a5191cff4e5bc334b963b3fabb63b4bdd2605002dc2dd4fbc40ea0019b96d4d"
+      },
+      "required_unavailable_checks": 2,
+      "review_id": "20261116T205625Z-reviewer-a-fresh-04",
+      "reviewer_id": "reviewer-a",
+      "save_command_receipt": {
+        "path": ".temp/m5-worker-run-20261116/reviewer-a/fresh-04/save-command.json",
+        "sha256": "0b66d29805defa3cf673bdfb36b4ce5a639b26307a25bc02236b4ed144b2f27e"
+      },
+      "save_exit_status": 0,
+      "save_finished_at": "2026-11-16T20:56:27Z"
+    },
+    {
+      "authored_categories_match_sealed_matrix": true,
+      "authored_completion": "partial",
+      "authored_input": {
+        "path": ".temp/m5-worker-run-20261116/reviewer-a/fresh-05/review-input.json",
+        "sha256": "4bffc3c137428caa30884f7aee1d6ea766175184ebb598fa780cbaabaa8eb502"
+      },
+      "canonical_replay": "unavailable",
+      "case_id": "fresh-05",
+      "exact_error": "kg_microbe_governance.artifacts.scripts.record_review.ReviewError: Supported-as-stated cannot conceal incorrect/unassessed original modeling",
+      "missing_pair_search": "Path.rglob under reviews/structured includes ignored files",
+      "persisted": false,
+      "proof_sidecar": {
+        "path": ".temp/m5-worker-run-20261116/reviewer-a/fresh-05/proofs.json",
+        "sha256": "389ee790ff3e19d221fca22953e3579ed8052a39544838eeb711f8a809f9142d"
+      },
+      "review_id": "20261116T205628Z-reviewer-a-fresh-05",
+      "reviewer_id": "reviewer-a",
+      "save_command_receipt": {
+        "path": ".temp/m5-worker-run-20261116/reviewer-a/fresh-05/save-command.json",
+        "sha256": "7f25710d88b8ad32a7ebdb26c847725831294c5823f8b36aefb8d78313d6fbf2"
+      },
+      "save_exit_status": 1,
+      "save_finished_at": "2026-11-16T20:56:29Z"
+    },
+    {
+      "authored_categories_match_sealed_matrix": true,
+      "authored_completion": "partial",
+      "authored_input": {
+        "path": ".temp/m5-worker-run-20261116/reviewer-a/fresh-14/review-input.json",
+        "sha256": "83da2142ed33c0ac85db51752ff0a493c8283b9bf19bc91ab62b2a25828e51f4"
+      },
+      "canonical_pair": [
+        {
+          "path": "reviews/structured/20261116T205630Z-reviewer-a-fresh-14/review.yaml",
+          "sha256": "e380b38ff7f6940f7d5a168d556760bf25fe610e90602e450ae97d661d455525"
+        },
+        {
+          "path": "reviews/structured/20261116T205630Z-reviewer-a-fresh-14/review.md",
+          "sha256": "a17ec1d5221a0d0f17069e243c7acfadf4f42c2e1eda5f150d649de437cb24f8"
+        }
+      ],
+      "canonical_publication_status": "retained_privately_uncommitted_not_public",
+      "canonical_replay": "passed",
+      "case_id": "fresh-14",
+      "completion": "partial",
+      "independent_replay_file_pins": [
+        {
+          "path": "reviews/structured/20261116T205630Z-reviewer-a-fresh-14/review.yaml",
+          "sha256": "e380b38ff7f6940f7d5a168d556760bf25fe610e90602e450ae97d661d455525"
+        },
+        {
+          "path": "reviews/structured/20261116T205630Z-reviewer-a-fresh-14/review.md",
+          "sha256": "a17ec1d5221a0d0f17069e243c7acfadf4f42c2e1eda5f150d649de437cb24f8"
+        },
+        {
+          "path": ".temp/edge-calibration-20261115/fresh-14/packet.json",
+          "sha256": "c1c4a61470174802cfdbc08f31fd0e83b273270906111f5a4ef587ae973bd012"
+        },
+        {
+          "path": ".temp/m5-worker-run-20261116/reviewer-a/fresh-14/proofs.json",
+          "sha256": "3bbebe98b6e508612179e26d545bcb080587e5ca7f4eb9cc5abc6e29a2674e14"
+        }
+      ],
+      "persisted": true,
+      "persisted_categories_match_sealed_matrix": true,
+      "proof_sidecar": {
+        "path": ".temp/m5-worker-run-20261116/reviewer-a/fresh-14/proofs.json",
+        "sha256": "3bbebe98b6e508612179e26d545bcb080587e5ca7f4eb9cc5abc6e29a2674e14"
+      },
+      "required_unavailable_checks": 2,
+      "review_id": "20261116T205630Z-reviewer-a-fresh-14",
+      "reviewer_id": "reviewer-a",
+      "save_command_receipt": {
+        "path": ".temp/m5-worker-run-20261116/reviewer-a/fresh-14/save-command.json",
+        "sha256": "9837369869413a6ee808b9360d9fe9b65eef9ae3c78233326fdf8e46cb7e4b97"
+      },
+      "save_exit_status": 0,
+      "save_finished_at": "2026-11-16T20:56:31Z"
+    },
+    {
+      "authored_categories_match_sealed_matrix": true,
+      "authored_completion": "partial",
+      "authored_input": {
+        "path": ".temp/m5-worker-run-20261116/reviewer-a/fresh-32/review-input.json",
+        "sha256": "6fc798ccefcbc9ab7f9eba21601e301573e037fd975d9e65f2b65556b886fdb9"
+      },
+      "canonical_pair": [
+        {
+          "path": "reviews/structured/20261116T205632Z-reviewer-a-fresh-32/review.yaml",
+          "sha256": "adb643640cebad00afb37b90502dbbdff04e94c2b22f2d57bad2eb1add3ec76b"
+        },
+        {
+          "path": "reviews/structured/20261116T205632Z-reviewer-a-fresh-32/review.md",
+          "sha256": "fe2379c5ca59e8a30fe9a33d793880ddf5844352310cb6d28aef2cd4d73e273c"
+        }
+      ],
+      "canonical_publication_status": "retained_privately_uncommitted_not_public",
+      "canonical_replay": "passed",
+      "case_id": "fresh-32",
+      "completion": "partial",
+      "independent_replay_file_pins": [
+        {
+          "path": "reviews/structured/20261116T205632Z-reviewer-a-fresh-32/review.yaml",
+          "sha256": "adb643640cebad00afb37b90502dbbdff04e94c2b22f2d57bad2eb1add3ec76b"
+        },
+        {
+          "path": "reviews/structured/20261116T205632Z-reviewer-a-fresh-32/review.md",
+          "sha256": "fe2379c5ca59e8a30fe9a33d793880ddf5844352310cb6d28aef2cd4d73e273c"
+        },
+        {
+          "path": ".temp/edge-calibration-20261115/fresh-32/packet.json",
+          "sha256": "14b21623a1726591121ea2882d9168e081f832e22143a58cad438163551326f7"
+        },
+        {
+          "path": ".temp/m5-worker-run-20261116/reviewer-a/fresh-32/proofs.json",
+          "sha256": "28af3f3bf997e26afe694a53192dc78b7f9e0729120407a86f0d43a3400fadbd"
+        }
+      ],
+      "persisted": true,
+      "persisted_categories_match_sealed_matrix": true,
+      "proof_sidecar": {
+        "path": ".temp/m5-worker-run-20261116/reviewer-a/fresh-32/proofs.json",
+        "sha256": "28af3f3bf997e26afe694a53192dc78b7f9e0729120407a86f0d43a3400fadbd"
+      },
+      "required_unavailable_checks": 2,
+      "review_id": "20261116T205632Z-reviewer-a-fresh-32",
+      "reviewer_id": "reviewer-a",
+      "save_command_receipt": {
+        "path": ".temp/m5-worker-run-20261116/reviewer-a/fresh-32/save-command.json",
+        "sha256": "8039f576c5a3e106ec2ce60ab80011edb106271cadf485e698bffe954850eeeb"
+      },
+      "save_exit_status": 0,
+      "save_finished_at": "2026-11-16T20:56:33Z"
+    },
+    {
+      "authored_categories_match_sealed_matrix": true,
+      "authored_completion": "partial",
+      "authored_input": {
+        "path": ".temp/m5-worker-run-20261116/reviewer-a/fresh-47/review-input.json",
+        "sha256": "478a2c4b6f707814699762121d863ccaf737b67b2f69d08572b729518c1d26d9"
+      },
+      "canonical_pair": [
+        {
+          "path": "reviews/structured/20261116T205550Z-reviewer-a-fresh-47/review.yaml",
+          "sha256": "e82d1de364e9ffdaf16eef12d0fe15f2deaaa30506b4573d4a1e8733fde49c27"
+        },
+        {
+          "path": "reviews/structured/20261116T205550Z-reviewer-a-fresh-47/review.md",
+          "sha256": "3882fdba064b88a98ba28d284bf921b17b02f7226ebcf086b964b48922bf4696"
+        }
+      ],
+      "canonical_publication_status": "retained_privately_uncommitted_not_public",
+      "canonical_replay": "passed",
+      "case_id": "fresh-47",
+      "completion": "partial",
+      "independent_replay_file_pins": [
+        {
+          "path": "reviews/structured/20261116T205550Z-reviewer-a-fresh-47/review.yaml",
+          "sha256": "e82d1de364e9ffdaf16eef12d0fe15f2deaaa30506b4573d4a1e8733fde49c27"
+        },
+        {
+          "path": "reviews/structured/20261116T205550Z-reviewer-a-fresh-47/review.md",
+          "sha256": "3882fdba064b88a98ba28d284bf921b17b02f7226ebcf086b964b48922bf4696"
+        },
+        {
+          "path": ".temp/edge-calibration-20261115/fresh-47/packet.json",
+          "sha256": "c64b42e5bf6dd8c081ab49b4faa935ae769af8dedcbd40c23c196dae083accf9"
+        },
+        {
+          "path": ".temp/m5-worker-run-20261116/reviewer-a/fresh-47/proofs.json",
+          "sha256": "168335189c517ea502663292e15810cfde7bede005b482cc09545bcdff12eb3d"
+        }
+      ],
+      "persisted": true,
+      "persisted_categories_match_sealed_matrix": true,
+      "proof_sidecar": {
+        "path": ".temp/m5-worker-run-20261116/reviewer-a/fresh-47/proofs.json",
+        "sha256": "168335189c517ea502663292e15810cfde7bede005b482cc09545bcdff12eb3d"
+      },
+      "required_unavailable_checks": 2,
+      "review_id": "20261116T205550Z-reviewer-a-fresh-47",
+      "reviewer_id": "reviewer-a",
+      "save_command_receipt": {
+        "path": ".temp/m5-worker-run-20261116/reviewer-a/fresh-47/save-command.json",
+        "sha256": "29b4b6976de26465c87178116f14a61749ef97c930aa39eba2aa6d7095370910"
+      },
+      "save_exit_status": 0,
+      "save_finished_at": "2026-11-16T20:55:54Z"
+    },
+    {
+      "authored_categories_match_sealed_matrix": true,
+      "authored_completion": "partial",
+      "authored_input": {
+        "path": ".temp/m5-worker-run-20261116/reviewer-b/first-01/review-input.json",
+        "sha256": "b153458bbd83864dd80ea0ef59ede38022ddba0029068871c4d81a8e41d7e56e"
+      },
+      "canonical_pair": [
+        {
+          "path": "reviews/structured/20261116T205745Z-m5-reviewer-b-first-01/review.yaml",
+          "sha256": "9160cbbe562ff8ca5d7908dd1f489c7d326758881b5d39dcc7b7ad0b1d9cd83e"
+        },
+        {
+          "path": "reviews/structured/20261116T205745Z-m5-reviewer-b-first-01/review.md",
+          "sha256": "a2d7a021ce82a8591fbdd4b0e015cb8cbd4fbfa9aa24b8e76b90819e9ebce9d1"
+        }
+      ],
+      "canonical_publication_status": "retained_privately_uncommitted_not_public",
+      "canonical_replay": "passed",
+      "case_id": "first-01",
+      "completion": "partial",
+      "independent_replay_file_pins": [
+        {
+          "path": "reviews/structured/20261116T205745Z-m5-reviewer-b-first-01/review.yaml",
+          "sha256": "9160cbbe562ff8ca5d7908dd1f489c7d326758881b5d39dcc7b7ad0b1d9cd83e"
+        },
+        {
+          "path": "reviews/structured/20261116T205745Z-m5-reviewer-b-first-01/review.md",
+          "sha256": "a2d7a021ce82a8591fbdd4b0e015cb8cbd4fbfa9aa24b8e76b90819e9ebce9d1"
+        },
+        {
+          "path": ".temp/edge-calibration-20261115/first-01/packet.json",
+          "sha256": "b516c976dbdb13900c8e6e83f740c7fa962afa23af6f5aa293f846cdfa768926"
+        },
+        {
+          "path": ".temp/m5-worker-run-20261116/reviewer-b/first-01/proofs.json",
+          "sha256": "e88a8cf07428e140f95f606784b32bf585b7192a4d32cbb1f03ecb5d5ba63b82"
+        }
+      ],
+      "persisted": true,
+      "persisted_categories_match_sealed_matrix": true,
+      "proof_sidecar": {
+        "path": ".temp/m5-worker-run-20261116/reviewer-b/first-01/proofs.json",
+        "sha256": "e88a8cf07428e140f95f606784b32bf585b7192a4d32cbb1f03ecb5d5ba63b82"
+      },
+      "required_unavailable_checks": 2,
+      "review_id": "20261116T205745Z-m5-reviewer-b-first-01",
+      "reviewer_id": "reviewer-b",
+      "save_command_receipt": {
+        "path": ".temp/m5-worker-run-20261116/reviewer-b/commands/first-01-save.json",
+        "sha256": "be735d7ef9435188bcfa33880575124e26ff52266282f0cac08b36d755de80a5"
+      },
+      "save_exit_status": 0,
+      "save_finished_at": "2026-11-16T20:57:47.048087Z"
+    },
+    {
+      "authored_categories_match_sealed_matrix": true,
+      "authored_completion": "partial",
+      "authored_input": {
+        "path": ".temp/m5-worker-run-20261116/reviewer-b/first-28/review-input.json",
+        "sha256": "01f5209640eac94a1a0b7bf6d95c56f56517b39343d2378e07260a3615be7c5f"
+      },
+      "canonical_pair": [
+        {
+          "path": "reviews/structured/20261116T205749Z-m5-reviewer-b-first-28/review.yaml",
+          "sha256": "09ca9432c0342089f30f15a89e2af4aea56210dcd20fd48cf783635e956bb5d6"
+        },
+        {
+          "path": "reviews/structured/20261116T205749Z-m5-reviewer-b-first-28/review.md",
+          "sha256": "77c1e3740c8abd46d7949582517eb3eb9cfcbd3380e403c328898a7afde1295a"
+        }
+      ],
+      "canonical_publication_status": "retained_privately_uncommitted_not_public",
+      "canonical_replay": "passed",
+      "case_id": "first-28",
+      "completion": "partial",
+      "independent_replay_file_pins": [
+        {
+          "path": "reviews/structured/20261116T205749Z-m5-reviewer-b-first-28/review.yaml",
+          "sha256": "09ca9432c0342089f30f15a89e2af4aea56210dcd20fd48cf783635e956bb5d6"
+        },
+        {
+          "path": "reviews/structured/20261116T205749Z-m5-reviewer-b-first-28/review.md",
+          "sha256": "77c1e3740c8abd46d7949582517eb3eb9cfcbd3380e403c328898a7afde1295a"
+        },
+        {
+          "path": ".temp/edge-calibration-20261115/first-28/packet.json",
+          "sha256": "eb5e38bf636fed915f15ee9bd2ce9f1d4d010eb8c1e8d815a17e1de265bcd527"
+        },
+        {
+          "path": ".temp/m5-worker-run-20261116/reviewer-b/first-28/proofs.json",
+          "sha256": "7d3405f7e430aab234e88a8a16843883dc85d931484c7d31e79d03b612bd17b8"
+        }
+      ],
+      "persisted": true,
+      "persisted_categories_match_sealed_matrix": true,
+      "proof_sidecar": {
+        "path": ".temp/m5-worker-run-20261116/reviewer-b/first-28/proofs.json",
+        "sha256": "7d3405f7e430aab234e88a8a16843883dc85d931484c7d31e79d03b612bd17b8"
+      },
+      "required_unavailable_checks": 2,
+      "review_id": "20261116T205749Z-m5-reviewer-b-first-28",
+      "reviewer_id": "reviewer-b",
+      "save_command_receipt": {
+        "path": ".temp/m5-worker-run-20261116/reviewer-b/commands/first-28-save.json",
+        "sha256": "6124e39a4cb18e54915ae847fa3da3b8f8fd2fb38e757330a62c593e4ec93ac8"
+      },
+      "save_exit_status": 0,
+      "save_finished_at": "2026-11-16T20:57:51.067665Z"
+    },
+    {
+      "authored_categories_match_sealed_matrix": true,
+      "authored_completion": "partial",
+      "authored_input": {
+        "path": ".temp/m5-worker-run-20261116/reviewer-b/first-30/review-input.json",
+        "sha256": "c8b42bd613df4eae830a3ebe693d8dbc031bdedc77a424afe8e896f57f1e7aa9"
+      },
+      "canonical_pair": [
+        {
+          "path": "reviews/structured/20261116T205753Z-m5-reviewer-b-first-30/review.yaml",
+          "sha256": "a9335e62f5d43dd9a2c22bef281caf154d1b4e3e8e03bc99f3c5550a9d0f9716"
+        },
+        {
+          "path": "reviews/structured/20261116T205753Z-m5-reviewer-b-first-30/review.md",
+          "sha256": "e6c21248c4c980a3c955690264f148de8895db578af39cbe1e550f428f9b08dd"
+        }
+      ],
+      "canonical_publication_status": "retained_privately_uncommitted_not_public",
+      "canonical_replay": "passed",
+      "case_id": "first-30",
+      "completion": "partial",
+      "independent_replay_file_pins": [
+        {
+          "path": "reviews/structured/20261116T205753Z-m5-reviewer-b-first-30/review.yaml",
+          "sha256": "a9335e62f5d43dd9a2c22bef281caf154d1b4e3e8e03bc99f3c5550a9d0f9716"
+        },
+        {
+          "path": "reviews/structured/20261116T205753Z-m5-reviewer-b-first-30/review.md",
+          "sha256": "e6c21248c4c980a3c955690264f148de8895db578af39cbe1e550f428f9b08dd"
+        },
+        {
+          "path": ".temp/edge-calibration-20261115/first-30/packet.json",
+          "sha256": "68ae9cbdb5c02a160c3497977ce191924e9aed8c89321f3da7924770df3ffc82"
+        },
+        {
+          "path": ".temp/m5-worker-run-20261116/reviewer-b/first-30/proofs.json",
+          "sha256": "a2eae75debca687b3ffb6f520572a1168c39bb4a2f0203c897350f90179c5b54"
+        }
+      ],
+      "persisted": true,
+      "persisted_categories_match_sealed_matrix": true,
+      "proof_sidecar": {
+        "path": ".temp/m5-worker-run-20261116/reviewer-b/first-30/proofs.json",
+        "sha256": "a2eae75debca687b3ffb6f520572a1168c39bb4a2f0203c897350f90179c5b54"
+      },
+      "required_unavailable_checks": 2,
+      "review_id": "20261116T205753Z-m5-reviewer-b-first-30",
+      "reviewer_id": "reviewer-b",
+      "save_command_receipt": {
+        "path": ".temp/m5-worker-run-20261116/reviewer-b/commands/first-30-save.json",
+        "sha256": "7451ab8a60e4588a3651a7e56485ed9e7c39180df4ff7fcb0ff5431383b58ded"
+      },
+      "save_exit_status": 0,
+      "save_finished_at": "2026-11-16T20:57:55.028530Z"
+    },
+    {
+      "authored_categories_match_sealed_matrix": true,
+      "authored_completion": "partial",
+      "authored_input": {
+        "path": ".temp/m5-worker-run-20261116/reviewer-b/first-32/review-input.json",
+        "sha256": "644aa3d8cec715f69f4f8f58be7f97d63f51b7e873c2477fd8093dbe87ce9cb0"
+      },
+      "canonical_pair": [
+        {
+          "path": "reviews/structured/20261116T205757Z-m5-reviewer-b-first-32/review.yaml",
+          "sha256": "789fd5ceb95b0b4bbd58d516cfe1fc6673009cf5298a3315283860fa730b8e97"
+        },
+        {
+          "path": "reviews/structured/20261116T205757Z-m5-reviewer-b-first-32/review.md",
+          "sha256": "b6c7ae2e07a916ffd8a01bb4357b99612136d934b030e0a268811de3660bab02"
+        }
+      ],
+      "canonical_publication_status": "retained_privately_uncommitted_not_public",
+      "canonical_replay": "passed",
+      "case_id": "first-32",
+      "completion": "partial",
+      "independent_replay_file_pins": [
+        {
+          "path": "reviews/structured/20261116T205757Z-m5-reviewer-b-first-32/review.yaml",
+          "sha256": "789fd5ceb95b0b4bbd58d516cfe1fc6673009cf5298a3315283860fa730b8e97"
+        },
+        {
+          "path": "reviews/structured/20261116T205757Z-m5-reviewer-b-first-32/review.md",
+          "sha256": "b6c7ae2e07a916ffd8a01bb4357b99612136d934b030e0a268811de3660bab02"
+        },
+        {
+          "path": ".temp/edge-calibration-20261115/first-32/packet.json",
+          "sha256": "32cb804b4f6e0f678f01faf3ecf351146101d1beb0abe6e77ecbffedd470ded2"
+        },
+        {
+          "path": ".temp/m5-worker-run-20261116/reviewer-b/first-32/proofs.json",
+          "sha256": "3d36a87d0dbed84848643209da08a4c4e5f1f0dc11a37ff00d7140a7967e1d16"
+        }
+      ],
+      "persisted": true,
+      "persisted_categories_match_sealed_matrix": true,
+      "proof_sidecar": {
+        "path": ".temp/m5-worker-run-20261116/reviewer-b/first-32/proofs.json",
+        "sha256": "3d36a87d0dbed84848643209da08a4c4e5f1f0dc11a37ff00d7140a7967e1d16"
+      },
+      "required_unavailable_checks": 1,
+      "review_id": "20261116T205757Z-m5-reviewer-b-first-32",
+      "reviewer_id": "reviewer-b",
+      "save_command_receipt": {
+        "path": ".temp/m5-worker-run-20261116/reviewer-b/commands/first-32-save.json",
+        "sha256": "a21a36d19451ce819b31319920bf5a83a15ff1886c3947a6304e674d81e9aa39"
+      },
+      "save_exit_status": 0,
+      "save_finished_at": "2026-11-16T20:57:58.982619Z"
+    },
+    {
+      "authored_categories_match_sealed_matrix": true,
+      "authored_completion": "partial",
+      "authored_input": {
+        "path": ".temp/m5-worker-run-20261116/reviewer-b/first-43/review-input.json",
+        "sha256": "343ede3eb4c905c9a8be35d51eae51f7bf2d887c4d68560c8e3f062560b432db"
+      },
+      "canonical_pair": [
+        {
+          "path": "reviews/structured/20261116T205801Z-m5-reviewer-b-first-43/review.yaml",
+          "sha256": "f4cfa84bf0ef715bef6926928c2adbfe05d6cc458ad64739831fd196dd08646b"
+        },
+        {
+          "path": "reviews/structured/20261116T205801Z-m5-reviewer-b-first-43/review.md",
+          "sha256": "4a352742a854f10f104847b6d5b44cc2e3bdf0c2293e59a4737b28180d870778"
+        }
+      ],
+      "canonical_publication_status": "retained_privately_uncommitted_not_public",
+      "canonical_replay": "passed",
+      "case_id": "first-43",
+      "completion": "partial",
+      "independent_replay_file_pins": [
+        {
+          "path": "reviews/structured/20261116T205801Z-m5-reviewer-b-first-43/review.yaml",
+          "sha256": "f4cfa84bf0ef715bef6926928c2adbfe05d6cc458ad64739831fd196dd08646b"
+        },
+        {
+          "path": "reviews/structured/20261116T205801Z-m5-reviewer-b-first-43/review.md",
+          "sha256": "4a352742a854f10f104847b6d5b44cc2e3bdf0c2293e59a4737b28180d870778"
+        },
+        {
+          "path": ".temp/edge-calibration-20261115/first-43/packet.json",
+          "sha256": "70decffa3ed755ad913171964494b4edfcf84b2341a34a76a925837f1565befc"
+        },
+        {
+          "path": ".temp/m5-worker-run-20261116/reviewer-b/first-43/proofs.json",
+          "sha256": "a62e5ebf0baf4dadcefbc1d6131e8cbc4dc2629bab829812faa9b7d7d8f00c80"
+        }
+      ],
+      "persisted": true,
+      "persisted_categories_match_sealed_matrix": true,
+      "proof_sidecar": {
+        "path": ".temp/m5-worker-run-20261116/reviewer-b/first-43/proofs.json",
+        "sha256": "a62e5ebf0baf4dadcefbc1d6131e8cbc4dc2629bab829812faa9b7d7d8f00c80"
+      },
+      "required_unavailable_checks": 2,
+      "review_id": "20261116T205801Z-m5-reviewer-b-first-43",
+      "reviewer_id": "reviewer-b",
+      "save_command_receipt": {
+        "path": ".temp/m5-worker-run-20261116/reviewer-b/commands/first-43-save.json",
+        "sha256": "675c1673198f95b153dd3aeb1807a4a6b237c7cc7442ca07ad089ffac23e7fcd"
+      },
+      "save_exit_status": 0,
+      "save_finished_at": "2026-11-16T20:58:03.053698Z"
+    },
+    {
+      "authored_categories_match_sealed_matrix": true,
+      "authored_completion": "partial",
+      "authored_input": {
+        "path": ".temp/m5-worker-run-20261116/reviewer-b/fresh-04/review-input.json",
+        "sha256": "7ed26d49b1cdbe41b536d0c17e38ad0c325b908c81559a346e50712193d5ada7"
+      },
+      "canonical_pair": [
+        {
+          "path": "reviews/structured/20261116T205805Z-m5-reviewer-b-fresh-04/review.yaml",
+          "sha256": "bd8bf7230aedf44748759973f2e0715de6dc47300f1296a2fa95ff786b89119e"
+        },
+        {
+          "path": "reviews/structured/20261116T205805Z-m5-reviewer-b-fresh-04/review.md",
+          "sha256": "d36061419f7832e2d47e22590948dc62f24816a58c5290fa8c882ed055e55534"
+        }
+      ],
+      "canonical_publication_status": "retained_privately_uncommitted_not_public",
+      "canonical_replay": "passed",
+      "case_id": "fresh-04",
+      "completion": "partial",
+      "independent_replay_file_pins": [
+        {
+          "path": "reviews/structured/20261116T205805Z-m5-reviewer-b-fresh-04/review.yaml",
+          "sha256": "bd8bf7230aedf44748759973f2e0715de6dc47300f1296a2fa95ff786b89119e"
+        },
+        {
+          "path": "reviews/structured/20261116T205805Z-m5-reviewer-b-fresh-04/review.md",
+          "sha256": "d36061419f7832e2d47e22590948dc62f24816a58c5290fa8c882ed055e55534"
+        },
+        {
+          "path": ".temp/edge-calibration-20261115/fresh-04/packet.json",
+          "sha256": "5249d3331588e1973f5c19414cb5aff171b13d510499567a29954b3059fa716e"
+        },
+        {
+          "path": ".temp/m5-worker-run-20261116/reviewer-b/fresh-04/proofs.json",
+          "sha256": "467b5ef94898f7a811788ea402c261d813c76197e36be1de73ed408e4fdbc95d"
+        }
+      ],
+      "persisted": true,
+      "persisted_categories_match_sealed_matrix": true,
+      "proof_sidecar": {
+        "path": ".temp/m5-worker-run-20261116/reviewer-b/fresh-04/proofs.json",
+        "sha256": "467b5ef94898f7a811788ea402c261d813c76197e36be1de73ed408e4fdbc95d"
+      },
+      "required_unavailable_checks": 2,
+      "review_id": "20261116T205805Z-m5-reviewer-b-fresh-04",
+      "reviewer_id": "reviewer-b",
+      "save_command_receipt": {
+        "path": ".temp/m5-worker-run-20261116/reviewer-b/commands/fresh-04-save.json",
+        "sha256": "e5a04a0871c4a7a7b753eef26482e2ef38a66fb0b5e749f504e4d086ff91bf4f"
+      },
+      "save_exit_status": 0,
+      "save_finished_at": "2026-11-16T20:58:07.459688Z"
+    },
+    {
+      "authored_categories_match_sealed_matrix": true,
+      "authored_completion": "partial",
+      "authored_input": {
+        "path": ".temp/m5-worker-run-20261116/reviewer-b/fresh-05/review-input.json",
+        "sha256": "cb85bb97c52818e71f4e2235dd830a530ad277452f20ac67b23c76d3efc2a414"
+      },
+      "canonical_replay": "unavailable",
+      "case_id": "fresh-05",
+      "exact_error": "kg_microbe_governance.artifacts.scripts.record_review.ReviewError: Supported-as-stated cannot conceal incorrect/unassessed original modeling",
+      "missing_pair_search": "Path.rglob under reviews/structured includes ignored files",
+      "persisted": false,
+      "proof_sidecar": {
+        "path": ".temp/m5-worker-run-20261116/reviewer-b/fresh-05/proofs.json",
+        "sha256": "e04c45d8d32f865d5620d55d52f7b5d6b0b5cd7803ebe5d4a1b674433190ab38"
+      },
+      "review_id": "20261116T205809Z-m5-reviewer-b-fresh-05",
+      "reviewer_id": "reviewer-b",
+      "save_command_receipt": {
+        "path": ".temp/m5-worker-run-20261116/reviewer-b/commands/fresh-05-save.json",
+        "sha256": "7d0dd287f29818773b33ce094e014731263459e9339c1612653969143cd94263"
+      },
+      "save_exit_status": 1,
+      "save_finished_at": "2026-11-16T20:58:11.555483Z"
+    },
+    {
+      "authored_categories_match_sealed_matrix": true,
+      "authored_completion": "partial",
+      "authored_input": {
+        "path": ".temp/m5-worker-run-20261116/reviewer-b/fresh-14/review-input.json",
+        "sha256": "96e20bb699e52cb5269bced3b2f6faf55314312a3696ab3334995f37dc9559fd"
+      },
+      "canonical_pair": [
+        {
+          "path": "reviews/structured/20261116T205812Z-m5-reviewer-b-fresh-14/review.yaml",
+          "sha256": "123abca85baa269aa66269d8ccc373a49de6477284f51a2cad33bf5836c76821"
+        },
+        {
+          "path": "reviews/structured/20261116T205812Z-m5-reviewer-b-fresh-14/review.md",
+          "sha256": "3f63c57c0b72ce5391c53caec9abb6c35dfc99f11d5ebdf66adb7dba59d18c33"
+        }
+      ],
+      "canonical_publication_status": "retained_privately_uncommitted_not_public",
+      "canonical_replay": "passed",
+      "case_id": "fresh-14",
+      "completion": "partial",
+      "independent_replay_file_pins": [
+        {
+          "path": "reviews/structured/20261116T205812Z-m5-reviewer-b-fresh-14/review.yaml",
+          "sha256": "123abca85baa269aa66269d8ccc373a49de6477284f51a2cad33bf5836c76821"
+        },
+        {
+          "path": "reviews/structured/20261116T205812Z-m5-reviewer-b-fresh-14/review.md",
+          "sha256": "3f63c57c0b72ce5391c53caec9abb6c35dfc99f11d5ebdf66adb7dba59d18c33"
+        },
+        {
+          "path": ".temp/edge-calibration-20261115/fresh-14/packet.json",
+          "sha256": "c1c4a61470174802cfdbc08f31fd0e83b273270906111f5a4ef587ae973bd012"
+        },
+        {
+          "path": ".temp/m5-worker-run-20261116/reviewer-b/fresh-14/proofs.json",
+          "sha256": "c4c70ca2b8f0caeb75dedee92a33997f4de830efb546b085fe2229f53a860c90"
+        }
+      ],
+      "persisted": true,
+      "persisted_categories_match_sealed_matrix": true,
+      "proof_sidecar": {
+        "path": ".temp/m5-worker-run-20261116/reviewer-b/fresh-14/proofs.json",
+        "sha256": "c4c70ca2b8f0caeb75dedee92a33997f4de830efb546b085fe2229f53a860c90"
+      },
+      "required_unavailable_checks": 1,
+      "review_id": "20261116T205812Z-m5-reviewer-b-fresh-14",
+      "reviewer_id": "reviewer-b",
+      "save_command_receipt": {
+        "path": ".temp/m5-worker-run-20261116/reviewer-b/commands/fresh-14-save.json",
+        "sha256": "b5830ba8d1a54f42d6b6e889a78fed4ed68b4a8c2ce3386ef377ea769e317822"
+      },
+      "save_exit_status": 0,
+      "save_finished_at": "2026-11-16T20:58:14.773386Z"
+    },
+    {
+      "authored_categories_match_sealed_matrix": true,
+      "authored_completion": "partial",
+      "authored_input": {
+        "path": ".temp/m5-worker-run-20261116/reviewer-b/fresh-32/review-input.json",
+        "sha256": "c0a6cae9943bd1fde36aea8cd6e070a0b03a80fc1f9311660470ae7a4d53b300"
+      },
+      "canonical_pair": [
+        {
+          "path": "reviews/structured/20261116T205817Z-m5-reviewer-b-fresh-32/review.yaml",
+          "sha256": "7fb9239c6d27a009928139fd5a438d5bdc416ed166d51cccf759ea6dcb61d72a"
+        },
+        {
+          "path": "reviews/structured/20261116T205817Z-m5-reviewer-b-fresh-32/review.md",
+          "sha256": "cb13dddcde25238c4532ca4809de8c0850bb1ef4ddf3bca6babc62a9f338a16a"
+        }
+      ],
+      "canonical_publication_status": "retained_privately_uncommitted_not_public",
+      "canonical_replay": "passed",
+      "case_id": "fresh-32",
+      "completion": "partial",
+      "independent_replay_file_pins": [
+        {
+          "path": "reviews/structured/20261116T205817Z-m5-reviewer-b-fresh-32/review.yaml",
+          "sha256": "7fb9239c6d27a009928139fd5a438d5bdc416ed166d51cccf759ea6dcb61d72a"
+        },
+        {
+          "path": "reviews/structured/20261116T205817Z-m5-reviewer-b-fresh-32/review.md",
+          "sha256": "cb13dddcde25238c4532ca4809de8c0850bb1ef4ddf3bca6babc62a9f338a16a"
+        },
+        {
+          "path": ".temp/edge-calibration-20261115/fresh-32/packet.json",
+          "sha256": "14b21623a1726591121ea2882d9168e081f832e22143a58cad438163551326f7"
+        },
+        {
+          "path": ".temp/m5-worker-run-20261116/reviewer-b/fresh-32/proofs.json",
+          "sha256": "4b14619bee7e23526fe23167d249791bbb5012da76ea0bccff4c8a5bc3808cbd"
+        }
+      ],
+      "persisted": true,
+      "persisted_categories_match_sealed_matrix": true,
+      "proof_sidecar": {
+        "path": ".temp/m5-worker-run-20261116/reviewer-b/fresh-32/proofs.json",
+        "sha256": "4b14619bee7e23526fe23167d249791bbb5012da76ea0bccff4c8a5bc3808cbd"
+      },
+      "required_unavailable_checks": 2,
+      "review_id": "20261116T205817Z-m5-reviewer-b-fresh-32",
+      "reviewer_id": "reviewer-b",
+      "save_command_receipt": {
+        "path": ".temp/m5-worker-run-20261116/reviewer-b/commands/fresh-32-save.json",
+        "sha256": "b52e066501e2030b265a8f8cbc973a08d091fe1f89b5e42c87949fae38a9b902"
+      },
+      "save_exit_status": 0,
+      "save_finished_at": "2026-11-16T20:58:18.972267Z"
+    },
+    {
+      "authored_categories_match_sealed_matrix": true,
+      "authored_completion": "partial",
+      "authored_input": {
+        "path": ".temp/m5-worker-run-20261116/reviewer-b/fresh-47/review-input.json",
+        "sha256": "d15fc7d27439cd67d3aacc2dba9a1b35920fc234db1acd56e8789f1ff937b5c7"
+      },
+      "canonical_pair": [
+        {
+          "path": "reviews/structured/20261116T205718Z-m5-reviewer-b-fresh-47/review.yaml",
+          "sha256": "f89b1a26a1558ce4047f31a3644d7c09c86607a69b23a989ba222d392019d491"
+        },
+        {
+          "path": "reviews/structured/20261116T205718Z-m5-reviewer-b-fresh-47/review.md",
+          "sha256": "e3715a8f7d3d5ef9c8942636102dcfe4dd627bbc2b5f80d52a761225c8fdaa83"
+        }
+      ],
+      "canonical_publication_status": "retained_privately_uncommitted_not_public",
+      "canonical_replay": "passed",
+      "case_id": "fresh-47",
+      "completion": "partial",
+      "independent_replay_file_pins": [
+        {
+          "path": "reviews/structured/20261116T205718Z-m5-reviewer-b-fresh-47/review.yaml",
+          "sha256": "f89b1a26a1558ce4047f31a3644d7c09c86607a69b23a989ba222d392019d491"
+        },
+        {
+          "path": "reviews/structured/20261116T205718Z-m5-reviewer-b-fresh-47/review.md",
+          "sha256": "e3715a8f7d3d5ef9c8942636102dcfe4dd627bbc2b5f80d52a761225c8fdaa83"
+        },
+        {
+          "path": ".temp/edge-calibration-20261115/fresh-47/packet.json",
+          "sha256": "c64b42e5bf6dd8c081ab49b4faa935ae769af8dedcbd40c23c196dae083accf9"
+        },
+        {
+          "path": ".temp/m5-worker-run-20261116/reviewer-b/fresh-47/proofs.json",
+          "sha256": "d61aebe2e14dea3508113eb4811032581a5818f68a78f4166ded4d5c3d7c4079"
+        }
+      ],
+      "persisted": true,
+      "persisted_categories_match_sealed_matrix": true,
+      "proof_sidecar": {
+        "path": ".temp/m5-worker-run-20261116/reviewer-b/fresh-47/proofs.json",
+        "sha256": "d61aebe2e14dea3508113eb4811032581a5818f68a78f4166ded4d5c3d7c4079"
+      },
+      "required_unavailable_checks": 2,
+      "review_id": "20261116T205718Z-m5-reviewer-b-fresh-47",
+      "reviewer_id": "reviewer-b",
+      "save_command_receipt": {
+        "path": ".temp/m5-worker-run-20261116/reviewer-b/commands/fresh-47-save.json",
+        "sha256": "3d37e0e12f043b48759893d3817c394e9f5b38012915576998ae47d8b019484e"
+      },
+      "save_exit_status": 0,
+      "save_finished_at": "2026-11-16T20:57:23.445263Z"
+    }
+  ],
+  "canonical_publication": {
+    "public_canonical_pairs": 0,
+    "reason": "Combined authority quotations exceed the per-authority-version short-quote budget; original bytes remain unchanged. This artifact contains hashes and statuses, not the quoted reviews.",
+    "status": "all_18_pairs_retained_privately_uncommitted"
+  },
+  "initial_agreement": {
+    "endpoint_roles_retained": {
+      "denominator": 20,
+      "minimum": 20,
+      "numerator": 20,
+      "passed": true
+    },
+    "initial_claim_agreement": {
+      "denominator": 10,
+      "minimum": 9,
+      "numerator": 9,
+      "passed": true
+    },
+    "initial_exact_category_agreement": {
+      "denominator": 60,
+      "minimum": 54,
+      "numerator": 56,
+      "passed": true
+    },
+    "initial_per_axis_agreement": {
+      "claim": {
+        "denominator": 10,
+        "minimum": 8,
+        "numerator": 9,
+        "passed": true
+      },
+      "literature": {
+        "denominator": 10,
+        "minimum": 8,
+        "numerator": 10,
+        "passed": true
+      },
+      "object_node": {
+        "denominator": 10,
+        "minimum": 8,
+        "numerator": 7,
+        "passed": false
+      },
+      "relation": {
+        "denominator": 10,
+        "minimum": 8,
+        "numerator": 10,
+        "passed": true
+      },
+      "source_fidelity": {
+        "denominator": 10,
+        "minimum": 8,
+        "numerator": 10,
+        "passed": true
+      },
+      "subject_node": {
+        "denominator": 10,
+        "minimum": 8,
+        "numerator": 10,
+        "passed": true
+      }
+    },
+    "packets_replayed": {
+      "denominator": 10,
+      "minimum": 10,
+      "numerator": 10,
+      "passed": true
+    }
+  },
+  "limitations": [
+    "Both reviewers used the same model; this is operational agreement, not independent expert validation.",
+    "Historical exposure is preserved verbatim in each sealed reviewer identity.",
+    "Partial canonical save and technical replay do not establish scientific support or calibration passage.",
+    "Both fresh-05 save failures retain their exact initial judgments and authored/proof bytes.",
+    "All listed worker processes completed; this report starts no continuing job.",
+    "This summary rechecks hashes, identities and category preservation; canonical profile execution is evidenced by the separately retained replay receipt."
+  ],
+  "package_sha256": "14175634b794a90124bb66a458af3c30f23ca40e10731c4ba89226134a89f4ab",
+  "private_provenance": {
+    "original_reviewer_helpers": [
+      {
+        "path": "scripts/adhoc/m5_reviewer_a_20261116.py",
+        "sha256": "34fb7406dcd754d38c0932ed4969e743925e8975fe6e2d81ce41337fd0416332"
+      },
+      {
+        "path": "scripts/adhoc/reviewer_b_calibration_20261116.py",
+        "sha256": "b8735e6b29ea567cf2fdec60faae84249905375fbb98fc5992d52fc27af12eac"
+      }
+    ],
+    "publication_status": "Original authoring helpers remain at their exact paths, privately retained and uncommitted because they contain quotation literals.",
+    "reproduction": "The published accounting helper reads sealed matrices and immutable authored/proof inputs; it never executes original authoring helpers, authors ratings or changes judgments."
+  },
+  "reviewers": [
+    {
+      "actual_model": "gpt-6-astra",
+      "fresh47_canary": {
+        "inspection_attestation": "Persisted YAML identity, partial status, six categorical assessments, evidence roles, exact quotes/locators and Markdown rendering inspected before remaining cases.",
+        "inspection_receipt": {
+          "path": ".temp/m5-worker-run-20261116/reviewer-a/fresh-47/persisted-inspection.json",
+          "sha256": "18f3c3587ac3baf4b92fa8e6a90ce797a2ce683a8e4b2a44f81f2dd81009d366"
+        },
+        "save_precedes_other_case_attempts": true,
+        "scope": "single production canonical save and persisted-pair replay; partial review, not scientific calibration"
+      },
+      "initial_matrix_seal_receipt": {
+        "path": ".temp/m5-worker-run-20261116/reviewer-a/initial-matrix.json.receipt.json",
+        "sha256": "e65770d5740599b03d593f5ec7e96f6ac3428338dfcf90fcc0a84f038cb3da3e"
+      },
+      "launcher": {
+        "codex_sha256": "739cda86e15d30a6e2b40cf8dcbbfb988aaf48b305b27065573bb8e9fd41d002",
+        "command_settings": {
+          "automatic_approval_review": true,
+          "color": "never",
+          "json_events": true,
+          "operation": "exec",
+          "output": ".temp/m5-worker-run-20261116/reviewer-a/final.md",
+          "program": "codex",
+          "prompt_via_stdin": true,
+          "workdir": "."
+        },
+        "distributions_sha256": "6a92b48f9aea0b2c183ac6bd63186e3e8540b109a187116a84a56c12419dc791",
+        "ending_git_head": "ad902cae5ddfb127f2d355487e1d3051eddc53ff",
+        "environment_sha256": "78ad095ba588d1d975e41ee36268e9bef578cd6e3cc66012a77abc9d337afca5",
+        "executed_prompt_sha256": "5abb3dd63af628ee7164caeb2a670049a897ceca28fa74a1e14eb657a80a53be",
+        "exit_code": 0,
+        "finished_at": "2026-11-16T20:58:49.993934+00:00",
+        "git_head": "ad902cae5ddfb127f2d355487e1d3051eddc53ff",
+        "helper_sha256": "c87a24789aff76b0215278abc321eceac69f0b0e96a28bbc8120db2e68ed1e0b",
+        "launch_model_setting": "configured_default",
+        "launcher_pid": 82167,
+        "lock_sha256": "47482728f31c1fb0776fe4486372bad47526abccbb23e9fdcb3728f757cfdd05",
+        "metadata": {
+          "path": ".temp/m5-worker-run-20261116/reviewer-a/metadata.json",
+          "sha256": "40fe79c6bbee57ad49598fa332624a3a2349d37cc27538caa025e1615d7dab3c"
+        },
+        "prompt_sha256": "0c366e225f7b3ce3d4bee707b1cf905881c03ac96370b89d555888de1af305cd",
+        "python_sha256": "9bfc2a72ac7db20d18d0b275f3136fef9e9ede7da34d241d4d82cc5c65d8d20d",
+        "role": "calibration",
+        "started_at": "2026-11-16T20:49:34.942638+00:00",
+        "status": "completed",
+        "worker": "reviewer-a",
+        "worker_pid": 82178
+      },
+      "private_initial_matrix": {
+        "path": ".temp/m5-worker-run-20261116/reviewer-a/initial-matrix.json",
+        "sha256": "db495e98d185eb8bbe256e208afc37c9361954e0b19cf9eecd0a485e6c540be9"
+      },
+      "public_initial_matrix": {
+        "path": "artifacts/m5-calibration-20261116/reviewer-a-initial.json",
+        "sha256": "db495e98d185eb8bbe256e208afc37c9361954e0b19cf9eecd0a485e6c540be9"
+      },
+      "public_private_initial_matrix_bytes_identical": true,
+      "reviewer": {
+        "historical_exposure": "Required docs/record-review-profile.md mentions partial fresh-05 canary and identity conflict; required evidence-guide-v2.json mentions coordinator issue145 and quarantine; allowlisted fresh-32 endpoint description contains inherited reviewed vocabulary prose. These are excluded as judgment evidence. No other reviewer outputs, historical rating matrices, raw original_occurrence, curated records or dispositions inspected.",
+        "id": "reviewer-a",
+        "model": "gpt-6-astra",
+        "session_id": "01a1e61f-534d-7db3-a921-683a6eeffa64"
+      },
+      "reviewer_result": {
+        "path": ".temp/m5-worker-run-20261116/reviewer-a/reviewer-result.json",
+        "sha256": "a80219d4aa6f4b9856736e99b65f6f1baa3a809acf1e6a715d698e1906debb98"
+      },
+      "runtime_identity_matching_logs": 1,
+      "runtime_thread_id": "01a1e61f-534d-7db3-a921-683a6eeffa64"
+    },
+    {
+      "actual_model": "gpt-6-astra",
+      "fresh47_canary": {
+        "inspection_attestation": "Identity/completion, unavailable required checks, original target, evidence quote/locator/role, all six assessments/dimensions and rendered Markdown; source pins read mechanically.",
+        "inspection_receipt": {
+          "path": ".temp/m5-worker-run-20261116/reviewer-b/fresh-47/persisted-pair-inspection.json",
+          "sha256": "a25370f0b9f7edd8fe14a9c051fac3fcb8ec1cbdbbfde70a84e6ce0218ab25d0"
+        },
+        "save_precedes_other_case_attempts": true,
+        "scope": "single production canonical save and persisted-pair replay; partial review, not scientific calibration"
+      },
+      "initial_matrix_seal_receipt": {
+        "path": ".temp/m5-worker-run-20261116/reviewer-b/initial-matrix.json.receipt.json",
+        "sha256": "6beab9d23c26c25131a3ab6f0719d20c78fe8a25d88f9a2cb0122a4d75cc1ecd"
+      },
+      "launcher": {
+        "codex_sha256": "739cda86e15d30a6e2b40cf8dcbbfb988aaf48b305b27065573bb8e9fd41d002",
+        "command_settings": {
+          "automatic_approval_review": true,
+          "color": "never",
+          "json_events": true,
+          "operation": "exec",
+          "output": ".temp/m5-worker-run-20261116/reviewer-b/final.md",
+          "program": "codex",
+          "prompt_via_stdin": true,
+          "workdir": "."
+        },
+        "distributions_sha256": "6a92b48f9aea0b2c183ac6bd63186e3e8540b109a187116a84a56c12419dc791",
+        "ending_git_head": "ad902cae5ddfb127f2d355487e1d3051eddc53ff",
+        "environment_sha256": "78ad095ba588d1d975e41ee36268e9bef578cd6e3cc66012a77abc9d337afca5",
+        "executed_prompt_sha256": "59b3ee58c171243baccc5f3524793bbc57f7f8a45f78554942d6092c7fd7c59e",
+        "exit_code": 0,
+        "finished_at": "2026-11-16T20:59:46.825961+00:00",
+        "git_head": "ad902cae5ddfb127f2d355487e1d3051eddc53ff",
+        "helper_sha256": "c87a24789aff76b0215278abc321eceac69f0b0e96a28bbc8120db2e68ed1e0b",
+        "launch_model_setting": "configured_default",
+        "launcher_pid": 83089,
+        "lock_sha256": "47482728f31c1fb0776fe4486372bad47526abccbb23e9fdcb3728f757cfdd05",
+        "metadata": {
+          "path": ".temp/m5-worker-run-20261116/reviewer-b/metadata.json",
+          "sha256": "ea516d2df418a6bf36a1cbaad4d420b57e67fdf9587b8875850369ee301fce62"
+        },
+        "prompt_sha256": "0c366e225f7b3ce3d4bee707b1cf905881c03ac96370b89d555888de1af305cd",
+        "python_sha256": "9bfc2a72ac7db20d18d0b275f3136fef9e9ede7da34d241d4d82cc5c65d8d20d",
+        "role": "calibration",
+        "started_at": "2026-11-16T20:49:39.071593+00:00",
+        "status": "completed",
+        "worker": "reviewer-b",
+        "worker_pid": 83120
+      },
+      "private_initial_matrix": {
+        "path": ".temp/m5-worker-run-20261116/reviewer-b/initial-matrix.json",
+        "sha256": "a3121b21640ca28f175700fbec01bc08aaa7232bb5c81f304c83affa926357e5"
+      },
+      "public_initial_matrix": {
+        "path": "artifacts/m5-calibration-20261116/reviewer-b-initial.json",
+        "sha256": "a3121b21640ca28f175700fbec01bc08aaa7232bb5c81f304c83affa926357e5"
+      },
+      "public_private_initial_matrix_bytes_identical": true,
+      "reviewer": {
+        "historical_exposure": "Fresh invocation; no other reviewer outputs, matrices, historical authored rating files, coordinator conversation, cohort selection rationales, or GitHub discussions read. Unavoidable exposure in required docs/record-review-profile.md: its fresh-05 abstract-canary paragraph describes a prior partial self-review and accession conflict. Required fresh-32 reviewer view contains an endpoint description beginning Reviewed source-local process meaning and a prior vocabulary interpretation; treated as the frozen endpoint definition, not independent proof. The required common guide includes scope/gap interpretations and an issue145 mention; no issue was opened or used. Listed maintained-biolink-revalidation.md includes a historical-review reference and current project convention; no historical review was opened. Raw packet historical fields were never printed or inspected; packet machinery uses them only for mechanical replay. Runtime identity was read from this session's session_meta.id and turn_context.model only.",
+        "id": "reviewer-b",
+        "model": "gpt-6-astra",
+        "session_id": "01a1e61f-633d-7d90-8cd4-57a14a0c9210"
+      },
+      "reviewer_result": {
+        "path": ".temp/m5-worker-run-20261116/reviewer-b/reviewer-result.json",
+        "sha256": "63577a604b724d8eae466d94f42e5e7b210f1ac4978051434726cfd08a54cd7a"
+      },
+      "runtime_identity_matching_logs": 1,
+      "runtime_thread_id": "01a1e61f-633d-7d90-8cd4-57a14a0c9210"
+    }
+  ],
+  "round_id": "m5-calibration-20261116-round01",
+  "running_jobs": [],
+  "runtime_launcher_canary": {
+    "actual_identity": {
+      "model": "gpt-6-astra",
+      "thread_id": "01a1e61d-e4c0-7c83-8c7e-f463353db9f4"
+    },
+    "codex_sha256": "739cda86e15d30a6e2b40cf8dcbbfb988aaf48b305b27065573bb8e9fd41d002",
+    "command_settings": {
+      "automatic_approval_review": true,
+      "color": "never",
+      "json_events": true,
+      "operation": "exec",
+      "output": ".temp/m5-worker-run-20261116/runtime-canary-03/final.md",
+      "program": "codex",
+      "prompt_via_stdin": true,
+      "workdir": "."
+    },
+    "distributions_sha256": "6a92b48f9aea0b2c183ac6bd63186e3e8540b109a187116a84a56c12419dc791",
+    "ending_git_head": "ad902cae5ddfb127f2d355487e1d3051eddc53ff",
+    "environment_sha256": "78ad095ba588d1d975e41ee36268e9bef578cd6e3cc66012a77abc9d337afca5",
+    "executed_prompt_sha256": "031704fc0656e6517e6ec17fd984dc7621aa023008027aab1d9fed7dfb35135b",
+    "exit_code": 0,
+    "finished_at": "2026-11-16T20:49:08.721804+00:00",
+    "git_head": "ad902cae5ddfb127f2d355487e1d3051eddc53ff",
+    "helper_sha256": "c87a24789aff76b0215278abc321eceac69f0b0e96a28bbc8120db2e68ed1e0b",
+    "launch_model_setting": "configured_default",
+    "launcher_pid": 79658,
+    "lock_sha256": "47482728f31c1fb0776fe4486372bad47526abccbb23e9fdcb3728f757cfdd05",
+    "metadata": {
+      "path": ".temp/m5-worker-run-20261116/runtime-canary-03/metadata.json",
+      "sha256": "84b3f00af4648b44edb44e1617a8df0cb04d9b315889da98b56f8bc8c3c44131"
+    },
+    "prompt_sha256": "09a9750fb04bb7f0590e3e0d80fba0015115ccb51e1c40b3f42da88539a76846",
+    "python_sha256": "9bfc2a72ac7db20d18d0b275f3136fef9e9ede7da34d241d4d82cc5c65d8d20d",
+    "role": "canary",
+    "started_at": "2026-11-16T20:48:01.148796+00:00",
+    "status": "passed",
+    "worker": "runtime-canary-03",
+    "worker_pid": 79661
+  },
+  "same_model_reviewers": true,
+  "schema": "edgemech-m5-calibration-execution/v1",
+  "scientific_calibration_passed": false,
+  "source_receipts": [
+    {
+      "path": ".temp/m5-worker-run-20261116/package/round-01-manifest.json",
+      "sha256": "14175634b794a90124bb66a458af3c30f23ca40e10731c4ba89226134a89f4ab"
+    },
+    {
+      "path": ".temp/m5-worker-run-20261116/actual-runtime-identities.json",
+      "sha256": "40ae1bc450f282307244cbdf48b84ea12be314825ffd6c01032dc83c71b2a8c2"
+    },
+    {
+      "path": ".temp/m5-worker-run-20261116/initial-comparison.json",
+      "sha256": "6b8aacdabb0edc52da8438472533ba22cb35af6beab30fa1c6b32c345eb6d242"
+    },
+    {
+      "path": ".temp/m5-worker-run-20261116/adjudication/canonical-replay.json",
+      "sha256": "103cda457e8066ced5085d10980e8e1efd88caa1a85ba958e2c49311268dc7db"
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "round_id": "m5-calibration-20261116-round01",
+  "scope": "Final code and public failed-round artifact verification; no scientific passage",
+  "full_suite": {
+    "passed": 830,
+    "exit_code": 0,
+    "log": ".temp/m5-worker-run-20261116/full-tests-final-candidate.log",
+    "sha256": "be337d306a99e8025a493c7123b760b658edd98f5110f26386d2827abf99a973"
+  },
+  "ruff": {
+    "scope": ["src/edgemech", "tests", "scripts/adhoc"],
+    "exit_code": 0,
+    "log_sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+  },
+  "contracts": {
+    "verified_files": 16,
+    "claw_commit": "0ca25b8ee68d1fbccb4d05dcc2002fa8a64c0c34",
+    "exit_code": 0,
+    "log_sha256": "cf8898dc7917cb1cb78544ae3b72bd8d9505033a4d580f80f383626c5114b1fe"
+  },
+  "build": {
+    "source_distribution": "passed",
+    "wheel": "passed",
+    "exit_code": 0,
+    "log_sha256": "583bd39307431072ba2f8de2f211d526741210103b249898ae097677ceb6407f",
+    "preserved_initial_failure": "Sandbox denied normal uv cache access; approved retry passed",
+    "initial_failure_log_sha256": "b51fba8fc74f9b458a4bbbbe3846cf46757c3ef1baeb95a7d7d0e90fbc09253e"
+  },
+  "independent_read_only_rereview": {
+    "session": "/root/fresh14_evidence",
+    "status": "accepted_for_reviewable_failed_round_publication_no_new_material_findings",
+    "focused_tests_passed": 51,
+    "report": ".temp/m5-worker-run-20261116/adversarial/final-result-rereview.json",
+    "report_sha256": "88eb318441c67f0560b79d861a695f28cf9f3bd861b39695742ebb2651a64fe1",
+    "rechecked_issues": [157, 158, 159],
+    "public_privacy_and_quotation_checks": "passed",
+    "original_matrices_and_private_evidence": "unchanged"
+  },
+  "scientific_calibration_passed": false,
+  "remaining_90_authorized_by_result": false,
+  "expansion_authorized": false
+}
