@@ -1,0 +1,46 @@
+{
+  "kind": "sanitized_repaired_structural_observation_readback",
+  "date_utc": "2026-11-26",
+  "issues": [224, 228, 234, 235],
+  "executed_helper_commit": "7510827b2f21df1603e1f6697456ffb0d4f45a09",
+  "executed_helper_sha256": "dc109ecf44b3c6586356abd8765f77bcca85befe9e9f159e069d281c488bff10",
+  "historical_helper_sha256": "e63d43b695f9d6e66645ff21131303a55ef0b6aad302cb8772694b634f2c8a95",
+  "historical_execution_recreated": false,
+  "original_results_preserved": true,
+  "runs": [
+    {
+      "scope": "original_native_review_locator_list",
+      "paths_sha256": "5ea37a4cfff117e5e2d5f447f55de7e2e1c92f25d0eff1fac858011f65c8b9a5",
+      "completed_at_utc": "2026-11-26T05:08:57.962714+00:00",
+      "observed_exit_code": 0,
+      "locators": 871,
+      "byte_variants": 619,
+      "distinct_declared_review_ids": 120,
+      "all_locators_read_and_parsed": true,
+      "detailed_outputs_byte_identical_to_original": true,
+      "documents_sha256": "87d4779ec447b4e6c520eb9e8ed464c1c374b8035d892f7e685a8a4b9615198f",
+      "locators_sha256": "d40b19ddd73f50f0cbd0fadb0996f866ee3530e56219debdd9e86346ef05a33a",
+      "new_summary_sha256": "b19f0c3fa0a9c4fcb2cfa384e8680866d03688589c3c0bff7f398fc3c71de702"
+    },
+    {
+      "scope": "original_additional_draft_locator_list",
+      "paths_sha256": "9dc8fa2ace21fa23301127ab4f2da394b0e8e31aaf0f29449abec32c1e52cd8e",
+      "completed_at_utc": "2026-11-26T05:09:54.332079+00:00",
+      "observed_exit_code": 0,
+      "locators": 52,
+      "byte_variants": 50,
+      "distinct_declared_review_ids": 40,
+      "all_locators_read_and_parsed": true,
+      "detailed_outputs_byte_identical_to_original": true,
+      "documents_sha256": "c1b0d80245267b1031c5a3da0c8993ff31c954124d254be1f715bc8bcbc0fdaa",
+      "locators_sha256": "68f7cfa91fb9d767ddf71bed5add0e35d6048639a1343f15e351297bf1d7dff3",
+      "new_summary_sha256": "8e847b8e8beef831712d86db6ebad1c1af5ef57488c183e5edbc7ff18cd02dbf"
+    }
+  ],
+  "scientific_review_coverage": 0,
+  "full_target_frozen": false,
+  "baseline_membership_qualified": false,
+  "queue_A_count": null,
+  "queue_B_count": null,
+  "limit": "These fixed locator lists reproduce retained structural observations. Discovery completeness, source-version replay, fixture/archive dispositions and exact baseline membership remain unresolved."
+}
