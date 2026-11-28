@@ -1,5 +1,22 @@
 # Edge-review next tasks
 
+**Accepted excluded partial canary — 2026-11-28:** after the owner resumed work
+and exact artifact/runtime review passed, the existing worker performed one
+native first-32 SAVE and CHECK. Independent readback accepted both persisted
+files and all six axes; the [validation record](docs/validation/first32-excluded-partial-canary-20261128.md)
+retains the exact scope, hashes and unsuccessful prior attempts. This is exposed,
+partial preparation, with unresolved original-generation fidelity and no
+paper-access or blinded-calibration credit. Finish reviewed source/provenance
+publication and exact-head readback without merging. Next, verify fresh36's
+identity and retained paper evidence for one preparation-only packet through the
+same worker; another canonical SAVE requires its own review and authorization.
+The separate source/provenance branch is selected; preserve the original worker
+evidence branch and canonical pairs. Historical census complete-return evidence
+is accepted while outer FAILED1/child UNKNOWN remain unchanged. All694 unobserved
+candidates remain retained. Production coverage stays0, A/B remain unfrozen,
+and full #220 calibration/runtime/correction/resource gates and merge holds stay.
+Earlier pending-start/publication statements below describe historical states.
+
 **Restart requested — 2026-11-20 UTC (November19 Pacific):** M5 CLAW is assigned
 the [new campaign order](docs/plans/m5-edge-review-restart-20261120.md): freeze
 the complete target and baseline review ledger; process unreviewed occurrences

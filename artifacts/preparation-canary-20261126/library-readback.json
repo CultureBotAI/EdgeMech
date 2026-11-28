@@ -1,0 +1,29 @@
+{
+  "format": "preparation-public-digest/v1",
+  "kind": "library",
+  "source_artifact_sha256": "beeb8b6de2e444987ff07271381f387d8bbc5c387c3c3323215c0ead265c4c06",
+  "scientific_review_coverage": 0,
+  "provider": "valency",
+  "provider_request_count": 1,
+  "identity_verified": true,
+  "body_read": false,
+  "tables_read": false,
+  "figures_read": false,
+  "fulltext_ready": false,
+  "native_scientific_proof_admitted": false,
+  "literal_replay": "passed",
+  "request": {
+    "sha256": "7b400ea802651b58a30ed02031c3be29e6f0c47198c2181f367f97fe4001edd6",
+    "bytes": 484
+  },
+  "response": {
+    "sha256": "d385dd90869a1be7498032d4073a649b1a4c11ac1382c9427d554682219728d8",
+    "bytes": 5082
+  },
+  "abstract": {
+    "sha256": "28ae92fb2c8f9d7319bd5ea1effc5587e84e9fb4ea78d6aa6e7a0499eb896f89",
+    "bytes": 1209
+  },
+  "quote_sha256": "420de5075c6e7d29b8d170660bc8ffece89138d69d3a59c083874de7837a98d2",
+  "quote_words": 4
+}

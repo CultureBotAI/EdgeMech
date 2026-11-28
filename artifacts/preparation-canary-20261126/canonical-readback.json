@@ -1,0 +1,23 @@
+{
+  "format": "preparation-public-digest/v1",
+  "kind": "canonical",
+  "source_artifact_sha256": "a45d55829e26c35eaa3777e264a9012ffe905733d9275cb538d3fe15df9cff05",
+  "scientific_review_coverage": 0,
+  "canonical_read_review": "passed",
+  "input_hash_replay": "passed",
+  "contracts": {
+    "verified": true,
+    "files": 16,
+    "claw_commit": "4fad8df5b2367da68faca6379ce32eb9b8f4ba9b"
+  },
+  "artifacts": {
+    "review_yaml": {
+      "sha256": "991f1cebaa22327283d1e54967e9b5a6a1dd8697e2e2270a88809c54f729867a",
+      "bytes": 11847
+    },
+    "review_markdown": {
+      "sha256": "5c334713a6527ad48c8e4daf8caaa9a02b40302608152aca49f0fee282fcb2ad",
+      "bytes": 18614
+    }
+  }
+}

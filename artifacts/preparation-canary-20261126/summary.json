@@ -1,0 +1,41 @@
+{
+  "format": "preparation-public-digest/v1",
+  "kind": "summary",
+  "source_artifact_sha256": "b34138aacaed47e1fb1c30159a0e3b6e06e26f646b800d3f116da55761f57948",
+  "scientific_review_coverage": 0,
+  "status": "bounded_preparation_executed_with_limits",
+  "occurrence": null,
+  "A_B_attempt": false,
+  "A_count": null,
+  "B_count": null,
+  "baseline_cutoff": null,
+  "validation": {
+    "contracts": 16,
+    "focused_passed": 140,
+    "full_suite": {
+      "passed": 1468,
+      "failed": 0,
+      "errors": 0
+    },
+    "full_suite_outcome": {
+      "exit_code": 0,
+      "status": "passed"
+    },
+    "ruff": {
+      "exit_code": 0,
+      "status": "passed"
+    },
+    "package_build": {
+      "exit_code": 0,
+      "status": "passed"
+    }
+  },
+  "readiness": {
+    "shared_canonical_engineering": true,
+    "actual_worker_metadata_abstract_access": true,
+    "fulltext": false,
+    "native_occurrence_production": false,
+    "calibration": false
+  },
+  "publication_review": "pending"
+}
